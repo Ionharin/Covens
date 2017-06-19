@@ -1,0 +1,16 @@
+[
+{
+  "modid": "covens",
+  "name": "Covens",
+  "description": "PvP oriented magical mod",
+  "version": "${version}",
+  "mcversion": "1.12",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["ZaBi94"],
+  "credits": "Emoniph, as this mod is freely inspired by witchery!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
