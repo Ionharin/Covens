@@ -145,10 +145,9 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	}
 	
 	@Override
-	public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
-		super.onNeighborChange(world, pos, neighbor);
-		if (!checkRecursive(world,pos,0, new ArrayList<BlockPos>(6))) {
-			if (world instanceof World) dismantleRecursive((World)world, pos);
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if (world.isAirBlock(fromPos) && !checkRecursive(world,pos,0, new ArrayList<BlockPos>(6))) {
+			dismantleRecursive((World)world, pos);
 		};
 	}
 	
