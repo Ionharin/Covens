@@ -54,7 +54,7 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 				.withProperty(TYPE, GlyphType.NORMAL)
 				.withProperty(LETTER, 0)
 				);
-		this.setHardness(10);
+		this.setHardness(5);
 		this.setUnlocalizedName("magic_glyph");
 		GameRegistry.register(this, new ResourceLocation(Reference.MID, "magic_glyph"));
 	}
@@ -66,8 +66,8 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 	}
 
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		IBlockState soil = worldIn.getBlockState(pos.down());
-		return super.canPlaceBlockAt(worldIn, pos) && soil.getBlock().canPlaceTorchOnTop(soil, worldIn, pos);
+		IBlockState floor = worldIn.getBlockState(pos.down());
+		return floor.getBlock().canPlaceTorchOnTop(floor, worldIn, pos);
 	}
 
 	@Override
@@ -205,6 +205,13 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 	}
+	
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		if (!this.canPlaceBlockAt(worldIn, pos)) worldIn.destroyBlock(pos, false);
+	}
+
+	
 	
 	//######################################################################################### PROPERTY STUFF
 	

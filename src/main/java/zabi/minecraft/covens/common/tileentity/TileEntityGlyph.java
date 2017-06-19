@@ -70,10 +70,7 @@ public class TileEntityGlyph extends TileEntityBase {
 	}
 
 	public void startRitual(EntityPlayer player) {
-		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, 
-				new AxisAlignedBB(getPos()).expand(3, 0, 3)
-				);
-		//		Log.i(itemsOnGround.size()	);
+		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos()).expand(3, 0, 3));
 		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getEntityItem()).collect(Collectors.toList());
 		for (Ritual rit:Ritual.REGISTRY) {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
@@ -90,12 +87,14 @@ public class TileEntityGlyph extends TileEntityBase {
 						Log.d("Ritual Started: "+ritual.getRegistryName());
 						return;
 					} else {
-						player.sendStatusMessage(new TextComponentTranslation("ritual.failure.precondition", new Object[0]), true);
+						player.sendStatusMessage(new TextComponentTranslation("ritual.failure.power", new Object[0]), true);
 						return;
 					}
 				} else {
-					player.sendStatusMessage(new TextComponentTranslation("ritual.failure.power", new Object[0]), true);
+					player.sendStatusMessage(new TextComponentTranslation("ritual.failure.precondition", new Object[0]), true);
+					return;
 				}
+
 			}
 		}
 		player.sendStatusMessage(new TextComponentTranslation("ritual.failure.unknown", new Object[0]), true);
