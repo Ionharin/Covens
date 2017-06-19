@@ -81,7 +81,8 @@ public class ItemChalk extends Item {
 	
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote && facing == EnumFacing.UP && ModBlocks.glyphs.canPlaceBlockAt(worldIn, pos.up())) {
+		boolean isReplacing = worldIn.getBlockState(pos).getBlock().equals(ModBlocks.glyphs);
+		if (!worldIn.isRemote && (facing == EnumFacing.UP && ModBlocks.glyphs.canPlaceBlockAt(worldIn, pos.up()) || isReplacing)) {
 			ItemStack chalk = player.getHeldItem(hand);
 			if (!chalk.hasTagCompound()) chalk.setTagCompound(getDefaultInstance().getTagCompound().copy());
 			int type = chalk.getItemDamage();
@@ -91,7 +92,7 @@ public class ItemChalk extends Item {
 			IBlockState state = ModBlocks.glyphs.getExtendedState(ModBlocks.glyphs.getDefaultState(), worldIn, pos);
 			state = state.withProperty(BlockCircleGlyph.FACING, EnumFacing.HORIZONTALS[(int)(Math.random()*4)]);
 			state = state.withProperty(BlockCircleGlyph.TYPE, BlockCircleGlyph.GlyphType.values()[type]);
-			worldIn.setBlockState(pos.up(), state, 2);
+			worldIn.setBlockState(isReplacing?pos:pos.up(), state, 2);
 		}
 		return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 	}

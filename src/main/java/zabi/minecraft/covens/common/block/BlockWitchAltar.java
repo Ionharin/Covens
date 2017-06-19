@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
 
@@ -146,8 +147,9 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		if (world.isAirBlock(fromPos) && !checkRecursive(world,pos,0, new ArrayList<BlockPos>(6))) {
-			dismantleRecursive((World)world, pos);
+		Log.i(blockIn);
+		if (world.isAirBlock(fromPos) && !checkRecursive(world,pos,0, new ArrayList<BlockPos>(6)) && blockIn.equals(ModBlocks.altar)) {
+			dismantleRecursive(world, pos);
 		};
 	}
 	

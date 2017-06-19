@@ -174,23 +174,27 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		int pt = stateIn.getValue(TYPE).ordinal(); 
-		double d0 = (double)pos.getX() + 0.5D + rand.nextGaussian()/3;
+		double d0 = (double)pos.getX() + 0.5D;
 		double d1 = (double)pos.getY() + 0.05D;
-		double d2 = (double)pos.getZ() + 0.5D + rand.nextGaussian()/3;
+		double d2 = (double)pos.getZ() + 0.5D;
 		if (pt>1) {
-			worldIn.spawnParticle(pt==3?EnumParticleTypes.FLAME:EnumParticleTypes.PORTAL, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+			double spreadX = rand.nextGaussian()/3;
+			double spreadZ = rand.nextGaussian()/3;
+			worldIn.spawnParticle(pt==3?EnumParticleTypes.FLAME:EnumParticleTypes.PORTAL, d0+spreadX, d1, d2+spreadZ, 0.0D, 0.0D, 0.0D, new int[0]);
 		}
 		if (pt==1) {
 			TileEntityGlyph te = (TileEntityGlyph) worldIn.getTileEntity(pos);
 			if (te.hasRunningRitual()) {
-					worldIn.spawnParticle(EnumParticleTypes.END_ROD,d0,d1,d2,0,0.05,0,0,0,0);
+				double spreadX = rand.nextGaussian()*0.4;
+				double spreadZ = rand.nextGaussian()*0.4;
+				worldIn.spawnParticle(EnumParticleTypes.END_ROD,d0+spreadX,d1,d2+spreadZ,0,0.02+0.1*rand.nextDouble(),0,0,0,0);
 			}
 		}
 	}
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (hand.equals(EnumHand.OFF_HAND)) return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+		if (hand.equals(EnumHand.OFF_HAND) || !playerIn.getHeldItem(hand).isEmpty()) return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
 		if (state.getBlock().hasTileEntity(state)) {
 			TileEntityGlyph te = (TileEntityGlyph) worldIn.getTileEntity(pos);
 			if (te == null) {
