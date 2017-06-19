@@ -19,7 +19,7 @@ public class RitualHighMoon extends Ritual {
 
 	@Override
 	public void onFinish(EntityPlayer player, World world, BlockPos pos, NBTTagCompound tag) {
-		if (!world.isRemote) world.setWorldTime(13000);
+		if (!world.isRemote) world.setWorldTime(17600);
 	}
 
 }
