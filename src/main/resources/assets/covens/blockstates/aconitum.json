@@ -1,0 +1,51 @@
+{
+	"forge_marker": 1,
+	"parent": "block/cross",
+	"defaults": {
+		"model": "covens:aconitum"
+	},
+    "variants": {
+        "age": {
+        	"0": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_0"
+        		}
+        	},
+        	"1": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_0"
+        		}
+        	},
+        	"2": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_0"
+        		}
+        	},
+        	"3": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_3"
+        		}
+        	},
+        	"4": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_3"
+        		}
+        	},
+        	"5": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_5"
+        		}
+        	},
+        	"6": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_5"
+        		}
+        	},
+        	"7": {
+        		"textures": {
+        			"textureage": "covens:blocks/aconitum_7"
+        		}
+        	}
+        }
+    }
+}

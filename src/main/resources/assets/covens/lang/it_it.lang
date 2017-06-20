@@ -1,0 +1,25 @@
+# Creative Tabs names
+itemGroup.covens.rituals=Covens - Rituali
+itemGroup.covens.herbs=Covens - Erbe
+
+# Item names
+item.hellebore_seeds.name=Semi di elleboro
+item.aconitum_seeds.name=Semi di aconito
+item.sagebrush_seeds.name=Semi di artemisia
+item.chrysanthemum_seeds.name=Semi di crisantemo
+item.flower.hellebore.name=Elleboro
+item.flower.aconitum.name=Aconito napello
+item.flower.sagebrush.name=Fiore di artemisia
+item.flower.chrysanthemum.name=Crisantemo
+item.chalk_normal.name=Gesso rituale
+item.chalk_golden.name=Gesso sacrale
+item.chalk_ender.name=Gesso vacuo
+item.chalk_nether.name=Gesso avvampato
+
+# Block names
+tile.witch_altar.name=Altare delle streghe
+tile.magic_glyph.name=Glifo rituale
+tile.hellebore.name=Elleboro
+tile.aconitum.name=Aconito
+tile.sagebrush.name=Artemisia
+tile.chrysanthemum.name=Crisantemo

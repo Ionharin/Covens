@@ -1,0 +1,25 @@
+# Creative Tabs names
+itemGroup.covens.rituals=Covens - Rituals
+itemGroup.covens.herbs=Covens - Herbs
+
+# Item names
+item.hellebore_seeds.name=Hellebore Seeds
+item.aconitum_seeds.name=Aconitum Seeds
+item.sagebrush_seeds.name=Sagebrush Seeds
+item.chrysanthemum_seeds.name=Chrysanthemum Seeds
+item.flower.hellebore.name=Hellebore
+item.flower.aconitum.name=Aconitum Napellus
+item.flower.sagebrush.name=Sagebrush flower
+item.flower.chrysanthemum.name=Chrysanthemum
+item.chalk_normal.name=Ritual Chalk
+item.chalk_golden.name=Sacred Chalk
+item.chalk_ender.name=Void Chalk
+item.chalk_nether.name=Fiery Chalk
+
+# Block names
+tile.witch_altar.name=Witch Altar
+tile.magic_glyph.name=Ritual Glyph
+tile.hellebore.name=Hellebore
+tile.aconitum.name=Aconitum
+tile.sagebrush.name=Sagebrush
+tile.chrysanthemum.name=Chrysanthemum

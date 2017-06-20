@@ -29,7 +29,7 @@ public class ItemChalk extends Item {
 		this.setMaxStackSize(1);
 		this.setNoRepair();
 		this.setHasSubtypes(true);
-		this.setCreativeTab(CreativeTabs.TOOLS);
+		this.setCreativeTab(ModCreativeTabs.rituals);
 	}
 	
 	@Override

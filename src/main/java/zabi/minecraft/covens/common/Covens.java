@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.proxy.Proxy;
@@ -23,9 +24,11 @@ public class Covens {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
+		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
 		ModRituals.registerAll();
+		ModCreativeTabs.registerIcons();
 		ModTileEntities.registerAll();
 		proxy.registerItemModels();
 	}

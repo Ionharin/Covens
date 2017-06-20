@@ -21,6 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
@@ -32,6 +33,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	public BlockWitchAltar() {
 		super(Material.ROCK);
 		this.setHardness(2);
+		this.setCreativeTab(ModCreativeTabs.rituals);
 		this.setUnlocalizedName("witch_altar");
 		GameRegistry.register(this, new ResourceLocation(Reference.MID, "witch_altar"));
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ALTAR_TYPE, AltarMultiblockType.UNFORMED));

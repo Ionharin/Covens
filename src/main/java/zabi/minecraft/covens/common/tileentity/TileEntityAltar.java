@@ -42,6 +42,8 @@ public class TileEntityAltar extends TileEntityBase {
 	}
 	
 	private void refreshNature() {
+		gain = 0;
+		maxPower = 0;
 		HashMap<IBlockState, Integer> map = new HashMap<IBlockState, Integer>();
 		for (int i = -RADIUS; i <= RADIUS; i++) {
 			for (int j = -RADIUS; j <= RADIUS; j++) {
