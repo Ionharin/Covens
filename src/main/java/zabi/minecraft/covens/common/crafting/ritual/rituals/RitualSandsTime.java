@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.ritual.rituals;
+package zabi.minecraft.covens.common.crafting.ritual.rituals;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -6,8 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.crafting.ritual.Ritual;
 import zabi.minecraft.covens.common.lib.Reference;
-import zabi.minecraft.covens.common.ritual.Ritual;
 
 public class RitualSandsTime extends Ritual {
 

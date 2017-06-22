@@ -1,6 +1,8 @@
 # Creative Tabs names
 itemGroup.covens.rituals=Covens - Rituali
 itemGroup.covens.herbs=Covens - Erbe
+itemGroup.covens.machines=Covens - Macchinari
+itemGroup.covens.products=Covens - Ingredienti
 
 # Item names
 item.hellebore_seeds.name=Semi di elleboro
@@ -15,6 +17,13 @@ item.chalk_normal.name=Gesso rituale
 item.chalk_golden.name=Gesso sacrale
 item.chalk_ender.name=Gesso vacuo
 item.chalk_nether.name=Gesso avvampato
+item.misc.empty_jar.name=Giara vuota
+item.misc.ash.name=Cenere
+item.misc.oak_spirit.name=Spirito della quercia
+item.misc.birch_soul.name=Anima del pioppo
+item.misc.acacia_essence.name=Essenza dell'acacia
+item.misc.spruce_heart.name=Cuore dell'abete
+item.misc.cloudy_oil.name=Olio rannuvolato
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -23,3 +32,9 @@ tile.hellebore.name=Elleboro
 tile.aconitum.name=Aconito
 tile.sagebrush.name=Artemisia
 tile.chrysanthemum.name=Crisantemo
+tile.chimney.name=Cappa dei fumi
+
+# Ritual Stuff
+ritual.failure.unknown=Non hai mai sentito di questo rituale
+ritual.failure.power=La tua fonte magica e' debole
+ritual.failure.precondition=C'e' qualcosa di sbagliato in questo rito

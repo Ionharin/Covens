@@ -10,15 +10,28 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.lib.Reference;
 
 //Wow, the default vanilla implementation for BlockCrops sucks
 public class BlockModCrop extends BlockCrops {
+
+	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.125D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.25D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.375D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.5D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.625D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.75D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 0.875D, 0.9D), 
+			new AxisAlignedBB(0.1D, 0.0D, 0.1D, 1.0D, 1.0D, 0.9D)
+	};
 	
 	ItemStack seedType = ItemStack.EMPTY;
 	ItemStack dropType = ItemStack.EMPTY;
@@ -44,6 +57,11 @@ public class BlockModCrop extends BlockCrops {
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return seedType.copy();
 	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return CROPS_AABB[((Integer)state.getValue(this.getAgeProperty())).intValue()];
+    }
 	
 	@Override
 	protected int getBonemealAgeIncrease(World worldIn) {

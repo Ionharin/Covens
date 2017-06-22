@@ -1,7 +1,7 @@
 {
     "ambientocclusion": false,
     "textures": {
-        "particle": "#side"
+        "particle": "#sideb"
     },
     "elements": [
         {   
@@ -15,16 +15,16 @@
                 	"texture": "#top"
                 },
                 "north": { 
-                	"texture": "#side"
+                	"texture": "#sideb"
                 },
                 "south": { 
-                	"texture": "#side"
+                	"texture": "#sideb"
                 },
                 "east": { 
-                	"texture": "#side"
+                	"texture": "#sideb"
                 },
                 "west": { 
-                	"texture": "#side"
+                	"texture": "#sideb"
                 }
             }
         }

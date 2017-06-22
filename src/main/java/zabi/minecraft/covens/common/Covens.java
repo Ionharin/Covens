@@ -6,14 +6,15 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.crafting.ritual.ModRituals;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.proxy.Proxy;
-import zabi.minecraft.covens.common.ritual.rituals.ModRituals;
 import zabi.minecraft.covens.common.tileentity.ModTileEntities;
 
 @Mod(modid = Reference.MID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.12]")
+@Mod.EventBusSubscriber
 public class Covens {
 	
 	@Mod.Instance
@@ -27,14 +28,15 @@ public class Covens {
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
-		ModRituals.registerAll();
+		proxy.registerItemModels();
 		ModCreativeTabs.registerIcons();
 		ModTileEntities.registerAll();
-		proxy.registerItemModels();
+		ModRituals.registerAll();
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		proxy.registerRenderingStuff();
 	}
+	
 }

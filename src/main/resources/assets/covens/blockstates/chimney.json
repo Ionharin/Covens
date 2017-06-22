@@ -1,0 +1,16 @@
+{
+	"forge_marker": 1,
+	"parent": "block/block",
+	"defaults": {
+		"model": "covens:chimney"
+	}, 
+	"variants": {
+		"normal": {
+			"model": "covens:chimney"
+		}, 
+		"inventory": {
+			"model": "covens:chimney",
+			"transform": "forge:default-block"
+		}
+	}
+}

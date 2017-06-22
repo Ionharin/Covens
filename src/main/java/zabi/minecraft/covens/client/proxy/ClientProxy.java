@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.proxy;
+package zabi.minecraft.covens.client.proxy;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -14,7 +14,9 @@ import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ItemFlowers;
+import zabi.minecraft.covens.common.item.ItemMisc;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.proxy.Proxy;
 
 public class ClientProxy extends Proxy {
 	@Override
@@ -29,11 +31,13 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chalk, 2);
 		registerModel(ModItems.chalk, 3);
 		registerModel(ModItems.altar, 0);
+		registerModel(ModItems.chimney, 0);
 		registerModel(ModItems.helleboreSeeds, 0);
 		registerModel(ModItems.aconitumSeeds, 0);
 		registerModel(ModItems.sagebrushSeeds, 0);
 		registerModel(ModItems.chrysanthemumSeeds, 0);
 		for (int i=0;i<ItemFlowers.names.length;i++) registerModel(ModItems.flowers, i);
+		for (int i=0;i<ItemMisc.names.length;i++) registerModel(ModItems.misc, i);
 	}
 
 	private void registerModel(Item item, int meta) {

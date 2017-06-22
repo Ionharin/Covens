@@ -86,9 +86,11 @@ public class ItemChalk extends Item {
 			ItemStack chalk = player.getHeldItem(hand);
 			if (!chalk.hasTagCompound()) chalk.setTagCompound(getDefaultInstance().getTagCompound().copy());
 			int type = chalk.getItemDamage();
-			int usesLeft = chalk.getTagCompound().getInteger("usesLeft") - 1;
-			chalk.getTagCompound().setInteger("usesLeft", usesLeft);
-			if (usesLeft<1) chalk.setCount(0);
+			if (!player.isCreative()) {
+				int usesLeft = chalk.getTagCompound().getInteger("usesLeft") - 1;
+				chalk.getTagCompound().setInteger("usesLeft", usesLeft);
+				if (usesLeft<1) chalk.setCount(0);
+			}
 			IBlockState state = ModBlocks.glyphs.getExtendedState(ModBlocks.glyphs.getDefaultState(), worldIn, pos);
 			state = state.withProperty(BlockCircleGlyph.FACING, EnumFacing.HORIZONTALS[(int)(Math.random()*4)]);
 			state = state.withProperty(BlockCircleGlyph.TYPE, BlockCircleGlyph.GlyphType.values()[type]);

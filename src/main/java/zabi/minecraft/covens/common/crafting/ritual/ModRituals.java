@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.ritual.rituals;
+package zabi.minecraft.covens.common.crafting.ritual;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -6,8 +6,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
+import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualHighMoon;
+import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualSandsTime;
 import zabi.minecraft.covens.common.lib.Reference;
-import zabi.minecraft.covens.common.ritual.Ritual;
 
 public class ModRituals {
 	public static void registerAll() {
@@ -25,7 +26,7 @@ public class ModRituals {
 				new RitualSandsTime(
 						of(new ItemStack[] {new ItemStack(Blocks.SAND)}), 
 						of(null), 
-						24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 2000, 5));
+						24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 1000, 5));
 	}
 	
 	public static NonNullList<ItemStack> of(ItemStack[] list) {

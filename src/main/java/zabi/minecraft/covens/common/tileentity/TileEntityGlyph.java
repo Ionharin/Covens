@@ -16,9 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
+import zabi.minecraft.covens.common.crafting.ritual.Ritual;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.ritual.Ritual;
 
 public class TileEntityGlyph extends TileEntityBase {
 	
@@ -70,20 +70,23 @@ public class TileEntityGlyph extends TileEntityBase {
 	}
 
 	public void startRitual(EntityPlayer player) {
+		if (player.getEntityWorld().isRemote) return;
 		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos()).expand(3, 0, 3));
 		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getEntityItem()).collect(Collectors.toList());
 		for (Ritual rit:Ritual.REGISTRY) {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
 				if (rit.isValid(player, world, pos)) {
 					if (consumePower(rit.getRequiredStartingPower())) {
-						itemsOnGround.forEach(i -> {
-							i.setInfinitePickupDelay();
-							i.setDead();
+						itemsOnGround.forEach(ei -> {
+							ei.setInfinitePickupDelay();
+							ei.setDead();
 						});
 						this.ritual = rit;
 						this.entityPlayer = player.getPersistentID();
 						this.cooldown = 0;
 						ritual.onStarted(player, getWorld(), getPos(), ritualData);
+						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+						markDirty();
 						Log.d("Ritual Started: "+ritual.getRegistryName());
 						return;
 					} else {
@@ -99,7 +102,8 @@ public class TileEntityGlyph extends TileEntityBase {
 		}
 		player.sendStatusMessage(new TextComponentTranslation("ritual.failure.unknown", new Object[0]), true);
 	}
-	
+
+
 	private boolean hasCircles(Ritual rit) {
 		int requiredCircles = rit.getCircles() & 3;
 		if (requiredCircles==3) return false;

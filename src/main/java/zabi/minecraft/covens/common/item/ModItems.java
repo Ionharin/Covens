@@ -12,15 +12,19 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar;
+	public static ItemBlock altar,chimney;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemFlowers flowers;
+	public static ItemMisc misc;
 	
 	public static void registerAll() {
 		chalk = new ItemChalk();
 		flowers = new ItemFlowers();
 		altar = new ItemBlock(ModBlocks.altar);
+		chimney = new ItemBlock(ModBlocks.chimney);
+		misc = new ItemMisc();
 		GameRegistry.register(altar, ModBlocks.altar.getRegistryName());
+		GameRegistry.register(chimney, ModBlocks.chimney.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);

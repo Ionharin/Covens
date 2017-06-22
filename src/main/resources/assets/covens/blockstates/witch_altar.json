@@ -9,28 +9,28 @@
 			"unformed": {
 				"textures": {
 					"top": "covens:blocks/altar_unformed_top",
-					"side": "covens:blocks/altar_unformed_side",
+					"sideb": "covens:blocks/altar_unformed_side",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
 			"corner": {
 				"textures": {
 					"top": "covens:blocks/altar_formed_top",
-					"side": "covens:blocks/altar_formed_side",
+					"sideb": "covens:blocks/altar_formed_side",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
 			"tile": {
 				"textures": {
 					"top": "covens:blocks/altar_formed_top",
-					"side": "covens:blocks/altar_formed_side",
+					"sideb": "covens:blocks/altar_formed_side",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
 			"side": {
 				"textures": {
 					"top": "covens:blocks/altar_formed_top",
-					"side": "covens:blocks/altar_formed_side",
+					"sideb": "covens:blocks/altar_formed_side",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			}

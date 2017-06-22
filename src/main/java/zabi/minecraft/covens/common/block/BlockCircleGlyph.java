@@ -30,12 +30,14 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
@@ -115,7 +117,6 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 		return null;
 	}
 	
-	
 	@Override
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side) {
 		return super.canPlaceBlockOnSide(worldIn, pos, side) && side == EnumFacing.UP;
@@ -126,15 +127,18 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-	
+
+    @Override
 	public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
     
+    @Override
     public BlockFaceShape func_193383_a(IBlockAccess world, IBlockState blockState, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
@@ -171,6 +175,7 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 		return EnumPushReaction.DESTROY;
 	}
 
+    @Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		int pt = stateIn.getValue(TYPE).ordinal(); 
@@ -215,7 +220,11 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 		if (!this.canPlaceBlockAt(worldIn, pos)) worldIn.destroyBlock(pos, false);
 	}
 
-	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		int meta = state.getValue(TYPE).ordinal();
+		return new ItemStack(ModItems.chalk,1,meta);
+	}
 	
 	//######################################################################################### PROPERTY STUFF
 	

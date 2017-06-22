@@ -1,0 +1,54 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+	"ambientocclusion": false,
+    "textures": {
+        "particle": "covens:blocks/funnel_base_side",
+		"bs": "covens:blocks/funnel_base_side",
+		"bt": "covens:blocks/funnel_base_top",
+		"fs": "covens:blocks/funnel_funnel_side",
+		"ft": "covens:blocks/funnel_funnel_top",
+		"ct": "covens:blocks/funnel_chimney_top",
+		"cs": "covens:blocks/funnel_chimney_side"
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 1.0, 0.0, 1.0 ], 
+            "to": [ 15.0, 6.0, 15.0 ], 
+            "faces": {
+                "north": { "texture": "#bs", "uv": [ 0.0, 0.0, 14.0, 6.0 ] },
+                "east": { "texture": "#bs", "uv": [ 0.0, 0.0, 14.0, 6.0 ] },
+                "south": { "texture": "#bs", "uv": [ 0.0, 0.0, 14.0, 6.0 ] },
+                "west": { "texture": "#bs", "uv": [ 0.0, 0.0, 14.0, 6.0 ] },
+                "up": { "texture": "#bt", "uv": [ 0.0, 0.0, 14.0, 14.0 ] },
+                "down": { "texture": "#bt", "uv": [ 0.0, 0.0, 14.0, 14.0 ] }
+            }
+        },
+        {
+            "name": "Chimney",
+            "from": [ 4.0, 9.0, 4.0 ], 
+            "to": [ 12.0, 15.0, 12.0 ], 
+            "faces": {
+                "north": { "texture": "#cs", "uv": [ 0.0, 0.0, 8.0, 6.0 ] },
+                "east": { "texture": "#cs", "uv": [ 0.0, 0.0, 8.0, 6.0 ] },
+                "south": { "texture": "#cs", "uv": [ 0.0, 0.0, 8.0, 6.0 ] },
+                "west": { "texture": "#cs", "uv": [ 0.0, 0.0, 8.0, 6.0 ] },
+                "up": { "texture": "#ct", "uv": [ 0.0, 0.0, 8.0, 8.0 ] },
+                "down": { "texture": "#ct", "uv": [ 0.0, 0.0, 8.0, 8.0 ] }
+            }
+        },
+        {
+            "name": "Funnel",
+            "from": [ 3.0, 6.0, 3.0 ], 
+            "to": [ 13.0, 9.0, 13.0 ], 
+            "faces": {
+                "north": { "texture": "#fs", "uv": [ 0.0, 0.0, 10.0, 3.0 ] },
+                "east": { "texture": "#fs", "uv": [ 0.0, 0.0, 10.0, 3.0 ] },
+                "south": { "texture": "#fs", "uv": [ 0.0, 0.0, 10.0, 3.0 ] },
+                "west": { "texture": "#fs", "uv": [ 0.0, 0.0, 10.0, 3.0 ] },
+                "up": { "texture": "#ft", "uv": [ 0.0, 0.0, 10.0, 10.0 ] },
+                "down": { "texture": "#ft", "uv": [ 0.0, 0.0, 10.0, 10.0 ] }
+            }
+        }
+    ]
+}

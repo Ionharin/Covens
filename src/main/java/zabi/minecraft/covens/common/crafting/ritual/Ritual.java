@@ -1,5 +1,6 @@
-package zabi.minecraft.covens.common.ritual;
+package zabi.minecraft.covens.common.crafting.ritual;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -85,6 +86,12 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	
 	public int getRunningPower() {
 		return tickPower;
+	}
+
+	public List<ItemStack> getInput() {
+		ArrayList<ItemStack> stacks = new ArrayList<ItemStack>(input.size());
+		stacks.addAll(input);
+		return stacks;
 	}
 	
 }
