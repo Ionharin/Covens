@@ -15,24 +15,24 @@ public class ModRituals {
 	public static void registerAll() {
 		Ritual.REGISTRY.register(
 				new RitualHighMoon(
-						of(new ItemStack[] {new ItemStack(Items.COAL)}), 
+						of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.NETHERBRICK)), 
 						nop(), 
-						100, circles(GlyphType.NORMAL, null, null), 1000, 0));
+						100, circles(GlyphType.NORMAL, null, null), 2000, 0));
 		Ritual.REGISTRY.register(
 				new Ritual(of(new ItemStack(Items.APPLE)), 
-						of(new ItemStack[] {new ItemStack(Items.COAL)}), 
-						10, circles(GlyphType.NETHER, GlyphType.NETHER, null), 0, 5)
+						of(new ItemStack(Items.APPLE)), 
+						20, circles(GlyphType.NORMAL, null, null), 10000, 0)
 				.setRegistryName(Reference.MID, "test"));
 		Ritual.REGISTRY.register(
 				new RitualSandsTime(
-						of(new ItemStack(Blocks.SAND)), 
+						of(new ItemStack(Blocks.SAND), new ItemStack(Blocks.DIAMOND_ORE)), 
 						nop(), 
-						24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 1000, 5));
+						24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4));
 		Ritual.REGISTRY.register(
-					new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.DRAGON_BREATH)), 
+					new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), 
 							nop(), 24000, 
 							circles(GlyphType.ENDER, GlyphType.ENDER, null)
-							, 500, 8)
+							, 1500, 5)
 			);
 	}
 	
