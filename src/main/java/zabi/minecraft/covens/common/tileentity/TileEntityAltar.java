@@ -5,6 +5,7 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFlowerPot;
@@ -20,7 +21,7 @@ public class TileEntityAltar extends TileEntityBase {
 	
 	private static final int REFRESH_TIME = 200, RADIUS = 18, MAX_SCORE_PER_CATEGORY = 20;
 	
-	int power = 0, maxPower=0, gain = 1;
+	int power = 0, maxPower=0, gain = 1, color = EnumDyeColor.RED.ordinal();
 	int refreshTimer = REFRESH_TIME;
 
 	@Override
@@ -28,6 +29,7 @@ public class TileEntityAltar extends TileEntityBase {
 		power = tag.getInteger("power");
 		maxPower = tag.getInteger("maxPower");
 		gain = tag.getInteger("gain");
+		color = tag.getInteger("color");
 	}
 
 	@Override
@@ -35,6 +37,7 @@ public class TileEntityAltar extends TileEntityBase {
 		tag.setInteger("power", power);
 		tag.setInteger("gain", gain);
 		tag.setInteger("maxPower", maxPower);
+		tag.setInteger("color", color);
 	}
 
 	@Override
@@ -170,10 +173,18 @@ public class TileEntityAltar extends TileEntityBase {
 		return maxPower;
 	}
 	
+	public int getColor() {
+		return color;
+	}
+	
 	public boolean consumePower(int amount) {
 		if (amount>power) return false;
 		power-=amount;
 		return true;
+	}
+
+	public void setColor(int newColor) {
+		color=newColor;
 	}
 
 }

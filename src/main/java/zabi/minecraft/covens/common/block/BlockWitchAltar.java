@@ -9,10 +9,13 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
@@ -32,6 +35,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
 public class BlockWitchAltar extends Block implements ITileEntityProvider {
 
 	public static final PropertyAltar ALTAR_TYPE = new PropertyAltar("altar_multiblock", AltarMultiblockType.class, Arrays.asList(AltarMultiblockType.values()));
+	public static final PropertyInteger COLOR = PropertyInteger.create("color", 0, 16);
 	
 	public BlockWitchAltar() {
 		super(Material.ROCK);
@@ -39,7 +43,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 		this.setCreativeTab(ModCreativeTabs.rituals);
 		this.setUnlocalizedName("witch_altar");
 		GameRegistry.register(this, new ResourceLocation(Reference.MID, "witch_altar"));
-		this.setDefaultState(this.blockState.getBaseState().withProperty(ALTAR_TYPE, AltarMultiblockType.UNFORMED));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(ALTAR_TYPE, AltarMultiblockType.UNFORMED).withProperty(COLOR, 16));
 	}
 	
 	@Override
@@ -72,7 +76,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, ALTAR_TYPE);
+		return new BlockStateContainer(this, ALTAR_TYPE, COLOR);
 	}
 	
 	@Override
@@ -88,6 +92,29 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(ALTAR_TYPE, AltarMultiblockType.values()[meta]);
+	}
+	
+	@Override
+	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+		if (state.getBlock().hasTileEntity(state)) {
+			TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
+			return state.withProperty(COLOR, tea.getColor());
+		} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
+			for (EnumFacing h:EnumFacing.HORIZONTALS) {
+				IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+				if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
+					return state.withProperty(COLOR, stateAdj.getBlock().getActualState(stateAdj, worldIn, pos.offset(h)).getValue(COLOR));
+				}
+			}
+		} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
+			for (EnumFacing h:EnumFacing.HORIZONTALS) {
+				IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+				if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+					return state.withProperty(COLOR, stateAdj.getBlock().getActualState(stateAdj, worldIn, pos.offset(h)).getValue(COLOR));
+				}
+			}
+		} 
+		return state;
 	}
 	
 	@Override
@@ -183,27 +210,63 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND) {
-			if (state.getBlock().hasTileEntity(state)) {
-				TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
-				playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
-				return true;
-			} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
-				for (EnumFacing h:EnumFacing.HORIZONTALS) {
-					IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
-					if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
-						return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
-					}
+			if (playerIn.getHeldItem(hand).getItem().equals(Item.getItemFromBlock(Blocks.CARPET)) && !playerIn.isSneaking()) {
+				if (!state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.UNFORMED)) {
+					int newColor = playerIn.getHeldItem(hand).getMetadata();
+					setColor(worldIn,pos,newColor);
+					return true;
 				}
-			} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
-				for (EnumFacing h:EnumFacing.HORIZONTALS) {
-					IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
-					if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
-						return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+			} else {
+				if (state.getBlock().hasTileEntity(state)) {
+					TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
+					playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
+					return true;
+				} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
+					for (EnumFacing h:EnumFacing.HORIZONTALS) {
+						IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+						if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
+							return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+						}
 					}
-				}
+				} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
+					for (EnumFacing h:EnumFacing.HORIZONTALS) {
+						IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+						if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+							return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+						}
+					}
+			}
 			}
 		}
 		return false;
+	}
+
+	private void setColor(World world, BlockPos pos, int newColor) {
+		
+		if (world.getBlockState(pos).getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+			TileEntityAltar tea = (TileEntityAltar) world.getTileEntity(pos);
+			tea.setColor(newColor);
+			for (int dx=-1;dx<=1;dx++) for (int dy=-1;dy<=1;dy++) {
+				BlockPos bp = pos.add(dx, 0, dy);
+				if (world.getBlockState(bp).getBlock().equals(ModBlocks.altar)) world.notifyBlockUpdate(bp, world.getBlockState(bp), world.getBlockState(bp), 3);
+			}
+		} else if (world.getBlockState(pos).getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
+			for (EnumFacing ef:EnumFacing.HORIZONTALS) {
+				BlockPos bp = pos.offset(ef);
+				if (world.getBlockState(bp).getBlock().equals(ModBlocks.altar) && (world.getBlockState(bp).getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)||world.getBlockState(bp).getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
+					((BlockWitchAltar)world.getBlockState(bp).getBlock()).setColor(world, bp, newColor);
+					break;
+				}
+			}
+		} else if (world.getBlockState(pos).getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
+			for (EnumFacing ef:EnumFacing.HORIZONTALS) {
+				BlockPos bp = pos.offset(ef);
+				if (world.getBlockState(bp).getBlock().equals(ModBlocks.altar) && world.getBlockState(bp).getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+					((BlockWitchAltar)world.getBlockState(bp).getBlock()).setColor(world, bp, newColor);
+					break;
+				}
+			}
+		}
 	}
 
 	//###########################################################################################################

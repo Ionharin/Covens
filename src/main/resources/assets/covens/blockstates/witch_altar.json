@@ -13,24 +13,127 @@
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
-			"corner": {
+			"corner": {},
+			"tile": {},
+			"side": {}
+		},
+		"color": {
+			"0": {
 				"textures": {
-					"top": "covens:blocks/altar_formed_top",
-					"sideb": "covens:blocks/altar_formed_side",
+					"top": "blocks/wool_colored_white",
+					"sideb": "covens:blocks/altar_formed_side_white",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
-			"tile": {
+			"1": {
 				"textures": {
-					"top": "covens:blocks/altar_formed_top",
-					"sideb": "covens:blocks/altar_formed_side",
+					"top": "blocks/wool_colored_orange",
+					"sideb": "covens:blocks/altar_formed_side_orange",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			},
-			"side": {
+			"2": {
 				"textures": {
-					"top": "covens:blocks/altar_formed_top",
-					"sideb": "covens:blocks/altar_formed_side",
+					"top": "blocks/wool_colored_magenta",
+					"sideb": "covens:blocks/altar_formed_side_magenta",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"3": {
+				"textures": {
+					"top": "blocks/wool_colored_light_blue",
+					"sideb": "covens:blocks/altar_formed_side_light_blue",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"4": {
+				"textures": {
+					"top": "blocks/wool_colored_yellow",
+					"sideb": "covens:blocks/altar_formed_side_yellow",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"5": {
+				"textures": {
+					"top": "blocks/wool_colored_lime",
+					"sideb": "covens:blocks/altar_formed_side_lime",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"6": {
+				"textures": {
+					"top": "blocks/wool_colored_pink",
+					"sideb": "covens:blocks/altar_formed_side_pink",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"7": {
+				"textures": {
+					"top": "blocks/wool_colored_gray",
+					"sideb": "covens:blocks/altar_formed_side_gray",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"8": {
+				"textures": {
+					"top": "blocks/wool_colored_silver",
+					"sideb": "covens:blocks/altar_formed_side_silver",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"9": {
+				"textures": {
+					"top": "blocks/wool_colored_cyan",
+					"sideb": "covens:blocks/altar_formed_side_cyan",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"10": {
+				"textures": {
+					"top": "blocks/wool_colored_purple",
+					"sideb": "covens:blocks/altar_formed_side_purple",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"11": {
+				"textures": {
+					"top": "blocks/wool_colored_blue",
+					"sideb": "covens:blocks/altar_formed_side_blue",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"12": {
+				"textures": {
+					"top": "blocks/wool_colored_brown",
+					"sideb": "covens:blocks/altar_formed_side_brown",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"13": {
+				"textures": {
+					"top": "blocks/wool_colored_green",
+					"sideb": "covens:blocks/altar_formed_side_green",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"14": {
+				"textures": {
+					"top": "blocks/wool_colored_red",
+					"sideb": "covens:blocks/altar_formed_side_red",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			},
+			"15": {
+				"textures": {
+					"top": "blocks/wool_colored_black",
+					"sideb": "covens:blocks/altar_formed_side_black",
+					"bottom": "covens:blocks/altar_bottom"
+				}
+			}, 
+			"16": {
+				"textures": {
+					"top": "covens:blocks/altar_unformed_top",
+					"sideb": "covens:blocks/altar_unformed_side",
 					"bottom": "covens:blocks/altar_bottom"
 				}
 			}
