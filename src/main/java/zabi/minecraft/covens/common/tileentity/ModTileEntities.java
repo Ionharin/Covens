@@ -7,5 +7,6 @@ public class ModTileEntities {
 		GameRegistry.registerTileEntity(TileEntityGlyph.class, "covens:ritual_glyph");
 		GameRegistry.registerTileEntity(TileEntityAltar.class, "covens:witch_altar");
 		GameRegistry.registerTileEntity(TileEntityChimney.class, "covens:chimney");
+		GameRegistry.registerTileEntity(TileEntityCauldron.class, "covens:cauldron");
 	}
 }

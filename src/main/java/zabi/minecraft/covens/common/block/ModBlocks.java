@@ -5,12 +5,14 @@ public class ModBlocks {
 	public static BlockCircleGlyph glyphs;
 	public static BlockWitchAltar altar;
 	public static BlockChimney chimney;
+	public static BlockCauldron cauldron;
 	public static BlockModCrop hellebore, aconitum, sagebrush, chrysanthemum;
 	
 	public static void registerAll() {
 		glyphs = new BlockCircleGlyph();
 		altar = new BlockWitchAltar();
 		chimney = new BlockChimney();
+		cauldron = new BlockCauldron();
 		hellebore = new BlockModCrop("hellebore");
 		aconitum = new BlockModCrop("aconitum");
 		sagebrush = new BlockModCrop("sagebrush");
