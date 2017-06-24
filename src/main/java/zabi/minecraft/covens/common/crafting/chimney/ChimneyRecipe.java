@@ -15,6 +15,7 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 	
 	private ItemStack in, out;
 	private boolean meta, nbt;
+	private static ChimneyRecipe defaultReicpe = null;
 	
 	public ChimneyRecipe(@Nonnull ItemStack in, @Nonnull ItemStack out, boolean matchMetadata, boolean matchNBT) {
 		this.in=in.copy();
@@ -38,6 +39,10 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 		for (ChimneyRecipe cr:REGISTRY) {
 			if (cr.isValidIngredient(ingredient)) return cr;
 		}
-		return null;
+		return defaultReicpe;
+	}
+	
+	public static void setDefault(ChimneyRecipe r) {
+		defaultReicpe = r;
 	}
 }

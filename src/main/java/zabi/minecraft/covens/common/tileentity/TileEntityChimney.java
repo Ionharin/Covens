@@ -3,67 +3,98 @@ package zabi.minecraft.covens.common.tileentity;
 import java.lang.reflect.Method;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import zabi.minecraft.covens.common.crafting.chimney.ChimneyRecipe;
 import zabi.minecraft.covens.common.item.ModItems;
 
-public class TileEntityChimney extends TileEntityBase implements ISidedInventory {
+public class TileEntityChimney extends TileEntityBase implements IInventory /*implements ISidedInventory*/ {
 	
-	ItemStack jars = ItemStack.EMPTY.copy(), product = ItemStack.EMPTY.copy();
+	ItemStackHandler handler = new ItemStackHandler(2) {
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			if (slot==1) return stack;
+			if (slot==0 && stack.getItem().equals(ModItems.misc) && stack.getMetadata()==0) return super.insertItem(slot, stack, simulate);
+			return stack;
+		}
+	};
 	private static Method canSmelt = ReflectionHelper.findMethod(TileEntityFurnace.class, "canSmelt", "func_145948_k", new Class<?>[0]);
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
-		if (tag.hasKey("jars")) jars = new ItemStack(tag.getCompoundTag("jars"));
-		if (tag.hasKey("product")) product = new ItemStack(tag.getCompoundTag("product"));
+		if (tag.hasKey("jars")) handler.setStackInSlot(0, new ItemStack(tag.getCompoundTag("jars")));
+		if (tag.hasKey("product")) handler.setStackInSlot(1, new ItemStack(tag.getCompoundTag("product")));
 	}
 
 	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) return true;
+		return super.hasCapability(capability, facing);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability.equals(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)) return (T) handler;
+		return super.getCapability(capability, facing);
+	}
+	
+	@Override
 	protected void NBTSave(NBTTagCompound tag) {
 		NBTTagCompound jarsTag = new NBTTagCompound();
-		jars.writeToNBT(jarsTag);
+		handler.getStackInSlot(0).writeToNBT(jarsTag);
 		tag.setTag("jars", jarsTag);
 		NBTTagCompound productTag = new NBTTagCompound();
-		product.writeToNBT(productTag);
+		handler.getStackInSlot(1).writeToNBT(productTag);
 		tag.setTag("product", productTag);
 	}
 
 	@Override
 	protected void tick() {
-		TileEntityFurnace furnace = ((TileEntityFurnace) getWorld().getTileEntity(this.getPos().down()));
-		if (furnace==null) return;
-		try {
-			if (furnace.isBurning()) {
-				int time = furnace.getField(2);
-				int timeMax = furnace.getField(3);
-				if (time+1==timeMax) {
-					if ((boolean) canSmelt.invoke(furnace, new Object[0])) {
-						ItemStack smeltingItem = furnace.getStackInSlot(0);
-						ChimneyRecipe recipe = ChimneyRecipe.getRecipeFor(smeltingItem);
-						if (recipe==null) return;
-						ItemStack result = recipe.getOutput();
-						int count = result.getCount();
-						if (!product.isEmpty()) {
-							if (!result.isItemEqual(product)) return;
-							count += product.getCount();
-							if (count > product.getMaxStackSize()) return;
-							if (count > getInventoryStackLimit()) return;
+		if (!world.isRemote) {
+			TileEntityFurnace furnace = ((TileEntityFurnace) getWorld().getTileEntity(this.getPos().down()));
+			if (furnace==null) return;
+			try {
+				if (furnace.isBurning() && !handler.getStackInSlot(0).isEmpty()) {
+					int time = furnace.getField(2);
+					int timeMax = furnace.getField(3);
+					if (time+1==timeMax && Math.random()<getChance()) {
+						if ((boolean) canSmelt.invoke(furnace, new Object[0])) {
+							ItemStack smeltingItem = furnace.getStackInSlot(0);
+							ChimneyRecipe recipe = ChimneyRecipe.getRecipeFor(smeltingItem);
+							if (recipe==null) return;
+							ItemStack result = recipe.getOutput();
+							int count = result.getCount();
+							ItemStack product = handler.getStackInSlot(1);
+							if (!product.isEmpty()) {
+								if (!result.isItemEqual(product)) return;
+								count += product.getCount();
+								if (count > product.getMaxStackSize()) return;
+								if (count > 64) return;
+							}
+							product = result;
+							product.setCount(count);
+							handler.setStackInSlot(1, product);
+							handler.extractItem(0, 1, false);
+							markDirty();
+							world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 						}
-						product = result;
-						product.setCount(count);
-						markDirty();
 					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
+
 
 	@Override
 	public int getSizeInventory() {
@@ -72,14 +103,12 @@ public class TileEntityChimney extends TileEntityBase implements ISidedInventory
 
 	@Override
 	public boolean isEmpty() {
-		return false;
+		return handler.getStackInSlot(0).isEmpty() && handler.getStackInSlot(1).isEmpty();
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		if (index==0) return jars;
-		if (index==1) return product;
-		return null;
+		return handler.getStackInSlot(index);
 	}
 
 	@Override
@@ -89,15 +118,14 @@ public class TileEntityChimney extends TileEntityBase implements ISidedInventory
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		ItemStack res = getStackInSlot(index);
+		ItemStack res = handler.getStackInSlot(index).copy();
 		setInventorySlotContents(index, ItemStack.EMPTY.copy());
 		return res;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		if (index==0) jars=stack;
-		else if (index==1) product=stack;
+		handler.setStackInSlot(index, stack);
 	}
 
 	@Override
@@ -146,29 +174,16 @@ public class TileEntityChimney extends TileEntityBase implements ISidedInventory
 
 	@Override
 	public String getName() {
-		return "";
+		return I18n.translateToLocal("tile.chimney.name");
 	}
 
 	@Override
 	public boolean hasCustomName() {
 		return false;
 	}
-
-	private static final int[] slots = {0,1};
 	
-	@Override
-	public int[] getSlotsForFace(EnumFacing side) {
-		return slots;
-	}
-
-	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, EnumFacing direction) {
-		return isItemValidForSlot(index, itemStackIn);
-	}
-
-	@Override
-	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return index==1 && !product.isEmpty();
+	public float getChance() {
+		return 0.3F;
 	}
 
 }

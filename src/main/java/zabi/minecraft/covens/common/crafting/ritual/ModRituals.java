@@ -7,6 +7,7 @@ import net.minecraft.util.NonNullList;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualHighMoon;
+import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualPerception;
 import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualSandsTime;
 import zabi.minecraft.covens.common.lib.Reference;
 
@@ -15,23 +16,32 @@ public class ModRituals {
 		Ritual.REGISTRY.register(
 				new RitualHighMoon(
 						of(new ItemStack[] {new ItemStack(Items.COAL)}), 
-						of(null), 
+						nop(), 
 						100, circles(GlyphType.NORMAL, null, null), 1000, 0));
 		Ritual.REGISTRY.register(
-				new Ritual(of(new ItemStack[] {new ItemStack(Items.APPLE)}), 
+				new Ritual(of(new ItemStack(Items.APPLE)), 
 						of(new ItemStack[] {new ItemStack(Items.COAL)}), 
 						10, circles(GlyphType.NETHER, GlyphType.NETHER, null), 0, 5)
 				.setRegistryName(Reference.MID, "test"));
 		Ritual.REGISTRY.register(
 				new RitualSandsTime(
-						of(new ItemStack[] {new ItemStack(Blocks.SAND)}), 
-						of(null), 
+						of(new ItemStack(Blocks.SAND)), 
+						nop(), 
 						24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 1000, 5));
+		Ritual.REGISTRY.register(
+					new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.DRAGON_BREATH)), 
+							nop(), 24000, 
+							circles(GlyphType.ENDER, GlyphType.ENDER, null)
+							, 500, 8)
+			);
 	}
 	
-	public static NonNullList<ItemStack> of(ItemStack[] list) {
-		if (list==null||list.length==0) return NonNullList.<ItemStack>create();
+	public static NonNullList<ItemStack> of(ItemStack... list) {
+		if (list==null||list.length==0) return nop();
 		return NonNullList.<ItemStack>func_193580_a(ItemStack.EMPTY, list);
+	}
+	public static NonNullList<ItemStack> nop() {
+		return NonNullList.<ItemStack>create();
 	}
 	
 	public static int circles(GlyphType small, BlockCircleGlyph.GlyphType medium, BlockCircleGlyph.GlyphType big) {

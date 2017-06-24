@@ -38,3 +38,7 @@ tile.chimney.name=Cappa dei fumi
 ritual.failure.unknown=Non hai mai sentito di questo rituale
 ritual.failure.power=La tua fonte magica e' debole
 ritual.failure.precondition=C'e' qualcosa di sbagliato in questo rito
+ritual.covens.test.name=Rituale di test
+ritual.covens.highmoon.name=Rituale della luna di fuoco
+ritual.covens.timesand.name=Rituale delle sabbie del tempo
+ritual.covens.perception.name=Rituale della percezione

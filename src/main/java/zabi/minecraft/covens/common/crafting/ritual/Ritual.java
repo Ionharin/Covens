@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -46,10 +47,11 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		return true;
 	}
 	
-	public void onUpdate(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
-	public void onFinish(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStopped(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStarted(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onUpdate(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
+	public void onFinish(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStopped(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStarted(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onLowPower(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
 	
 	public int getTime() {
 		return time;

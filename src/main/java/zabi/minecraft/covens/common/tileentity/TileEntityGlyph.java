@@ -65,6 +65,8 @@ public class TileEntityGlyph extends TileEntityBase {
 			if (hasPowerToUpdate) {
 				ritual.onUpdate(player, getWorld(), getPos(), ritualData, cooldown);
 				Log.d("Ritual Updated: "+ritual.getRegistryName());
+			} else {
+				ritual.onLowPower(player, world, pos, ritualData, cooldown);
 			}
 		}
 	}
@@ -85,6 +87,7 @@ public class TileEntityGlyph extends TileEntityBase {
 						this.entityPlayer = player.getPersistentID();
 						this.cooldown = 0;
 						ritual.onStarted(player, getWorld(), getPos(), ritualData);
+						player.sendStatusMessage(new TextComponentTranslation("ritual."+rit.getRegistryName().toString().replace(':', '.')+".name", new Object[0]), true);
 						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 						markDirty();
 						Log.d("Ritual Started: "+ritual.getRegistryName());

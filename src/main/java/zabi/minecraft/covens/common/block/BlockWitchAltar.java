@@ -16,14 +16,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
 
@@ -150,7 +152,6 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	
 	@Override
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-		Log.i(blockIn);
 		if (world.isAirBlock(fromPos) && !checkRecursive(world,pos,0, new ArrayList<BlockPos>(6)) && blockIn.equals(ModBlocks.altar)) {
 			dismantleRecursive(world, pos);
 		};
@@ -177,6 +178,32 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND) {
+			if (state.getBlock().hasTileEntity(state)) {
+				TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
+				playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
+				return true;
+			} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
+				for (EnumFacing h:EnumFacing.HORIZONTALS) {
+					IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+					if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
+						return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+					}
+				}
+			} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
+				for (EnumFacing h:EnumFacing.HORIZONTALS) {
+					IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+					if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+						return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	//###########################################################################################################
