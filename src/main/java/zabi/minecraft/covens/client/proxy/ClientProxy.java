@@ -32,6 +32,7 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chalk, 3);
 		registerModel(ModItems.altar, 0);
 		registerModel(ModItems.chimney, 0);
+		registerModel(ModItems.eerie_seeds, 0);
 		registerModel(ModItems.helleboreSeeds, 0);
 		registerModel(ModItems.aconitumSeeds, 0);
 		registerModel(ModItems.sagebrushSeeds, 0);

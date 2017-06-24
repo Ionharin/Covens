@@ -165,6 +165,8 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 			worldIn.setBlockState(new BlockPos(sx, y, ey), ModBlocks.altar.getDefaultState().withProperty(BlockWitchAltar.ALTAR_TYPE, BlockWitchAltar.AltarMultiblockType.CORNER));
 			worldIn.setBlockState(new BlockPos(ex, y, sy), ModBlocks.altar.getDefaultState().withProperty(BlockWitchAltar.ALTAR_TYPE, BlockWitchAltar.AltarMultiblockType.CORNER));
 			worldIn.setBlockState(new BlockPos(ex, y, ey), ModBlocks.altar.getDefaultState().withProperty(BlockWitchAltar.ALTAR_TYPE, BlockWitchAltar.AltarMultiblockType.CORNER));
+			
+			
 		return true;
 	}
 
@@ -240,16 +242,12 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 		}
 		return false;
 	}
-
-	private void setColor(World world, BlockPos pos, int newColor) {
-		
+	
+	public void setColor(World world, BlockPos pos, int newColor) {
 		if (world.getBlockState(pos).getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
 			TileEntityAltar tea = (TileEntityAltar) world.getTileEntity(pos);
 			tea.setColor(newColor);
-			for (int dx=-1;dx<=1;dx++) for (int dy=-1;dy<=1;dy++) {
-				BlockPos bp = pos.add(dx, 0, dy);
-				if (world.getBlockState(bp).getBlock().equals(ModBlocks.altar)) world.notifyBlockUpdate(bp, world.getBlockState(bp), world.getBlockState(bp), 3);
-			}
+			notifyAround(pos,world);
 		} else if (world.getBlockState(pos).getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
 			for (EnumFacing ef:EnumFacing.HORIZONTALS) {
 				BlockPos bp = pos.offset(ef);
@@ -268,7 +266,14 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 			}
 		}
 	}
-
+	
+	public static void notifyAround(BlockPos pos, World world) {
+		for (int dx=-1;dx<=1;dx++) for (int dy=-1;dy<=1;dy++) {
+			BlockPos bp = pos.add(dx, 0, dy);
+			if (world.getBlockState(bp).getBlock().equals(ModBlocks.altar)) world.notifyBlockUpdate(bp, world.getBlockState(bp), world.getBlockState(bp).getBlock().getActualState(world.getBlockState(bp), world, bp), 11);
+		}
+	}
+	
 	//###########################################################################################################
 	
 	public static class PropertyAltar extends PropertyEnum<AltarMultiblockType> {

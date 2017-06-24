@@ -39,7 +39,7 @@ public class TileEntityAltar extends TileEntityBase {
 		tag.setInteger("maxPower", maxPower);
 		tag.setInteger("color", color);
 	}
-
+	
 	@Override
 	protected void tick() {
 		if (!getWorld().isRemote) {
@@ -185,6 +185,20 @@ public class TileEntityAltar extends TileEntityBase {
 
 	public void setColor(int newColor) {
 		color=newColor;
+		markDirty();
 	}
-
+	
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound st = super.getUpdateTag();
+		st.setInteger("altcol", color);
+		return st;
+	}
+	
+	@Override
+	public void handleUpdateTag(NBTTagCompound tag) {
+		super.handleUpdateTag(tag);
+		color = tag.getInteger("altcol");
+	}
+	
 }

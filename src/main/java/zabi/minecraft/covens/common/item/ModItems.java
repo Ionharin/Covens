@@ -16,12 +16,14 @@ public class ModItems {
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemFlowers flowers;
 	public static ItemMisc misc;
+	public static ItemEerieSeeds eerie_seeds;
 	
 	public static void registerAll() {
 		chalk = new ItemChalk();
 		flowers = new ItemFlowers();
 		altar = new ItemBlock(ModBlocks.altar);
 		chimney = new ItemBlock(ModBlocks.chimney);
+		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
 		GameRegistry.register(altar, ModBlocks.altar.getRegistryName());
 		GameRegistry.register(chimney, ModBlocks.chimney.getRegistryName());
