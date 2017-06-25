@@ -33,6 +33,7 @@ public class Covens {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
+		proxy.registerHandler();
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
