@@ -188,17 +188,4 @@ public class TileEntityAltar extends TileEntityBase {
 		markDirty();
 	}
 	
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound st = super.getUpdateTag();
-		st.setInteger("altcol", color);
-		return st;
-	}
-	
-	@Override
-	public void handleUpdateTag(NBTTagCompound tag) {
-		super.handleUpdateTag(tag);
-		color = tag.getInteger("altcol");
-	}
-	
 }

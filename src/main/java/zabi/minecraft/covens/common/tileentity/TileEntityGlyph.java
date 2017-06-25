@@ -187,6 +187,9 @@ public class TileEntityGlyph extends TileEntityBase {
 		return te.consumePower(power);
 	}
 	
+	
+	//##################################################################################################################
+	
 	private static final ArrayList<int[]> small = new ArrayList<int[]>();
 	private static final ArrayList<int[]> medium = new ArrayList<int[]>();
 	private static final ArrayList<int[]> big = new ArrayList<int[]>();

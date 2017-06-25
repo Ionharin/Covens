@@ -6,8 +6,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.lib.Reference;
 
 
@@ -60,10 +58,17 @@ public abstract class TileEntityBase extends TileEntity implements ITickable {
 //		if (!Config.disableTileEntities) tick();
 		tick();
 	}
-
-	@SideOnly(Side.CLIENT)
-	public int getUniqueAnimationDiscriminator() {
-		return pos.getX()+pos.getY()+pos.getZ();
+	
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound tag = super.getUpdateTag();
+		return writeToNBT(tag);
+	}
+	
+	@Override
+	public void handleUpdateTag(NBTTagCompound tag) {
+		super.handleUpdateTag(tag);
+		readFromNBT(tag);
 	}
 
 }
