@@ -21,7 +21,7 @@ public class RitualPerception extends Ritual {
 	@Override
 	public void onUpdate(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		if (!world.isRemote && ticks%100==0)
-			world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(40,40,40)).forEach(e -> {
+			world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(20,20,20).expand(-20,-20,-20)).forEach(e -> {
 				e.addPotionEffect(new PotionEffect(MobEffects.GLOWING,110,0,false,false));
 			});
 	}
