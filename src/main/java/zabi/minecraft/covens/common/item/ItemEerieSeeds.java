@@ -10,7 +10,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemEerieSeeds extends Item {
@@ -18,7 +17,6 @@ public class ItemEerieSeeds extends Item {
 		this.setCreativeTab(ModCreativeTabs.products);
 		this.setUnlocalizedName("eerie_seeds");
 		this.setRegistryName(Reference.MID, "eerie_seeds");
-		GameRegistry.register(this);
 	}
 	
 	@Override

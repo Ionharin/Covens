@@ -1,14 +1,19 @@
 package zabi.minecraft.covens.common.item;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
+@Mod.EventBusSubscriber
 public class ModItems {
 	
 	public static ItemChalk chalk;
@@ -26,9 +31,9 @@ public class ModItems {
 		cauldron = new ItemBlock(ModBlocks.cauldron);
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
-		GameRegistry.register(altar, ModBlocks.altar.getRegistryName());
-		GameRegistry.register(chimney, ModBlocks.chimney.getRegistryName());
-		GameRegistry.register(cauldron, ModBlocks.cauldron.getRegistryName());
+		altar.setRegistryName(ModBlocks.altar.getRegistryName());
+		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
+		cauldron.setRegistryName(ModBlocks.cauldron.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -49,10 +54,19 @@ public class ModItems {
 		aconitumSeeds.setUnlocalizedName("aconitum_seeds");
 		sagebrushSeeds.setUnlocalizedName("sagebrush_seeds");
 		chrysanthemumSeeds.setUnlocalizedName("chrysanthemum_seeds");
-		
-		GameRegistry.register(helleboreSeeds, new ResourceLocation(Reference.MID, "hellebore_seeds"));
-		GameRegistry.register(aconitumSeeds, new ResourceLocation(Reference.MID, "aconitum_seeds"));
-		GameRegistry.register(sagebrushSeeds, new ResourceLocation(Reference.MID, "sagebrush_seeds"));
-		GameRegistry.register(chrysanthemumSeeds, new ResourceLocation(Reference.MID, "chrysanthemum_seeds"));
+
+		helleboreSeeds.setRegistryName(Reference.MID, "hellebore_seeds");
+		aconitumSeeds.setRegistryName(Reference.MID, "aconitum_seeds");
+		sagebrushSeeds.setRegistryName(Reference.MID, "sagebrush_seeds");
+		chrysanthemumSeeds.setRegistryName(Reference.MID, "chrysanthemum_seeds");
+	}
+	
+	@SubscribeEvent
+	public static void registerBlocks(RegistryEvent.Register<Item> evt) {
+		Log.i("Registering items for "+Reference.NAME);
+		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
+		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
+				flowers, misc, eerie_seeds
+				);
 	}
 }

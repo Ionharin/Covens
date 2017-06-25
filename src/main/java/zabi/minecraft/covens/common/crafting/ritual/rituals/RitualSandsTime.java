@@ -7,13 +7,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.crafting.ritual.Ritual;
-import zabi.minecraft.covens.common.lib.Reference;
 
 public class RitualSandsTime extends Ritual {
 
 	public RitualSandsTime(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
-		this.setRegistryName(Reference.MID, "timeSand");
 	}
 	
 	@Override

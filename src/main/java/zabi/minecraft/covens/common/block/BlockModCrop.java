@@ -16,7 +16,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.lib.Reference;
 
 //Wow, the default vanilla implementation for BlockCrops sucks
@@ -40,7 +39,6 @@ public class BlockModCrop extends BlockCrops {
 		super();
 		this.setUnlocalizedName(name);
 		this.setRegistryName(Reference.MID, name);
-		GameRegistry.register(this);
 	}
 	
 	public BlockModCrop setSeeds(ItemStack seed) {

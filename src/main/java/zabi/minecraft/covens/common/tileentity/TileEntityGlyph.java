@@ -74,7 +74,7 @@ public class TileEntityGlyph extends TileEntityBase {
 	public void startRitual(EntityPlayer player) {
 		if (player.getEntityWorld().isRemote) return;
 		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos()).expand(3, 0, 3));
-		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getEntityItem()).collect(Collectors.toList());
+		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getItem()).collect(Collectors.toList());
 		for (Ritual rit:Ritual.REGISTRY) {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
 				if (rit.isValid(player, world, pos)) {

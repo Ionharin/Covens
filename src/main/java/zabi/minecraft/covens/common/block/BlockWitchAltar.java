@@ -22,12 +22,10 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
@@ -42,7 +40,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 		this.setHardness(2);
 		this.setCreativeTab(ModCreativeTabs.rituals);
 		this.setUnlocalizedName("witch_altar");
-		GameRegistry.register(this, new ResourceLocation(Reference.MID, "witch_altar"));
+		this.setRegistryName(Reference.MID, "witch_altar");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ALTAR_TYPE, AltarMultiblockType.UNFORMED).withProperty(COLOR, 16));
 	}
 	

@@ -36,8 +36,6 @@ public class Covens {
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
-		proxy.registerItemModels();
-		ModCreativeTabs.registerIcons();
 		ModTileEntities.registerAll();
 		VanillaRecipes.registerAll();
 		ModRituals.registerAll();

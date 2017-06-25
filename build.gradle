@@ -12,19 +12,18 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 
 version = "0.1-dev"
-group = "zabi.minecraft.covens" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "zabi.minecraft.covens"
 archivesBaseName = "covens"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
 minecraft {
-    version = "1.12-14.21.0.2344"
+    version = "1.12-14.21.0.2363"
     runDir = "run"
-    mappings = "snapshot_20170617"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    mappings = "snapshot_20170624"
 }
 
 dependencies {

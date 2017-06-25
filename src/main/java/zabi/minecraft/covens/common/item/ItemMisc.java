@@ -4,7 +4,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemMisc extends Item {
@@ -22,7 +21,6 @@ public class ItemMisc extends Item {
 		this.setCreativeTab(ModCreativeTabs.products);
 		this.setHasSubtypes(true);
 		this.setRegistryName(Reference.MID, "misc");
-		GameRegistry.register(this);
 	}
 	
 	@Override

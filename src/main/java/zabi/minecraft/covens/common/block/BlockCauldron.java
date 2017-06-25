@@ -13,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
@@ -27,7 +26,6 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 		this.setUnlocalizedName("cauldron");
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setRegistryName(Reference.MID, "cauldron");
-		GameRegistry.register(this);
 		this.setDefaultState(blockState.getBaseState().withProperty(FULL, false));
 		this.setHarvestLevel("pickaxe", 0);
 		this.setHardness(1);
@@ -65,9 +63,9 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 		if (entityIn instanceof EntityItem && worldIn.getTileEntity(pos)!=null) {
 			EntityItem ei = (EntityItem) entityIn;
 			TileEntityCauldron tec = (TileEntityCauldron) worldIn.getTileEntity(pos);
-			ItemStack remainder = tec.dropItem(ei.getEntityItem());
+			ItemStack remainder = tec.dropItem(ei.getItem());
 			if (remainder.isEmpty()) ei.setDead();
-			else ei.setEntityItemStack(remainder);
+			else ei.setItem(remainder);
 		}
 	}
 	

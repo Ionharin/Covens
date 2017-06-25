@@ -4,7 +4,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemFlowers extends Item {
@@ -16,7 +15,6 @@ public class ItemFlowers extends Item {
 		this.setRegistryName(Reference.MID, "flowers");
 		this.setHasSubtypes(true);
 		this.setCreativeTab(ModCreativeTabs.herbs);
-		GameRegistry.register(this);
 	}
 	
 	@Override

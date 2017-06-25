@@ -27,14 +27,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -58,7 +56,7 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 				);
 		this.setHardness(5);
 		this.setUnlocalizedName("magic_glyph");
-		GameRegistry.register(this, new ResourceLocation(Reference.MID, "magic_glyph"));
+		this.setRegistryName(Reference.MID, "magic_glyph");
 	}
 
 	@Override
@@ -139,9 +137,11 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
     }
     
     @Override
-    public BlockFaceShape func_193383_a(IBlockAccess world, IBlockState blockState, BlockPos pos, EnumFacing face) {
+    public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState blockState, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
+    
+    
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {

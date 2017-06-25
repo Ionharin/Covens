@@ -29,8 +29,8 @@ public class GuiChimney extends GuiContainer {
 				drawTexturedModalRect(guiLeft+51, guiTop+34, 176, 0, 16, 16);
 			}
 			String name = te.getName();
-			int left = (xSize-fontRendererObj.getStringWidth(name))/2;
-			fontRendererObj.drawString(name, this.guiLeft+left, this.guiTop+15, 3216909);
+			int left = (xSize-fontRenderer.getStringWidth(name))/2;
+			fontRenderer.drawString(name, this.guiLeft+left, this.guiTop+15, 3216909);
 		}
 	}
 

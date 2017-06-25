@@ -11,10 +11,8 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -25,7 +23,7 @@ public class ItemChalk extends Item {
 
 	public ItemChalk() {
 		this.setUnlocalizedName("chalk");
-		GameRegistry.register(this, new ResourceLocation(Reference.MID, "chalk"));
+		this.setRegistryName(Reference.MID, "chalk");
 		this.setMaxStackSize(1);
 		this.setNoRepair();
 		this.setHasSubtypes(true);

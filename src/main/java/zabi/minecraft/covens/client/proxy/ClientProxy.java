@@ -9,15 +9,24 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ItemFlowers;
 import zabi.minecraft.covens.common.item.ItemMisc;
+import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.proxy.Proxy;
 
+@Mod.EventBusSubscriber
 public class ClientProxy extends Proxy {
 	@Override
 	public void registerRenderingStuff() {
@@ -26,6 +35,7 @@ public class ClientProxy extends Proxy {
 
 	@Override
 	public void registerItemModels() {
+		Log.i("Registering models");
 		registerModel(ModItems.chalk, 0);
 		registerModel(ModItems.chalk, 1);
 		registerModel(ModItems.chalk, 2);
@@ -67,4 +77,11 @@ public class ClientProxy extends Proxy {
 			}
 		}, ModBlocks.glyphs);
 	}
+	
+	@SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void registerModels(ModelRegistryEvent event) {
+		Covens.proxy.registerItemModels();
+		ModCreativeTabs.registerIcons();
+    }
 }
