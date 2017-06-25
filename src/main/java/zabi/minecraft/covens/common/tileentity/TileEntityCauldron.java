@@ -13,6 +13,7 @@ public class TileEntityCauldron extends TileEntityBase {
 	
 	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>create();
 	private boolean hasItemsInside = false;
+	private AxisAlignedBB pickArea = null;
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
@@ -39,7 +40,8 @@ public class TileEntityCauldron extends TileEntityBase {
 
 	@Override
 	protected void tick() {
-		for (EntityItem entityIn:world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.up()))){
+		if (pickArea==null) pickArea = new AxisAlignedBB(pos.up()).contract(0, 0.8, 0);
+		for (EntityItem entityIn:world.getEntitiesWithinAABB(EntityItem.class, pickArea)) {
 			if (world.getTileEntity(pos)!=null && world.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {
 				EntityItem ei = (EntityItem) entityIn;
 				TileEntityCauldron tec = (TileEntityCauldron) world.getTileEntity(pos);
@@ -72,6 +74,10 @@ public class TileEntityCauldron extends TileEntityBase {
 		NBTTagCompound tag = super.getUpdateTag();
 		tag.removeTag("inv");//Don't need to know what items are inside on the client
 		return tag;
+	}
+	
+	public boolean canTakePotion() {
+		return hasItemsInside;
 	}
 
 }

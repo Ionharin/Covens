@@ -18,7 +18,7 @@ public class PotionDigester {
 		
 		int currentBaseDuration = 0;
 		Potion currentPotion = null;
-		int currentLength = 1;
+		int currentLengthModifier = 1;
 		int currentPower = 0;
 		int persistency = 0;
 		boolean isCurable = true;
@@ -28,8 +28,9 @@ public class PotionDigester {
 			if (items[read]!=null) {
 				if (CovensBrewIngredientRegistry.isNewPotionInitializer(items[read])) {
 					if (currentPotion!=null) {
-						CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength*currentBaseDuration, currentPower);
+						CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentBaseDuration, currentPower);
 						pe.setCurable(isCurable);
+						pe.setMultiplier(currentLengthModifier);
 						pe.setShowParticle(showParticles);
 						pe.setPersistency(persistency);
 						result.addEffectToBrew(pe);
@@ -40,14 +41,14 @@ public class PotionDigester {
 					}
 					currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
 					currentBaseDuration = CovensBrewIngredientRegistry.getDuration(items[read]);
-					currentLength = 1;
+					currentLengthModifier = 1;
 					currentPower = 0;
 					persistency = 0;
 					isCurable = true;
 					showParticles = true;
 				} else if (items[read].getItem().equals(Items.REDSTONE) && currentPotion!=null) {
-					currentLength++;
-					if (currentLength>5) currentLength=5;
+					currentLengthModifier++;
+					if (currentLengthModifier>5) currentLengthModifier=5;
 				} else if (items[read].getItem().equals(Items.GLOWSTONE_DUST) && currentPotion!=null) {
 					currentPower++;
 					if (currentPower>5) currentPower=5;
@@ -66,8 +67,9 @@ public class PotionDigester {
 			read++;
 		}
 		if (currentPotion!=null) {
-			CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength*currentBaseDuration, currentPower);
+			CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentBaseDuration, currentPower);
 			pe.setCurable(isCurable);
+			pe.setMultiplier(currentLengthModifier);
 			pe.setShowParticle(showParticles);
 			pe.setPersistency(persistency);
 			result.addEffectToBrew(pe);

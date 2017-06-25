@@ -3,6 +3,7 @@ itemGroup.covens.rituals=Covens - Rituali
 itemGroup.covens.herbs=Covens - Erbe
 itemGroup.covens.machines=Covens - Macchinari
 itemGroup.covens.products=Covens - Ingredienti
+itemGroup.covens.brews=Covens - Intrugli
 
 # Item names
 item.hellebore_seeds.name=Semi di elleboro
@@ -25,6 +26,10 @@ item.misc.acacia_essence.name=Essenza dell'acacia
 item.misc.spruce_heart.name=Cuore dell'abete
 item.misc.cloudy_oil.name=Olio rannuvolato
 item.eerie_seeds.name=Semi misteriosi
+item.brew_empty.name=Bottiglia per intrugli
+item.brew_full.name=Intruglio magico
+item.brew_spoiled.name=Intruglio rovinato
+item.brew.spoiled=Meglio non berlo
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -43,3 +48,7 @@ ritual.covens.test.name=Rituale di test
 ritual.covens.highmoon.name=Rituale della luna di fuoco
 ritual.covens.timesand.name=Rituale delle sabbie del tempo
 ritual.covens.perception.name=Rituale della percezione
+
+# Fix vanilla
+potion.potency.4=IV
+potion.potency.5=V

@@ -11,6 +11,7 @@ import net.minecraft.potion.PotionEffect;
 public class CovenPotionEffect {
 	private String potion = "";
 	private int length = 0;
+	private float multiplier = 1;
 	private int strength = 0;
 	private int persistency = 0;
 	private boolean showParticle = true;
@@ -28,7 +29,7 @@ public class CovenPotionEffect {
 	}
 	
 	public PotionEffect getPotionEffect() {
-		PotionEffect pe = new PotionEffect(Potion.getPotionFromResourceLocation(potion), length, strength, isAmbient, showParticle);
+		PotionEffect pe = new PotionEffect(Potion.getPotionFromResourceLocation(potion), (int) (length*multiplier), strength, isAmbient, showParticle);
 		if (isCurable) pe.setCurativeItems(Collections.singletonList(new ItemStack(Items.MILK_BUCKET)));
 		else pe.setCurativeItems(Collections.<ItemStack>emptyList());
 		return pe;
@@ -90,6 +91,14 @@ public class CovenPotionEffect {
 		cpe.isAmbient = tag.getBoolean("isAmbient");
 		cpe.isCurable = tag.getBoolean("isCurable");
 		return cpe;
+	}
+
+	public float getMultiplier() {
+		return multiplier;
+	}
+
+	public void setMultiplier(float multiplier) {
+		this.multiplier = multiplier;
 	}
 	
 }

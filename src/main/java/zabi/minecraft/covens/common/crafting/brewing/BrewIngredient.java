@@ -56,10 +56,22 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		
 		IForgeRegistry<BrewIngredient> reg = evt.getRegistry();
 		
-		BrewIngredient healingPot = new BrewIngredient(Items.GOLDEN_APPLE, MobEffects.REGENERATION, PotionTypes.REGENERATION.getEffects().get(0).getDuration());
-		healingPot.setRegistryName(Reference.MID, "healing");
-
-		reg.registerAll(healingPot);
+		BrewIngredient healing = new BrewIngredient(Items.GOLDEN_APPLE, MobEffects.REGENERATION, PotionTypes.REGENERATION.getEffects().get(0).getDuration());
+		healing.setRegistryName(Reference.MID, "healing");
+		
+		BrewIngredient speedPot = new BrewIngredient(Items.SUGAR, MobEffects.SPEED, PotionTypes.SWIFTNESS.getEffects().get(0).getDuration());
+		speedPot.setRegistryName(Reference.MID, "speed");
+		
+		BrewIngredient jump = new BrewIngredient(Items.RABBIT_FOOT, MobEffects.JUMP_BOOST, PotionTypes.LEAPING.getEffects().get(0).getDuration());
+		jump.setRegistryName(Reference.MID, "jump");
+		
+		BrewIngredient fireRes = new BrewIngredient(Items.MAGMA_CREAM, MobEffects.FIRE_RESISTANCE, PotionTypes.FIRE_RESISTANCE.getEffects().get(0).getDuration());
+		fireRes.setRegistryName(Reference.MID, "fire_resistance");
+		
+		BrewIngredient nightVis = new BrewIngredient(Items.GOLDEN_CARROT, MobEffects.NIGHT_VISION, PotionTypes.NIGHT_VISION.getEffects().get(0).getDuration());
+		nightVis.setRegistryName(Reference.MID, "night_vision");
+		
+		reg.registerAll(healing, speedPot, jump, fireRes, nightVis);
 	}
 	
 }

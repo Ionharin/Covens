@@ -1,7 +1,5 @@
 package zabi.minecraft.covens.common.block;
 
-import java.util.Collections;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.EnumPushReaction;
@@ -12,18 +10,18 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.PotionUtils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.crafting.brewing.BrewData;
 import zabi.minecraft.covens.common.crafting.brewing.CovenPotionEffect;
+import zabi.minecraft.covens.common.item.ItemBrew;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
-import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
 
@@ -75,15 +73,20 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND && worldIn.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {//Check if full too
-			if (playerIn.getHeldItem(hand).getItem().equals(Items.GLASS_BOTTLE)) {
+			if (playerIn.getHeldItem(hand).getItem().equals(ModItems.brew) && playerIn.getHeldItem(hand).getMetadata()==0) {
 				TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
-				ItemStack stack = new ItemStack(Items.POTIONITEM);
-				for (CovenPotionEffect cpe:cauldron.getResult().getEffects()) PotionUtils.appendEffects(stack, Collections.singleton(cpe.getPotionEffect()));
-				worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack));
+				if (!cauldron.canTakePotion()) return false;
+				BrewData data = cauldron.getResult();
+				NonNullList<CovenPotionEffect> list = data.getEffects();
+				if (!playerIn.isCreative()) playerIn.getHeldItem(hand).setCount(playerIn.getHeldItem(hand).getCount()-1);
+				if (list.isEmpty()) {
+					worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, new ItemStack(ModItems.brew,1,1)));
+					return true;
+				}
+				worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, ItemBrew.getBrewStackWithData(data)));
 				return true;
 			}
 		}
-		Log.i(worldIn.getTileEntity(pos).writeToNBT(new NBTTagCompound()));
 		return false;
 	}
 }

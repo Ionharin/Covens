@@ -13,13 +13,14 @@ public class ModCreativeTabs extends CreativeTabs {
 		super(Reference.MID+"."+label);
 	}
 
-	public static ModCreativeTabs herbs, rituals, machines, products;
+	public static ModCreativeTabs herbs, rituals, machines, products, brews;
 	
 	public static void registerTabs() {
 		herbs = new ModCreativeTabs("herbs");
 		rituals = new ModCreativeTabs("rituals");
 		machines = new ModCreativeTabs("machines");
 		products = new ModCreativeTabs("products");
+		brews = new ModCreativeTabs("brews");
 	}
 	
 	public static void registerIcons() {
@@ -27,6 +28,7 @@ public class ModCreativeTabs extends CreativeTabs {
 		rituals.setTabIconItem(new ItemStack(ModItems.chalk,1,1));
 		machines.setTabIconItem(new ItemStack(ModBlocks.chimney));
 		products.setTabIconItem(new ItemStack(ModItems.misc));
+		brews.setTabIconItem(new ItemStack(ModItems.brew));
 	}
 
 	@Override

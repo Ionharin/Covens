@@ -3,6 +3,7 @@ itemGroup.covens.rituals=Covens - Rituals
 itemGroup.covens.herbs=Covens - Herbs
 itemGroup.covens.machines=Covens - Machines
 itemGroup.covens.products=Covens - Ingredients
+itemGroup.covens.brews=Covens - Brews
 
 # Item names
 item.hellebore_seeds.name=Hellebore Seeds
@@ -25,6 +26,10 @@ item.misc.acacia_essence.name=Acacia Essence
 item.misc.spruce_heart.name=Spruce Heart
 item.misc.cloudy_oil.name=Cloudy Oil
 item.eerie_seeds.name=Mysterious Seeds
+item.brew_empty.name=Brew bottle
+item.brew_full.name=Magic Brew
+item.brew_spoiled.name=Spoiled Brew
+item.brew.spoiled=Better not drink this
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -43,3 +48,7 @@ ritual.covens.test.name=Test Ritual
 ritual.covens.highmoon.name=Ritual of the High Moon
 ritual.covens.timesand.name=Ritual of the Sands of Time
 ritual.covens.perception.name=Ritual of Perception
+
+# Fix vanilla
+potion.potency.4=IV
+potion.potency.5=V

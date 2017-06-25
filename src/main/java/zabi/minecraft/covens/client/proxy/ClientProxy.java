@@ -5,7 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -19,6 +22,7 @@ import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.item.ItemBrew;
 import zabi.minecraft.covens.common.item.ItemFlowers;
 import zabi.minecraft.covens.common.item.ItemMisc;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
@@ -30,7 +34,7 @@ public class ClientProxy extends Proxy {
 	
 	@Override
 	public void registerRenderingStuff() {
-		registerBlockColors();
+		registerColors();
 	}
 	
 	@Override
@@ -47,6 +51,9 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chalk, 3);
 		registerModel(ModItems.altar, 0);
 		registerModel(ModItems.chimney, 0);
+		registerModel(ModItems.brew, 0);
+		registerModel(ModItems.brew, 1);
+		registerModel(ModItems.brew, 2);
 		registerModel(ModItems.eerie_seeds, 0);
 		registerModel(ModItems.helleboreSeeds, 0);
 		registerModel(ModItems.aconitumSeeds, 0);
@@ -62,8 +69,9 @@ public class ClientProxy extends Proxy {
 		ModelLoader.setCustomModelResourceLocation(item, meta, mrl);
 	}
 
-	private void registerBlockColors() {
+	private void registerColors() {
 		BlockColors bc = Minecraft.getMinecraft().getBlockColors();
+		ItemColors ic = Minecraft.getMinecraft().getItemColors();
 		bc.registerBlockColorHandler(new IBlockColor() {
 			@Override
 			public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
@@ -81,6 +89,15 @@ public class ClientProxy extends Proxy {
 				}
 			}
 		}, ModBlocks.glyphs);
+		
+		ic.registerItemColorHandler(new IItemColor() {
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				if (tintIndex==0) return ItemBrew.getPotionColor(stack);
+				return -1;
+			}
+		}, ModItems.brew);
+		
 	}
 	
 	@SubscribeEvent

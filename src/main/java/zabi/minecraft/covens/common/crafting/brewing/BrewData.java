@@ -27,7 +27,7 @@ public class BrewData {
 		return tag;
 	}
 	
-	public void readFromNBT(NBTTagCompound tag) {
+	public BrewData readFromNBT(NBTTagCompound tag) {
 		color = tag.getInteger("color");
 		for (String tagname:tag.getKeySet()) {
 			if (tagname.startsWith("pot")) {
@@ -35,10 +35,15 @@ public class BrewData {
 				brewEffects.add(cpe);
 			}
 		}
+		return this;
 	}
 	
 	public NonNullList<CovenPotionEffect> getEffects() {
 		return brewEffects;
+	}
+	
+	public int getColor() {
+		return color;
 	}
 	
 }

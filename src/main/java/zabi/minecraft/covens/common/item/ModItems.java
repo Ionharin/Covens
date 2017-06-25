@@ -20,6 +20,7 @@ public class ModItems {
 	public static ItemBlock altar,chimney,cauldron;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemFlowers flowers;
+	public static ItemBrew brew;
 	public static ItemMisc misc;
 	public static ItemEerieSeeds eerie_seeds;
 	
@@ -31,6 +32,7 @@ public class ModItems {
 		cauldron = new ItemBlock(ModBlocks.cauldron);
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
+		brew = new ItemBrew();
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
 		cauldron.setRegistryName(ModBlocks.cauldron.getRegistryName());
@@ -66,7 +68,7 @@ public class ModItems {
 		Log.i("Registering items for "+Reference.NAME);
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
-				flowers, misc, eerie_seeds
+				flowers, misc, eerie_seeds, brew
 				);
 	}
 }
