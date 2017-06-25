@@ -1,31 +1,30 @@
 package zabi.minecraft.covens.common.tileentity;
 
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
+import zabi.minecraft.covens.common.crafting.brewing.BrewData;
+import zabi.minecraft.covens.common.crafting.brewing.PotionDigester;
 
 public class TileEntityCauldron extends TileEntityBase {
 	
-	private static final int BREW_TIME = 200;
-	
-	private int work = 0;
-	private String recipe = "";
 	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>create();
+	private boolean hasItemsInside = false;
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
-		work = tag.getInteger("work");
 		NBTTagCompound inv = tag.getCompoundTag("inv");
 		for (String s:inv.getKeySet()) {
 			stacks.set(Integer.parseInt(s), new ItemStack(inv.getCompoundTag(s)));
 		}
-		recipe = tag.getString("recipe");
+		hasItemsInside = tag.getBoolean("hasItems");
 	}
 
 	@Override
 	protected void NBTSave(NBTTagCompound tag) {
-		tag.setInteger("work", work);
 		NBTTagCompound inv = new NBTTagCompound();
 		int i = 0;
 		for (ItemStack s:stacks) {
@@ -35,39 +34,44 @@ public class TileEntityCauldron extends TileEntityBase {
 			i++;
 		}
 		tag.setTag("inv", inv);
-		tag.setString("recipe", recipe);
+		tag.setBoolean("hasItems", hasItemsInside);
 	}
 
 	@Override
 	protected void tick() {
-		if (!recipe.equals("") && work<BREW_TIME) work++;
+		for (EntityItem entityIn:world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.up()))){
+			if (world.getTileEntity(pos)!=null && world.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {
+				EntityItem ei = (EntityItem) entityIn;
+				TileEntityCauldron tec = (TileEntityCauldron) world.getTileEntity(pos);
+				tec.dropItem(ei.getItem());
+				ei.setDead();
+			}
+		}
 	}	
 	
-	public boolean isPotionReady() {
-		return work>=BREW_TIME;
+	public BrewData getResult() {
+		BrewData data = PotionDigester.digestPotion(stacks);
+		stacks = NonNullList.<ItemStack>create();
+		hasItemsInside = false;
+		return data;
+	}
+
+	public void dropItem(ItemStack stack) {
+		if (!stack.isEmpty()) {
+			hasItemsInside=true;
+			for (int i=0;i<stack.getCount();i++) { //Split stacks bigger than 1 in multiple stacks
+				ItemStack drop = new ItemStack(stack.getItem(), 1, stack.getMetadata());
+				drop.setTagCompound(drop.getTagCompound());
+				stacks.add(drop);
+			}
+		}
 	}
 	
-	public Potion getResult() {
-		Potion pot = getPotionFromRecipe();
-		work=0;
-		recipe="";
-		return pot;
-	}
-
-	private Potion getPotionFromRecipe() {
-		return null;
-	}
-
-	//Returns the remaining stack
-	public ItemStack dropItem(ItemStack stack) {
-		if (!recipe.equals("")) return stack;
-		if (!stack.isEmpty()) stacks.add(stack);
-		recipe = getRecipeFor(stacks);
-		return ItemStack.EMPTY.copy();
-	}
-
-	private String getRecipeFor(NonNullList<ItemStack> stacklist) {
-		return "";
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound tag = super.getUpdateTag();
+		tag.removeTag("inv");//Don't need to know what items are inside on the client
+		return tag;
 	}
 
 }

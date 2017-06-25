@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.NonNullList;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.lib.Log;
 
 public class PotionDigester {
 	public static BrewData digestPotion(NonNullList<ItemStack> stacks) {
@@ -12,57 +13,60 @@ public class PotionDigester {
 		stacks.toArray(items);
 		BrewData result = new BrewData();
 		int effectSize = getEffectSize(items);
+		Log.i(effectSize+" effects");
 		int read = 0;
 		
+		int currentBaseDuration = 0;
 		Potion currentPotion = null;
-		int currentLength = 0;
+		int currentLength = 1;
 		int currentPower = 0;
 		int persistency = 0;
 		boolean isCurable = true;
 		boolean showParticles = true;
 		
-		while (read<=items.length) {
-			if (items[read]==null) {
-				read++;
-				continue;
-			}
-			if (CovensBrewIngredientRegistry.isNewPotionInitializer(items[read])) {
-				if (currentPotion!=null) {
-					CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength, currentPower);
-					pe.setCurable(isCurable);
-					pe.setShowParticle(showParticles);
-					pe.setPersistency(persistency);
-					result.addEffectToBrew(pe);
-					if (result.getEffects().size()>=effectSize) { //RuinedPotion
-						return new BrewData();
+		while (read<items.length) {
+			if (items[read]!=null) {
+				if (CovensBrewIngredientRegistry.isNewPotionInitializer(items[read])) {
+					if (currentPotion!=null) {
+						CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength*currentBaseDuration, currentPower);
+						pe.setCurable(isCurable);
+						pe.setShowParticle(showParticles);
+						pe.setPersistency(persistency);
+						result.addEffectToBrew(pe);
+						if (result.getEffects().size()>=effectSize) { //RuinedPotion
+							Log.i("Too Many effects");
+							return new BrewData();
+						}
 					}
+					currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
+					currentBaseDuration = CovensBrewIngredientRegistry.getDuration(items[read]);
+					currentLength = 1;
+					currentPower = 0;
+					persistency = 0;
+					isCurable = true;
+					showParticles = true;
+				} else if (items[read].getItem().equals(Items.REDSTONE) && currentPotion!=null) {
+					currentLength++;
+					if (currentLength>5) currentLength=5;
+				} else if (items[read].getItem().equals(Items.GLOWSTONE_DUST) && currentPotion!=null) {
+					currentPower++;
+					if (currentPower>5) currentPower=5;
+				} else if (items[read].getItem().equals(Items.GUNPOWDER) && currentPotion!=null) {
+					persistency++;
+					if (persistency>5) persistency=5;
+				} else if (items[read].getItem().equals(Items.DIAMOND) && currentPotion!=null) {
+					showParticles = false;
+				} else if (items[read].getItem().equals(ModItems.flowers) && items[read].getMetadata()==3 && currentPotion!=null) { //Chrysanthemum
+					isCurable = false;
+				} else {
+					Log.i("Unrecognized Item: "+items[read]);
+					return new BrewData(); //Unrecognized Item, ruined potion
 				}
-				currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
-				currentLength = 0;
-				currentPower = 0;
-				persistency = 0;
-				isCurable = true;
-				showParticles = true;
-			} else if (items[read].getItem().equals(Items.REDSTONE)) {
-				currentLength++;
-				if (currentLength>5) currentLength=5;
-			} else if (items[read].getItem().equals(Items.GLOWSTONE_DUST)) {
-				currentPower++;
-				if (currentPower>5) currentPower=5;
-			} else if (items[read].getItem().equals(Items.GUNPOWDER)) {
-				persistency++;
-				if (persistency>5) persistency=5;
-			} else if (items[read].getItem().equals(Items.DIAMOND)) {
-				showParticles = false;
-			} else if (items[read].getItem().equals(ModItems.flowers) && items[read].getMetadata()==3) { //Chrysanthemum
-				isCurable = false;
-			} else {
-				return new BrewData(); //Unrecognized Item
 			}
 			read++;
 		}
 		if (currentPotion!=null) {
-			CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength, currentPower);
+			CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentLength*currentBaseDuration, currentPower);
 			pe.setCurable(isCurable);
 			pe.setShowParticle(showParticles);
 			pe.setPersistency(persistency);
@@ -91,6 +95,8 @@ public class PotionDigester {
 				catalysts[3]=true;
 				items[i]=null;
 				effectSize+=8;
+			} else {
+				return effectSize; //first invalid length modifier: start recipe digestion
 			}
 		}
 		return effectSize;
