@@ -24,6 +24,7 @@ item.misc.birch_soul.name=Anima del pioppo
 item.misc.acacia_essence.name=Essenza dell'acacia
 item.misc.spruce_heart.name=Cuore dell'abete
 item.misc.cloudy_oil.name=Olio rannuvolato
+item.eerie_seeds.name=Semi misteriosi
 
 # Block names
 tile.witch_altar.name=Altare delle streghe

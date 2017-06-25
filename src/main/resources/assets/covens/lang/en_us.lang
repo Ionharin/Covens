@@ -24,6 +24,7 @@ item.misc.birch_soul.name=Birch Soul
 item.misc.acacia_essence.name=Acacia Essence
 item.misc.spruce_heart.name=Spruce Heart
 item.misc.cloudy_oil.name=Cloudy Oil
+item.eerie_seeds.name=Mysterious Seeds
 
 # Block names
 tile.witch_altar.name=Witch Altar
