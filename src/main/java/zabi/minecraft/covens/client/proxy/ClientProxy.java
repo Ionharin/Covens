@@ -54,6 +54,9 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.brew, 0);
 		registerModel(ModItems.brew, 1);
 		registerModel(ModItems.brew, 2);
+		registerModel(ModItems.waystone, 0);
+		registerModel(ModItems.waystone, 1);
+		registerModel(ModItems.waystone, 2);
 		registerModel(ModItems.eerie_seeds, 0);
 		registerModel(ModItems.helleboreSeeds, 0);
 		registerModel(ModItems.aconitumSeeds, 0);

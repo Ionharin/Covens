@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
@@ -43,7 +44,7 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		if (input.size()==0) throw new IllegalArgumentException("Cannot have an empty input in a ritual");
 	}
 	
-	public boolean isValid(EntityPlayer player, World world, BlockPos pos) {
+	public boolean isValid(EntityPlayer player, World world, BlockPos pos, List<ItemStack> recipe) {
 		return true;
 	}
 	
@@ -64,7 +65,10 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	}
 	
 	public boolean isValidInput(List<ItemStack> recipe, boolean circles) {
-		if (recipe.size()!=input.size()) return false;
+		if (recipe.size()!=input.size()) {
+			Log.d("input size mismatch for "+this.getRegistryName());
+			return false;
+		}
 		for (ItemStack is_recipe:input) {
 			boolean found = false;
 			for (ItemStack is_present:recipe){
@@ -73,7 +77,10 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 					continue;
 				}
 			}
-			if (!found) return false;
+			if (!found) {
+				Log.d(this.getRegistryName()+" -> not found: "+is_recipe.getItem().getRegistryName()+":"+is_recipe.getMetadata());
+				return false;
+			}
 		}
 		return circles;
 	}

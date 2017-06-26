@@ -30,6 +30,8 @@ item.brew_empty.name=Brew bottle
 item.brew_full.name=Magic Brew
 item.brew_spoiled.name=Spoiled Brew
 item.brew.spoiled=Better not drink this
+item.egress_stone.name=Cardinal Stone
+item.egress_stone.bound_to=Bound to (%d %d %d)
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -48,6 +50,7 @@ ritual.covens.test.name=Test Ritual
 ritual.covens.highmoon.name=Ritual of the High Moon
 ritual.covens.timesand.name=Ritual of the Sands of Time
 ritual.covens.perception.name=Ritual of Perception
+ritual.covens.ender_gate.name=End Gate Ritual
 
 # Fix vanilla
 potion.potency.4=IV

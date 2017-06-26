@@ -30,6 +30,8 @@ item.brew_empty.name=Bottiglia per intrugli
 item.brew_full.name=Intruglio magico
 item.brew_spoiled.name=Intruglio rovinato
 item.brew.spoiled=Meglio non berlo
+item.egress_stone.name=Pietra cardinale
+item.egress_stone.bound_to=Allacciata a (%d %d %d)
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -48,6 +50,7 @@ ritual.covens.test.name=Rituale di test
 ritual.covens.highmoon.name=Rituale della luna di fuoco
 ritual.covens.timesand.name=Rituale delle sabbie del tempo
 ritual.covens.perception.name=Rituale della percezione
+ritual.covens.ender_gate.name=Rituale delle porte della fine
 
 # Fix vanilla
 potion.potency.4=IV

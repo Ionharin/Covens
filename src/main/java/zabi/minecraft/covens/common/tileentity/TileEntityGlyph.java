@@ -46,7 +46,7 @@ public class TileEntityGlyph extends TileEntityBase {
 
 	@Override
 	protected void tick() {
-		if (ritual!=null && entityPlayer!=null) {
+		if (ritual!=null) {
 			EntityPlayer player = getWorld().getPlayerEntityByUUID(entityPlayer);
 			boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
 			if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
@@ -77,7 +77,7 @@ public class TileEntityGlyph extends TileEntityBase {
 		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getItem()).collect(Collectors.toList());
 		for (Ritual rit:Ritual.REGISTRY) {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
-				if (rit.isValid(player, world, pos)) {
+				if (rit.isValid(player, world, pos, recipe)) {
 					if (consumePower(rit.getRequiredStartingPower())) {
 						this.ritualData = new NBTTagCompound();
 						NBTTagCompound itemsUsed = new NBTTagCompound();
@@ -107,6 +107,8 @@ public class TileEntityGlyph extends TileEntityBase {
 					return;
 				}
 
+			} else {
+				Log.d("invalid input for "+rit.getRegistryName());
 			}
 		}
 		player.sendStatusMessage(new TextComponentTranslation("ritual.failure.unknown", new Object[0]), true);

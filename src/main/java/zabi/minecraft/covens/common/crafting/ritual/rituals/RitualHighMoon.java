@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.crafting.ritual.rituals;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +22,7 @@ public class RitualHighMoon extends Ritual {
 	}
 	
 	@Override
-	public boolean isValid(EntityPlayer player, World world, BlockPos pos) {
+	public boolean isValid(EntityPlayer player, World world, BlockPos pos, List<ItemStack> recipe) {
 		return world.isDaytime();
 	}
 
