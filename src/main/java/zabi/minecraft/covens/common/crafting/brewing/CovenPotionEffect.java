@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.crafting.brewing;
 
 import java.util.Collections;
+import java.util.HashMap;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -9,6 +10,9 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
 public class CovenPotionEffect {
+	
+	public static final HashMap<String, Integer> map = new HashMap<String, Integer>();
+	
 	private String potion = "";
 	private int length = 0;
 	private float multiplier = 1;
@@ -18,9 +22,7 @@ public class CovenPotionEffect {
 	private boolean isAmbient = true;
 	private boolean isCurable = true;
 	
-	private CovenPotionEffect() {
-		
-	}
+	private CovenPotionEffect() {}
 	
 	public CovenPotionEffect(Potion potion, int duration, int level) {
 		this.potion = potion.getRegistryName().toString();
@@ -47,7 +49,11 @@ public class CovenPotionEffect {
 	public boolean isCurable() {
 		return isCurable;
 	}
-
+	
+	public int getStrength() {
+		return strength;
+	}
+	
 	public CovenPotionEffect setCurable(boolean isCurable) {
 		this.isCurable = isCurable;
 		return this;
@@ -101,6 +107,14 @@ public class CovenPotionEffect {
 
 	public void setMultiplier(float newMultiplier) {
 		this.multiplier = newMultiplier;
+	}
+
+	public int getBaseCost() {
+		return potion!=null && map.containsKey(potion) ? map.get(potion) : 200;
+	}
+	
+	static {
+		map.put("extraalchemy:cheat_death", 1000); //Example
 	}
 	
 }

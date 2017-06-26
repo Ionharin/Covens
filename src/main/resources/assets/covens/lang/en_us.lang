@@ -52,6 +52,11 @@ ritual.covens.timesand.name=Ritual of the Sands of Time
 ritual.covens.perception.name=Ritual of Perception
 ritual.covens.ender_gate.name=End Gate Ritual
 
-# Fix vanilla
+# Fix vanilla - No need to copy this section in translations
+potion.potency.3=III
 potion.potency.4=IV
 potion.potency.5=V
+
+# Misc
+brew.failure.power=Your magic source is weak (%d)
+brew.success.power=Your need %d altar power

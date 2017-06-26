@@ -52,6 +52,6 @@ ritual.covens.timesand.name=Rituale delle sabbie del tempo
 ritual.covens.perception.name=Rituale della percezione
 ritual.covens.ender_gate.name=Rituale delle porte della fine
 
-# Fix vanilla
-potion.potency.4=IV
-potion.potency.5=V
+# Misc
+brew.failure.power=La tua magia e' troppo debole (%d)
+brew.success.power=Ti serve una carica di %d dal tuo altare

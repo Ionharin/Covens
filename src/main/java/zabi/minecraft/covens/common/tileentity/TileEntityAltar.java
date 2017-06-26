@@ -121,6 +121,8 @@ public class TileEntityAltar extends TileEntityBase {
 					return 2;
 				}
 			}
+		} else if (blockState.getBlock().equals(Blocks.DIAMOND_BLOCK)) {
+			return 30;
 		}
 		return 0;
 	}

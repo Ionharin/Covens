@@ -16,6 +16,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.crafting.brewing.BrewData;
 import zabi.minecraft.covens.common.crafting.brewing.CovenPotionEffect;
@@ -75,8 +76,14 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND && worldIn.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {//Check if full too
 			if (playerIn.getHeldItem(hand).getItem().equals(ModItems.brew) && playerIn.getHeldItem(hand).getMetadata()==0) {
 				TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
-				if (!cauldron.canTakePotion()) return false;
-				BrewData data = cauldron.getResult();
+				if (!cauldron.canTakePotion()) {
+					int cost = cauldron.getResult(false).getCost();
+					if (!cauldron.consumePower(cost)) {
+						playerIn.sendStatusMessage(new TextComponentTranslation("brew.failure.power", cost), true);
+					}
+					return false;
+				}
+				BrewData data = cauldron.getResult(true); //TODO make it dependent on player level instead of always true
 				NonNullList<CovenPotionEffect> list = data.getEffects();
 				if (!playerIn.isCreative()) playerIn.getHeldItem(hand).setCount(playerIn.getHeldItem(hand).getCount()-1);
 				if (list.isEmpty()) {
@@ -85,6 +92,12 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 				}
 				worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, ItemBrew.getBrewStackWithData(data)));
 				return true;
+			} else if (playerIn.getHeldItem(hand).isEmpty()) {
+				TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
+				if (cauldron.getHasItems()) {
+					int cost = cauldron.getResult(false).getCost();
+					playerIn.sendStatusMessage(new TextComponentTranslation("brew.success.power", cost), true);
+				}
 			}
 		}
 		return false;

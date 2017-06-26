@@ -48,5 +48,15 @@ public class BrewData {
 	public int getColor() {
 		return color;
 	}
+
+	public int getCost() {
+		int cost = Math.min(40*(1<<brewEffects.size()),200);
+		for (CovenPotionEffect pe:brewEffects) {
+			int powerCost = (pe.getStrength()*pe.getStrength()/2)+1;
+			int addedCost = (int) (powerCost*pe.getMultiplier()*pe.getBaseCost());
+			cost += addedCost;
+		}
+		return cost;
+	}
 	
 }
