@@ -79,7 +79,13 @@ public class TileEntityGlyph extends TileEntityBase {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
 				if (rit.isValid(player, world, pos)) {
 					if (consumePower(rit.getRequiredStartingPower())) {
+						this.ritualData = new NBTTagCompound();
+						NBTTagCompound itemsUsed = new NBTTagCompound();
+						ritualData.setTag("itemsUsed", itemsUsed);
 						itemsOnGround.forEach(ei -> {
+							NBTTagCompound item = new NBTTagCompound();
+							ei.getItem().writeToNBT(item);
+							ritualData.getCompoundTag("itemsUsed").setTag("item"+ritualData.getCompoundTag("itemsUsed").getKeySet().size(), item);
 							ei.setInfinitePickupDelay();
 							ei.setDead();
 						});
@@ -168,6 +174,7 @@ public class TileEntityGlyph extends TileEntityBase {
 			entityPlayer = null;
 			cooldown = 0;
 			ritual = null;
+			ritualData=null;
 		}
 	}
 	
