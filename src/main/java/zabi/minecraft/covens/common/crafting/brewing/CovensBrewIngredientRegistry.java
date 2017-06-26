@@ -1,7 +1,6 @@
 package zabi.minecraft.covens.common.crafting.brewing;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 
 public class CovensBrewIngredientRegistry {
 	
@@ -12,9 +11,9 @@ public class CovensBrewIngredientRegistry {
 		return false;
 	}
 	
-	public static Potion getPotion(ItemStack is) {
+	public static BrewIngredient getPotion(ItemStack is) {
 		for (BrewIngredient bi:BrewIngredient.REGISTRY) {
-			if (bi.isValid(is)) return bi.getResult();
+			if (bi.isValid(is)) return bi;
 		}
 		return null;
 	}

@@ -77,6 +77,7 @@ public class CovenPotionEffect {
 		tag.setBoolean("showParticle", showParticle);
 		tag.setBoolean("isAmbient", isAmbient);
 		tag.setBoolean("isCurable", isCurable);
+		tag.setFloat("multiplier", multiplier);
 		return tag;
 	}
 	
@@ -90,6 +91,7 @@ public class CovenPotionEffect {
 		cpe.showParticle = tag.getBoolean("showParticle");
 		cpe.isAmbient = tag.getBoolean("isAmbient");
 		cpe.isCurable = tag.getBoolean("isCurable");
+		cpe.setMultiplier(tag.getFloat("multiplier"));
 		return cpe;
 	}
 
@@ -97,8 +99,8 @@ public class CovenPotionEffect {
 		return multiplier;
 	}
 
-	public void setMultiplier(float multiplier) {
-		this.multiplier = multiplier;
+	public void setMultiplier(float newMultiplier) {
+		this.multiplier = newMultiplier;
 	}
 	
 }

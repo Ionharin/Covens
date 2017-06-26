@@ -2,10 +2,8 @@ package zabi.minecraft.covens.common.crafting.brewing;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.NonNullList;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
 
 public class PotionDigester {
 	public static BrewData digestPotion(NonNullList<ItemStack> stacks) {
@@ -13,42 +11,42 @@ public class PotionDigester {
 		stacks.toArray(items);
 		BrewData result = new BrewData();
 		int effectSize = getEffectSize(items);
-		Log.i(effectSize+" effects");
 		int read = 0;
 		
 		int currentBaseDuration = 0;
-		Potion currentPotion = null;
-		int currentLengthModifier = 1;
+		BrewIngredient currentPotion = null;
+		float currentLengthModifier = 1;
 		int currentPower = 0;
 		int persistency = 0;
 		boolean isCurable = true;
 		boolean showParticles = true;
+		boolean getOpposite = false;
 		
 		while (read<items.length) {
 			if (items[read]!=null) {
 				if (CovensBrewIngredientRegistry.isNewPotionInitializer(items[read])) {
 					if (currentPotion!=null) {
-						CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentBaseDuration, currentPower);
+						CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), currentBaseDuration, currentPower);
 						pe.setCurable(isCurable);
 						pe.setMultiplier(currentLengthModifier);
 						pe.setShowParticle(showParticles);
 						pe.setPersistency(persistency);
 						result.addEffectToBrew(pe);
 						if (result.getEffects().size()>=effectSize) { //RuinedPotion
-							Log.i("Too Many effects");
 							return new BrewData();
 						}
 					}
 					currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
 					currentBaseDuration = CovensBrewIngredientRegistry.getDuration(items[read]);
-					currentLengthModifier = 1;
+					currentLengthModifier = 1f;
 					currentPower = 0;
 					persistency = 0;
+					getOpposite = false;
 					isCurable = true;
 					showParticles = true;
 				} else if (items[read].getItem().equals(Items.REDSTONE) && currentPotion!=null) {
-					currentLengthModifier++;
-					if (currentLengthModifier>5) currentLengthModifier=5;
+					currentLengthModifier+=0.4;
+					if (currentLengthModifier>3) currentLengthModifier=3;
 				} else if (items[read].getItem().equals(Items.GLOWSTONE_DUST) && currentPotion!=null) {
 					currentPower++;
 					if (currentPower>5) currentPower=5;
@@ -59,15 +57,19 @@ public class PotionDigester {
 					showParticles = false;
 				} else if (items[read].getItem().equals(ModItems.flowers) && items[read].getMetadata()==3 && currentPotion!=null) { //Chrysanthemum
 					isCurable = false;
+				} else if (items[read].getItem().equals(Items.FERMENTED_SPIDER_EYE) && currentPotion!=null && !getOpposite) {
+					if (currentPotion.getOpposite()==null) {
+						return new BrewData(); //No opposite exists
+					}
+					getOpposite = true;
 				} else {
-					Log.i("Unrecognized Item: "+items[read]);
 					return new BrewData(); //Unrecognized Item, ruined potion
 				}
 			}
 			read++;
 		}
 		if (currentPotion!=null) {
-			CovenPotionEffect pe = new CovenPotionEffect(currentPotion, currentBaseDuration, currentPower);
+			CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), currentBaseDuration, currentPower);
 			pe.setCurable(isCurable);
 			pe.setMultiplier(currentLengthModifier);
 			pe.setShowParticle(showParticles);

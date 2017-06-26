@@ -1,11 +1,14 @@
 package zabi.minecraft.covens.common.crafting.brewing;
 
+import java.util.stream.Collectors;
+
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
 
 public class BrewData {
 	private NonNullList<CovenPotionEffect> brewEffects = NonNullList.<CovenPotionEffect>create();
-	private int color = 0x999999; //gray
+	private int color = 0x000000;
 	
 	public void addEffectToBrew(CovenPotionEffect potionEffect) {
 		brewEffects.add(potionEffect);
@@ -13,7 +16,7 @@ public class BrewData {
 	}
 	
 	private void recalculateColor() {
-		
+		color = PotionUtils.getPotionColorFromEffectList(brewEffects.stream().map(cpe -> cpe.getPotionEffect()).collect(Collectors.toList()));
 	}
 
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
