@@ -51,6 +51,7 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chalk, 3);
 		registerModel(ModItems.altar, 0);
 		registerModel(ModItems.chimney, 0);
+		registerModel(ModItems.cauldron, 0);
 		registerModel(ModItems.brew_drinkable, 0);
 		registerModel(ModItems.brew_drinkable, 1);
 		registerModel(ModItems.brew_gas, 0);
