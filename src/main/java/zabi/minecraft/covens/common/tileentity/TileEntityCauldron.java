@@ -1,17 +1,59 @@
 package zabi.minecraft.covens.common.tileentity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import zabi.minecraft.covens.common.block.BlockCauldron;
 import zabi.minecraft.covens.common.crafting.brewing.BrewData;
 import zabi.minecraft.covens.common.crafting.brewing.PotionDigester;
+import zabi.minecraft.covens.common.lib.Log;
 
 public class TileEntityCauldron extends TileEntityBase {
 	
+	protected FluidTank tank = new FluidTank(Fluid.BUCKET_VOLUME) {
+		public boolean canFillFluidType(FluidStack fluid) {
+			return fluid.equals(FluidRegistry.WATER);
+		};
+		
+		@Override
+		public boolean canDrain() {
+			return false;
+		}
+		
+		protected void onContentsChanged() {
+			((TileEntityCauldron) tile).liquidChanged(this.getFluidAmount());
+	    }
+	};
+	
+	public TileEntityCauldron() {
+		tank.setTileEntity(this);
+		tank.fill(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
+	}
+	
+	protected void liquidChanged(int fluidAmount) {
+		Log.i("Liquid changed");
+		if (fluidAmount==0) setNoLiquid();
+	}
+	
+	public void setNoLiquid() {
+		Log.i("Emptying");
+		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockCauldron.FULL, false), 3);
+	}
+
 	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>create();
 	private boolean hasItemsInside = false;
 	private AxisAlignedBB pickArea = null;
@@ -28,6 +70,7 @@ public class TileEntityCauldron extends TileEntityBase {
 			if (!is.isEmpty()) stacks.add(is);
 		}
 		hasItemsInside = tag.getBoolean("hasItems");
+		tank.readFromNBT(tag);
 	}
 
 	@Override
@@ -42,7 +85,21 @@ public class TileEntityCauldron extends TileEntityBase {
 		}
 		tag.setTag("inv", inv);
 		tag.setBoolean("hasItems", hasItemsInside);
+		tank.writeToNBT(tag);
 	}
+	
+	@Override
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+        return capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    @Nullable
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) tank;
+        return super.getCapability(capability, facing);
+    }
 
 	@Override
 	protected void tick() {
@@ -64,6 +121,7 @@ public class TileEntityCauldron extends TileEntityBase {
 	public void emptyContents() {
 		stacks = NonNullList.<ItemStack>create();
 		hasItemsInside = false;
+		setNoLiquid();
 	}
 
 	public void dropItemInside(ItemStack stack) {
