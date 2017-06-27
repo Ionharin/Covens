@@ -20,8 +20,12 @@ public class TileEntityCauldron extends TileEntityBase {
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
 		NBTTagCompound inv = tag.getCompoundTag("inv");
+		NonNullList<ItemStack> stacksTemp = NonNullList.<ItemStack>withSize(inv.getKeySet().size(), ItemStack.EMPTY);
 		for (String s:inv.getKeySet()) {
-			stacks.set(Integer.parseInt(s), new ItemStack(inv.getCompoundTag(s)));
+			stacksTemp.set(Integer.parseInt(s), new ItemStack(inv.getCompoundTag(s)));
+		}
+		for (ItemStack is:stacksTemp) {
+			if (!is.isEmpty()) stacks.add(is);
 		}
 		hasItemsInside = tag.getBoolean("hasItems");
 	}
@@ -53,17 +57,13 @@ public class TileEntityCauldron extends TileEntityBase {
 		}
 	}	
 	
-	public BrewData getResult(boolean removeContent) {
-		BrewData data = PotionDigester.digestPotion(stacks);
-		if (removeContent) {
-			if (consumePower(data.getCost())) {
-				stacks = NonNullList.<ItemStack>create();
-				hasItemsInside = false;
-			} else {
-				return new BrewData(); //If you somehow manage to cheat your way to here, you get a spoiled one :P
-			}
-		}
-		return data;
+	public BrewData getResult() {
+		return PotionDigester.digestPotion(stacks);
+	}
+	
+	public void emptyContents() {
+		stacks = NonNullList.<ItemStack>create();
+		hasItemsInside = false;
 	}
 
 	public void dropItemInside(ItemStack stack) {
@@ -85,14 +85,14 @@ public class TileEntityCauldron extends TileEntityBase {
 	}
 	
 	public boolean canTakePotion() {
-		return hasItemsInside && consumePower(getResult(false).getCost());
+		return hasItemsInside;
 	}
 	
 	public boolean getHasItems() {
 		return hasItemsInside;
 	}
 	
-	public boolean consumePower(int power) {
+	public boolean consumePower(int power, boolean simulate) {
 		final BlockPos pos = getPos();
 		if (te==null || te.isInvalid()) te = getWorld().loadedTileEntityList.stream()
 		.filter(te -> (te instanceof TileEntityAltar))
@@ -101,7 +101,7 @@ public class TileEntityCauldron extends TileEntityBase {
 		.filter(te -> te.getAltarPower()>=power)
 		.findFirst().orElse(null);
 		if (te==null) return false;
-		return te.consumePower(power);
+		return te.consumePower(power, simulate);
 	}
 
 }

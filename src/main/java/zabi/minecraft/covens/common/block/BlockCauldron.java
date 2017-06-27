@@ -15,15 +15,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.crafting.brewing.BrewData;
-import zabi.minecraft.covens.common.crafting.brewing.CovenPotionEffect;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
-import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
 
@@ -74,32 +71,35 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND && worldIn.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {//Check if full too
-			if (playerIn.getHeldItem(hand).getItem().equals(Items.GLASS_BOTTLE)) {
-				TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
-				if (!cauldron.canTakePotion()) {
-					int cost = cauldron.getResult(false).getCost();
-					if (!cauldron.consumePower(cost)) {
+		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND && worldIn.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {//TODO Check if full too
+			TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
+			BrewData data = cauldron.getResult();
+			int cost = data.getCost();
+			boolean hasPower = cauldron.consumePower(cost, true);
+			boolean hasItems = cauldron.getHasItems();
+			if (hasItems) {
+				if (playerIn.getHeldItem(hand).getItem().equals(Items.GLASS_BOTTLE)) {
+					if (!hasPower) {
 						playerIn.sendStatusMessage(new TextComponentTranslation("brew.failure.power", cost), true);
+						return false;
+					} else {
+						if (!playerIn.isCreative()) playerIn.getHeldItem(hand).setCount(playerIn.getHeldItem(hand).getCount()-1);
+						cauldron.emptyContents(); //TODO make it chance dependent on player brewing level instead of always true
+						cauldron.consumePower(cost, false);
+						ItemStack result = ItemBrewDrinkable.getBrewStackWithData(data.getType(), data);
+						if (data.getEffects().isEmpty()) {
+							result = new ItemStack(data.getType(),1,1);
+						} 
+						worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, result));
+						return true;
 					}
+				} else {
+					playerIn.sendStatusMessage(new TextComponentTranslation("brew.success.power", cost), true);
 					return false;
 				}
-				BrewData data = cauldron.getResult(true); //TODO make it dependent on player level instead of always true
-				NonNullList<CovenPotionEffect> list = data.getEffects();
-				if (!playerIn.isCreative()) playerIn.getHeldItem(hand).setCount(playerIn.getHeldItem(hand).getCount()-1);
-				if (list.isEmpty()) {
-					worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, new ItemStack(ModItems.brew_drinkable,1,1)));//TODO change based on brew type
-					return true;
-				}
-				worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, ItemBrewDrinkable.getBrewStackWithData(ModItems.brew_drinkable, data)));//TODO change based on brew type
-				return true;
-			} else if (playerIn.getHeldItem(hand).isEmpty()) {
-				TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
-				if (cauldron.getHasItems()) {
-					int cost = cauldron.getResult(false).getCost();
-					playerIn.sendStatusMessage(new TextComponentTranslation("brew.success.power", cost), true);
-				}
-			}
+				
+			} else return false;
+			
 		}
 		return false;
 	}

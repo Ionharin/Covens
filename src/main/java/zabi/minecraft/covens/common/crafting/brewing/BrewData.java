@@ -2,14 +2,25 @@ package zabi.minecraft.covens.common.crafting.brewing;
 
 import java.util.stream.Collectors;
 
+import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
+import zabi.minecraft.covens.common.item.ModItems;
 
 public class BrewData {
 	private NonNullList<CovenPotionEffect> brewEffects = NonNullList.<CovenPotionEffect>create();
+	private int type = 0;
 	private int color = 0x000000;
 	
+	public BrewData() {
+		this(0);
+	}
+	
+	public BrewData(int type) {
+		this.type=type;
+	}
+
 	public void addEffectToBrew(CovenPotionEffect potionEffect) {
 		brewEffects.add(potionEffect);
 		recalculateColor();
@@ -27,11 +38,13 @@ public class BrewData {
 			i++;
 		}
 		tag.setInteger("color", color);
+		tag.setInteger("type", type);
 		return tag;
 	}
 	
 	public BrewData readFromNBT(NBTTagCompound tag) {
 		color = tag.getInteger("color");
+		type = tag.getInteger("type");
 		for (String tagname:tag.getKeySet()) {
 			if (tagname.startsWith("pot")) {
 				CovenPotionEffect cpe = CovenPotionEffect.loadFromNBT(tag.getCompoundTag(tagname));
@@ -57,6 +70,13 @@ public class BrewData {
 			cost += addedCost;
 		}
 		return cost;
+	}
+	
+	public Item getType() {
+		if (type==1) return ModItems.brew_splash;
+		if (type==2) return ModItems.brew_lingering;
+		if (type==3) return ModItems.brew_gas;
+		return ModItems.brew_drinkable;
 	}
 	
 }

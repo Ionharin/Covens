@@ -181,9 +181,9 @@ public class TileEntityAltar extends TileEntityBase {
 		return color;
 	}
 	
-	public boolean consumePower(int amount) {
+	public boolean consumePower(int amount, boolean simulate) {
 		if (amount>power) return false;
-		power-=amount;
+		if (!simulate) power-=amount;
 		return true;
 	}
 

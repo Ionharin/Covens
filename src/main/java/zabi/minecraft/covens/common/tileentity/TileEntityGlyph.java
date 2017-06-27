@@ -193,7 +193,7 @@ public class TileEntityGlyph extends TileEntityBase {
 		.filter(te -> te.getAltarPower()>=power)
 		.findFirst().orElse(null);
 		if (te==null) return false;
-		return te.consumePower(power);
+		return te.consumePower(power, true);
 	}
 	
 	
