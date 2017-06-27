@@ -21,7 +21,7 @@ public class ModItems {
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemEgressStone waystone;
 	public static ItemFlowers flowers;
-	public static ItemBrew brew;
+	public static ItemBrewBase brew_drinkable, brew_splash, brew_gas, brew_lingering;
 	public static ItemMisc misc;
 	public static ItemEerieSeeds eerie_seeds;
 	
@@ -34,7 +34,10 @@ public class ModItems {
 		waystone = new ItemEgressStone();
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
-		brew = new ItemBrew();
+		brew_drinkable = new ItemBrewDrinkable();
+		brew_splash = new ItemBrewSplash();
+		brew_gas = new ItemBrewGas();
+		brew_lingering = new ItemBrewLingering();
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
 		cauldron.setRegistryName(ModBlocks.cauldron.getRegistryName());
@@ -70,7 +73,7 @@ public class ModItems {
 		Log.i("Registering items for "+Reference.NAME);
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
-				flowers, misc, eerie_seeds, brew, waystone
+				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, waystone
 				);
 	}
 }

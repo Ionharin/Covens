@@ -26,9 +26,14 @@ item.misc.acacia_essence.name=Essenza dell'acacia
 item.misc.spruce_heart.name=Cuore dell'abete
 item.misc.cloudy_oil.name=Olio rannuvolato
 item.eerie_seeds.name=Semi misteriosi
-item.brew_empty.name=Bottiglia per intrugli
-item.brew_full.name=Intruglio magico
-item.brew_spoiled.name=Intruglio rovinato
+item.brew_drinkable_full.name=Intruglio magico
+item.brew_drinkable_spoiled.name=Intruglio rovinato
+item.brew_splash_full.name=Intruglio magico da lancio
+item.brew_splash_spoiled.name=Intruglio rovinato
+item.brew_gas_full.name=Intruglio magico gassoso
+item.brew_gas_spoiled.name=Intruglio rovinato
+item.brew_lingering_full.name=Intruglio magico persistente
+item.brew_lingering_spoiled.name=Intruglio rovinato
 item.brew.spoiled=Meglio non berlo
 item.egress_stone.name=Pietra cardinale
 item.egress_stone.bound_to=Allacciata a (%d %d %d)
@@ -51,6 +56,7 @@ ritual.covens.highmoon.name=Rituale della luna di fuoco
 ritual.covens.timesand.name=Rituale delle sabbie del tempo
 ritual.covens.perception.name=Rituale della percezione
 ritual.covens.ender_gate.name=Rituale delle porte della fine
+ritual.covens.charging_1.name=Rituale della carica
 
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)

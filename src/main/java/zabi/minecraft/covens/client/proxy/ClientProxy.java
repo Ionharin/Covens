@@ -22,7 +22,7 @@ import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
-import zabi.minecraft.covens.common.item.ItemBrew;
+import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ItemFlowers;
 import zabi.minecraft.covens.common.item.ItemMisc;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
@@ -51,9 +51,14 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chalk, 3);
 		registerModel(ModItems.altar, 0);
 		registerModel(ModItems.chimney, 0);
-		registerModel(ModItems.brew, 0);
-		registerModel(ModItems.brew, 1);
-		registerModel(ModItems.brew, 2);
+		registerModel(ModItems.brew_drinkable, 0);
+		registerModel(ModItems.brew_drinkable, 1);
+		registerModel(ModItems.brew_gas, 0);
+		registerModel(ModItems.brew_gas, 1);
+		registerModel(ModItems.brew_lingering, 0);
+		registerModel(ModItems.brew_lingering, 1);
+		registerModel(ModItems.brew_splash, 0);
+		registerModel(ModItems.brew_splash, 1);
 		registerModel(ModItems.waystone, 0);
 		registerModel(ModItems.waystone, 1);
 		registerModel(ModItems.waystone, 2);
@@ -96,10 +101,10 @@ public class ClientProxy extends Proxy {
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-				if (tintIndex==0) return ItemBrew.getPotionColor(stack);
+				if (tintIndex==0) return ItemBrewDrinkable.getPotionColor(stack);
 				return -1;
 			}
-		}, ModItems.brew);
+		}, ModItems.brew_drinkable, ModItems.brew_gas, ModItems.brew_lingering, ModItems.brew_splash);
 		
 	}
 	

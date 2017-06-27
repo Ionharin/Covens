@@ -26,9 +26,14 @@ item.misc.acacia_essence.name=Acacia Essence
 item.misc.spruce_heart.name=Spruce Heart
 item.misc.cloudy_oil.name=Cloudy Oil
 item.eerie_seeds.name=Mysterious Seeds
-item.brew_empty.name=Brew bottle
-item.brew_full.name=Magic Brew
-item.brew_spoiled.name=Spoiled Brew
+item.brew_drinkable_full.name=Magic Brew
+item.brew_drinkable_spoiled.name=Spoiled Brew
+item.brew_splash_full.name=Magic Splash Brew
+item.brew_splash_spoiled.name=Spoiled Splash Brew
+item.brew_gas_full.name=Magic Gas Brew
+item.brew_gas_spoiled.name=Spoiled Gas Brew
+item.brew_lingering_full.name=Magic Lingering Brew
+item.brew_lingering_spoiled.name=Spoiled Lingering Brew
 item.brew.spoiled=Better not drink this
 item.egress_stone.name=Cardinal Stone
 item.egress_stone.bound_to=Bound to (%d %d %d)
@@ -51,6 +56,7 @@ ritual.covens.highmoon.name=Ritual of the High Moon
 ritual.covens.timesand.name=Ritual of the Sands of Time
 ritual.covens.perception.name=Ritual of Perception
 ritual.covens.ender_gate.name=End Gate Ritual
+ritual.covens.charging_1.name=Ritual of Charging
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III

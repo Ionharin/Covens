@@ -28,7 +28,7 @@ public class ModCreativeTabs extends CreativeTabs {
 		rituals.setTabIconItem(new ItemStack(ModItems.chalk,1,1));
 		machines.setTabIconItem(new ItemStack(ModBlocks.chimney));
 		products.setTabIconItem(new ItemStack(ModItems.misc));
-		brews.setTabIconItem(new ItemStack(ModItems.brew));
+		brews.setTabIconItem(new ItemStack(ModItems.brew_drinkable));
 	}
 
 	@Override
