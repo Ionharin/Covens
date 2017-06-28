@@ -77,7 +77,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		BrewIngredient nightVis = new BrewIngredient(Items.GOLDEN_CARROT, MobEffects.NIGHT_VISION, MobEffects.BLINDNESS, PotionTypes.NIGHT_VISION.getEffects().get(0).getDuration());
 		nightVis.setRegistryName(Reference.MID, "night_vision");
 		
-		BrewIngredient instaHealth = new BrewIngredient(Items.SPECKLED_MELON, MobEffects.INSTANT_HEALTH, MobEffects.INSTANT_DAMAGE, 0);
+		BrewIngredient instaHealth = new BrewIngredient(Items.SPECKLED_MELON, MobEffects.INSTANT_HEALTH, MobEffects.INSTANT_DAMAGE, 1);
 		instaHealth.setRegistryName(Reference.MID, "instaHealth");
 		
 		BrewIngredient strength = new BrewIngredient(Items.BLAZE_POWDER, MobEffects.STRENGTH, MobEffects.WEAKNESS, PotionTypes.STRENGTH.getEffects().get(0).getDuration());

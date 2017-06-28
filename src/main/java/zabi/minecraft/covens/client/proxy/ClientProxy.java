@@ -98,7 +98,7 @@ public class ClientProxy extends Proxy {
 				}
 			}
 		}, ModBlocks.glyphs);
-		
+				
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
 			public int getColorFromItemstack(ItemStack stack, int tintIndex) {

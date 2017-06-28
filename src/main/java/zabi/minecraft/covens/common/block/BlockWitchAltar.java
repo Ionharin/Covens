@@ -235,7 +235,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 							return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
 						}
 					}
-			}
+				}
 			}
 		}
 		return false;

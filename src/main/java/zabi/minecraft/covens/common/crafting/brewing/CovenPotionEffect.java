@@ -115,6 +115,8 @@ public class CovenPotionEffect {
 	
 	static {
 		map.put("extraalchemy:cheat_death", 1000); //Example
+		map.put("minecraft:instant_health", 800);
+		map.put("minecraft:regeneration", 800);
 	}
 	
 }

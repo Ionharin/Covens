@@ -7,8 +7,10 @@
 	"variants": {
 		"filled": {
 			"true": {
+				"model": "covens:cauldron_full"
 			},
 			"false": {
+				"model": "covens:cauldron"
 			}
 		}
 	}

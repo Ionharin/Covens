@@ -1,6 +1,6 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
-	"ambientocclusion": false,
+"ambientocclusion": false,
     "textures": {
         "particle": "covens:blocks/cauldron_side_big",
         "0": "covens:blocks/cauldron_side_base",
@@ -10,7 +10,8 @@
         "4": "covens:blocks/cauldron_side_big",
         "5": "covens:blocks/cauldron_side_big",
         "6": "covens:blocks/cauldron_solid",
-        "7": "covens:blocks/cauldron_inside"
+        "7": "covens:blocks/cauldron_inside",
+        "8": "blocks/water_still"
     },
     "elements": [
         {
@@ -183,7 +184,7 @@
             }
         },
         {
-            "name": "Cube",
+            "name": "crown4",
             "from": [ 14.0, 13.0, 2.0 ], 
             "to": [ 15.0, 14.0, 14.0 ], 
             "faces": {
@@ -193,6 +194,14 @@
                 "west": { "texture": "#3", "uv": [ 0.0, 0.0, 12.0, 1.0 ] },
                 "up": { "texture": "#3", "uv": [ 0.0, 0.0, 1.0, 12.0 ] },
                 "down": { "texture": "#7", "uv": [ 0.0, 0.0, 1.0, 12.0 ] }
+            }
+        },
+        {
+            "name": "water",
+            "from": [ 1.0, 10.0, 1.0 ], 
+            "to": [ 15.0, 11.0, 15.0 ], 
+            "faces": {
+                "up": { "texture": "#8", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
             }
         }
     ]

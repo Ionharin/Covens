@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.EnumPushReaction;
@@ -16,6 +18,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
@@ -26,6 +30,8 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.crafting.brewing.BrewData;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
@@ -33,6 +39,8 @@ import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
 
 public class BlockCauldron extends Block implements ITileEntityProvider {
+	
+	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
 	
 	public static final PropertyBool FULL = PropertyBool.create("filled");
 
@@ -48,6 +56,11 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	}
 
 	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return bounding_box;
+	}
+	
+	@Override
 	public float getAmbientOcclusionLightValue(IBlockState state) {
 		return 0;
 	}
@@ -59,7 +72,7 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	
 	@Override
 	public boolean hasTileEntity(IBlockState state) {
-		return true;//state.getValue(FULL);
+		return true;
 	}
 
 	@Override
@@ -113,10 +126,12 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 				
 			} else return false;
 			
-		} else if (worldIn.isRemote && !state.getValue(FULL)) {
+		} else if (!state.getValue(FULL)) {
 			if (isBucket(playerIn.getHeldItem(hand))) {
-				if (!playerIn.isCreative()) playerIn.setHeldItem(hand, emptyBucket(playerIn.getHeldItem(hand)));
-				worldIn.setBlockState(pos, state.withProperty(FULL, true),3);
+				if (!worldIn.isRemote) {
+					if (!playerIn.isCreative()) playerIn.setHeldItem(hand, emptyBucket(playerIn.getHeldItem(hand)));
+					worldIn.setBlockState(pos, state.withProperty(FULL, true),3);
+				}
 				return true;
 			}
 		}
@@ -164,5 +179,13 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 		IFluidHandlerItem handler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 		handler.drain(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true);
 		return handler.getContainer();
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		if (state.getValue(FULL) && ((TileEntityCauldron)world.getTileEntity(pos)).getHasItems()) {
+			world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, pos.getX()+0.2+rand.nextDouble()*0.6, pos.getY()+0.88D, pos.getZ()+0.2+rand.nextDouble()*0.6, 0, 0.1, 0);
+		}
 	}
 }
