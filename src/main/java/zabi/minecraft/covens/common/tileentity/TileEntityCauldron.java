@@ -99,10 +99,6 @@ public class TileEntityCauldron extends TileEntityBase {
 		return tag;
 	}
 	
-	public boolean canTakePotion() {
-		return hasItemsInside;
-	}
-	
 	public boolean getHasItems() {
 		return hasItemsInside;
 	}
