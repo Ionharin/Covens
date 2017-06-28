@@ -25,7 +25,6 @@ public class ModRituals {
 	private static RitualHighMoon high_moon_ritual = null;
 	private static RitualSandsTime sand_time_ritual = null;
 	private static RitualPerception perception_ritual = null;
-//	private static Ritual test_ritual = null;
 	private static Ritual charging_ritual = null;
 	private static Ritual ender_gate = null;
 	private static Ritual ender_stream = null;
@@ -35,13 +34,11 @@ public class ModRituals {
 		high_moon_ritual = new RitualHighMoon(of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.NETHERBRICK)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
 		sand_time_ritual = new RitualSandsTime(of(new ItemStack(Blocks.SAND), new ItemStack(Blocks.DIAMOND_ORE)), nop(), 24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4);
 		perception_ritual = new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), nop(), 24000, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
-		charging_ritual = new Ritual(of(new ItemStack(ModItems.waystone)), of(new ItemStack(ModItems.waystone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 3000, 0);
-		ender_gate = new RitualEnderGate(of(new ItemStack(ModItems.waystone,1,2), new ItemStack(Items.ENDER_PEARL)), nop(), 100, circles(GlyphType.ENDER,GlyphType.ENDER, null), 1000, 15);
+		charging_ritual = new Ritual(of(new ItemStack(ModItems.waystone), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST)), of(new ItemStack(ModItems.waystone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		ender_gate = new RitualEnderGate(of(new ItemStack(ModItems.waystone,1,2), new ItemStack(Items.ENDER_PEARL)), nop(), 100, circles(GlyphType.ENDER, null, null), 1000, 5);
 		ender_stream = new RitualEnderStream(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_EYE), new ItemStack(ModItems.waystone,1,2), new ItemStack(Items.GOLD_INGOT)), nop(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
-		//test_ritual = new Ritual(of(new ItemStack(Items.APPLE)), of(new ItemStack(Items.APPLE)), 20, circles(GlyphType.NORMAL, null, null), 10000, 0);
 		
 		
-//		test_ritual.setRegistryName(Reference.MID, "test");
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
 		perception_ritual.setRegistryName(Reference.MID, "perception");
@@ -72,6 +69,6 @@ public class ModRituals {
 	public static void registerBlocks(RegistryEvent.Register<Ritual> evt) {
 		Log.i("Registering rituals for "+Reference.NAME);
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
-		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, /*test_ritual,*/ perception_ritual, charging_ritual, ender_gate, ender_stream);
+		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual, ender_gate, ender_stream);
 	}
 }
