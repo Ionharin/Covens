@@ -23,6 +23,7 @@ public class ModItems {
 	public static ItemFlowers flowers;
 	public static ItemBrewBase brew_drinkable, brew_splash, brew_gas, brew_lingering;
 	public static ItemMisc misc;
+	public static ItemRitualKnife ritual_knife;
 	public static ItemEerieSeeds eerie_seeds;
 	
 	public static void registerAll() {
@@ -37,6 +38,7 @@ public class ModItems {
 		brew_drinkable = new ItemBrewDrinkable();
 		brew_splash = new ItemBrewSplash();
 		brew_gas = new ItemBrewGas();
+		ritual_knife = new ItemRitualKnife();
 		brew_lingering = new ItemBrewLingering();
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -73,7 +75,7 @@ public class ModItems {
 		Log.i("Registering items for "+Reference.NAME);
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
-				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, waystone
+				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, waystone, ritual_knife
 				);
 	}
 }
