@@ -18,9 +18,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
+import zabi.minecraft.covens.common.entity.BrewEntity;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ItemFlowers;
@@ -35,8 +37,13 @@ public class ClientProxy extends Proxy {
 	@Override
 	public void registerRenderingStuff() {
 		registerColors();
+		registerEntityRenderers();
 	}
 	
+	private void registerEntityRenderers() {
+		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(BrewEntity.class, new RenderBrewThrown(Minecraft.getMinecraft().getRenderManager(), ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
+	}
+
 	@Override
 	public void registerHandler() {
 		MinecraftForge.EVENT_BUS.register(this);

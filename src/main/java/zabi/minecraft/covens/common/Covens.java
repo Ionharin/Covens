@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.entity.ModEntities;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -41,6 +42,7 @@ public class Covens {
 		VanillaRecipes.registerAll();
 		ModRituals.registerAll();
 		ModChimneyRecipes.registerAll();
+		ModEntities.registerAll();
 		NetworkModRegistry.registerMessages(network);
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 	}

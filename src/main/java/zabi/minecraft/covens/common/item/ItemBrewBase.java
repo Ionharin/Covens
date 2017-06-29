@@ -12,18 +12,24 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.Tuple;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.common.entity.BrewEntity;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
@@ -164,5 +170,21 @@ public class ItemBrewBase extends Item {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		return super.getUnlocalizedName()+"_"+names[stack.getMetadata()];
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		ItemStack stack = playerIn.getHeldItem(handIn);
+		if (stack.getMetadata()==0) {
+			ItemStack pot = stack.copy();
+			pot.setCount(1);
+			BrewEntity ent = new BrewEntity(worldIn, playerIn, pot);
+			Vec3d lv = playerIn.getLookVec().scale(0.4d);
+			ent.setVelocity(lv.x, lv.y, lv.z);
+			worldIn.spawnEntity(ent);
+			if (!playerIn.isCreative()) stack.setCount(stack.getCount()-1);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		}
+		return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 	}
 }
