@@ -24,9 +24,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import zabi.minecraft.covens.common.crafting.brewing.BrewData;
-import zabi.minecraft.covens.common.crafting.brewing.BrewIngredient;
-import zabi.minecraft.covens.common.crafting.brewing.CovenPotionEffect;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
+import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
+import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 
 public class ItemBrewBase extends Item {
 	

@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.brewing;
+package zabi.minecraft.covens.common.registries.brewing;
 
 import java.util.Collections;
 import java.util.HashMap;

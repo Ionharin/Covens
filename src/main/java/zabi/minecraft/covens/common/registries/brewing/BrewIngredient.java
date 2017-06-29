@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.brewing;
+package zabi.minecraft.covens.common.registries.brewing;
 
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;

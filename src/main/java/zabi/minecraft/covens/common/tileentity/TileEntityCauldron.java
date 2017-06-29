@@ -9,9 +9,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import zabi.minecraft.covens.common.block.BlockCauldron;
-import zabi.minecraft.covens.common.crafting.brewing.BrewData;
-import zabi.minecraft.covens.common.crafting.brewing.PotionDigester;
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
+import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
 
 public class TileEntityCauldron extends TileEntityBase {
 	

@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.ritual.rituals;
+package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.common.crafting.ritual.Ritual;
+import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
 public class RitualHighMoon extends Ritual {
 

@@ -69,6 +69,12 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.aconitumSeeds, 0);
 		registerModel(ModItems.sagebrushSeeds, 0);
 		registerModel(ModItems.chrysanthemumSeeds, 0);
+		registerModel(ModItems.log_elder, 0);
+		registerModel(ModItems.log_juniper, 0);
+		registerModel(ModItems.log_yew, 0);
+		registerModel(ModItems.leaves_elder, 0);
+		registerModel(ModItems.leaves_juniper, 0);
+		registerModel(ModItems.leaves_yew, 0);
 		for (int i=0;i<ItemFlowers.names.length;i++) registerModel(ModItems.flowers, i);
 		for (int i=0;i<ItemMisc.names.length;i++) registerModel(ModItems.misc, i);
 	}

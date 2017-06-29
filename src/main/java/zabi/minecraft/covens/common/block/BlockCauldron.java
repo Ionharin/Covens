@@ -32,10 +32,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import zabi.minecraft.covens.common.crafting.brewing.BrewData;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
 
 public class BlockCauldron extends Block implements ITileEntityProvider {

@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.ritual;
+package zabi.minecraft.covens.common.registries.ritual;
 
 import java.util.ArrayList;
 import java.util.List;

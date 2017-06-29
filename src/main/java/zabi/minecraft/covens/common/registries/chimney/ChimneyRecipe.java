@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.chimney;
+package zabi.minecraft.covens.common.registries.chimney;
 
 import javax.annotation.Nonnull;
 

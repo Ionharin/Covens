@@ -13,8 +13,8 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import zabi.minecraft.covens.common.crafting.chimney.ChimneyRecipe;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.registries.chimney.ChimneyRecipe;
 
 public class TileEntityChimney extends TileEntityBase implements IInventory /*implements ISidedInventory*/ {
 	

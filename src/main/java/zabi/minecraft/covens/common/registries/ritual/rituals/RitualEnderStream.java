@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.ritual.rituals;
+package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.common.crafting.ritual.Ritual;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.registries.ritual.Ritual;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualEnderStream extends Ritual {

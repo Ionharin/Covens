@@ -17,7 +17,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron;
+	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemEgressStone waystone;
 	public static ItemFlowers flowers;
@@ -25,6 +25,7 @@ public class ModItems {
 	public static ItemMisc misc;
 	public static ItemRitualKnife ritual_knife;
 	public static ItemEerieSeeds eerie_seeds;
+	public static ItemModLeaves leaves_yew, leaves_elder, leaves_juniper;
 	
 	public static void registerAll() {
 		chalk = new ItemChalk();
@@ -32,6 +33,9 @@ public class ModItems {
 		altar = new ItemBlock(ModBlocks.altar);
 		chimney = new ItemBlock(ModBlocks.chimney);
 		cauldron = new ItemBlock(ModBlocks.cauldron);
+		log_yew = new ItemBlock(ModBlocks.log_yew);
+		log_juniper = new ItemBlock(ModBlocks.log_juniper);
+		log_elder = new ItemBlock(ModBlocks.log_elder);
 		waystone = new ItemEgressStone();
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
@@ -40,9 +44,19 @@ public class ModItems {
 		brew_gas = new ItemBrewGas();
 		ritual_knife = new ItemRitualKnife();
 		brew_lingering = new ItemBrewLingering();
+		leaves_elder = new ItemModLeaves(ModBlocks.leaves_elder);
+		leaves_yew = new ItemModLeaves(ModBlocks.leaves_yew);
+		leaves_juniper = new ItemModLeaves(ModBlocks.leaves_juniper);
+		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
 		cauldron.setRegistryName(ModBlocks.cauldron.getRegistryName());
+		log_yew.setRegistryName(ModBlocks.log_yew.getRegistryName());
+		log_juniper.setRegistryName(ModBlocks.log_juniper.getRegistryName());
+		log_elder.setRegistryName(ModBlocks.log_elder.getRegistryName());
+		leaves_juniper.setRegistryName(ModBlocks.leaves_juniper.getRegistryName());
+		leaves_yew.setRegistryName(ModBlocks.leaves_yew.getRegistryName());
+		leaves_elder.setRegistryName(ModBlocks.leaves_elder.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -77,5 +91,6 @@ public class ModItems {
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, waystone, ritual_knife
 				);
+		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_yew, leaves_juniper);
 	}
 }

@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting;
+package zabi.minecraft.covens.common.registries;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

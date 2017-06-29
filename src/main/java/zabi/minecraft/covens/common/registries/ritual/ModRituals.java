@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.crafting.ritual;
+package zabi.minecraft.covens.common.registries.ritual;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -10,14 +10,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
-import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualEnderGate;
-import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualEnderStream;
-import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualHighMoon;
-import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualPerception;
-import zabi.minecraft.covens.common.crafting.ritual.rituals.RitualSandsTime;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualPerception;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualSandsTime;
 
 @Mod.EventBusSubscriber
 public class ModRituals {

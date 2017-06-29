@@ -16,9 +16,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
-import zabi.minecraft.covens.common.crafting.ritual.Ritual;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
 public class TileEntityGlyph extends TileEntityBase {
 	
