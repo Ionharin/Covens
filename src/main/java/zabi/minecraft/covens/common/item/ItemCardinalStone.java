@@ -15,13 +15,13 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.lib.Reference;
 
-public class ItemEgressStone extends Item {
+public class ItemCardinalStone extends Item {
 	
 	public static final int MAX_USES = 3;
 	
-	public ItemEgressStone() {
-		this.setUnlocalizedName("egress_stone");
-		this.setRegistryName(Reference.MID, "egress_stone");
+	public ItemCardinalStone() {
+		this.setUnlocalizedName("cardinal_stone");
+		this.setRegistryName(Reference.MID, "cardinal_stone");
 		this.setMaxStackSize(1);
 		this.setCreativeTab(ModCreativeTabs.products);
 	}
@@ -31,7 +31,7 @@ public class ItemEgressStone extends Item {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 		NBTTagCompound pos = stack.getOrCreateSubCompound("pos");
 		if (pos.hasKey("x")) {
-			tooltip.add(TextFormatting.GRAY + TextFormatting.ITALIC.toString() + I18n.format("item.egress_stone.bound_to", (int) pos.getDouble("x"), (int) pos.getDouble("y"), (int) pos.getDouble("z"), pos.getInteger("dim")));
+			tooltip.add(TextFormatting.GRAY + TextFormatting.ITALIC.toString() + I18n.format("item.cardinal_stone.bound_to", (int) pos.getDouble("x"), (int) pos.getDouble("y"), (int) pos.getDouble("z"), pos.getInteger("dim")));
 		}
 	}
 	

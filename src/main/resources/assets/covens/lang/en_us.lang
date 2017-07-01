@@ -35,8 +35,8 @@ item.brew_gas_spoiled.name=Spoiled Gas Brew
 item.brew_lingering_full.name=Magic Lingering Brew
 item.brew_lingering_spoiled.name=Spoiled Lingering Brew
 item.brew.spoiled=Better not drink this
-item.egress_stone.name=Cardinal Stone
-item.egress_stone.bound_to=Bound to (%d %d %d)
+item.cardinal_stone.name=Cardinal Stone
+item.cardinal_stone.bound_to=Bound to (%d %d %d)
 
 # Block names
 tile.witch_altar.name=Witch Altar

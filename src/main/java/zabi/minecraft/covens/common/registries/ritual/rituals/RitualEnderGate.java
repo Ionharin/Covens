@@ -11,7 +11,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.common.item.ItemEgressStone;
+import zabi.minecraft.covens.common.item.ItemCardinalStone;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
@@ -46,7 +46,7 @@ public class RitualEnderGate extends Ritual {
 		if (!world.isRemote) {
 			if (!stone.getTagCompound().hasKey("uses")) stone.getTagCompound().setInteger("uses", 1);
 			else stone.getTagCompound().setInteger("uses", stone.getTagCompound().getInteger("uses")+1);
-			if (stone.getTagCompound().getInteger("uses")<ItemEgressStone.MAX_USES) {
+			if (stone.getTagCompound().getInteger("uses")<ItemCardinalStone.MAX_USES) {
 				EntityItem ei = new EntityItem(world, x, y, z, stone);
 				world.spawnEntity(ei);
 			}

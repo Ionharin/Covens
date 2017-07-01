@@ -35,8 +35,8 @@ item.brew_gas_spoiled.name=Intruglio rovinato
 item.brew_lingering_full.name=Intruglio magico persistente
 item.brew_lingering_spoiled.name=Intruglio rovinato
 item.brew.spoiled=Meglio non berlo
-item.egress_stone.name=Pietra cardinale
-item.egress_stone.bound_to=Allacciata a (%d %d %d)
+item.cardinal_stone.name=Pietra cardinale
+item.cardinal_stone.bound_to=Allacciata a (%d %d %d)
 
 # Block names
 tile.witch_altar.name=Altare delle streghe

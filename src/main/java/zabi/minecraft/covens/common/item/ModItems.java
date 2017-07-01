@@ -19,7 +19,7 @@ public class ModItems {
 	public static ItemChalk chalk;
 	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
-	public static ItemEgressStone waystone;
+	public static ItemCardinalStone waystone;
 	public static ItemFlowers flowers;
 	public static ItemBrewBase brew_drinkable, brew_splash, brew_gas, brew_lingering;
 	public static ItemMisc misc;
@@ -36,7 +36,7 @@ public class ModItems {
 		log_yew = new ItemBlock(ModBlocks.log_yew);
 		log_juniper = new ItemBlock(ModBlocks.log_juniper);
 		log_elder = new ItemBlock(ModBlocks.log_elder);
-		waystone = new ItemEgressStone();
+		waystone = new ItemCardinalStone();
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
 		brew_drinkable = new ItemBrewDrinkable();
