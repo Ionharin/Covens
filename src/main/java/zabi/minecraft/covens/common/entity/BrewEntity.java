@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.entity;
 
+import java.util.List;
+
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityPotion;
@@ -10,7 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -106,8 +112,37 @@ public class BrewEntity extends EntityThrowable {
 	}
 
 	private void splash(RayTraceResult result) {
-		// TODO Auto-generated method stub
-		
+		BrewData data = new BrewData();
+		data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
+		AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
+        List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+        if (!list.isEmpty()) {
+            for (EntityLivingBase entitylivingbase : list) {
+                if (entitylivingbase.canBeHitWithPotion()) {
+                    double distance = this.getDistanceSqToEntity(entitylivingbase);
+                    if (distance < 16.0D) {
+                        double falloffCoefficent = (1.0D - Math.sqrt(distance) / 4.0D);
+                        if (entitylivingbase == result.entityHit) falloffCoefficent = 1.0D;
+                        for (CovenPotionEffect cpotioneffect : data.getEffects()) {
+                        	PotionEffect potioneffect = cpotioneffect.getPotionEffect();
+                            Potion potion = potioneffect.getPotion();
+                            if (potion.isInstant()) {
+                                potion.affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), falloffCoefficent);
+                            } else {
+                                int i = (int)(cpotioneffect.getMultiplier() * falloffCoefficent * (double)potioneffect.getDuration() + 0.5D);
+                                if (i > 20) {
+                                    entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+                                }
+                            }
+                            
+                            
+                            
+                        }
+                    }
+                }
+            }
+        }
+        this.world.playEvent(2007, new BlockPos(this), data.getColor());
 	}
 
 	
