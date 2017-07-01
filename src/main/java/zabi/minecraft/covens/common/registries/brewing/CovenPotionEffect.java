@@ -113,6 +113,12 @@ public class CovenPotionEffect {
 		return potion!=null && map.containsKey(potion) ? map.get(potion) : 200;
 	}
 	
+	public void setDiminished() {
+		strength/=2;
+		persistency/=2;
+		multiplier/=2;
+	}
+	
 	static {
 		map.put("extraalchemy:cheat_death", 1000); //Example
 		map.put("minecraft:instant_health", 800);

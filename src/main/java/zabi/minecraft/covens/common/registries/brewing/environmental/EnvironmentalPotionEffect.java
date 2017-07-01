@@ -2,8 +2,7 @@ package zabi.minecraft.covens.common.registries.brewing.environmental;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -15,6 +14,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 
 
 //A potion to environmental effect converter basically
@@ -33,7 +33,7 @@ public abstract class EnvironmentalPotionEffect extends IForgeRegistryEntry.Impl
 		return potion;
 	}
 	
-	public abstract void splashedOn(World world, BlockPos pos, EntityPlayer thrower, @Nullable NBTTagCompound data);
+	public abstract void splashedOn(World world, BlockPos pos, EntityLivingBase thrower, CovenPotionEffect data);
 	
 	@SubscribeEvent
 	public static void registerBrewIngredients(RegistryEvent.Register<EnvironmentalPotionEffect> evt) {

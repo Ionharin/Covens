@@ -23,6 +23,7 @@ import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
+import zabi.minecraft.covens.common.registries.brewing.environmental.EnvironmentalPotionEffect;
 
 public class BrewEntity extends EntityThrowable {
 	
@@ -72,7 +73,7 @@ public class BrewEntity extends EntityThrowable {
 			} else if (type==ModItems.brew_gas) {
 				gas(result);
 			} else if (type==ModItems.brew_lingering) {
-				linger(result);
+				linger(result, false);
 			} else {
 				Log.e("Invalid Brew type, please report to Covens' author");
 			}
@@ -80,7 +81,7 @@ public class BrewEntity extends EntityThrowable {
 		}
 	}
 	
-	private void linger(RayTraceResult result) {
+	private void linger(RayTraceResult result, boolean fromGas) {
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, result.hitVec.x, result.hitVec.y, result.hitVec.z);
         entityareaeffectcloud.setOwner(this.getThrower());
         entityareaeffectcloud.setRadiusOnUse(0);
@@ -95,6 +96,7 @@ public class BrewEntity extends EntityThrowable {
         NonNullList<CovenPotionEffect> effects = data.getEffects();
         
         for (CovenPotionEffect pe:effects) {
+        	if (fromGas) pe.setDiminished();
         	entityareaeffectcloud.addEffect(pe.getPotionEffect());
         	persistency += pe.getPersistency();
         }
@@ -107,8 +109,15 @@ public class BrewEntity extends EntityThrowable {
 	}
 
 	private void gas(RayTraceResult result) {
-		// TODO Auto-generated method stub
-		
+		BrewData data = new BrewData();
+		data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
+		for (CovenPotionEffect cpe:data.getEffects()) {
+			EnvironmentalPotionEffect epe = EnvironmentalPotionEffect.getEffectForPotion(cpe.getPotionEffect().getPotion());
+			if (epe!=null) {
+				epe.splashedOn(world, new BlockPos(result.hitVec), this.getThrower(), cpe);
+			}
+		}
+		linger(result, true);
 	}
 
 	private void splash(RayTraceResult result) {
