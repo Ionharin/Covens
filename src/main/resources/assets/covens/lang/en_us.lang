@@ -2,7 +2,7 @@
 itemGroup.covens.rituals=Covens - Rituals
 itemGroup.covens.herbs=Covens - Herbs
 itemGroup.covens.machines=Covens - Machines
-itemGroup.covens.products=Covens - Ingredients
+itemGroup.covens.products=Covens - Products
 itemGroup.covens.brews=Covens - Brews
 
 # Item names
@@ -37,6 +37,7 @@ item.brew_lingering_spoiled.name=Spoiled Lingering Brew
 item.brew.spoiled=Better not drink this
 item.cardinal_stone.name=Cardinal Stone
 item.cardinal_stone.bound_to=Bound to (%d %d %d)
+item.ritual_knife.name=Ritual Knife
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -46,6 +47,12 @@ tile.aconitum.name=Aconitum
 tile.sagebrush.name=Sagebrush
 tile.chrysanthemum.name=Chrysanthemum
 tile.chimney.name=Fumes' Chimney
+tile.log_juniper.name=Juniper Wood
+tile.log_elder.name=Elder Wood
+tile.log_yew.name=Yew Wood
+tile.leaves.juniper.name=Juniper Leaves
+tile.leaves.elder.name=Elder Leaves
+tile.leaves.yew.name=Yew Leaves
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites

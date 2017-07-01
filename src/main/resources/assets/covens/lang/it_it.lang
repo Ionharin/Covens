@@ -2,7 +2,7 @@
 itemGroup.covens.rituals=Covens - Rituali
 itemGroup.covens.herbs=Covens - Erbe
 itemGroup.covens.machines=Covens - Macchinari
-itemGroup.covens.products=Covens - Ingredienti
+itemGroup.covens.products=Covens - Prodotti
 itemGroup.covens.brews=Covens - Intrugli
 
 # Item names
@@ -37,6 +37,7 @@ item.brew_lingering_spoiled.name=Intruglio rovinato
 item.brew.spoiled=Meglio non berlo
 item.cardinal_stone.name=Pietra cardinale
 item.cardinal_stone.bound_to=Allacciata a (%d %d %d)
+item.ritual_knife.name=Coltello rituale
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -46,6 +47,12 @@ tile.aconitum.name=Aconito
 tile.sagebrush.name=Artemisia
 tile.chrysanthemum.name=Crisantemo
 tile.chimney.name=Cappa dei fumi
+tile.log_juniper.name=Legno di ginepro
+tile.log_elder.name=Legno di sambuco
+tile.log_yew.name=Legno di tasso
+tile.leaves.juniper.name=Foglie di ginepro
+tile.leaves.elder.name=Foglie di sambuco
+tile.leaves.yew.name=Foglie di tasso
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito di questo rituale
