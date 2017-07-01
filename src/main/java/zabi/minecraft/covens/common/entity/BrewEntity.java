@@ -117,6 +117,7 @@ public class BrewEntity extends EntityThrowable {
 				epe.splashedOn(world, new BlockPos(result.hitVec), this.getThrower(), cpe);
 			}
 		}
+		this.world.playEvent(2007, new BlockPos(this), data.getColor());
 		linger(result, true);
 	}
 

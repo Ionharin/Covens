@@ -18,9 +18,9 @@ public class CovensBrewIngredientRegistry {
 		return null;
 	}
 	
-	public static int getDuration(ItemStack is) {
+	public static int getDuration(ItemStack is, boolean getOpposite) {
 		for (BrewIngredient bi:BrewIngredient.REGISTRY) {
-			if (bi.isValid(is)) return bi.getDuration();
+			if (bi.isValid(is)) return getOpposite?bi.getDurationOpposite():bi.getDuration();
 		}
 		return 0;
 	}

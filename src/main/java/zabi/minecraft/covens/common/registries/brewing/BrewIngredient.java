@@ -24,19 +24,20 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	private ItemStack ingredient = ItemStack.EMPTY;
 	private Potion result = null, opposite = null;
 	private boolean checkMeta = false, checkNbt = false;
-	private int baseDuration = 0;
+	private int baseDuration = 0, oppositeDuration=0;
 	
-	public BrewIngredient(ItemStack in, Potion out, Potion opposite, boolean metadataSensible, boolean NBTSensible, int duration) {
+	public BrewIngredient(ItemStack in, Potion out, Potion opposite, boolean metadataSensible, boolean NBTSensible, int duration, int durationOpposite) {
 		ingredient = in;
 		result = out;
 		checkMeta=metadataSensible;
 		checkNbt=NBTSensible;
 		baseDuration = duration;
 		this.opposite=opposite;
+		oppositeDuration = durationOpposite;
 	}
 	
-	public BrewIngredient(Item in, Potion out, Potion opposite, int duration) {
-		this(new ItemStack(in),out,opposite, false,false, duration);
+	public BrewIngredient(Item in, Potion out, Potion opposite, int duration, int opp_duration) {
+		this(new ItemStack(in),out,opposite, false,false, duration, opp_duration);
 	}
 	
 	public boolean isValid(ItemStack test) {
@@ -53,6 +54,10 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		return baseDuration;
 	}
 	
+	public int getDurationOpposite() {
+		return oppositeDuration;
+	}
+	
 	public Potion getOpposite() {
 		return opposite;
 	}
@@ -62,28 +67,28 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		
 		IForgeRegistry<BrewIngredient> reg = evt.getRegistry();
 		
-		BrewIngredient healing = new BrewIngredient(Items.GHAST_TEAR, MobEffects.REGENERATION, MobEffects.POISON, PotionTypes.REGENERATION.getEffects().get(0).getDuration());
+		BrewIngredient healing = new BrewIngredient(Items.GHAST_TEAR, MobEffects.REGENERATION, MobEffects.POISON, PotionTypes.REGENERATION.getEffects().get(0).getDuration(), PotionTypes.POISON.getEffects().get(0).getDuration());
 		healing.setRegistryName(Reference.MID, "regeneration");
 		
-		BrewIngredient speedPot = new BrewIngredient(Items.SUGAR, MobEffects.SPEED, MobEffects.SLOWNESS, PotionTypes.SWIFTNESS.getEffects().get(0).getDuration());
+		BrewIngredient speedPot = new BrewIngredient(Items.SUGAR, MobEffects.SPEED, MobEffects.SLOWNESS, PotionTypes.SWIFTNESS.getEffects().get(0).getDuration(), PotionTypes.SLOWNESS.getEffects().get(0).getDuration());
 		speedPot.setRegistryName(Reference.MID, "speed");
 		
-		BrewIngredient jump = new BrewIngredient(Items.RABBIT_FOOT, MobEffects.JUMP_BOOST, MobEffects.SLOWNESS, PotionTypes.LEAPING.getEffects().get(0).getDuration());
+		BrewIngredient jump = new BrewIngredient(Items.RABBIT_FOOT, MobEffects.JUMP_BOOST, null, PotionTypes.LEAPING.getEffects().get(0).getDuration(),0);
 		jump.setRegistryName(Reference.MID, "jump"); //TODO potion of gravity
 		
-		BrewIngredient fireRes = new BrewIngredient(Items.MAGMA_CREAM, MobEffects.FIRE_RESISTANCE, MobEffects.SLOWNESS, PotionTypes.FIRE_RESISTANCE.getEffects().get(0).getDuration());
+		BrewIngredient fireRes = new BrewIngredient(Items.MAGMA_CREAM, MobEffects.FIRE_RESISTANCE, null, PotionTypes.FIRE_RESISTANCE.getEffects().get(0).getDuration(),0);
 		fireRes.setRegistryName(Reference.MID, "fire_resistance"); //TODO combustion
 		
-		BrewIngredient nightVis = new BrewIngredient(Items.GOLDEN_CARROT, MobEffects.NIGHT_VISION, MobEffects.BLINDNESS, PotionTypes.NIGHT_VISION.getEffects().get(0).getDuration());
+		BrewIngredient nightVis = new BrewIngredient(Items.GOLDEN_CARROT, MobEffects.NIGHT_VISION, MobEffects.BLINDNESS, PotionTypes.NIGHT_VISION.getEffects().get(0).getDuration(), 200);
 		nightVis.setRegistryName(Reference.MID, "night_vision");
 		
-		BrewIngredient instaHealth = new BrewIngredient(Items.SPECKLED_MELON, MobEffects.INSTANT_HEALTH, MobEffects.INSTANT_DAMAGE, 1);
+		BrewIngredient instaHealth = new BrewIngredient(Items.SPECKLED_MELON, MobEffects.INSTANT_HEALTH, MobEffects.INSTANT_DAMAGE, 1, 1);
 		instaHealth.setRegistryName(Reference.MID, "instaHealth");
 		
-		BrewIngredient strength = new BrewIngredient(Items.BLAZE_POWDER, MobEffects.STRENGTH, MobEffects.WEAKNESS, PotionTypes.STRENGTH.getEffects().get(0).getDuration());
+		BrewIngredient strength = new BrewIngredient(Items.BLAZE_POWDER, MobEffects.STRENGTH, MobEffects.WEAKNESS, PotionTypes.STRENGTH.getEffects().get(0).getDuration(), PotionTypes.WEAKNESS.getEffects().get(0).getDuration());
 		strength.setRegistryName(Reference.MID, "strength");
 		
-		BrewIngredient invis = new BrewIngredient(new ItemStack(ModItems.flowers,1,3), MobEffects.INVISIBILITY, MobEffects.GLOWING, true, false, PotionTypes.INVISIBILITY.getEffects().get(0).getDuration());
+		BrewIngredient invis = new BrewIngredient(new ItemStack(ModItems.flowers,1,3), MobEffects.INVISIBILITY, MobEffects.GLOWING, true, false, PotionTypes.INVISIBILITY.getEffects().get(0).getDuration(), PotionTypes.INVISIBILITY.getEffects().get(0).getDuration());
 		invis.setRegistryName(Reference.MID, "invis");
 		
 		reg.registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis);

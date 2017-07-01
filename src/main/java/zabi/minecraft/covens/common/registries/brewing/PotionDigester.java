@@ -27,6 +27,7 @@ public class PotionDigester {
 		int read = 1;
 		
 		int currentBaseDuration = 0;
+		int currentOppositeDuration = 0;
 		BrewIngredient currentPotion = null;
 		float currentLengthModifier = 1;
 		int currentPower = 0;
@@ -43,7 +44,7 @@ public class PotionDigester {
 				if (CovensBrewIngredientRegistry.isNewPotionInitializer(items[read])) {
 					if (currentPotion!=null) {
 						Log.d("Finishing potion "+currentPotion.getResult().getRegistryName());
-						CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), currentBaseDuration, currentPower);
+						CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), getOpposite?currentOppositeDuration:currentBaseDuration, currentPower);
 						pe.setCurable(isCurable);
 						pe.setMultiplier(currentLengthModifier);
 						pe.setShowParticle(showParticles);
@@ -56,7 +57,8 @@ public class PotionDigester {
 					}
 					currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
 					Log.d("Starting Potion "+currentPotion.getResult().getRegistryName());
-					currentBaseDuration = CovensBrewIngredientRegistry.getDuration(items[read]);
+					currentBaseDuration = CovensBrewIngredientRegistry.getDuration(items[read], false);
+					currentOppositeDuration = CovensBrewIngredientRegistry.getDuration(items[read], true);
 					currentLengthModifier = 1f;
 					currentPower = 0;
 					persistency = 0;
@@ -97,7 +99,7 @@ public class PotionDigester {
 		}
 		if (currentPotion!=null) {
 			Log.d("Finishing potion "+currentPotion.getResult().getRegistryName());
-			CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), currentBaseDuration, currentPower);
+			CovenPotionEffect pe = new CovenPotionEffect(getOpposite?currentPotion.getOpposite():currentPotion.getResult(), getOpposite?currentOppositeDuration:currentBaseDuration, currentPower);
 			pe.setCurable(isCurable);
 			pe.setMultiplier(currentLengthModifier);
 			pe.setShowParticle(showParticles);

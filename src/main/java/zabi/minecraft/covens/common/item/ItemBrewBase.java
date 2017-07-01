@@ -54,7 +54,7 @@ public class ItemBrewBase extends Item {
 				data.addEffectToBrew(new CovenPotionEffect(bi.getResult(), bi.getDuration(), 0));
 				items.add(getBrewStackWithData(this, data));
 				BrewData opp = new BrewData();
-				opp.addEffectToBrew(new CovenPotionEffect(bi.getOpposite(), bi.getDuration(), 0));
+				opp.addEffectToBrew(new CovenPotionEffect(bi.getOpposite(), bi.getDurationOpposite(), 0));
 				items.add(getBrewStackWithData(this, opp));
 			}
 			
