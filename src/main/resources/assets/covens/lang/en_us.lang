@@ -38,6 +38,9 @@ item.brew.spoiled=Better not drink this
 item.cardinal_stone.name=Cardinal Stone
 item.cardinal_stone.bound_to=Bound to (%d %d %d)
 item.ritual_knife.name=Ritual Knife
+item.misc.talisman_charged.name=Charged Talisman
+item.misc.talisman.name=Talisman
+item.misc.wax_ball.name=Wax
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -64,6 +67,7 @@ ritual.covens.timesand.name=Ritual of the Sands of Time
 ritual.covens.perception.name=Ritual of Perception
 ritual.covens.ender_gate.name=End Gate Ritual
 ritual.covens.charging_1.name=Ritual of Charging
+ritual.covens.charging_talisman.name=Ritual of Charging
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III

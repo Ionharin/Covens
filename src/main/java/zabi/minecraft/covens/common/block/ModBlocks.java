@@ -18,6 +18,7 @@ public class ModBlocks {
 	public static BlockModCrop hellebore, aconitum, sagebrush, chrysanthemum;
 	public static BlockModLog log_elder, log_yew, log_juniper;
 	public static BlockModLeaves leaves_elder, leaves_yew, leaves_juniper;
+	public static BlockPlanks yewPlanks, juniperPlanks, elderPlanks;
 	
 	public static void registerAll() {
 		glyphs = new BlockCircleGlyph();
@@ -36,12 +37,16 @@ public class ModBlocks {
 		leaves_elder = new BlockModLeaves("elder");
 		leaves_juniper = new BlockModLeaves("juniper");
 		leaves_yew = new BlockModLeaves("yew");
+		
+		yewPlanks = new BlockPlanks("yew");
+		juniperPlanks = new BlockPlanks("juniper");
+		elderPlanks = new BlockPlanks("elder");
 	}
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		Log.i("Registering blocks for "+Reference.NAME);
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
-		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew);
+		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, yewPlanks, juniperPlanks, elderPlanks);
 	}
 }

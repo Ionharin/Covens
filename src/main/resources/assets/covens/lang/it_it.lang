@@ -38,6 +38,9 @@ item.brew.spoiled=Meglio non berlo
 item.cardinal_stone.name=Pietra cardinale
 item.cardinal_stone.bound_to=Allacciata a (%d %d %d)
 item.ritual_knife.name=Coltello rituale
+item.misc.talisman_charged.name=Talismano carico
+item.misc.talisman.name=Talismano
+item.misc.wax_ball.name=Cera
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -64,6 +67,7 @@ ritual.covens.timesand.name=Rituale delle sabbie del tempo
 ritual.covens.perception.name=Rituale della percezione
 ritual.covens.ender_gate.name=Rituale delle porte della fine
 ritual.covens.charging_1.name=Rituale della carica
+ritual.covens.charging_talisman.name=Rituale della carica
 
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)
