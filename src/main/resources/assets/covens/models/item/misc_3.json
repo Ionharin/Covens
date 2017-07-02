@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "covens:items/misc_3"
+        "layer0": "covens:items/birch_soul"
     }
 }
