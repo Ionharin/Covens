@@ -2,7 +2,6 @@ package zabi.minecraft.covens.common.registries.chimney;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,19 +13,25 @@ import zabi.minecraft.covens.common.lib.Reference;
 @Mod.EventBusSubscriber
 public class ModChimneyRecipes {
 	
-	private static final ChimneyRecipe default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 2), true, false);
+	private static final ChimneyRecipe default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 1), true, false);
 	private static final ChimneyRecipe oak_spirit = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,0), new ItemStack(ModItems.misc, 1, 2), true, false);
+	private static final ChimneyRecipe birch_soul = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,2), new ItemStack(ModItems.misc, 1, 3), true, false);
+	private static final ChimneyRecipe acacia_essence = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,4), new ItemStack(ModItems.misc, 1, 4), true, false);
+	private static final ChimneyRecipe spruce_heart = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,1), new ItemStack(ModItems.misc, 1, 5), true, false);
 	
 	public static void registerAll() {
 		ChimneyRecipe.setDefault(default_recipe);
-		default_recipe.setRegistryName(new ResourceLocation(Reference.MID, "cloudy_oil"));
-		oak_spirit.setRegistryName(new ResourceLocation(Reference.MID, "oak_fume"));
+		default_recipe.setRegistryName(Reference.MID, "cloudy_oil");
+		oak_spirit.setRegistryName(Reference.MID, "oak_fume");
+		birch_soul.setRegistryName(Reference.MID, "birch_soul");
+		acacia_essence.setRegistryName(Reference.MID, "acacia_essence");
+		spruce_heart.setRegistryName(Reference.MID, "spruce_heart");
 	}
 	
 	@SubscribeEvent
 	public static void registerChimneyRecipes(RegistryEvent.Register<ChimneyRecipe> evt) {
 		Log.i("Registering chimney recipes for "+Reference.NAME);
 		IForgeRegistry<ChimneyRecipe> reg = evt.getRegistry();
-		reg.registerAll(default_recipe, oak_spirit);
+		reg.registerAll(default_recipe, oak_spirit, spruce_heart, acacia_essence, birch_soul);
 	}
 }
