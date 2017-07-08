@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "btexture": "covens:blocks/confining_ash"
+        },
+        "model": "covens:magic_glyph"
+    },
+    "variants": {
+        "normal": [{
+
+        }]
+    }
+}
