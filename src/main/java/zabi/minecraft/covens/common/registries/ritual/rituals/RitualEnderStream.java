@@ -24,7 +24,7 @@ public class RitualEnderStream extends Ritual {
 	@Override
 	public boolean isValid(EntityPlayer player, World world, BlockPos pos, List<ItemStack> recipe) {
 		for (ItemStack stack:recipe) {
-			if (stack.getItem().equals(ModItems.waystone) && stack.getMetadata()==2) {
+			if (stack.getItem().equals(ModItems.cardinal_stone) && stack.getMetadata()==2) {
 				NBTTagCompound dest = stack.getOrCreateSubCompound("pos");
 				if (!dest.hasKey("dim") || dest.getInteger("dim")!=world.provider.getDimension()) return false;
 			}
@@ -38,12 +38,12 @@ public class RitualEnderStream extends Ritual {
 		NBTTagCompound dest = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
 			ItemStack stack = new ItemStack(data.getCompoundTag("itemsUsed").getCompoundTag(iname));
-			if (stack.getItem().equals(ModItems.waystone) && stack.getMetadata()==2) {
+			if (stack.getItem().equals(ModItems.cardinal_stone) && stack.getMetadata()==2) {
 				dest = stack.getOrCreateSubCompound("pos");
 				break;
 			}
 		}
-		if (dest==null) {
+		if (dest==null || !dest.hasKey("x")) {
 			Log.w("Error in nbt ritual data: missing destination for enderstream");
 			return;
 		}

@@ -32,6 +32,10 @@ public class ModChimneyRecipes {
 	public static void registerChimneyRecipes(RegistryEvent.Register<ChimneyRecipe> evt) {
 		Log.i("Registering chimney recipes for "+Reference.NAME);
 		IForgeRegistry<ChimneyRecipe> reg = evt.getRegistry();
-		reg.registerAll(default_recipe, oak_spirit, spruce_heart, acacia_essence, birch_soul);
+		reg.register(default_recipe);
+		reg.register(oak_spirit);
+		reg.register(spruce_heart);
+		reg.register(acacia_essence);
+		reg.register(birch_soul);
 	}
 }

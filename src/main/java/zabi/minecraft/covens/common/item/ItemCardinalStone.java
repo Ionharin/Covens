@@ -56,7 +56,7 @@ public class ItemCardinalStone extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (stack.getMetadata()!=1) return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);;
+		if (stack.getMetadata()!=1) return new ActionResult<ItemStack>(EnumActionResult.PASS, stack);
 		NBTTagCompound pos = stack.getOrCreateSubCompound("pos"); 
 		pos.setDouble("x", player.posX);
 		pos.setDouble("y", player.posY);

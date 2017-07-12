@@ -56,9 +56,10 @@ tile.log_yew.name=Legno di tasso
 tile.leaves.juniper.name=Foglie di ginepro
 tile.leaves.elder.name=Foglie di sambuco
 tile.leaves.yew.name=Foglie di tasso
+tile.confining_ash.name=Soglia di cenere
 
 # Ritual Stuff
-ritual.failure.unknown=Non hai mai sentito di questo rituale
+ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
 ritual.failure.power=La tua fonte magica e' debole
 ritual.failure.precondition=C'e' qualcosa di sbagliato in questo rito
 ritual.covens.test.name=Rituale di test
@@ -68,6 +69,7 @@ ritual.covens.perception.name=Rituale della percezione
 ritual.covens.ender_gate.name=Rituale delle porte della fine
 ritual.covens.charging_1.name=Rituale della carica
 ritual.covens.charging_talisman.name=Rituale della carica
+ritual.covens.redirection.name=Rituale del Reindirizzamento
 
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)

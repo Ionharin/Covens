@@ -56,6 +56,7 @@ tile.log_yew.name=Yew Wood
 tile.leaves.juniper.name=Juniper Leaves
 tile.leaves.elder.name=Elder Leaves
 tile.leaves.yew.name=Yew Leaves
+tile.confining_ash.name=Confining Ash
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
@@ -68,6 +69,7 @@ ritual.covens.perception.name=Ritual of Perception
 ritual.covens.ender_gate.name=End Gate Ritual
 ritual.covens.charging_1.name=Ritual of Charging
 ritual.covens.charging_talisman.name=Ritual of Charging
+ritual.covens.redirection.name=Ritual of Redirection
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III

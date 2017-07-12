@@ -17,6 +17,7 @@ import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualPerception;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualRedirection;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualSandsTime;
 
 @Mod.EventBusSubscriber
@@ -28,16 +29,18 @@ public class ModRituals {
 	private static Ritual charging_ritual_cardinal_stone = null, charging_riutual_talisman = null;
 	private static RitualEnderGate ender_gate = null;
 	private static RitualEnderStream ender_stream = null;
+	private static RitualRedirection redirection_ritual= null;
 	
 	
 	public static void registerAll() {
 		high_moon_ritual = new RitualHighMoon(of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.NETHERBRICK)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
 		sand_time_ritual = new RitualSandsTime(of(new ItemStack(Blocks.SAND), new ItemStack(Blocks.DIAMOND_ORE)), nop(), 24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4);
-		perception_ritual = new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), nop(), 24000, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
-		charging_ritual_cardinal_stone = new Ritual(of(new ItemStack(ModItems.waystone), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST)), of(new ItemStack(ModItems.waystone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 2000, 0);
-		ender_gate = new RitualEnderGate(of(new ItemStack(ModItems.waystone,1,2), new ItemStack(Items.ENDER_PEARL)), nop(), 100, circles(GlyphType.ENDER, null, null), 1000, 5);
-		ender_stream = new RitualEnderStream(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_EYE), new ItemStack(ModItems.waystone,1,2), new ItemStack(Items.GOLD_INGOT)), nop(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
+		perception_ritual = new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), nop(), -1, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
+		charging_ritual_cardinal_stone = new Ritual(of(new ItemStack(ModItems.cardinal_stone), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST)), of(new ItemStack(ModItems.cardinal_stone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		ender_gate = new RitualEnderGate(of(new ItemStack(ModItems.cardinal_stone,1,2), new ItemStack(Items.ENDER_PEARL)), nop(), 100, circles(GlyphType.ENDER, null, null), 1000, 5);
+		ender_stream = new RitualEnderStream(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_EYE), new ItemStack(ModItems.cardinal_stone,1,2), new ItemStack(Items.GOLD_INGOT)), nop(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
 		charging_riutual_talisman = new Ritual(of(new ItemStack(ModItems.misc, 1, 8), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(ModItems.misc,1,6)), of(new ItemStack(ModItems.misc,1,9)), 80, circles(GlyphType.NORMAL, null, null), 3000, 0);
+		redirection_ritual = new RitualRedirection(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(ModItems.cardinal_stone,1,2)), nop(), -1, circles(GlyphType.NORMAL, GlyphType.ENDER, null), 2000, 6);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -70,6 +73,6 @@ public class ModRituals {
 	public static void registerBlocks(RegistryEvent.Register<Ritual> evt) {
 		Log.i("Registering rituals for "+Reference.NAME);
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
-		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, charging_riutual_talisman);
+		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, charging_riutual_talisman, redirection_ritual);
 	}
 }
