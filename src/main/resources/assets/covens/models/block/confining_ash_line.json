@@ -1,0 +1,21 @@
+{
+    "ambientocclusion": false,
+    "textures": {
+        "particle": "covens:blocks/confining_ash_line",
+        "block": "covens:blocks/confining_ash_line"
+    },
+    "elements": [
+        {   
+        	"from": [ 0, 0.05, 0 ],
+            "to": [ 16, 0.05, 16 ],
+            "faces": {
+                "down":  { 
+                	"texture": "#block"
+                },
+                "up": { 
+                	"texture": "#block"
+                }
+            }
+        }
+    ]
+}

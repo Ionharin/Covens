@@ -56,8 +56,8 @@ public class ItemMisc extends Item {
 	}
 	
 	@Override
-	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if (player.getHeldItem(hand).getMetadata()==1) { //ash
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote && player.getHeldItem(hand).getMetadata()==1) { //ash
 			if (world.getBlockState(pos).getBlock().canPlaceTorchOnTop(world.getBlockState(pos), world, pos)) {
 				world.setBlockState(pos.up(), ModBlocks.confining_ash.getDefaultState());
 				if (!player.isCreative()) {
@@ -66,7 +66,7 @@ public class ItemMisc extends Item {
 				return EnumActionResult.SUCCESS;
 			}
 		}
-		return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
+		return super.onItemUse(player, world, pos, hand, facing, hitX, hitY, hitZ);
 	}
 	
 }

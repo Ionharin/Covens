@@ -1,14 +1,57 @@
 {
-    "forge_marker": 1,
-    "defaults": {
-        "textures": {
-            "btexture": "covens:blocks/confining_ash"
-        },
-        "model": "covens:magic_glyph"
-    },
-    "variants": {
-        "normal": [{
-
-        }]
-    }
+    "multipart": [
+    	{
+    		"when": {
+    			"OR": [
+    				{"north": "false", "south": "false", "east": "false", "west": "false"},
+    				{"north": "true", "south": "false", "east": "false", "west": "false"},
+    				{"north": "false", "south": "true", "east": "false", "west": "false"},
+    				{"north": "false", "south": "false", "east": "true", "west": "false"},
+    				{"north": "false", "south": "false", "east": "false", "west": "true"},
+    				{"north": "true", "south": "false", "east": "true", "west": "false"},
+    				{"north": "false", "south": "true", "east": "true", "west": "false"},
+    				{"north": "true", "south": "false", "east": "false", "west": "true"},
+    				{"north": "false", "south": "true", "east": "false", "west": "true"}
+    			]
+    		},
+    		"apply": {
+    			"model": "covens:confining_ash_dot"
+    		}
+    	},
+    	{
+    		"when": {
+    			"north": "true"
+    		},
+    		"apply": {
+    			"model": "covens:confining_ash_line"
+    		}
+    	},
+    	{
+    		"when": {
+    			"south": "true"
+    		},
+    		"apply": {
+    			"model": "covens:confining_ash_line",
+    			"y": 180
+    		}
+    	},
+    	{
+    		"when": {
+    			"east": "true"
+    		},
+    		"apply": {
+    			"model": "covens:confining_ash_line",
+    			"y": 90
+    		}
+    	},
+    	{
+    		"when": {
+    			"west": "true"
+    		},
+    		"apply": {
+    			"model": "covens:confining_ash_line",
+    			"y": 270
+    		}
+    	}
+    ]
 }
