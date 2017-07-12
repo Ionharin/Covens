@@ -17,7 +17,7 @@ import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
 public class RitualRedirection extends Ritual {
 
-	public static final int TP_SENSITIVITY = 4;
+	public static final int TP_SENSITIVITY = 4, RADIUS = 20;
 	
 	public RitualRedirection(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
@@ -39,7 +39,7 @@ public class RitualRedirection extends Ritual {
 			return;
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
-		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(20)).stream()
+		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(RADIUS)).stream()
 			.filter(e -> e.getDistanceSq(e.lastTickPosX, e.lastTickPosY, e.lastTickPosZ)>TP_SENSITIVITY)
 			.forEach(e -> e.attemptTeleport(x, y, z));
 	}
@@ -57,7 +57,7 @@ public class RitualRedirection extends Ritual {
 			return false;
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
-		if (Math.abs(x-pos.getX())<30 && Math.abs(y - pos.getY())<30 && Math.abs(z - pos.getZ())<30) {
+		if (Math.abs(x-pos.getX())<RADIUS && Math.abs(y - pos.getY())<RADIUS && Math.abs(z - pos.getZ())<RADIUS) {
 			return false; //Destination is inside
 		}
 		return true;
