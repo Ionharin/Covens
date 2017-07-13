@@ -33,7 +33,7 @@ public class RitualEnderStream extends Ritual {
 	}
 	
 	@Override
-	public void onUpdate(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		if (ticks%20!=0) return;
 		NBTTagCompound dest = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
@@ -56,8 +56,8 @@ public class RitualEnderStream extends Ritual {
 	}
 	
 	@Override
-	public void onLowPower(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {
-		((TileEntityGlyph) world.getTileEntity(pos)).stopRitual(player);
+	public void onLowPower(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+		tile.stopRitual(player);
 	}
 
 }

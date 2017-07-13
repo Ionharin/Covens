@@ -18,6 +18,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	
@@ -48,11 +49,11 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		return true;
 	}
 	
-	public void onUpdate(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
-	public void onFinish(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStopped(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStarted(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onLowPower(@Nullable EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
+	public void onUpdate(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
+	public void onFinish(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStopped(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStarted(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onLowPower(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
 	
 	public int getTime() {
 		return time;

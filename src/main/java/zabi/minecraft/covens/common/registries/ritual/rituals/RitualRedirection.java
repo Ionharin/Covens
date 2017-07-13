@@ -10,10 +10,18 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
+import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualRedirection extends Ritual {
 
@@ -22,10 +30,12 @@ public class RitualRedirection extends Ritual {
 	public RitualRedirection(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
 		this.setRegistryName(Reference.MID, "redirection");
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@Override
-	public void onUpdate(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+		if (world.isRemote) return;
 		NBTTagCompound dest = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
 			ItemStack stack = new ItemStack(data.getCompoundTag("itemsUsed").getCompoundTag(iname));
@@ -40,8 +50,11 @@ public class RitualRedirection extends Ritual {
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
 		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(RADIUS)).stream()
-			.filter(e -> e.getDistanceSq(e.lastTickPosX, e.lastTickPosY, e.lastTickPosZ)>TP_SENSITIVITY)
-			.forEach(e -> e.attemptTeleport(x, y, z));
+			.filter(e -> shouldRedirect(e))
+			.filter(e -> !tile.isInList(e))
+			.forEach(e -> {
+				if (tile.consumePower((int) (pos.distanceSq(x, y, z)/10))) e.attemptTeleport(x, y, z);
+			});
 	}
 	
 	@Override
@@ -58,9 +71,37 @@ public class RitualRedirection extends Ritual {
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
 		if (Math.abs(x-pos.getX())<RADIUS && Math.abs(y - pos.getY())<RADIUS && Math.abs(z - pos.getZ())<RADIUS) {
-			return false; //Destination is inside
+			return false; //Destination is inside, it would cause it to intercept itself
 		}
 		return true;
+	}
+	
+	@SideOnly(Side.SERVER)
+	@SubscribeEvent(priority=EventPriority.LOWEST, receiveCanceled=false)
+	public void markTeleported(EntityTravelToDimensionEvent evt) {
+		if (evt.getEntity() instanceof EntityLivingBase) {
+			EntityLivingBase entity = (EntityLivingBase) evt.getEntity();
+			entity.addTag("TPMK:"+entity.ticksExisted);
+		}
+	}
+	
+	@SideOnly(Side.SERVER)
+	@SubscribeEvent
+	public void removeMarks(EntityJoinWorldEvent evt) {
+		for (String s:evt.getEntity().getTags()) if (s.startsWith("TPMK:")) evt.getEntity().removeTag(s);
+	}
+	
+	private static boolean shouldRedirect(EntityLivingBase e) {
+		boolean sameDim = e.getDistanceSq(e.lastTickPosX, e.lastTickPosY, e.lastTickPosZ)>TP_SENSITIVITY;
+		if (sameDim) return true;
+		boolean teleDim = false;
+		for (String s:e.getTags()) for (int dt=0;dt>-4;dt--) {
+			if (s.equals("TPMK:"+(e.ticksExisted+dt))) {
+				teleDim = true;
+				break;
+			}
+		}
+		return teleDim;
 	}
 
 }

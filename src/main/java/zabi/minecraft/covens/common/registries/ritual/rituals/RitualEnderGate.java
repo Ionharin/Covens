@@ -15,6 +15,7 @@ import zabi.minecraft.covens.common.item.ItemCardinalStone;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
+import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualEnderGate extends Ritual {
 
@@ -23,7 +24,7 @@ public class RitualEnderGate extends Ritual {
 	}
 	
 	@Override
-	public void onFinish(EntityPlayer player, World world, BlockPos pos, NBTTagCompound data) {
+	public void onFinish(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {
 		NBTTagCompound dest = null;
 		ItemStack stone = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {

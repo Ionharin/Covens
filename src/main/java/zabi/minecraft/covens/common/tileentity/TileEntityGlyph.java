@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,7 @@ public class TileEntityGlyph extends TileEntityBase {
 	private UUID entityPlayer;
 	private NBTTagCompound ritualData = null;
 	private TileEntityAltar te = null;
+	private ArrayList<String> entityList = new ArrayList<String>();
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
@@ -34,6 +36,11 @@ public class TileEntityGlyph extends TileEntityBase {
 		if (tag.hasKey("ritual")) ritual = Ritual.REGISTRY.getValue(new ResourceLocation(tag.getString("ritual")));
 		if (tag.hasKey("player")) entityPlayer = UUID.fromString(tag.getString("player"));
 		if (tag.hasKey("data")) ritualData = tag.getCompoundTag("data");
+		if (tag.hasKey("entityList")) {
+			entityList = new ArrayList<String>();
+			NBTTagCompound listTag = tag.getCompoundTag("entityList");
+			for (String s:listTag.getKeySet()) entityList.add(listTag.getString(s));
+		}
 	}
 
 	@Override
@@ -42,6 +49,9 @@ public class TileEntityGlyph extends TileEntityBase {
 		if (ritual!=null) tag.setString("ritual", ritual.getRegistryName().toString());
 		if (entityPlayer!=null) tag.setString("player", entityPlayer.toString());
 		if (ritualData!=null) tag.setTag("data", ritualData);
+		NBTTagCompound list = new NBTTagCompound();
+		for (int i=0;i<entityList.size();i++) list.setString("entity"+i, entityList.get(i));
+		tag.setTag("entityList", list);
 	}
 
 	@Override
@@ -51,7 +61,7 @@ public class TileEntityGlyph extends TileEntityBase {
 			boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
 			if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
 			if (ritual.getTime()<=cooldown && ritual.getTime()>=0) {
-				ritual.onFinish(player, getWorld(), getPos(), ritualData);
+				ritual.onFinish(player, this, getWorld(), getPos(), ritualData);
 				Log.d("Ritual Finished: "+ritual.getRegistryName());
 				if (!getWorld().isRemote) for (ItemStack stack : ritual.getOutput()) {
 					EntityItem ei = new EntityItem(getWorld(), getPos().getX(), getPos().up().getY(), getPos().getZ(), stack);
@@ -63,10 +73,10 @@ public class TileEntityGlyph extends TileEntityBase {
 				return;
 			}
 			if (hasPowerToUpdate) {
-				ritual.onUpdate(player, getWorld(), getPos(), ritualData, cooldown);
+				ritual.onUpdate(player, this, getWorld(), getPos(), ritualData, cooldown);
 				Log.d("Ritual Updated: "+ritual.getRegistryName());
 			} else {
-				ritual.onLowPower(player, world, pos, ritualData, cooldown);
+				ritual.onLowPower(player, this, world, pos, ritualData, cooldown);
 			}
 		}
 	}
@@ -92,7 +102,7 @@ public class TileEntityGlyph extends TileEntityBase {
 						this.ritual = rit;
 						this.entityPlayer = player.getPersistentID();
 						this.cooldown = 0;
-						ritual.onStarted(player, getWorld(), getPos(), ritualData);
+						ritual.onStarted(player, this, getWorld(), getPos(), ritualData);
 						player.sendStatusMessage(new TextComponentTranslation("ritual."+rit.getRegistryName().toString().replace(':', '.')+".name", new Object[0]), true);
 						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 						markDirty();
@@ -135,6 +145,14 @@ public class TileEntityGlyph extends TileEntityBase {
 		}
 		return true;
 	}
+	
+	public boolean isInList(Entity entity) {
+		return entityList.contains(entity.getUniqueID().toString());
+	}
+	
+	public void addEntityToList(Entity entity) {
+		entityList.add(entity.getUniqueID().toString());
+	}
 
 	private boolean checkFirst(GlyphType typeFirst) {
 		for (int[] c:small) {
@@ -171,7 +189,7 @@ public class TileEntityGlyph extends TileEntityBase {
 
 	public void stopRitual(EntityPlayer player) {
 		if (ritual!=null) {
-			ritual.onStopped(player, world, pos, ritualData);
+			ritual.onStopped(player, this, world, pos, ritualData);
 			Log.d("Ritual Stopped: "+ritual.getRegistryName());
 			entityPlayer = null;
 			cooldown = 0;
@@ -194,6 +212,12 @@ public class TileEntityGlyph extends TileEntityBase {
 		.findFirst().orElse(null);
 		if (te==null) return false;
 		return te.consumePower(power, false);
+	}
+	
+	@Override
+	public void invalidate() {
+		stopRitual(null);
+		super.invalidate();
 	}
 	
 	
