@@ -16,12 +16,13 @@ public class GuiChimney extends GuiContainer {
 	public GuiChimney(Container inventorySlotsIn, TileEntityChimney te) {
 		super(inventorySlotsIn);
 		this.te=te;
-		this.xSize=175;
-		this.ySize=165;
+		this.xSize=176;
+		this.ySize=166;
 	}
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		this.drawDefaultBackground();
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		if (te!=null) {
@@ -32,6 +33,12 @@ public class GuiChimney extends GuiContainer {
 			int left = (xSize-fontRenderer.getStringWidth(name))/2;
 			fontRenderer.drawString(name, this.guiLeft+left, this.guiTop+15, 3216909);
 		}
+	}
+	
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		this.renderHoveredToolTip(mouseX-guiLeft, mouseY-guiTop);
 	}
 
 }
