@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
