@@ -22,6 +22,7 @@ public class RitualWrapper implements IRecipeWrapper {
 	
 	List<ItemStack> input, output;
 	private int circles, powerStart, powerTick;
+	private String name;
 	
 	private static IDrawable centerGlyph, circle1, circle2, circle3;
 	
@@ -32,6 +33,7 @@ public class RitualWrapper implements IRecipeWrapper {
 		circles = ritual.getCircles();
 		powerStart = ritual.getRequiredStartingPower();
 		powerTick = ritual.getRunningPower();
+		name=I18n.format("ritual."+ritual.getRegistryName().toString().replace(':', '.')+".name");
 		if (centerGlyph==null) {
 			centerGlyph = igh.createDrawable(new ResourceLocation(Reference.MID, "textures/gui/jei_ritual_0.png"), 0, 0, 34, 34, 34, 34);
 			circle1 = igh.createDrawable(new ResourceLocation(Reference.MID, "textures/gui/jei_ritual_1.png"), 0, 0, 34, 34, 34, 34);
@@ -54,6 +56,8 @@ public class RitualWrapper implements IRecipeWrapper {
 		int mult = (int) (powerTick>0?3.1:2);
 		if (powerStart>0) fr.drawString(powerFlatDesc, (recipeWidth-fr.getStringWidth(powerFlatDesc))/2, recipeHeight-mult*fr.FONT_HEIGHT, 0, false);
 		if (powerTick>0) fr.drawString(powerTickDesc, (recipeWidth-fr.getStringWidth(powerTickDesc))/2, recipeHeight-2*fr.FONT_HEIGHT, 0, false);
+		fr.drawString(name, (recipeWidth-fr.getStringWidth(name))/2, 0, 0);
+		
 		
 		int requiredCircles = circles & 3;
 		GlyphType typeFirst = BlockCircleGlyph.GlyphType.values()[circles>>2 & 3];
@@ -61,7 +65,7 @@ public class RitualWrapper implements IRecipeWrapper {
 		GlyphType typeThird = BlockCircleGlyph.GlyphType.values()[circles>>6 & 3];
 		color(GlyphType.GOLDEN);
 		
-		int dx = 53, dy = 25;
+		int dx = 53, dy = 35;
 		
 		centerGlyph.draw(minecraft, dx, dy);
 		color(typeFirst);

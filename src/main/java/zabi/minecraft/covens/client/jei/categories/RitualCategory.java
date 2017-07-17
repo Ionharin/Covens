@@ -18,7 +18,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	public static final String UID = Reference.MID+":rituals";
 	
 	public RitualCategory(IGuiHelper igh) {
-		bg=igh.createBlankDrawable(140, 110);
+		bg=igh.createBlankDrawable(140, 120);
 	}
 
 	@Override
@@ -45,12 +45,12 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 	public void setRecipe(IRecipeLayout recipeLayout, RitualWrapper recipeWrapper, IIngredients ingredients) {
 		List<ItemStack> stacksIn = recipeWrapper.input;
 		for (int i=0;i<stacksIn.size();i++) {
-			recipeLayout.getItemStacks().init(i, true, 18*i+(140-18*stacksIn.size())/2, 0);
+			recipeLayout.getItemStacks().init(i, true, 18*i+(140-18*stacksIn.size())/2, 15);
 			recipeLayout.getItemStacks().set(i, stacksIn.get(i));
 		}
 		List<ItemStack> stacksOut = recipeWrapper.output;
 		for (int i=0;i<stacksOut.size();i++) {
-			recipeLayout.getItemStacks().init(i + stacksIn.size(), false, 18*i+(140-18*stacksOut.size())/2, 60);
+			recipeLayout.getItemStacks().init(i + stacksIn.size(), false, 18*i+(140-18*stacksOut.size())/2, 70);
 			recipeLayout.getItemStacks().set(i + stacksIn.size(), stacksOut.get(i));
 		}
 	}
