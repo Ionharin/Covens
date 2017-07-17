@@ -2,13 +2,13 @@ package zabi.minecraft.covens.common.tileentity;
 
 import java.lang.reflect.Method;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -174,7 +174,7 @@ public class TileEntityChimney extends TileEntityBase implements IInventory /*im
 
 	@Override
 	public String getName() {
-		return I18n.translateToLocal("tile.chimney.name");
+		return I18n.format("tile.chimney.name");
 	}
 
 	@Override
