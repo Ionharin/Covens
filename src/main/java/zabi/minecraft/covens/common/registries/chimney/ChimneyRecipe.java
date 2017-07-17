@@ -15,7 +15,7 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 	
 	private ItemStack in, out;
 	private boolean meta, nbt;
-	private static ChimneyRecipe defaultReicpe = null;
+	public static ChimneyRecipe defaultReicpe = null;
 	
 	public ChimneyRecipe(@Nonnull ItemStack in, @Nonnull ItemStack out, boolean matchMetadata, boolean matchNBT) {
 		this.in=in.copy();
@@ -33,6 +33,14 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 	
 	public ItemStack getOutput() {
 		return out.copy();
+	}
+	
+	public ItemStack getInput() {
+		ItemStack res = new ItemStack(in.getItem(),1);
+		if (meta) res.setItemDamage(in.getMetadata());
+		else res.setItemDamage(-1);
+		if (nbt) res.setTagCompound(in.getTagCompound().copy());
+		return res;
 	}
 	
 	public static ChimneyRecipe getRecipeFor(ItemStack ingredient) {

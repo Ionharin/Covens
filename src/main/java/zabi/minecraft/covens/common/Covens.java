@@ -38,12 +38,12 @@ public class Covens {
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
-		ModChimneyRecipes.registerAll();
-		ModTileEntities.registerAll();
-		ModRituals.registerAll();
-		ModEntities.registerAll();
 		NetworkModRegistry.registerMessages(network);
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
+		ModEntities.registerAll();
+		ModTileEntities.registerAll();
+		ModChimneyRecipes.registerAll();
+		ModRituals.registerAll();
 	}
 	
 	@EventHandler
