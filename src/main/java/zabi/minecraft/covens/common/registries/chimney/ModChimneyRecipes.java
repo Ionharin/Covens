@@ -13,13 +13,18 @@ import zabi.minecraft.covens.common.lib.Reference;
 @Mod.EventBusSubscriber
 public class ModChimneyRecipes {
 	
-	private static final ChimneyRecipe default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 1), true, false);
-	private static final ChimneyRecipe oak_spirit = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,0), new ItemStack(ModItems.misc, 1, 2), true, false);
-	private static final ChimneyRecipe birch_soul = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,2), new ItemStack(ModItems.misc, 1, 3), true, false);
-	private static final ChimneyRecipe acacia_essence = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,4), new ItemStack(ModItems.misc, 1, 4), true, false);
-	private static final ChimneyRecipe spruce_heart = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,1), new ItemStack(ModItems.misc, 1, 5), true, false);
+	private static ChimneyRecipe default_recipe;
+	private static ChimneyRecipe oak_spirit;
+	private static ChimneyRecipe birch_soul;
+	private static ChimneyRecipe acacia_essence;
+	private static ChimneyRecipe spruce_heart;
 	
 	public static void registerAll() {
+		default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 1), true, false);
+		oak_spirit = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,0), new ItemStack(ModItems.misc, 1, 2), true, false);
+		birch_soul = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,2), new ItemStack(ModItems.misc, 1, 3), true, false);
+		acacia_essence = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,4), new ItemStack(ModItems.misc, 1, 4), true, false);
+		spruce_heart = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,1), new ItemStack(ModItems.misc, 1, 5), true, false);
 		ChimneyRecipe.setDefault(default_recipe);
 		default_recipe.setRegistryName(Reference.MID, "cloudy_oil");
 		oak_spirit.setRegistryName(Reference.MID, "oak_fume");
