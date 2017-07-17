@@ -27,7 +27,6 @@ public class RitualWrapper implements IRecipeWrapper {
 	private static IDrawable centerGlyph, circle1, circle2, circle3;
 	
 	public RitualWrapper(Ritual ritual, IGuiHelper igh) {
-		Log.i("wrapping "+ritual.getRegistryName().toString());
 		output = ritual.getOutput();
 		input = ritual.getInput();
 		circles = ritual.getCircles();
