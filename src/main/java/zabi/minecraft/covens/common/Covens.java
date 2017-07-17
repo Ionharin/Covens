@@ -38,10 +38,9 @@ public class Covens {
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
-		ModTileEntities.registerAll();
-		VanillaRecipes.registerAll();
-		ModRituals.registerAll();
 		ModChimneyRecipes.registerAll();
+		ModTileEntities.registerAll();
+		ModRituals.registerAll();
 		ModEntities.registerAll();
 		NetworkModRegistry.registerMessages(network);
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
@@ -50,6 +49,7 @@ public class Covens {
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		proxy.registerRenderingStuff();
+		VanillaRecipes.registerAll();
 	}
 	
 }
