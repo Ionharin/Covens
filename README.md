@@ -36,7 +36,7 @@ The idea is freely taken from Emoniph's mod, Witchery
 - All rights reserved to the developer (ZaBi94), unless otherwise stated in this license.
 
 - You can include this mod in your modpack, but you cannot rehost, redistribute, monetize in any way (this includes ad-gates, such as adf.ly and similar) anything that is directly derived from this mod.  
-This includes, but is not limited to: source code, bytecode, buidls, assets, and other contents of the jar.  
+This includes, but is not limited to: source code, bytecode, builds, assets, and other contents of the jar.  
 If you do include this in your modpack I'd like to be informed, although it is not necessary.
 
 - I have the right to modify and change this license in any way, at any time. It is up to the user to verify that the usage is still current with the existing license.
