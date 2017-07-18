@@ -1,0 +1,83 @@
+# Creative Tabs names
+itemGroup.covens.rituals=Шабаш - Ритуалы
+itemGroup.covens.herbs=Шабаш - Травы
+itemGroup.covens.machines=Шабаш - Устройства
+itemGroup.covens.products=Шабаш - Изделия
+itemGroup.covens.brews=Шабаш - Зелья
+
+# Item names
+item.hellebore_seeds.name=Семена морозника
+item.aconitum_seeds.name=Семена аконита
+item.sagebrush_seeds.name=Семена полыни
+item.chrysanthemum_seeds.name=Семена Хризантемы
+item.flower.hellebore.name=Морозник
+item.flower.aconitum.name=Аконит клубочковый
+item.flower.sagebrush.name=Цветок полыни
+item.flower.chrysanthemum.name=Хризантема
+item.chalk_normal.name=Ритуальный мел
+item.chalk_golden.name=Священный мел
+item.chalk_ender.name=Пустотный мел 
+item.chalk_nether.name=Пламенный мел
+item.misc.empty_jar.name=Пустая банка
+item.misc.ash.name=Древесный пепел
+item.misc.oak_spirit.name=Дух дуба
+item.misc.birch_soul.name=Душа березы
+item.misc.acacia_essence.name=Эссенция акаций
+item.misc.spruce_heart.name=Сердце ели
+item.misc.cloudy_oil.name=Мутное масло
+item.eerie_seeds.name=Таинственные семена
+item.brew_drinkable_full.name=Магическое зелье
+item.brew_drinkable_spoiled.name=Испорченное зелье
+item.brew_splash_full.name=Волшебное взрывное зелье
+item.brew_splash_spoiled.name=Испорченное взрывное зелье 
+item.brew_gas_full.name=Волшебное газовое зелье
+item.brew_gas_spoiled.name=Испорченное газовое зелье
+item.brew_lingering_full.name=Волшебное задерживающиеся зелье
+item.brew_lingering_spoiled.name=Испорченное задерживающиеся зелье
+item.brew.spoiled=Лучше не пить это...
+item.cardinal_stone.name=Координирующий камень
+item.cardinal_stone.bound_to=Связанный (%d %d %d)
+item.cardinal_stone.unbound=Не связанный
+item.cardinal_stone.uncharged=Не заряженный
+item.ritual_knife.name=Ритуальный кинжал
+item.misc.talisman_charged.name=Заряженный талисман
+item.misc.talisman.name=Талисман
+item.misc.wax_ball.name=Воск
+
+# Block names
+tile.witch_altar.name=Алтарь ведьм
+tile.magic_glyph.name=Ритуальный глиф
+tile.hellebore.name=Морозник
+tile.aconitum.name=Аконит
+tile.sagebrush.name=Полынь
+tile.chrysanthemum.name=Хризантема
+tile.chimney.name=Дымоход паров
+tile.log_juniper.name=Можжевельник 
+tile.log_elder.name=Бузина
+tile.log_yew.name=Тис
+tile.leaves.juniper.name=Листья можжевельника
+tile.leaves.elder.name=Листья бузины
+tile.leaves.yew.name=Листья тиса
+tile.confining_ash.name=Ограничение пеплом 
+
+# Ritual Stuff
+ritual.failure.unknown=Вы никогда не слышали о таких обрядах
+ritual.failure.power=Ваш источник волшебства не достаточно силен
+ritual.failure.precondition=Что-то неправильно
+ritual.covens.test.name=Испытательный ритуал
+ritual.covens.high_moon.name=Ритуал возвышения луны
+ritual.covens.time_sands.name=Ритуал пески времени
+ritual.covens.perception.name=Ритуал восприятия
+ritual.covens.ender_gate.name=Ритуал врата Края
+ritual.covens.ender_stream.name=Ритуал врата Края
+ritual.covens.charging_1.name=Ритуал зарядки
+ritual.covens.charging_talisman.name=Ритуал зарядки
+ritual.covens.redirection.name=Ритуал перенаправления 
+
+# Misc
+brew.failure.power=Ваш волшебный источник слабый (%d)
+brew.success.power=Ваша потребность %d силы алтаря
+jei.category.rituals=Ритуалы
+jei.category.chimney=Коллекция дыма
+jei.ritual.power.flat=%d Сила алтаря
+jei.ritual.power.tick=%d Сила алтаря в секунду 
