@@ -65,6 +65,12 @@ public class VanillaRecipes {
 				's', Blocks.MOSSY_COBBLESTONE,
 				'e', new ItemStack(ModItems.misc,1,4)
 				);
+		GameRegistry.addShapedRecipe(rl("goblet"), null, new ItemStack(ModBlocks.goblet), 
+				"n n", "ntn", " i ",
+				'n', Items.IRON_NUGGET,
+				'i', Items.IRON_INGOT,
+				't', new ItemStack(ModItems.misc,1,9)
+				);
 	}
 
 	private static void registerFurnaceRecipes() {

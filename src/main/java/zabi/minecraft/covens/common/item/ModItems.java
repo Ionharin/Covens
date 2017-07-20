@@ -17,7 +17,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks;
+	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemCardinalStone cardinal_stone;
 	public static ItemFlowers flowers;
@@ -37,6 +37,7 @@ public class ModItems {
 		log_yew = new ItemBlock(ModBlocks.log_yew);
 		log_juniper = new ItemBlock(ModBlocks.log_juniper);
 		log_elder = new ItemBlock(ModBlocks.log_elder);
+		goblet = new ItemBlock(ModBlocks.goblet);
 		cardinal_stone = new ItemCardinalStone();
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
@@ -65,6 +66,7 @@ public class ModItems {
 		yewPlanks.setRegistryName(ModBlocks.yewPlanks.getRegistryName());
 		juniperPlanks.setRegistryName(ModBlocks.juniperPlanks.getRegistryName());
 		elderPlanks.setRegistryName(ModBlocks.elderPlanks.getRegistryName());
+		goblet.setRegistryName(ModBlocks.goblet.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -97,7 +99,8 @@ public class ModItems {
 		Log.i("Registering items for "+Reference.NAME);
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
-				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom
+				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
+				goblet
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_yew, leaves_juniper, yewPlanks, juniperPlanks, elderPlanks);
 	}

@@ -59,6 +59,7 @@ tile.leaves.juniper.name=Foglie di ginepro
 tile.leaves.elder.name=Foglie di sambuco
 tile.leaves.yew.name=Foglie di tasso
 tile.confining_ash.name=Soglia di cenere
+tile.goblet.name=Calice
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile

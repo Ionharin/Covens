@@ -154,6 +154,11 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	}
 	
 	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+	
+	@Override
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT_MIPPED;
 	}

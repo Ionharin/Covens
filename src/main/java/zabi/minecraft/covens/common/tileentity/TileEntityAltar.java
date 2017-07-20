@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.oredict.OreDictionary;
+import zabi.minecraft.covens.common.block.BlockGoblet;
 import zabi.minecraft.covens.common.block.BlockWitchAltar;
 import zabi.minecraft.covens.common.block.BlockWitchAltar.AltarMultiblockType;
 import zabi.minecraft.covens.common.block.ModBlocks;
@@ -77,8 +78,8 @@ public class TileEntityAltar extends TileEntityBase {
 		map.values().forEach(i -> maxPower+=i);
 		maxPower += (map.keySet().size()*80); //Variety is the most important thing
 		double multiplier = 1;
-		boolean[] typesGain = new boolean[2]; //Types of modifiers. 0=skull
-		boolean[] typesMult = new boolean[1]; //Types of modifiers. 0=skull
+		boolean[] typesGain = new boolean[2]; //Types of modifiers. 0=skull, 1=torch/vase
+		boolean[] typesMult = new boolean[2]; //Types of modifiers. 0=skull, 1=goblet
 		for (int dx = -1; dx<=1;dx++) for (int dz = -1; dz<=1;dz++) {
 			BlockPos ps = getPos().add(dx, 0, dz);
 			if (getWorld().getBlockState(ps).getBlock().equals(ModBlocks.altar) && !getWorld().getBlockState(ps).getValue(BlockWitchAltar.ALTAR_TYPE).equals(AltarMultiblockType.UNFORMED)) {
@@ -146,6 +147,14 @@ public class TileEntityAltar extends TileEntityBase {
 			}
 		} else if (blockState.getBlock().equals(Blocks.DIAMOND_BLOCK)) {
 			return 10;
+		} else if (blockState.getBlock().equals(ModBlocks.goblet)) {
+			if (typesMult[1]) return 0;
+			typesMult[1]=true;
+			if (blockState.getValue(BlockGoblet.FULL)) {
+				return 0.5;
+			} else {
+				return 0.2;
+			}
 		}
 		return 0;
 	}
