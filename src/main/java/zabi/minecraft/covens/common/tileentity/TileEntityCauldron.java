@@ -9,14 +9,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import zabi.minecraft.covens.common.block.BlockCauldron;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
 
 public class TileEntityCauldron extends TileEntityBase {
 	
 	public void setNoLiquid() {
-		Log.i("Emptying");
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockCauldron.FULL, false), 3);
 	}
 
@@ -55,7 +53,7 @@ public class TileEntityCauldron extends TileEntityBase {
 	@Override
 	protected void tick() {
 		if (world.getBlockState(pos).getValue(BlockCauldron.FULL)) {
-			if (pickArea==null) pickArea = new AxisAlignedBB(pos.up()).contract(0, 0.95, 0);
+			if (pickArea==null) pickArea = new AxisAlignedBB(pos).shrink(0.35).contract(0, 0.4, 0);
 			for (EntityItem entityIn:world.getEntitiesWithinAABB(EntityItem.class, pickArea)) {
 				if (world.getTileEntity(pos)!=null && world.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE)) {
 					EntityItem ei = (EntityItem) entityIn;

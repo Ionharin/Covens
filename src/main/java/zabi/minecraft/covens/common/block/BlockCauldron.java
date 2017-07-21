@@ -1,5 +1,6 @@
 package zabi.minecraft.covens.common.block;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -7,8 +8,10 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -41,6 +44,11 @@ import zabi.minecraft.covens.common.tileentity.TileEntityCauldron;
 public class BlockCauldron extends Block implements ITileEntityProvider {
 	
 	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0, 0, 0, 1, 0.875, 1);
+	private static final AxisAlignedBB wall_1 = new AxisAlignedBB(0.125, 0, 0.875, 1, 0.875, 1);
+	private static final AxisAlignedBB wall_2 = new AxisAlignedBB(0, 0, 0.125, 0.125, 0.875, 1);
+	private static final AxisAlignedBB wall_3 = new AxisAlignedBB(0.875, 0, 0, 1, 0.875, 0.875);
+	private static final AxisAlignedBB wall_4 = new AxisAlignedBB(0, 0, 0, 0.875, 0.875, 0.125);
+	private static final AxisAlignedBB floor = new AxisAlignedBB(0, 0, 0, 1, 0.125, 1);
 	
 	public static final PropertyBool FULL = PropertyBool.create("filled");
 
@@ -61,8 +69,31 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	}
 	
 	@Override
+	public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> list, Entity entityIn, boolean p_185477_7_) {
+		addCollisionBoxToList(pos, entityBox, list, wall_1);
+		addCollisionBoxToList(pos, entityBox, list, wall_2);
+		addCollisionBoxToList(pos, entityBox, list, wall_3);
+		addCollisionBoxToList(pos, entityBox, list, wall_4);
+		addCollisionBoxToList(pos, entityBox, list, floor);
+	}
+	
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+        return true;
+    }
+	
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+		return bounding_box;
+	}
+	
+	@Override
 	public float getAmbientOcclusionLightValue(IBlockState state) {
 		return 0;
+	}
+	
+	@Override
+	public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return false;
 	}
 	
 	@Override
@@ -140,7 +171,7 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	
 	@Override
 	public boolean isFullBlock(IBlockState state) {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -150,7 +181,7 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	
 	@Override
 	public boolean isFullCube(IBlockState state) {
-		return true;
+		return false;
 	}
 	
 	@Override
@@ -192,5 +223,11 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 		if (state.getValue(FULL) && ((TileEntityCauldron)world.getTileEntity(pos)).getHasItems()) {
 			world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, pos.getX()+0.2+rand.nextDouble()*0.6, pos.getY()+0.88D, pos.getZ()+0.2+rand.nextDouble()*0.6, 0, 0.1, 0);
 		}
+	}
+	
+	@Override
+	public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
+		if (face.equals(EnumFacing.UP)) return BlockFaceShape.BOWL;
+		return face==EnumFacing.DOWN?BlockFaceShape.UNDEFINED:BlockFaceShape.SOLID;
 	}
 }
