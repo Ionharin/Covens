@@ -71,6 +71,12 @@ public class VanillaRecipes {
 				'i', Items.IRON_INGOT,
 				't', new ItemStack(ModItems.misc,1,9)
 				);
+		GameRegistry.addShapedRecipe(rl("candle_plate"), null, new ItemStack(ModBlocks.candle_plate), 
+				"fff", "ntn",
+				'n', Items.IRON_INGOT,
+				'f', Blocks.TORCH, //TODO swap with candles
+				't', new ItemStack(ModItems.misc,1,9)
+				);
 	}
 
 	private static void registerFurnaceRecipes() {

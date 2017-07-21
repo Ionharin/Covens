@@ -1,0 +1,16 @@
+{
+	"forge_marker": 1,
+	"parent": "block/block",
+	"defaults": {
+		"model": "covens:candle_plate"
+	}, 
+	"variants": {
+		"normal": {
+			"model": "covens:candle_plate"
+		}, 
+		"inventory": {
+			"model": "covens:candle_plate",
+			"transform": "forge:default-block"
+		}
+	}
+}

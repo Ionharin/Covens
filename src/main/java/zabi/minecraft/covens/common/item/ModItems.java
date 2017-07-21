@@ -17,7 +17,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet;
+	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet, candle_plate;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemCardinalStone cardinal_stone;
 	public static ItemFlowers flowers;
@@ -52,6 +52,7 @@ public class ModItems {
 		yewPlanks = new ItemBlock(ModBlocks.yewPlanks);
 		juniperPlanks = new ItemBlock(ModBlocks.juniperPlanks);
 		elderPlanks = new ItemBlock(ModBlocks.elderPlanks);
+		candle_plate = new ItemBlock(ModBlocks.candle_plate);
 		broom = new ItemBroom();
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
@@ -67,6 +68,7 @@ public class ModItems {
 		juniperPlanks.setRegistryName(ModBlocks.juniperPlanks.getRegistryName());
 		elderPlanks.setRegistryName(ModBlocks.elderPlanks.getRegistryName());
 		goblet.setRegistryName(ModBlocks.goblet.getRegistryName());
+		candle_plate.setRegistryName(ModBlocks.candle_plate.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -100,7 +102,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet
+				goblet, candle_plate
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_yew, leaves_juniper, yewPlanks, juniperPlanks, elderPlanks);
 	}

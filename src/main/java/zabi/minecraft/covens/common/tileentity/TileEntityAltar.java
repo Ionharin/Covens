@@ -78,8 +78,8 @@ public class TileEntityAltar extends TileEntityBase {
 		map.values().forEach(i -> maxPower+=i);
 		maxPower += (map.keySet().size()*80); //Variety is the most important thing
 		double multiplier = 1;
-		boolean[] typesGain = new boolean[2]; //Types of modifiers. 0=skull, 1=torch/vase
-		boolean[] typesMult = new boolean[2]; //Types of modifiers. 0=skull, 1=goblet
+		boolean[] typesGain = new boolean[3]; //Types of modifiers. 0=skull, 1=torch/plate, 2=vase
+		boolean[] typesMult = new boolean[3]; //Types of modifiers. 0=skull, 1=goblet, 2=plate
 		for (int dx = -1; dx<=1;dx++) for (int dz = -1; dz<=1;dz++) {
 			BlockPos ps = getPos().add(dx, 0, dz);
 			if (getWorld().getBlockState(ps).getBlock().equals(ModBlocks.altar) && !getWorld().getBlockState(ps).getValue(BlockWitchAltar.ALTAR_TYPE).equals(AltarMultiblockType.UNFORMED)) {
@@ -103,9 +103,9 @@ public class TileEntityAltar extends TileEntityBase {
 					return 1; //Zombie, Skeleton and creeper
 				case 1:
 				case 3: 
-					return 3; //Wither skull and player skull
+					return 2; //Wither skull and player skull
 				case 5: 
-					return 5; //Ender dragon
+					return 4; //Ender dragon
 				default:
 					return 0;	
 			}
@@ -117,13 +117,17 @@ public class TileEntityAltar extends TileEntityBase {
 			if (blockState.getBlock().hasTileEntity(blockState)) {
 				TileEntityFlowerPot tefp = (TileEntityFlowerPot) world.getTileEntity(pos);
 				if (!tefp.getFlowerItemStack().isEmpty()) {
-					if (types[1]) return 0;
-					types[1]=true;
-					return 2;
+					if (types[2]) return 0;
+					types[2]=true;
+					return 1;
 				}
 			}
 		} else if (blockState.getBlock().equals(Blocks.DIAMOND_BLOCK)) {
 			return 30;
+		} else if (blockState.getBlock().equals(ModBlocks.candle_plate)) {
+			if (types[1]) return 0;
+			types[1]=true;
+			return 2;
 		}
 		return 0;
 	}
@@ -141,7 +145,7 @@ public class TileEntityAltar extends TileEntityBase {
 				case 3: 
 					return 0.3; //Wither skull and player skull
 				case 5: 
-					return 0.75; //Ender dragon
+					return 0.8; //Ender dragon
 				default:
 					return 0;	
 			}
@@ -151,10 +155,14 @@ public class TileEntityAltar extends TileEntityBase {
 			if (typesMult[1]) return 0;
 			typesMult[1]=true;
 			if (blockState.getValue(BlockGoblet.FULL)) {
-				return 0.5;
+				return 0.6;
 			} else {
-				return 0.2;
+				return 0.3;
 			}
+		} else if (blockState.getBlock().equals(ModBlocks.candle_plate)) {
+			if (typesMult[2]) return 0;
+			typesMult[2]=true;
+			return 0.5;
 		}
 		return 0;
 	}

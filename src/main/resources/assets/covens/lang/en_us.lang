@@ -60,6 +60,7 @@ tile.leaves.elder.name=Elder Leaves
 tile.leaves.yew.name=Yew Leaves
 tile.confining_ash.name=Confining Ash
 tile.goblet.name=Goblet
+tile.candle_plate.name=Cerimonial Candles
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
