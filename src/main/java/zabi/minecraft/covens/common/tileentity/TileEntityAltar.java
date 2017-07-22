@@ -123,7 +123,7 @@ public class TileEntityAltar extends TileEntityBase {
 				}
 			}
 		} else if (blockState.getBlock().equals(Blocks.DIAMOND_BLOCK)) {
-			return 30;
+			return 300;
 		} else if (blockState.getBlock().equals(ModBlocks.candle_plate)) {
 			if (types[1]) return 0;
 			types[1]=true;
@@ -150,7 +150,7 @@ public class TileEntityAltar extends TileEntityBase {
 					return 0;	
 			}
 		} else if (blockState.getBlock().equals(Blocks.DIAMOND_BLOCK)) {
-			return 10;
+			return 100;
 		} else if (blockState.getBlock().equals(ModBlocks.goblet)) {
 			if (typesMult[1]) return 0;
 			typesMult[1]=true;
