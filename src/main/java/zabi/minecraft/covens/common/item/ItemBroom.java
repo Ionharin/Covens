@@ -11,6 +11,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemBroom extends Item {
@@ -38,14 +39,14 @@ public class ItemBroom extends Item {
 		if (world.getBlockState(pos).getBlock().equals(ModBlocks.glyphs)) {
 			world.setBlockToAir(pos);
 		} else {
-			spawnBroom(world, pos, side);
+			spawnBroom(world, pos.offset(side), player.getHeldItem(hand));
 			player.getHeldItem(hand).setCount(0);
 		}
 		return EnumActionResult.SUCCESS;
 	}
 
-	private void spawnBroom(World world, BlockPos pos, EnumFacing side) {
-		
+	private void spawnBroom(World world, BlockPos pos, ItemStack itemStack) {
+		if (!world.isRemote) world.spawnEntity(new EntityFlyingBroom(world, pos.getX(), pos.getY(), pos.getZ(), itemStack.getMetadata()));
 	}
 	
 }

@@ -9,5 +9,6 @@ public class ModEntities {
 	public static void registerAll() {
 		int id=0;
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "brew"), BrewEntity.class, "thrown_brew", id++, Covens.INSTANCE, 64, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "broom"), EntityFlyingBroom.class, "broom", id++, Covens.INSTANCE, 64, 1, true);
 	}
 }
