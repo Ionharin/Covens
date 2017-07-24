@@ -34,7 +34,7 @@ public class Covens {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
-		proxy.registerHandler();
+		proxy.setup();
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
@@ -44,12 +44,13 @@ public class Covens {
 		ModTileEntities.registerAll();
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();
+		proxy.preInit(evt);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
-		proxy.registerRenderingStuff();
 		VanillaRecipes.registerAll();
+		proxy.init(evt);
 	}
 	
 }

@@ -166,7 +166,7 @@ public class EntityFlyingBroom extends Entity {
 		this.getDataManager().setDirty(TYPE);
 	}
 	
-	private int getType() {
+	public int getType() {
 		return this.getDataManager().get(TYPE);
 	}
 	

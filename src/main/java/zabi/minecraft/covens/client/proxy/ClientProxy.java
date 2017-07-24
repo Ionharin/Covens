@@ -15,15 +15,19 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
-import zabi.minecraft.covens.common.Covens;
+import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
-import zabi.minecraft.covens.common.entity.BrewEntity;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.entity.BrewEntity;
+import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ItemFlowers;
 import zabi.minecraft.covens.common.item.ItemMisc;
@@ -34,22 +38,27 @@ import zabi.minecraft.covens.common.proxy.Proxy;
 
 public class ClientProxy extends Proxy {
 	
-	@Override
-	public void registerRenderingStuff() {
-		registerColors();
-		registerEntityRenderers();
-	}
-	
 	private void registerEntityRenderers() {
-		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(BrewEntity.class, new RenderBrewThrown(Minecraft.getMinecraft().getRenderManager(), ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
+//		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(BrewEntity.class, new RenderBrewThrown(Minecraft.getMinecraft().getRenderManager(), ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(BrewEntity.class, m -> new RenderBrewThrown(m, ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityFlyingBroom.class, m -> new RenderBroom(m));
 	}
 
 	@Override
-	public void registerHandler() {
+	public void setup() {
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
 	@Override
+	public void preInit(FMLPreInitializationEvent evt) {
+		registerEntityRenderers();
+	}
+	
+	@Override
+	public void init(FMLInitializationEvent evt) {
+		registerColors();
+	}
+	
 	public void registerItemModels() {
 		Log.i("Registering models");
 		registerModel(ModItems.chalk, 0);
@@ -131,7 +140,7 @@ public class ClientProxy extends Proxy {
 	@SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
-		Covens.proxy.registerItemModels();
+		registerItemModels();
 		ModCreativeTabs.registerIcons();
     }
 }
