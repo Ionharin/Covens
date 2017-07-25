@@ -1,11 +1,8 @@
 package zabi.minecraft.covens.client.renderer.entity;
 
-import java.util.Random;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import zabi.minecraft.covens.client.model.ModelBroom;
 import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
@@ -34,20 +31,16 @@ public class RenderBroom extends Render<EntityFlyingBroom> {
 	@Override
 	public void doRender(EntityFlyingBroom entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
-		Random r = new Random();
 		GlStateManager.pushMatrix();
 		bindEntityTexture(entity);
-        double smoothPosX = entity.lastTickPosX + (entity.posX - entity.lastTickPosX) * (double)partialTicks;
-        double smoothPosY = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double)partialTicks;
-        double smoothPosZ = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double)partialTicks;
+        
+		float smoothYaw = entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks;
 		
-		GlStateManager.translate(smoothPosX, smoothPosY, smoothPosZ);
-		model.render(entity, 0, 0, 0, 0, 0, partialTicks);
+		GlStateManager.translate(x, y-0.5d, z);
+		GlStateManager.scale(0.0625d, 0.0625d, 0.0625d);
+		GlStateManager.rotate(90-smoothYaw, 0, 1, 0);
+		model.render(entity, 0f, 0f, 0f, 0f, 0f, 1f);
 		GlStateManager.popMatrix();
-		super.doRender(entity, x, y, z, entityYaw, partialTicks); //Do I really need this?
-		
-		//Until I find out why this isn't working you see particles
-		entity.world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, smoothPosX + r.nextDouble(), smoothPosY+ r.nextDouble(), smoothPosZ+ r.nextDouble(), 0,0,0);
 	}
 
 }

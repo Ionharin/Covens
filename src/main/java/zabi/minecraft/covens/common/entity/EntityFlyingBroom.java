@@ -31,10 +31,8 @@ public class EntityFlyingBroom extends Entity {
 	
 	private static final DataParameter<Integer> TYPE = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	
-	
 	public EntityFlyingBroom(World world) {
 		super(world);
-		this.setSize(1f, 2f);
 	}
 	
 	public EntityFlyingBroom(World world, double x, double y, double z, int type) {
@@ -44,17 +42,17 @@ public class EntityFlyingBroom extends Entity {
 		this.prevPosX = posX;
 		this.prevPosY = posY;
 		this.prevPosZ = posZ;
+		this.setSize(1, 1);
 	}
 	
 	@Override
 	public double getMountedYOffset() {
-		return -0.5;
+		return 0.4;
 	}
 
 	@Override
 	protected void entityInit() {
 		this.getDataManager().register(TYPE, 0);
-		this.setEntityBoundingBox(new AxisAlignedBB(getPosition()));
 	}
 	
 	@Override
@@ -70,7 +68,8 @@ public class EntityFlyingBroom extends Entity {
 	@Override
 	@Nullable
     public AxisAlignedBB getCollisionBox(Entity entityIn) {
-        return entityIn.canBePushed() ? entityIn.getEntityBoundingBox() : null;
+		if (!getPassengers().isEmpty() && getPassengers().get(0).equals(entityIn)) return null;
+        return entityIn.getEntityBoundingBox();
     }
 
     @Nullable
@@ -108,9 +107,13 @@ public class EntityFlyingBroom extends Entity {
 			if (broomType==1) handleElderMovement(front, up, strafe, look);
 			if (broomType==2) handleJuniperMovement(front, up, strafe, look);
 			if (broomType==3) handleYewMovement(front, up, strafe, look);
+			this.setRotationYawHead(rider.rotationYaw);
 			
 		} else {
-			if (!this.isCollidedVertically) motionY-=0.009;
+			if (!this.isCollidedVertically) {
+				motionY-=0.009;
+				if (motionY<-0.5) motionY=-0.5;
+			}
 		}
 		
 		if (this.isCollidedHorizontally) {
@@ -145,6 +148,12 @@ public class EntityFlyingBroom extends Entity {
 			motionZ=limit.z;
 		}
 		
+	}
+	
+	@Override
+	public void setRotationYawHead(float rotation) {
+		this.prevRotationYaw = this.rotationYaw;
+		this.rotationYaw = rotation;
 	}
 
 	private void handleMundaneMovement(float front, Vec3d look) {
@@ -202,7 +211,7 @@ public class EntityFlyingBroom extends Entity {
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (isEntityInvulnerable(source)) return false;
-		if (!world.isRemote && source.getTrueSource() instanceof EntityPlayer) {
+		if (!world.isRemote && source.getTrueSource() instanceof EntityPlayer && !source.getTrueSource().equals(getControllingPassenger())) {
 			EntityItem ei = new EntityItem(world, source.getTrueSource().posX, source.getTrueSource().posY, source.getTrueSource().posZ, new ItemStack(ModItems.broom,1,getType()));
 			world.spawnEntity(ei);
 			this.setDead();
@@ -234,9 +243,16 @@ public class EntityFlyingBroom extends Entity {
 	@SubscribeEvent(receiveCanceled=false, priority=EventPriority.LOWEST)
 	public static void onUnmounting(EntityMountEvent evt) {
 		if (evt.getEntityBeingMounted() instanceof EntityFlyingBroom) {
+			World world = evt.getEntityBeingMounted().world;
+			EntityPlayer source = (EntityPlayer) evt.getEntityMounting();
 			if (evt.isDismounting()) {
 				if (((EntityFlyingBroom)evt.getEntityBeingMounted()).getType()==1) evt.getEntityMounting().fallDistance = -200;
-				evt.getEntityBeingMounted().attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) evt.getEntityMounting()), 1);
+				if (!world.isRemote) {
+					EntityItem ei = new EntityItem(world, source.posX, source.posY, source.posZ, new ItemStack(ModItems.broom,1, ((EntityFlyingBroom)evt.getEntityBeingMounted()).getType()));
+					world.spawnEntity(ei);
+					evt.getEntityBeingMounted().setDead();
+					ei.onCollideWithPlayer(source);
+				}
 			}
 		}
 	}

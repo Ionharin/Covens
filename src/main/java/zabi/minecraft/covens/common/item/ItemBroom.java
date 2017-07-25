@@ -39,14 +39,24 @@ public class ItemBroom extends Item {
 		if (world.getBlockState(pos).getBlock().equals(ModBlocks.glyphs)) {
 			world.setBlockToAir(pos);
 		} else {
-			spawnBroom(world, pos.offset(side), player.getHeldItem(hand));
-			player.getHeldItem(hand).setCount(0);
+			return EnumActionResult.PASS;
 		}
 		return EnumActionResult.SUCCESS;
 	}
+	
+	@Override
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+		spawnBroom(player, world, pos.offset(side), player.getHeldItem(hand));
+		player.setHeldItem(hand, ItemStack.EMPTY);
+		return EnumActionResult.SUCCESS;
+	}
 
-	private void spawnBroom(World world, BlockPos pos, ItemStack itemStack) {
-		if (!world.isRemote) world.spawnEntity(new EntityFlyingBroom(world, pos.getX(), pos.getY(), pos.getZ(), itemStack.getMetadata()));
+	private void spawnBroom(EntityPlayer player, World world, BlockPos pos, ItemStack itemStack) {
+		if (!world.isRemote) {
+			EntityFlyingBroom e = new EntityFlyingBroom(world, pos.getX()+0.5, pos.getY(), pos.getZ()+0.5, itemStack.getMetadata());
+			e.setRotationYawHead(player.rotationYaw);
+			world.spawnEntity(e);
+		}
 	}
 	
 }
