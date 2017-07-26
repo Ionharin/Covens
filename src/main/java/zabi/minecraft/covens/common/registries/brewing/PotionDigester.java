@@ -1,6 +1,10 @@
 package zabi.minecraft.covens.common.registries.brewing;
 
+import java.awt.Color;
+
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -25,9 +29,9 @@ public class PotionDigester {
 		int effectSize = getEffectSize(items);
 		Log.d("-- Effect slots found: "+effectSize);
 		int read = 1;
-		
 		int currentBaseDuration = 0;
 		int currentOppositeDuration = 0;
+		int color = -1;
 		BrewIngredient currentPotion = null;
 		float currentLengthModifier = 1;
 		int currentPower = 0;
@@ -90,6 +94,8 @@ public class PotionDigester {
 					}
 					Log.d("but reversed");
 					getOpposite = true;
+				} else if (items[read].getItem().equals(Item.getItemFromBlock(Blocks.WOOL))) {
+					color = colorAverage(color, getHexFromMeta(items[read].getMetadata()));
 				} else {
 					Log.d("unrecognized item, spoiled: "+items[read].getItem().getRegistryName());
 					return new BrewData(); //Unrecognized Item, ruined potion
@@ -114,8 +120,40 @@ public class PotionDigester {
 			Log.d("-->  "+e.getPotionEffect().getEffectName()+"\t"+e.getStrength()+"\t"+e.getMultiplier()+"\t"+e.getPersistency()+"\t"+e.isCurable()+"\t"+e.doesShowParticle());
 		}
 		Log.d("------------------------");
-		
+		if (color!=-1) {
+			result.setColor(color);
+		}
 		return result;
+	}
+
+	private static int colorAverage(int color, int newColor) {
+		if (color==-1) return newColor;
+		Color c1 = new Color(color);
+		Color c2 = new Color(newColor);
+		Color res = new Color((c1.getRed()+c2.getRed())/2, (c1.getGreen()+c2.getGreen())/2, (c1.getBlue()+c2.getBlue())/2);
+		return res.getRGB();
+	}
+
+	private static int getHexFromMeta(int metadata) {
+		switch (metadata) {
+		case 0: return 16383998;
+		case 1: return 16351261;
+		case 2: return 13061821;
+		case 3: return 3847130;
+		case 4: return 16701501;
+		case 5: return 8439583;
+		case 6: return 15961002;
+		case 7: return 4673362;
+		case 8: return 10329495;
+		case 9: return 1481884;
+		case 10: return 8991416;
+		case 11: return 3949738;
+		case 12: return 8606770;
+		case 13: return 6192150;
+		case 14: return 11546150;
+		case 15: return 1908001;
+		}
+		return 0;
 	}
 
 	private static int getType(ItemStack[] items) {

@@ -79,4 +79,8 @@ public class BrewData {
 		return ModItems.brew_drinkable;
 	}
 	
+	public void setColor(int color) {
+		this.color = color;
+	}
+	
 }
