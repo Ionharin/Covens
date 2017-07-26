@@ -35,6 +35,11 @@ public class ItemBroom extends Item {
 	}
 	
 	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		return super.getUnlocalizedName(stack)+"_"+stack.getMetadata();
+	}
+	
+	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.getBlockState(pos).getBlock().equals(ModBlocks.glyphs)) {
 			world.setBlockToAir(pos);

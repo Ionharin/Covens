@@ -43,6 +43,10 @@ item.ritual_knife.name=Ritual Knife
 item.misc.talisman_charged.name=Charged Talisman
 item.misc.talisman.name=Talisman
 item.misc.wax_ball.name=Wax
+item.broom_0.name=Mundane Flying Broom
+item.broom_1.name=Elder Flying Broom
+item.broom_2.name=Juniper Flying Broom
+item.broom_3.name=Yew Flying Broom
 
 # Block names
 tile.witch_altar.name=Witch Altar

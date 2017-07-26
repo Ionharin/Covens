@@ -43,6 +43,10 @@ item.ritual_knife.name=Coltello rituale
 item.misc.talisman_charged.name=Talismano carico
 item.misc.talisman.name=Talismano
 item.misc.wax_ball.name=Cera
+item.broom_0.name=Scopa volante grezza
+item.broom_1.name=Scopa volante di sambuco
+item.broom_2.name=Scopa volante di ginepro
+item.broom_3.name=Scopa volante di tasso
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
