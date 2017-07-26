@@ -35,10 +35,12 @@ public class EntityFlyingBroom extends Entity {
 	private static final DataParameter<Integer> ORIG_X = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ORIG_Y = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ORIG_Z = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ORIG_DIM = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	
 	
 	public EntityFlyingBroom(World world) {
 		super(world);
+		this.setSize(1f, 1);
 	}
 	
 	public EntityFlyingBroom(World world, double x, double y, double z, int type) {
@@ -48,7 +50,6 @@ public class EntityFlyingBroom extends Entity {
 		this.prevPosX = posX;
 		this.prevPosY = posY;
 		this.prevPosZ = posZ;
-		this.setSize(1, 1);
 	}
 	
 	@Override
@@ -60,13 +61,19 @@ public class EntityFlyingBroom extends Entity {
 		return new BlockPos(this.getDataManager().get(ORIG_X), this.getDataManager().get(ORIG_Y), this.getDataManager().get(ORIG_Z));
 	}
 	
-	public void setMountPos(BlockPos pos) {
+	private int getMountDim() {
+		return this.getDataManager().get(ORIG_DIM);
+	}
+	
+	public void setMountPos(BlockPos pos, int dim) {
 		this.getDataManager().set(ORIG_X, pos.getX());
 		this.getDataManager().set(ORIG_Y, pos.getY());
 		this.getDataManager().set(ORIG_Z, pos.getZ());
+		this.getDataManager().set(ORIG_DIM, dim);
 		this.getDataManager().setDirty(ORIG_X);
 		this.getDataManager().setDirty(ORIG_Y);
 		this.getDataManager().setDirty(ORIG_Z);
+		this.getDataManager().setDirty(ORIG_DIM);
 	}
 
 	@Override
@@ -75,7 +82,10 @@ public class EntityFlyingBroom extends Entity {
 		this.getDataManager().register(ORIG_X, 0);
 		this.getDataManager().register(ORIG_Y, 0);
 		this.getDataManager().register(ORIG_Z, 0);
+		this.getDataManager().register(ORIG_DIM, 0);
+		this.setEntityBoundingBox(new AxisAlignedBB(getPosition()).contract(0, 1, 0));
 	}
+	
 	
 	@Override
 	protected boolean canBeRidden(Entity entityIn) {
@@ -87,18 +97,6 @@ public class EntityFlyingBroom extends Entity {
         return true;
     }
 	
-	@Override
-	@Nullable
-    public AxisAlignedBB getCollisionBox(Entity entityIn) {
-		if (!getPassengers().isEmpty() && getPassengers().get(0).equals(entityIn)) return null;
-        return entityIn.getEntityBoundingBox();
-    }
-
-    @Nullable
-    @Override
-    public AxisAlignedBB getCollisionBoundingBox() {
-        return this.getEntityBoundingBox();
-    }
     
     @Override
     public boolean canBeCollidedWith() {
@@ -109,7 +107,6 @@ public class EntityFlyingBroom extends Entity {
 	public void onEntityUpdate() {
 		super.onEntityUpdate();
 		this.doBlockCollisions();
-		
 		int broomType = getType();
 		
 		float friction = broomType==0?0.99f:0.98f;
@@ -150,8 +147,9 @@ public class EntityFlyingBroom extends Entity {
 		if (this.isCollidedVertically) {
 			if (this.prevPosY==this.posY) motionY=0;
 		}
-		
+		this.setSize(1f, 2);
 		this.move(MoverType.SELF, motionX, motionY, motionZ);
+		this.setSize(1f, 1);
 	}
 	
 	private void handleYewMovement(float front, float up, float strafe, Vec3d look) {
@@ -239,7 +237,7 @@ public class EntityFlyingBroom extends Entity {
 	protected void readEntityFromNBT(NBTTagCompound tag) {
 		this.setLocationAndAngles(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"), tag.getFloat("yaw"), tag.getFloat("pitch"));
 		this.setType(tag.getInteger("type"));
-		this.setMountPos(new BlockPos(tag.getInteger("mx"), tag.getInteger("my"), tag.getInteger("mz")));
+		this.setMountPos(new BlockPos(tag.getInteger("mx"), tag.getInteger("my"), tag.getInteger("mz")), tag.getInteger("odim"));
 	}
 
 	@Override
@@ -254,7 +252,7 @@ public class EntityFlyingBroom extends Entity {
 		compound.setInteger("mx", mount.getX());
 		compound.setInteger("my", mount.getY());
 		compound.setInteger("mz", mount.getZ());
-		
+		compound.setInteger("odim", getMountDim());
 	}
 	
 	@Override
@@ -276,7 +274,7 @@ public class EntityFlyingBroom extends Entity {
 			player.rotationYaw = this.rotationYaw;
 	        player.rotationPitch = this.rotationPitch;
 			player.startRiding(this);
-			if (getType()==3) this.setMountPos(player.getPosition());
+			if (getType()==3) this.setMountPos(player.getPosition(), player.world.provider.getDimension());
 			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
@@ -294,18 +292,19 @@ public class EntityFlyingBroom extends Entity {
 	public static void onUnmounting(EntityMountEvent evt) {
 		if (evt.getEntityBeingMounted() instanceof EntityFlyingBroom) {
 			EntityFlyingBroom broom = (EntityFlyingBroom)evt.getEntityBeingMounted();
-			World world = broom.world;
 			EntityPlayer source = (EntityPlayer) evt.getEntityMounting();
 			if (evt.isDismounting()) {
 				if (broom.getType()==1) evt.getEntityMounting().fallDistance = -200;
 				if (broom.getType()==3) {
 					BlockPos start = broom.getMountPos();
+					if (broom.world.provider.getDimension()!=broom.getMountDim()) broom.changeDimension(broom.getMountDim());
+					if (source.world.provider.getDimension()!=broom.getMountDim()) source.changeDimension(broom.getMountDim());
 					broom.setPositionAndUpdate(start.getX(), start.getY(), start.getZ());
 					source.attemptTeleport(start.getX(), start.getY(), start.getZ());
 				}
-				if (!world.isRemote) { //TODO check for owl
-					EntityItem ei = new EntityItem(world, source.posX, source.posY, source.posZ, new ItemStack(ModItems.broom,1, broom.getType()));
-					world.spawnEntity(ei);
+				if (!broom.world.isRemote) { //TODO check for owl
+					EntityItem ei = new EntityItem(broom.world, source.posX, source.posY, source.posZ, new ItemStack(ModItems.broom,1, broom.getType()));
+					broom.world.spawnEntity(ei);
 					broom.setDead();
 					ei.onCollideWithPlayer(source);
 				}
