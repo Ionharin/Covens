@@ -148,7 +148,7 @@ public class ItemBrewBase extends Item {
 	}
 
 	public static ItemStack getBrewStackWithData(Item item, BrewData data) {
-		ItemStack stack = new ItemStack(item);
+		ItemStack stack = new ItemStack(item,1,data.isSpoiled()?1:0);
 		NBTTagCompound tag = stack.getOrCreateSubCompound("brewdata");
 		data.writeToNBT(tag);
 		stack.setTagInfo("brewdata", tag);

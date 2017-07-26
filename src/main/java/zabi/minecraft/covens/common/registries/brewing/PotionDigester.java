@@ -21,11 +21,11 @@ public class PotionDigester {
 		
 		int type = getType(items);
 		Log.d("-- Potion type id: "+type);
-		if (type<0) {
-			Log.d("No type: spoiled");
-			return new BrewData();
-		}
 		BrewData result = new BrewData(type);
+		if (type<0) {
+			result = new BrewData(0);
+			result.spoil();
+		}
 		int effectSize = getEffectSize(items);
 		Log.d("-- Effect slots found: "+effectSize);
 		int read = 1;
@@ -56,7 +56,7 @@ public class PotionDigester {
 						result.addEffectToBrew(pe);
 						if (result.getEffects().size()>=effectSize) { //RuinedPotion
 							Log.d("Too many effects for slots: spoiled");
-							return new BrewData();
+							result.spoil();
 						}
 					}
 					currentPotion = CovensBrewIngredientRegistry.getPotion(items[read]);
@@ -90,7 +90,7 @@ public class PotionDigester {
 				} else if (items[read].getItem().equals(Items.FERMENTED_SPIDER_EYE) && currentPotion!=null && !getOpposite) {
 					if (currentPotion.getOpposite()==null) {
 						Log.d("No opposite: spoiled");
-						return new BrewData(); //No opposite exists
+						result.spoil(); //No opposite exists
 					}
 					Log.d("but reversed");
 					getOpposite = true;
@@ -98,7 +98,7 @@ public class PotionDigester {
 					color = colorAverage(color, getHexFromMeta(items[read].getMetadata()));
 				} else {
 					Log.d("unrecognized item, spoiled: "+items[read].getItem().getRegistryName());
-					return new BrewData(); //Unrecognized Item, ruined potion
+					result.spoil(); //Unrecognized Item, ruined potion
 				}
 			}
 			read++;

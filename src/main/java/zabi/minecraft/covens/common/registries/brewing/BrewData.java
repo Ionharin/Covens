@@ -12,6 +12,7 @@ public class BrewData {
 	private NonNullList<CovenPotionEffect> brewEffects = NonNullList.<CovenPotionEffect>create();
 	private int type = 0;
 	private int color = 0x000000;
+	private boolean spoiled = false;
 	
 	public BrewData() {
 		this(0);
@@ -39,12 +40,14 @@ public class BrewData {
 		}
 		tag.setInteger("color", color);
 		tag.setInteger("type", type);
+		tag.setBoolean("spoiled", spoiled);
 		return tag;
 	}
 	
 	public BrewData readFromNBT(NBTTagCompound tag) {
 		color = tag.getInteger("color");
 		type = tag.getInteger("type");
+		spoiled = tag.getBoolean("spoiled");
 		for (String tagname:tag.getKeySet()) {
 			if (tagname.startsWith("pot")) {
 				CovenPotionEffect cpe = CovenPotionEffect.loadFromNBT(tag.getCompoundTag(tagname));
@@ -59,10 +62,11 @@ public class BrewData {
 	}
 	
 	public int getColor() {
-		return color;
+		return spoiled?0x4f670a:color;
 	}
 
 	public int getCost() {
+		if (spoiled) return 0;
 		int cost = Math.min(40*(1<<brewEffects.size()),200);
 		for (CovenPotionEffect pe:brewEffects) {
 			int powerCost = (pe.getStrength()*pe.getStrength()/2)+1;
@@ -79,8 +83,16 @@ public class BrewData {
 		return ModItems.brew_drinkable;
 	}
 	
+	public void spoil() {
+		spoiled = true;
+	}
+	
 	public void setColor(int color) {
 		this.color = color;
+	}
+
+	public boolean isSpoiled() {
+		return spoiled;
 	}
 	
 }
