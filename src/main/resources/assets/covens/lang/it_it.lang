@@ -76,6 +76,9 @@ ritual.covens.charging_1.name=Rituale della carica
 ritual.covens.charging_talisman.name=Rituale della carica
 ritual.covens.redirection.name=Rituale del Reindirizzamento
 
+# Potions
+effect.disrobing=Svestimento
+
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)
 brew.success.power=Ti serve una carica di %d dal tuo altare

@@ -15,6 +15,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.potion.ModPotions;
 
 @Mod.EventBusSubscriber
 public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
@@ -91,7 +92,10 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		BrewIngredient invis = new BrewIngredient(new ItemStack(ModItems.flowers,1,3), MobEffects.INVISIBILITY, MobEffects.GLOWING, true, false, PotionTypes.INVISIBILITY.getEffects().get(0).getDuration(), PotionTypes.INVISIBILITY.getEffects().get(0).getDuration());
 		invis.setRegistryName(Reference.MID, "invis");
 		
-		reg.registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis);
+		BrewIngredient disrobing = new BrewIngredient(Items.SLIME_BALL, ModPotions.disrobing, null, 1,1);
+		disrobing.setRegistryName(ModPotions.disrobing.getRegistryName());
+		
+		reg.registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing);
 	}
 	
 }

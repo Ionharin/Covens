@@ -81,6 +81,9 @@ potion.potency.3=III
 potion.potency.4=IV
 potion.potency.5=V
 
+# Potions
+effect.disrobing=Disrobing
+
 # Misc
 brew.failure.power=Your magic source is weak (%d)
 brew.success.power=Your need %d altar power

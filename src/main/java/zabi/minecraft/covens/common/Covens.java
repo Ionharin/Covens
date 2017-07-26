@@ -15,6 +15,7 @@ import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.network.NetworkModRegistry;
+import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
@@ -44,6 +45,7 @@ public class Covens {
 		ModTileEntities.registerAll();
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();
+		ModPotions.registerAll();
 		proxy.preInit(evt);
 	}
 	
