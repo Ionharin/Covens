@@ -106,6 +106,7 @@ public class BrewEntity extends EntityThrowable {
         entityareaeffectcloud.setColor(data.getColor());
         entityareaeffectcloud.setDuration(80+persistency*60);
         this.world.spawnEntity(entityareaeffectcloud);
+		this.world.playEvent(2007, new BlockPos(this), data.getColor());
 	}
 
 	private void gas(RayTraceResult result) {
@@ -117,7 +118,6 @@ public class BrewEntity extends EntityThrowable {
 				epe.splashedOn(world, new BlockPos(result.hitVec), this.getThrower(), cpe);
 			}
 		}
-		this.world.playEvent(2007, new BlockPos(this), data.getColor());
 		linger(result, true);
 	}
 
