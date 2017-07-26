@@ -16,12 +16,14 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -148,6 +150,7 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 							result = new ItemStack(data.getType(),1,1);
 						} 
 						worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, result));
+						worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.8F, 1f, false);
 						return true;
 					}
 				} else {
@@ -162,6 +165,7 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 				if (!worldIn.isRemote) {
 					if (!playerIn.isCreative()) playerIn.setHeldItem(hand, emptyBucket(playerIn.getHeldItem(hand)));
 					worldIn.setBlockState(pos, state.withProperty(FULL, true),3);
+					worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.8F, 1f, false);
 				}
 				return true;
 			}

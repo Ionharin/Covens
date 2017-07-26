@@ -3,9 +3,11 @@ package zabi.minecraft.covens.common.tileentity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import zabi.minecraft.covens.common.block.BlockCauldron;
@@ -60,6 +62,7 @@ public class TileEntityCauldron extends TileEntityBase {
 					TileEntityCauldron tec = (TileEntityCauldron) world.getTileEntity(pos);
 					tec.dropItemInside(ei.getItem());
 					ei.setDead();
+					this.world.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.8F, 1f, false);
 				}
 			}
 		}
