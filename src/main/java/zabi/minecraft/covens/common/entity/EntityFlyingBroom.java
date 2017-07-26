@@ -239,6 +239,7 @@ public class EntityFlyingBroom extends Entity {
 	protected void readEntityFromNBT(NBTTagCompound tag) {
 		this.setLocationAndAngles(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"), tag.getFloat("yaw"), tag.getFloat("pitch"));
 		this.setType(tag.getInteger("type"));
+		this.setMountPos(new BlockPos(tag.getInteger("mx"), tag.getInteger("my"), tag.getInteger("mz")));
 	}
 
 	@Override
@@ -249,6 +250,10 @@ public class EntityFlyingBroom extends Entity {
 		compound.setFloat("yaw", this.rotationYaw);
 		compound.setFloat("pitch", this.rotationPitch);
 		compound.setInteger("type", getType());
+		BlockPos mount = getMountPos();
+		compound.setInteger("mx", mount.getX());
+		compound.setInteger("my", mount.getY());
+		compound.setInteger("mz", mount.getZ());
 		
 	}
 	
