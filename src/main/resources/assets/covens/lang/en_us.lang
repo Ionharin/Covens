@@ -1,5 +1,5 @@
 # Creative Tabs names
-itemGroup.covens.herbs=Covens - Herbs
+itemGroup.covens.herbs=Covens - Nature
 itemGroup.covens.machines=Covens - Blocks
 itemGroup.covens.products=Covens - Items
 itemGroup.covens.brews=Covens - Brews
@@ -47,6 +47,8 @@ item.broom_0.name=Mundane Flying Broom
 item.broom_1.name=Elder Flying Broom
 item.broom_2.name=Juniper Flying Broom
 item.broom_3.name=Yew Flying Broom
+item.soulstring.name=Soulstring
+item.soulstring.bound=Bound to: %s
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -59,6 +61,9 @@ tile.chimney.name=Fumes' Chimney
 tile.log_juniper.name=Juniper Wood
 tile.log_elder.name=Elder Wood
 tile.log_yew.name=Yew Wood
+tile.planks_juniper.name=Juniper Planks
+tile.planks_elder.name=Elder Planks
+tile.planks_yew.name=Yew Planks
 tile.leaves.juniper.name=Juniper Leaves
 tile.leaves.elder.name=Elder Leaves
 tile.leaves.yew.name=Yew Leaves

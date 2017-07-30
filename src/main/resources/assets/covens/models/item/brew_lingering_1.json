@@ -1,7 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer1": "covens:items/brew_bottle_lingering",
-        "layer0": "covens:items/brew_bottle_lingering_content"
-    }
-}

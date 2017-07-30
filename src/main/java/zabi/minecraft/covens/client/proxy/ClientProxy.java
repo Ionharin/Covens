@@ -69,17 +69,17 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.chimney, 0);
 		registerModel(ModItems.cauldron, 0);
 		registerModel(ModItems.brew_drinkable, 0);
-		registerModel(ModItems.brew_drinkable, 1);
+		registerModel(ModItems.brew_drinkable, 1, 0);
 		registerModel(ModItems.brew_gas, 0);
-		registerModel(ModItems.brew_gas, 1);
+		registerModel(ModItems.brew_gas, 1, 0);
 		registerModel(ModItems.ritual_knife,0);
 		registerModel(ModItems.brew_lingering, 0);
-		registerModel(ModItems.brew_lingering, 1);
+		registerModel(ModItems.brew_lingering, 1, 0);
 		registerModel(ModItems.brew_splash, 0);
-		registerModel(ModItems.brew_splash, 1);
+		registerModel(ModItems.brew_splash, 1, 0);
 		registerModel(ModItems.cardinal_stone, 0);
 		registerModel(ModItems.cardinal_stone, 1);
-		registerModel(ModItems.cardinal_stone, 2);
+		registerModel(ModItems.cardinal_stone, 2, 1);
 		registerModel(ModItems.eerie_seeds, 0);
 		registerModel(ModItems.helleboreSeeds, 0);
 		registerModel(ModItems.aconitumSeeds, 0);
@@ -96,8 +96,11 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.elderPlanks,0);
 		registerModel(ModItems.goblet, 0);
 		registerModel(ModItems.candle_plate, 0);
+		registerModel(ModItems.soulstring, 0);
+		registerModel(ModItems.soulstring, 1, 0);
 		for (int i=0;i<ItemFlowers.names.length;i++) registerModel(ModItems.flowers, i);
-		for (int i=0;i<ItemMisc.names.length;i++) registerModel(ModItems.misc, i);
+		for (int i=0;i<ItemMisc.names.length;i++) if (i!=9) registerModel(ModItems.misc, i);
+		registerModel(ModItems.misc, 9, 8);
 	}
 
 	private void registerModel(Item item, int meta) {
@@ -105,6 +108,13 @@ public class ClientProxy extends Proxy {
 		ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
 		ModelLoader.setCustomModelResourceLocation(item, meta, mrl);
 	}
+	
+	private void registerModel(Item item, int realMeta, int modelMeta) {
+		ResourceLocation rl = new ResourceLocation(item.getRegistryName()+ (modelMeta>0?("_"+modelMeta):""));
+		ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
+		ModelLoader.setCustomModelResourceLocation(item, realMeta, mrl);
+	}
+	
 
 	private void registerColors() {
 		BlockColors bc = Minecraft.getMinecraft().getBlockColors();

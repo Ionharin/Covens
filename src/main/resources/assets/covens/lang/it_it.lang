@@ -1,5 +1,5 @@
 # Creative Tabs names
-itemGroup.covens.herbs=Covens - Erbe
+itemGroup.covens.herbs=Covens - Natura
 itemGroup.covens.machines=Covens - Blocchi
 itemGroup.covens.products=Covens - Prodotti
 itemGroup.covens.brews=Covens - Intrugli
@@ -47,6 +47,8 @@ item.broom_0.name=Scopa volante grezza
 item.broom_1.name=Scopa volante di sambuco
 item.broom_2.name=Scopa volante di ginepro
 item.broom_3.name=Scopa volante di tasso
+item.soulstring.name=Filo dell'anima
+item.soulstring.bound=Legato a: %s
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -56,6 +58,9 @@ tile.aconitum.name=Aconito
 tile.sagebrush.name=Artemisia
 tile.chrysanthemum.name=Crisantemo
 tile.chimney.name=Cappa dei fumi
+tile.planks_juniper.name=Assi di ginepro
+tile.planks_elder.name=Assi di sambuco
+tile.planks_yew.name=Assi di tasso
 tile.log_juniper.name=Legno di ginepro
 tile.log_elder.name=Legno di sambuco
 tile.log_yew.name=Legno di tasso
