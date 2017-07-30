@@ -24,7 +24,8 @@ public class ItemMisc extends Item {
 			"cloudy_oil", //6
 			"wax_ball", //7
 			"talisman", //8
-			"talisman_charged" //9
+			"talisman_charged", //9
+			"unfired_jar" //10
 	};
 	
 	public ItemMisc() {
@@ -40,7 +41,7 @@ public class ItemMisc extends Item {
 	
 	@Override
 	public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> tab) {
-		if (itemIn.equals(this.getCreativeTab())) {
+		if (this.isInCreativeTab(itemIn)) {
 			for (int i = 0;i<names.length;i++) tab.add(new ItemStack(this,1,i));
 		}
 	}

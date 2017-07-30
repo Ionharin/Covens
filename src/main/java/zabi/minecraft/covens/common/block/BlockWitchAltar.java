@@ -38,7 +38,7 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	public BlockWitchAltar() {
 		super(Material.ROCK);
 		this.setHardness(2);
-		this.setCreativeTab(ModCreativeTabs.rituals);
+		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setUnlocalizedName("witch_altar");
 		this.setRegistryName(Reference.MID, "witch_altar");
 		this.setDefaultState(this.blockState.getBaseState().withProperty(ALTAR_TYPE, AltarMultiblockType.UNFORMED).withProperty(COLOR, 16));

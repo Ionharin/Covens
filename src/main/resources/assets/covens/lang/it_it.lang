@@ -1,7 +1,6 @@
 # Creative Tabs names
-itemGroup.covens.rituals=Covens - Rituali
 itemGroup.covens.herbs=Covens - Erbe
-itemGroup.covens.machines=Covens - Macchinari
+itemGroup.covens.machines=Covens - Blocchi
 itemGroup.covens.products=Covens - Prodotti
 itemGroup.covens.brews=Covens - Intrugli
 
@@ -43,6 +42,7 @@ item.ritual_knife.name=Coltello rituale
 item.misc.talisman_charged.name=Talismano carico
 item.misc.talisman.name=Talismano
 item.misc.wax_ball.name=Cera
+item.misc.unfired_jar.name=Giara grezza
 item.broom_0.name=Scopa volante grezza
 item.broom_1.name=Scopa volante di sambuco
 item.broom_2.name=Scopa volante di ginepro

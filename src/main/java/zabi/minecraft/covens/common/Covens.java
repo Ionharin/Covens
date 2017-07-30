@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common;
 
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -52,6 +54,10 @@ public class Covens {
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		VanillaRecipes.registerAll();
+		MinecraftForge.addGrassSeed(new ItemStack(ModItems.aconitumSeeds), 4);
+		MinecraftForge.addGrassSeed(new ItemStack(ModItems.chrysanthemumSeeds), 2);
+		MinecraftForge.addGrassSeed(new ItemStack(ModItems.helleboreSeeds), 4);
+		MinecraftForge.addGrassSeed(new ItemStack(ModItems.sagebrushSeeds), 2);
 		proxy.init(evt);
 	}
 	

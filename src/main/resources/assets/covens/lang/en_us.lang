@@ -1,8 +1,7 @@
 # Creative Tabs names
-itemGroup.covens.rituals=Covens - Rituals
 itemGroup.covens.herbs=Covens - Herbs
-itemGroup.covens.machines=Covens - Machines
-itemGroup.covens.products=Covens - Products
+itemGroup.covens.machines=Covens - Blocks
+itemGroup.covens.products=Covens - Items
 itemGroup.covens.brews=Covens - Brews
 
 # Item names
@@ -43,6 +42,7 @@ item.ritual_knife.name=Ritual Knife
 item.misc.talisman_charged.name=Charged Talisman
 item.misc.talisman.name=Talisman
 item.misc.wax_ball.name=Wax
+item.misc.unfired_jar.name=Unfired Jar
 item.broom_0.name=Mundane Flying Broom
 item.broom_1.name=Elder Flying Broom
 item.broom_2.name=Juniper Flying Broom

@@ -1,8 +1,7 @@
 ﻿# Creative Tabs names
-itemGroup.covens.rituals=Шабаш - Ритуалы
 itemGroup.covens.herbs=Шабаш - Травы
-itemGroup.covens.machines=Шабаш - Устройства
-itemGroup.covens.products=Шабаш - Изделия
+itemGroup.covens.machines=Шабаш - Устройства ***
+itemGroup.covens.products=Шабаш - Изделия ***
 itemGroup.covens.brews=Шабаш - Зелья
 
 # Item names

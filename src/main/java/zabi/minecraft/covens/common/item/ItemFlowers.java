@@ -24,7 +24,7 @@ public class ItemFlowers extends Item {
 	
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> list) {
-		if (tab.equals(this.getCreativeTab())) {
+		if (this.isInCreativeTab(tab)) {
 			for (int i=0;i<names.length;i++) {
 				list.add(new ItemStack(this, 1, i));
 			}

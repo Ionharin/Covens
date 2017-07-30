@@ -25,6 +25,12 @@ public class VanillaRecipes {
 				Ingredient.fromStacks(new ItemStack(Items.CLAY_BALL)),
 				Ingredient.fromStacks(new ItemStack(Items.DYE,1,EnumDyeColor.YELLOW.getDyeDamage()))
 				);
+		GameRegistry.addShapelessRecipe(rl("eerie_seeds"), null, new ItemStack(ModItems.eerie_seeds,4), 
+				Ingredient.fromItem(Items.WHEAT_SEEDS),
+				Ingredient.fromStacks(new ItemStack(ModItems.misc,1,3)),
+				Ingredient.fromStacks(new ItemStack(ModItems.flowers,1,0)),
+				Ingredient.fromItem(Items.EGG)
+				);
 		GameRegistry.addShapedRecipe(rl("chimney"), null, new ItemStack(ModBlocks.chimney), " c ", "ccc", "cbc", 'c', Blocks.COBBLESTONE, 'b', Items.BUCKET);
 		GameRegistry.addShapedRecipe(rl("planks_elder"), null, new ItemStack(ModBlocks.elderPlanks,4), "w", 'w', ModBlocks.log_elder);
 		GameRegistry.addShapedRecipe(rl("planks_yew"), null, new ItemStack(ModBlocks.yewPlanks,4), "w", 'w', ModBlocks.log_yew);
@@ -77,10 +83,15 @@ public class VanillaRecipes {
 				'f', Blocks.TORCH, //TODO swap with candles
 				't', new ItemStack(ModItems.misc,1,9)
 				);
+		GameRegistry.addShapedRecipe(rl("clay_jar"), null, new ItemStack(ModItems.misc,8,10), 
+				" t ", "ttt", "ttt",
+				't', Items.CLAY_BALL
+				);
 	}
 
 	private static void registerFurnaceRecipes() {
 		GameRegistry.addSmelting(Blocks.SAPLING, new ItemStack(ModItems.misc,1,1), 0);
+		GameRegistry.addSmelting(new ItemStack(ModItems.misc,1,10), new ItemStack(ModItems.misc,1,0), 0);
 	}
 	
 	private static ResourceLocation rl(String s) {

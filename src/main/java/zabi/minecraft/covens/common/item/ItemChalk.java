@@ -27,7 +27,7 @@ public class ItemChalk extends Item {
 		this.setMaxStackSize(1);
 		this.setNoRepair();
 		this.setHasSubtypes(true);
-		this.setCreativeTab(ModCreativeTabs.rituals);
+		this.setCreativeTab(ModCreativeTabs.products);
 	}
 	
 	@Override
@@ -68,7 +68,7 @@ public class ItemChalk extends Item {
 	
 	@Override
 	public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> tab) {
-		if (this.getCreativeTab().equals(itemIn)) {
+		if (this.isInCreativeTab(itemIn)) {
 			for (int i=0;i<4;i++) {
 				ItemStack stack = getDefaultInstance();
 				stack.setItemDamage(i);
