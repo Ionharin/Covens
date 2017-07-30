@@ -153,6 +153,10 @@ public class TileEntityGlyph extends TileEntityBase {
 	public void addEntityToList(Entity entity) {
 		entityList.add(entity.getUniqueID().toString());
 	}
+	
+	public void addEntityUUIDToList(String uuid) {
+		entityList.add(uuid);
+	}
 
 	private boolean checkFirst(GlyphType typeFirst) {
 		for (int[] c:small) {

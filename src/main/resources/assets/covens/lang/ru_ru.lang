@@ -63,7 +63,6 @@ tile.confining_ash.name=Ограничение пеплом
 ritual.failure.unknown=Вы никогда не слышали о таких обрядах
 ritual.failure.power=Ваш источник волшебства не достаточно силен
 ritual.failure.precondition=Что-то неправильно
-ritual.covens.test.name=Испытательный ритуал
 ritual.covens.high_moon.name=Ритуал возвышения луны
 ritual.covens.time_sands.name=Ритуал пески времени
 ritual.covens.perception.name=Ритуал восприятия

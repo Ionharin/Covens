@@ -16,6 +16,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualIdentification;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualPerception;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualRedirection;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualSandsTime;
@@ -29,7 +30,8 @@ public class ModRituals {
 	private static Ritual charging_ritual_cardinal_stone = null, charging_riutual_talisman = null;
 	private static RitualEnderGate ender_gate = null;
 	private static RitualEnderStream ender_stream = null;
-	private static RitualRedirection redirection_ritual= null;
+	private static RitualRedirection redirection_ritual = null;
+	private static RitualIdentification identification_ritual = null;
 	
 	
 	public static void registerAll() {
@@ -41,6 +43,7 @@ public class ModRituals {
 		ender_stream = new RitualEnderStream(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_EYE), new ItemStack(ModItems.cardinal_stone,1,2), new ItemStack(Items.GOLD_INGOT)), nop(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
 		charging_riutual_talisman = new Ritual(of(new ItemStack(ModItems.misc, 1, 8), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(ModItems.misc,1,6)), of(new ItemStack(ModItems.misc,1,9)), 80, circles(GlyphType.NORMAL, null, null), 3000, 0);
 		redirection_ritual = new RitualRedirection(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(ModItems.cardinal_stone,1,2)), nop(), -1, circles(GlyphType.NORMAL, GlyphType.ENDER, null), 2000, 6);
+		identification_ritual = new RitualIdentification(of(new ItemStack(ModItems.soulstring,1,1), new ItemStack(Items.GOLD_NUGGET), new ItemStack(Items.PAPER)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -49,6 +52,7 @@ public class ModRituals {
 		charging_riutual_talisman.setRegistryName(Reference.MID, "charging_talisman");
 		ender_gate.setRegistryName(Reference.MID, "ender_gate");
 		ender_stream.setRegistryName(Reference.MID, "ender_stream");
+		identification_ritual.setRegistryName(Reference.MID, "identification");
 	}
 	
 	public static NonNullList<ItemStack> of(ItemStack... list) {
@@ -73,6 +77,6 @@ public class ModRituals {
 	public static void registerBlocks(RegistryEvent.Register<Ritual> evt) {
 		Log.i("Registering rituals for "+Reference.NAME);
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
-		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, charging_riutual_talisman, redirection_ritual);
+		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, charging_riutual_talisman, redirection_ritual, identification_ritual);
 	}
 }
