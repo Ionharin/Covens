@@ -37,6 +37,7 @@ public class ItemSoulString extends Item {
 		if (stack.getMetadata()==1) {
 			NBTTagCompound data = stack.getOrCreateSubCompound("boundData");
 			if (data.hasKey("name")) {
+				tooltip.add(TextFormatting.GRAY+TextFormatting.ITALIC.toString()+I18n.format("item.soulstring.bound", data.getString("name")));
 			}
 		}
 	}
