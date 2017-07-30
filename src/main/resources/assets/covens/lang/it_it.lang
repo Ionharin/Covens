@@ -70,6 +70,7 @@ tile.leaves.yew.name=Foglie di tasso
 tile.confining_ash.name=Soglia di cenere
 tile.goblet.name=Calice
 tile.candle_plate.name=Candele Cerimonial
+tile.cauldron.name=Calderone
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
@@ -93,5 +94,6 @@ brew.failure.power=La tua magia e' troppo debole (%d)
 brew.success.power=Ti serve una carica di %d dal tuo altare
 jei.category.rituals=Rituali
 jei.category.chimney=Raccolta Fumi
+jei.category.brewing=Pozioni del calderone
 jei.ritual.power.flat=%d Energia magica
 jei.ritual.power.tick=%d Energia magica al secondo

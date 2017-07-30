@@ -70,6 +70,7 @@ tile.leaves.yew.name=Yew Leaves
 tile.confining_ash.name=Confining Ash
 tile.goblet.name=Goblet
 tile.candle_plate.name=Cerimonial Candles
+tile.cauldron.name=Cauldron
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
@@ -98,5 +99,6 @@ brew.failure.power=Your magic source is weak (%d)
 brew.success.power=Your need %d altar power
 jei.category.rituals=Rituals
 jei.category.chimney=Fume Collection
+jei.category.brewing=Cauldron Brewing
 jei.ritual.power.flat=%d Altar Power
 jei.ritual.power.tick=%d Altar Power Per Second

@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.registries.brewing;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
@@ -59,8 +61,13 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		return oppositeDuration;
 	}
 	
+	@Nullable
 	public Potion getOpposite() {
 		return opposite;
+	}
+	
+	public ItemStack getInput() {
+		return ingredient.copy();
 	}
 	
 	@SubscribeEvent

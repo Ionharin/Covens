@@ -11,6 +11,8 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.item.ItemStack;
+import zabi.minecraft.covens.client.jei.categories.BrewingCategory;
+import zabi.minecraft.covens.client.jei.categories.BrewingWrapper;
 import zabi.minecraft.covens.client.jei.categories.ChimneyCategory;
 import zabi.minecraft.covens.client.jei.categories.ChimneyWrapper;
 import zabi.minecraft.covens.client.jei.categories.RitualCategory;
@@ -18,6 +20,7 @@ import zabi.minecraft.covens.client.jei.categories.RitualWrapper;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 import zabi.minecraft.covens.common.registries.chimney.ChimneyRecipe;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
@@ -27,6 +30,7 @@ public class CovensJEIPlugin implements IModPlugin {
 	public void registerCategories(IRecipeCategoryRegistration registry) {
 		registry.addRecipeCategories(new RitualCategory(registry.getJeiHelpers().getGuiHelper()));
 		registry.addRecipeCategories(new ChimneyCategory(registry.getJeiHelpers().getGuiHelper()));
+		registry.addRecipeCategories(new BrewingCategory(registry.getJeiHelpers().getGuiHelper()));
 	}
 	
 	@Override
@@ -41,6 +45,10 @@ public class CovensJEIPlugin implements IModPlugin {
 		registry.handleRecipes(ChimneyRecipe.class, i -> new ChimneyWrapper(i), ChimneyCategory.UID);
 		registry.addRecipes(chimList, ChimneyCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.chimney), ChimneyCategory.UID);
+		
+		registry.handleRecipes(BrewIngredient.class, i -> new BrewingWrapper(i), BrewingCategory.UID);
+		registry.addRecipes(BrewIngredient.REGISTRY.getValues(), BrewingCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.cauldron), BrewingCategory.UID);
 	}
 	
 	protected static class RitualWrapperFactory implements IRecipeWrapperFactory<Ritual> {
