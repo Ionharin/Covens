@@ -27,6 +27,8 @@ public class RitualEnderGate extends Ritual {
 	public void onFinish(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {
 		NBTTagCompound dest = null;
 		ItemStack stone = null;
+		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 3, 5).expand(-5, 0, -5));
+		if (list.isEmpty()) return;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
 			ItemStack stack = new ItemStack(data.getCompoundTag("itemsUsed").getCompoundTag(iname));
 			if (stack.getItem().equals(ModItems.cardinal_stone) && stack.getMetadata()==2) {
@@ -40,7 +42,7 @@ public class RitualEnderGate extends Ritual {
 			return;
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
-		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 3, 5).expand(-5, 0, -5)).stream()
+		list.stream()
 			.forEach(elb -> {
 				elb.moveToBlockPosAndAngles(new BlockPos(x, y, z), elb.rotationYaw, elb.rotationPitch);
 			});

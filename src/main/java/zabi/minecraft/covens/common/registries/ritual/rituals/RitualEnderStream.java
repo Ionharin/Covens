@@ -35,6 +35,10 @@ public class RitualEnderStream extends Ritual {
 	@Override
 	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		if (ticks%20!=0) return;
+		
+		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 3, 5).expand(-5, 0, -5));
+		if (list.isEmpty()) return;
+		
 		NBTTagCompound dest = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
 			ItemStack stack = new ItemStack(data.getCompoundTag("itemsUsed").getCompoundTag(iname));
@@ -49,7 +53,7 @@ public class RitualEnderStream extends Ritual {
 		}
 		final NBTTagCompound dst = dest;
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
-		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 3, 5).expand(-5, 0, -5)).stream()
+		list.stream()
 			.forEach(elb -> {
 				if (!elb.isSneaking()) elb.moveToBlockPosAndAngles(new BlockPos(x, y, z), (float) dst.getDouble("yaw"), (float) dst.getDouble("pitch"));
 			});
