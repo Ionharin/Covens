@@ -11,6 +11,7 @@ import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.item.ItemStack;
+import zabi.minecraft.covens.client.jei.categories.BrewingAdapter;
 import zabi.minecraft.covens.client.jei.categories.BrewingCategory;
 import zabi.minecraft.covens.client.jei.categories.BrewingWrapper;
 import zabi.minecraft.covens.client.jei.categories.ChimneyCategory;
@@ -46,8 +47,8 @@ public class CovensJEIPlugin implements IModPlugin {
 		registry.addRecipes(chimList, ChimneyCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.chimney), ChimneyCategory.UID);
 		
-		registry.handleRecipes(BrewIngredient.class, i -> new BrewingWrapper(i), BrewingCategory.UID);
-		registry.addRecipes(BrewIngredient.REGISTRY.getValues(), BrewingCategory.UID);
+		registry.handleRecipes(BrewingAdapter.class, i -> new BrewingWrapper(i), BrewingCategory.UID);
+		registry.addRecipes(BrewingAdapter.addAll(BrewIngredient.REGISTRY.getValues()), BrewingCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.cauldron), BrewingCategory.UID);
 	}
 	

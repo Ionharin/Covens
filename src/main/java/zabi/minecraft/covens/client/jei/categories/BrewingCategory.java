@@ -1,9 +1,8 @@
 package zabi.minecraft.covens.client.jei.categories;
 
-import java.util.List;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
@@ -14,12 +13,13 @@ import zabi.minecraft.covens.common.lib.Reference;
 
 public class BrewingCategory implements IRecipeCategory<BrewingWrapper> {
 	
-	private IDrawable bg;
+	public static IDrawable bg;
 	
 	public static final String UID = Reference.MID+":cauldron";
 	
 	public BrewingCategory(IGuiHelper igh) {
-		bg = igh.createDrawable(new ResourceLocation(Reference.MID, "textures/gui/jei_brewing.png"), 0, 0, 51, 51, 51, 51);
+		ResourceLocation rl = new ResourceLocation(Reference.MID, "textures/gui/jei_brewing.png");
+		bg = igh.createDrawable(rl, 0, 0, 91, 40, 91, 40);
 	}
 
 	@Override
@@ -43,15 +43,15 @@ public class BrewingCategory implements IRecipeCategory<BrewingWrapper> {
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, BrewingWrapper recipeWrapper, IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 2, 2);
-		recipeLayout.getItemStacks().set(0, recipeWrapper.input);
-		List<List<ItemStack>> out = ingredients.getOutputs(ItemStack.class);
-		recipeLayout.getItemStacks().init(1, false, 2, 31);
-		recipeLayout.getItemStacks().set(1, out.get(0));
-		recipeLayout.getItemStacks().init(2, false, 31, 31);
-		recipeLayout.getItemStacks().set(2, out.get(1));
-		recipeLayout.getItemStacks().init(3, true, 31, 2);
-		recipeLayout.getItemStacks().set(3, BrewingWrapper.eye);
+	public void setRecipe(IRecipeLayout l, BrewingWrapper w, IIngredients ingredients) {
+		IGuiItemStackGroup is = l.getItemStacks();
+		is.init(0, true, w.positive?18:9, 0);
+		is.set(0, w.input);
+		is.init(1, false, 62, 19);
+		is.set(1, ingredients.getOutputs(ItemStack.class).get(0));
+		if (!w.positive) {
+			is.init(2, true, 27, 0);
+			is.set(2, BrewingWrapper.eye);
+		}
 	}
 }
