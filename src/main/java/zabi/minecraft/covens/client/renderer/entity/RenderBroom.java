@@ -39,7 +39,9 @@ public class RenderBroom extends Render<EntityFlyingBroom> {
 		GlStateManager.translate(x, y-0.5d, z);
 		GlStateManager.scale(0.0625d, 0.0625d, 0.0625d);
 		GlStateManager.rotate(90-smoothYaw, 0, 1, 0);
+		GlStateManager.disableLighting();
 		model.render(entity, 0f, 0f, 0f, 0f, 0f, 1f);
+		GlStateManager.enableLighting();
 		GlStateManager.popMatrix();
 	}
 
