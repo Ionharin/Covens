@@ -41,18 +41,18 @@ public class ItemBroom extends Item {
 	
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if (world.getBlockState(pos).getBlock().equals(ModBlocks.glyphs)) {
-			world.setBlockToAir(pos);
-		} else {
-			return EnumActionResult.PASS;
-		}
-		return EnumActionResult.SUCCESS;
+		
+		return EnumActionResult.PASS;
 	}
 	
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		spawnBroom(player, world, pos.offset(side), player.getHeldItem(hand));
-		player.setHeldItem(hand, ItemStack.EMPTY);
+		if (world.getBlockState(pos).getBlock().equals(ModBlocks.glyphs)) {
+			world.setBlockToAir(pos);
+		} else {
+			spawnBroom(player, world, pos.offset(side), player.getHeldItem(hand));
+			player.setHeldItem(hand, ItemStack.EMPTY);
+		}
 		return EnumActionResult.SUCCESS;
 	}
 
