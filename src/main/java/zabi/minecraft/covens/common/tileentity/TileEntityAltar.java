@@ -173,6 +173,7 @@ public class TileEntityAltar extends TileEntityBase {
 		if (blockState.getBlock() instanceof IPlantable) return 30;
 		if (blockState.getBlock().equals(Blocks.MELON_BLOCK)) return 30;
 		if (blockState.getBlock().equals(Blocks.PUMPKIN)) return 30;
+		if (blockState.getBlock().equals(Blocks.COCOA)) return 20;
 		ItemStack stack = new ItemStack(blockState.getBlock());
 		if (!stack.isEmpty()) {
 			int[] ids=OreDictionary.getOreIDs(stack);
