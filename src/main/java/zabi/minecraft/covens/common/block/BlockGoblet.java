@@ -40,7 +40,7 @@ public class BlockGoblet extends Block {
 	
 	@Override
 	public float getAmbientOcclusionLightValue(IBlockState state) {
-		return 0;
+		return 1;
 	}
 	
 	@Override
@@ -98,11 +98,4 @@ public class BlockGoblet extends Block {
 	public boolean doesSideBlockRendering(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing face) {
 		return false;
 	}
-	
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
-	
-	
 }
