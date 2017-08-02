@@ -71,6 +71,7 @@ tile.confining_ash.name=Soglia di cenere
 tile.goblet.name=Calice
 tile.candle_plate.name=Candele Cerimonial
 tile.cauldron.name=Calderone
+tile.chimney.hint=Piazza questo blocco sopra ad una fornace
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile

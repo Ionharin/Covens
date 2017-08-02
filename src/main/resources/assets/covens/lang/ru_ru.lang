@@ -58,6 +58,7 @@ tile.leaves.juniper.name=Листья можжевельника
 tile.leaves.elder.name=Листья бузины
 tile.leaves.yew.name=Листья тиса
 tile.confining_ash.name=Ограничение пеплом 
+tile.chimney.hint=Place this on a Furnace ***
 
 # Ritual Stuff
 ritual.failure.unknown=Вы никогда не слышали о таких обрядах
