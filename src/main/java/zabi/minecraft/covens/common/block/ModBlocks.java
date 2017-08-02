@@ -53,6 +53,8 @@ public class ModBlocks {
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		Log.i("Registering blocks for "+Reference.NAME);
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
-		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, yewPlanks, juniperPlanks, elderPlanks, confining_ash, goblet, candle_plate);
+		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
+				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, 
+				yewPlanks, confining_ash, goblet, candle_plate);
 	}
 }
