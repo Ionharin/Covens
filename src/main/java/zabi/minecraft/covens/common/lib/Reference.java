@@ -12,5 +12,5 @@ public class Reference {
 	public static final String PROXY_SERVER = "zabi.minecraft.covens.common.proxy.ServerProxy";
 
 	public static final String UPDATE_URL = "http://zabi.altervista.org/minecraft/"+MID+"/versions";
-	public static final String CONTRIBUTORS_URL = "http://zabi.altervista.org/minecraft/"+MID+"/ringraziamenti";
+	public static final String CONTRIBUTORS_URL = "http://zabi.altervista.org/minecraft/"+MID+"/patreon.dat";
 }

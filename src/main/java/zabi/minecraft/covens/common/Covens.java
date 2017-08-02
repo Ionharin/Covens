@@ -17,6 +17,7 @@ import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.network.NetworkModRegistry;
+import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
@@ -49,6 +50,13 @@ public class Covens {
 		ModRituals.registerAll();
 		ModPotions.registerAll();
 		proxy.preInit(evt);
+		
+		Thread contributors = new Thread(new ContributorDownloader());
+		contributors.setDaemon(true);
+		contributors.setName("Covens: Patreon checker");
+		contributors.start();
+		
+		
 	}
 	
 	@EventHandler
@@ -60,5 +68,4 @@ public class Covens {
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.sagebrushSeeds), 2);
 		proxy.init(evt);
 	}
-	
 }
