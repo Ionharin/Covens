@@ -67,6 +67,7 @@ ritual.failure.precondition=Что-то неправильно
 ritual.covens.high_moon.name=Ритуал возвышения луны
 ritual.covens.time_sands.name=Ритуал пески времени
 ritual.covens.perception.name=Ритуал восприятия
+#:control the next two translations
 ritual.covens.ender_gate.name=Ритуал врата Края
 ritual.covens.ender_stream.name=Ритуал врата Края
 ritual.covens.charging_1.name=Ритуал зарядки
