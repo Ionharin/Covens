@@ -15,6 +15,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -23,7 +24,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet, candle_plate;
+	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet, candle_plate, barrel;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemCardinalStone cardinal_stone;
 	public static ItemFlowers flowers;
@@ -43,6 +44,12 @@ public class ModItems {
 			@Override
 			public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 				tooltip.add(TextFormatting.GRAY+TextFormatting.ITALIC.toString()+I18n.format("tile.chimney.hint"));
+			}
+		};
+		barrel = new ItemBlock(ModBlocks.barrel) {
+			@Override
+			public String getUnlocalizedName(ItemStack stack) {
+				return super.getUnlocalizedName(stack)+"."+BlockBarrel.WoodType.values()[stack.getMetadata()].getName();
 			}
 		};
 		cauldron = new ItemBlock(ModBlocks.cauldron);
@@ -82,6 +89,7 @@ public class ModItems {
 		elderPlanks.setRegistryName(ModBlocks.elderPlanks.getRegistryName());
 		goblet.setRegistryName(ModBlocks.goblet.getRegistryName());
 		candle_plate.setRegistryName(ModBlocks.candle_plate.getRegistryName());
+		barrel.setRegistryName(ModBlocks.barrel.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -115,7 +123,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring
+				goblet, candle_plate, soulstring, barrel
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

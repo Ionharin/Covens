@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
@@ -87,6 +88,24 @@ public class VanillaRecipes {
 				" t ", "ttt", "ttt",
 				't', Items.CLAY_BALL
 				);
+		for (int i=0;i<BlockBarrel.WoodType.values().length;i++)
+			GameRegistry.addShapedRecipe(rl("barrel_"+BlockBarrel.WoodType.values()[i].getName()), null, new ItemStack(ModBlocks.barrel,1,i), 
+					"iwi", "wtw", "www",
+					't', new ItemStack(ModItems.misc,1,9),
+					'i', Items.IRON_INGOT,
+					'w', getWoodFromType(i)
+					);
+	}
+
+	private static ItemStack getWoodFromType(int i) {
+		if (i==1) i=2;
+		else if (i==2) i=1; //spruce and birch are inverted >.>
+		if (i<4) return new ItemStack(Blocks.LOG,1,i);
+		if (i<6) return new ItemStack(Blocks.LOG2,1,i-4);
+		if (i==6) return new ItemStack(ModBlocks.log_elder);
+		if (i==7) return new ItemStack(ModBlocks.log_juniper);
+		if (i==8) return new ItemStack(ModBlocks.log_yew);
+		return ItemStack.EMPTY;
 	}
 
 	private static void registerFurnaceRecipes() {

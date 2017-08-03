@@ -20,7 +20,7 @@ item.chalk_nether.name=Gesso avvampato
 item.misc.empty_jar.name=Giara vuota
 item.misc.ash.name=Cenere
 item.misc.oak_spirit.name=Spirito della quercia
-item.misc.birch_soul.name=Anima del pioppo
+item.misc.birch_soul.name=Anima della betulla
 item.misc.acacia_essence.name=Essenza dell'acacia
 item.misc.spruce_heart.name=Cuore dell'abete
 item.misc.cloudy_oil.name=Olio rannuvolato
@@ -72,6 +72,16 @@ tile.goblet.name=Calice
 tile.candle_plate.name=Candele Cerimonial
 tile.cauldron.name=Calderone
 tile.chimney.hint=Piazza questo blocco sopra ad una fornace
+tile.barrel.name=Botte
+tile.barrel.oak.name=Botte in legno di quercia
+tile.barrel.birch.name=Botte in legno di betulla
+tile.barrel.spruce.name=Botte in legno di abete
+tile.barrel.jungle.name=Botte in legno di giungla
+tile.barrel.acacia.name=Botte in legno di acacia
+tile.barrel.big_oak.name=Botte in legno di quercia scura
+tile.barrel.elder.name=Botte in legno di sambuco
+tile.barrel.juniper.name=Botte in legno di ginepro
+tile.barrel.yew.name=Yew Botte in legno di tasso
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile

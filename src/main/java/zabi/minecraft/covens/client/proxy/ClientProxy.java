@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
+import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
@@ -101,7 +102,9 @@ public class ClientProxy extends Proxy {
 		for (int i=0;i<4;i++) registerModel(ModItems.broom, i);
 		for (int i=0;i<ItemFlowers.names.length;i++) registerModel(ModItems.flowers, i);
 		for (int i=0;i<ItemMisc.names.length;i++) if (i!=9) registerModel(ModItems.misc, i);
+		for (int i=0;i<BlockBarrel.WoodType.values().length;i++) registerModel(ModItems.barrel, i);
 		registerModel(ModItems.misc, 9, 8);
+		
 	}
 
 	private void registerModel(Item item, int meta) {
@@ -115,6 +118,8 @@ public class ClientProxy extends Proxy {
 		ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
 		ModelLoader.setCustomModelResourceLocation(item, realMeta, mrl);
 	}
+	
+	
 	
 
 	private void registerColors() {

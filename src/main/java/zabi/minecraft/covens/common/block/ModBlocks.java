@@ -22,6 +22,7 @@ public class ModBlocks {
 	public static BlockConfiningAsh confining_ash;
 	public static BlockGoblet goblet;
 	public static BlockCandlePlate candle_plate;
+	public static BlockBarrel barrel;
 	
 	public static void registerAll() {
 		glyphs = new BlockCircleGlyph();
@@ -47,6 +48,8 @@ public class ModBlocks {
 		yewPlanks = new BlockPlanks("yew");
 		juniperPlanks = new BlockPlanks("juniper");
 		elderPlanks = new BlockPlanks("elder");
+		
+		barrel = new BlockBarrel();
 	}
 	
 	@SubscribeEvent
@@ -55,6 +58,6 @@ public class ModBlocks {
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, 
-				yewPlanks, confining_ash, goblet, candle_plate);
+				yewPlanks, confining_ash, goblet, candle_plate, barrel);
 	}
 }

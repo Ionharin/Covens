@@ -72,6 +72,16 @@ tile.goblet.name=Goblet
 tile.candle_plate.name=Cerimonial Candles
 tile.cauldron.name=Cauldron
 tile.chimney.hint=Place this on a Furnace
+tile.barrel.name=Barrel
+tile.barrel.oak.name=Oak Barrel
+tile.barrel.birch.name=Birch Barrel
+tile.barrel.spruce.name=Spruce Barrel
+tile.barrel.jungle.name=Jungle Barrel
+tile.barrel.acacia.name=Acacia Barrel
+tile.barrel.big_oak.name=Dark Oak Barrel
+tile.barrel.elder.name=Elder Barrel
+tile.barrel.juniper.name=Juniper Barrel
+tile.barrel.yew.name=Yew Barrel
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
