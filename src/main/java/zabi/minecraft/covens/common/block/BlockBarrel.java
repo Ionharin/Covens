@@ -141,7 +141,7 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 		}
 		
 		public static enum WoodType implements IStringSerializable {
-			OAK, BIRCH, SPRUCE, JUNGLE, ACACIA, BIG_OAK, ELDER, JUNIPER, YEW;
+			OAK, SPRUCE, BIRCH, JUNGLE, ACACIA, BIG_OAK, ELDER, JUNIPER, YEW;
 			
 			@Override
 			public String getName() {

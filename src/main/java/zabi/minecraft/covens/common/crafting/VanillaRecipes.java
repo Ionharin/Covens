@@ -98,8 +98,6 @@ public class VanillaRecipes {
 	}
 
 	private static ItemStack getWoodFromType(int i) {
-		if (i==1) i=2;
-		else if (i==2) i=1; //spruce and birch are inverted >.>
 		if (i<4) return new ItemStack(Blocks.LOG,1,i);
 		if (i<6) return new ItemStack(Blocks.LOG2,1,i-4);
 		if (i==6) return new ItemStack(ModBlocks.log_elder);
