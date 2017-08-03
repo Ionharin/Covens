@@ -26,6 +26,7 @@ public class BlockGoblet extends Block {
 		this.setRegistryName(Reference.MID, "goblet");
 		this.setDefaultState(blockState.getBaseState().withProperty(FULL, false));
 		this.setHarvestLevel("pickaxe", 0);
+		this.setLightOpacity(0);
 	}
 
 	@Override
@@ -36,11 +37,6 @@ public class BlockGoblet extends Block {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return bounding_box;
-	}
-	
-	@Override
-	public float getAmbientOcclusionLightValue(IBlockState state) {
-		return 1;
 	}
 	
 	@Override

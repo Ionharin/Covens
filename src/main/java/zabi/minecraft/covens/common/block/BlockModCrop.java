@@ -39,6 +39,7 @@ public class BlockModCrop extends BlockCrops {
 		super();
 		this.setUnlocalizedName(name);
 		this.setRegistryName(Reference.MID, name);
+		this.setLightOpacity(0);
 	}
 	
 	public BlockModCrop setSeeds(ItemStack seed) {

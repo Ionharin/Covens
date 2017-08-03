@@ -21,6 +21,7 @@ public class BlockCandlePlate extends Block {
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setRegistryName(Reference.MID, "candle_plate");
 		this.setHarvestLevel("pickaxe", 0);
+		this.setLightOpacity(0);
 	}
 
 	@Override
@@ -31,11 +32,6 @@ public class BlockCandlePlate extends Block {
 	@Override
 	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
 		return bounding_box;
-	}
-	
-	@Override
-	public float getAmbientOcclusionLightValue(IBlockState state) {
-		return 1;
 	}
 	
 	@Override

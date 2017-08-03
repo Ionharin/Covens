@@ -39,6 +39,7 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 		this.setHarvestLevel("axe", 0);
 		this.setHardness(2.0f);
 		this.setCreativeTab(ModCreativeTabs.machines);
+		this.setLightOpacity(0);
 	}
 	
 	@Override
