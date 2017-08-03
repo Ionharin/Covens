@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,6 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -50,13 +48,6 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(FACING).getHorizontalIndex();
-	}
-	
-	@Override
-	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-		if (getCreativeTabToDisplayOn()==itemIn || getCreativeTabToDisplayOn()==CreativeTabs.SEARCH) {
-			for (int i = 0; i < WoodType.values().length; i++) items.add(new ItemStack(this, 1, i));
-		}
 	}
 	
 	@Override

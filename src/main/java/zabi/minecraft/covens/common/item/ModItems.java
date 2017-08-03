@@ -4,11 +4,13 @@ import java.util.List;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
@@ -47,6 +49,14 @@ public class ModItems {
 			}
 		};
 		barrel = new ItemBlock(ModBlocks.barrel) {
+			
+			@Override
+			public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+				if (this.isInCreativeTab(tab)) {
+					for (int i=0;i<BlockBarrel.WoodType.values().length;i++) items.add(new ItemStack(this,1,i));
+				}
+			}
+			
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
 				return super.getUnlocalizedName(stack)+"."+BlockBarrel.WoodType.values()[stack.getMetadata()].getName();
