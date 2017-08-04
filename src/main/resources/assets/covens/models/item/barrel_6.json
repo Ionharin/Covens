@@ -1,6 +1,3 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "covens:items/barrel_elder"
-    }
+    "parent": "covens:block/barrel_elder"
 }

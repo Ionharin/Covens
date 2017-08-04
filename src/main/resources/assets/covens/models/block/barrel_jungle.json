@@ -1,0 +1,9 @@
+{
+	"parent": "covens:block/barrel",
+	"textures": {
+		"0": "blocks/log_jungle_top",
+    	"1": "blocks/log_jungle",
+    	"2": "blocks/anvil_base",
+    	"particle":"blocks/log_jungle_top"
+	}
+}

@@ -1,12 +1,6 @@
 {
 	"forge_marker": 1,
-	"parent": "block/block",
-	"defaults": {
-		"model": "covens:barrel",
-		"textures": {
-			"2": "blocks/anvil_base"
-		}
-	},
+	"parent": "covens:block/barrel",
 	"variants": {
 		"facing": {
 			"north": {
@@ -24,67 +18,31 @@
 		},
 		"wood": {
 			"oak": {
-				"textures": {
-					"0": "blocks/log_oak_top",
-        			"1": "blocks/log_oak",
-        			"particle":"blocks/log_oak_top"
-				}
-			},
-			"birch": {
-				"textures": {
-					"0": "blocks/log_birch_top",
-        			"1": "blocks/log_birch",
-        			"particle":"blocks/log_birch_top"
-				}
+				"model": "covens:barrel_oak"
 			},
 			"spruce": {
-				"textures": {
-					"0": "blocks/log_spruce_top",
-        			"1": "blocks/log_spruce",
-        			"particle":"blocks/log_spruce_top"
-				}
+				"model": "covens:barrel_spruce"
+			},
+			"birch": {
+				"model": "covens:barrel_birch"
 			},
 			"jungle": {
-				"textures": {
-					"0": "blocks/log_jungle_top",
-        			"1": "blocks/log_jungle",
-        			"particle":"blocks/log_jungle_top"
-				}
+				"model": "covens:barrel_jungle"
 			},
 			"acacia": {
-				"textures": {
-					"0": "blocks/log_acacia_top",
-        			"1": "blocks/log_acacia",
-        			"particle":"blocks/log_acacia_top"
-				}
+				"model": "covens:barrel_acacia"
 			},
 			"big_oak": {
-				"textures": {
-					"0": "blocks/log_big_oak_top",
-        			"1": "blocks/log_big_oak",
-        			"particle":"blocks/log_big_oak_top"
-				}
+				"model": "covens:barrel_dark_oak"
 			},
 			"elder": {
-				"textures": {
-					"0": "covens:blocks/log_elder_top",
-        			"1": "covens:blocks/log_elder",
-        			"particle":"covens:blocks/log_elder_top"
-				}
+				"model": "covens:barrel_elder"
 			},
 			"juniper": {
-				"textures": {
-					"0": "covens:blocks/log_juniper_top",
-        			"1": "covens:blocks/log_juniper",
-        			"particle":"covens:blocks/log_juniper_top"
-				}
+				"model": "covens:barrel_juniper"
 			},
 			"yew": {
-				"textures": {
-					"0": "covens:blocks/log_yew_top",
-        			"1": "covens:blocks/log_yew",
-        			"particle": "covens:blocks/log_yew_top"
-				}
+				"model": "covens:barrel_yew"
 			}
 		}
 	}
