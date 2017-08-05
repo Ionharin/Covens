@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.block;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Random;
 
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
@@ -10,16 +11,27 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -28,6 +40,9 @@ import zabi.minecraft.covens.common.tileentity.TileEntityBarrel;
 public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider {
 	
 	public static final PropertyWood WOOD_TYPE = new PropertyWood("wood", WoodType.class, Arrays.asList(WoodType.values()));
+	
+	private static final AxisAlignedBB bounding_box_NS = new AxisAlignedBB(0.1875D, 0.0D, 0.03125D, 0.8125D, 0.625D, 0.96875D);
+	private static final AxisAlignedBB bounding_box_WE = new AxisAlignedBB(0.03125D, 0.0D, 0.1875D, 0.96875D, 0.625D, 0.8125D);
 
 	protected BlockBarrel() {
 		super(Material.WOOD);
@@ -39,6 +54,15 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setLightOpacity(0);
 	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		EnumFacing f = state.getValue(FACING);
+		if (f == EnumFacing.EAST || f == EnumFacing.WEST) return bounding_box_WE;
+		return bounding_box_NS;
+	}
+	
+	
 	
 	@Override
 	public String getUnlocalizedName() {
@@ -119,8 +143,82 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (world.isRemote) return true;
+		TileEntityBarrel barrel = (TileEntityBarrel) world.getTileEntity(pos);
+		if (barrel.hasRecipe()) {
+			return false; //Don't do anything if a recipe is cooking or another one is ready
+		}
+		ItemStack stack = player.getHeldItem(hand);
+		
+		if (barrel.hasResult()) {
+			if (barrel.getRequiredStackToRetrieve().isItemEqual(stack) || (barrel.getRequiredStackToRetrieve().isEmpty() && stack.isEmpty())) {
+				Log.i("bottling");
+				if (!player.isCreative() && !stack.isEmpty()) stack.setCount(stack.getCount()-1);
+				EntityItem ei = new EntityItem(world, player.posX, player.posY, player.posZ, barrel.popResult().copy());
+				world.spawnEntity(ei);
+				ei.setNoPickupDelay();
+				ei.onCollideWithPlayer(player);
+				return true;
+			}
+			return false;
+		}
+
+		if (player.isSneaking()) {
+			if (stack.isEmpty()) {
+				EntityItem ei = new EntityItem(world, player.posX, player.posY, player.posZ, barrel.popLastInsertedItem());
+				world.spawnEntity(ei);
+				ei.setNoPickupDelay();
+				ei.onCollideWithPlayer(player);
+				Log.i("pop");
+			}
+			Log.i("sneak");
+			return true;
+		}
+
+		if (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
+			Log.i("handler");
+			IFluidHandlerItem itemHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+			FluidStack fluidInItem = itemHandler.drain(Fluid.BUCKET_VOLUME, false);
+			FluidStack fluidInBarrel = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
+			boolean flag = false;
+			if ((fluidInBarrel!=null && fluidInBarrel.amount>0) && (fluidInItem==null || fluidInItem.amount==0 || (fluidInItem.isFluidEqual(fluidInBarrel) && fluidInItem.amount<Fluid.BUCKET_VOLUME))) {
+				itemHandler.fill(barrelHandler.drain(Fluid.BUCKET_VOLUME, true), true);
+				Log.i("drain barrel");
+				flag=true;
+			} else if (fluidInItem!=null && fluidInItem.amount>0 && fluidInItem.getFluid()!=null && (fluidInBarrel==null || fluidInBarrel.amount==0 || (fluidInBarrel.amount<Fluid.BUCKET_VOLUME && fluidInBarrel.isFluidEqual(fluidInItem)))) {
+				barrelHandler.fill(itemHandler.drain(Fluid.BUCKET_VOLUME, true), true);
+				Log.i("fill barrel");
+				flag=true;
+			}
+			FluidStack inTheEnd = itemHandler.drain(1000, false);
+			if (flag && (inTheEnd==null || inTheEnd.amount==0)) player.setHeldItem(hand, itemHandler.getContainer());
+			return true;
+		} 
+		
+		if (stack.isEmpty()) {
+			Log.i("Querying");
+			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+			FluidStack cont = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
+			TextComponentTranslation message = null;
+			if (cont==null || cont.amount==0 || cont.getFluid()==null) message = new TextComponentTranslation("tile.barrel.empty");
+			else message = new TextComponentTranslation("tile.barrel.full", cont.getUnlocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
+			player.sendStatusMessage(message, true);
+			return true;
+		}
+		barrel.addItem(stack);
+		if (!player.isCreative()) stack.setCount(stack.getCount()-1);
+		Log.i("adding");
+		return true;
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
+		if (((TileEntityBarrel)world.getTileEntity(pos)).hasRecipe()) {
+			world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, pos.getX(), pos.getY()+1, pos.getZ(), 0, 0, 0);
+		}
 	}
 	
 	//###########################################################################################################

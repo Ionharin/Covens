@@ -1,21 +1,35 @@
 package zabi.minecraft.covens.common.tileentity;
 
-import java.util.ArrayList;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import zabi.minecraft.covens.common.block.BlockBarrel;
+import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
 public class TileEntityBarrel extends TileEntityBase {
 	
-	private static final int REQUIRED_TICKS = 2400; //2 min
-	
-	ArrayList<ItemStack> input = new ArrayList<ItemStack>();
+	FluidTank internalTank = new FluidTank(Fluid.BUCKET_VOLUME) {
+		protected void onContentsChanged() {
+			if (this.getFluidAmount()==0 || this.getFluidAmount()==Fluid.BUCKET_VOLUME) checkRecipe();
+		};
+	};
+	NonNullList<ItemStack> input = NonNullList.create();
 	int brewingTime = 0;
 	int barrelType = 0;
-	ItemStack result = ItemStack.EMPTY;
+	ItemStack result = ItemStack.EMPTY, retrivial = ItemStack.EMPTY;
 	boolean hasValidRecipe = false;
+	BarrelRecipe currentRecipe = null; //cached, not stored in nbt. Fetch if null
+	TileEntityAltar te = null;	//cached
 
+	public TileEntityBarrel() {
+		internalTank.setTileEntity(this);
+	}
+	
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
 		brewingTime = tag.getInteger("time");
@@ -26,6 +40,8 @@ public class TileEntityBarrel extends TileEntityBase {
 		}
 		hasValidRecipe = tag.getBoolean("hasRecipe");
 		barrelType = tag.getInteger("type");
+		internalTank = internalTank.readFromNBT(tag.getCompoundTag("fluid"));
+		retrivial = new ItemStack(tag.getCompoundTag("retrivial"));
 	}
 
 	@Override
@@ -45,16 +61,73 @@ public class TileEntityBarrel extends TileEntityBase {
 		tag.setTag("input", inList);
 		tag.setBoolean("hasRecipe", hasValidRecipe);
 		tag.setInteger("type", barrelType);
+		NBTTagCompound fluid = new NBTTagCompound();
+		internalTank.writeToNBT(fluid);
+		tag.setTag("fluid", fluid);
+		NBTTagCompound rtr = new NBTTagCompound();
+		retrivial.writeToNBT(rtr);
+		tag.setTag("retrivial", rtr);
 	}
 
 	@Override
 	protected void tick() {
-		if (hasValidRecipe) {
-			brewingTime++;
-			if (brewingTime>=REQUIRED_TICKS) {
-				//TODO
+		if (!world.isRemote && hasValidRecipe) {
+			if (currentRecipe==null) {
+				fetchRecipe();
+				if (currentRecipe==null) {
+					hasValidRecipe = false;
+					return;
+				}
+			}
+			if (consumePower(currentRecipe.getPower())) {
+				brewingTime++;
+				if (brewingTime>=currentRecipe.getRequiredTime()) {
+					result = currentRecipe.getResult();
+					retrivial = currentRecipe.getRetrivialItem();
+					input.clear();
+					brewingTime=0;
+					internalTank.setFluid(null);
+					currentRecipe = null;
+					hasValidRecipe = false;
+				}
 			}
 		}
+	}
+	
+	private void fetchRecipe() {
+		currentRecipe = BarrelRecipe.getRecipe(getWorld(), input, getPos(), internalTank.getFluid());
+	}
+	
+	public void addItem(ItemStack item) {
+		input.add(item);
+		checkRecipe();
+	}
+	
+	private void checkRecipe() {
+		if (!result.isEmpty()) {
+			hasValidRecipe = false;
+			currentRecipe = null;
+			return;
+		}
+		fetchRecipe();
+		this.hasValidRecipe = currentRecipe!=null;
+	}
+	
+	public ItemStack getRequiredStackToRetrieve() {
+		return retrivial;
+	}
+
+	@Override
+	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (capability==CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return true;
+		return super.hasCapability(capability, facing);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (capability==CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) internalTank;
+		return super.getCapability(capability, facing);
 	}
 	
 	public void setType(BlockBarrel.WoodType type) {
@@ -68,5 +141,35 @@ public class TileEntityBarrel extends TileEntityBase {
 	public BlockBarrel.WoodType getType() {
 		return BlockBarrel.WoodType.values()[barrelType];
 	}
+	
+	public boolean consumePower(int power) {
+		if (power==0) return true;
+		if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null) return false;
+		return te.consumePower(power, false);
+	}
 
+	public ItemStack popLastInsertedItem() {
+		if (input.size()==0) return ItemStack.EMPTY;
+		ItemStack res = input.get(input.size()-1);
+		input.remove(res);
+		checkRecipe();
+		return res;
+	}
+	
+	public boolean hasRecipe() {
+		return hasValidRecipe;
+	}
+	
+	public boolean hasResult() {
+		return !result.isEmpty();
+	}
+	
+	public ItemStack popResult() {
+		ItemStack res = result;
+		result = ItemStack.EMPTY;
+		hasValidRecipe = false;
+		return res;
+	}
+	
 }

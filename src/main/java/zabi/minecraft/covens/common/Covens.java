@@ -21,6 +21,7 @@ import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
+import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
 import zabi.minecraft.covens.common.tileentity.ModTileEntities;
 
@@ -49,6 +50,7 @@ public class Covens {
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();
 		ModPotions.registerAll();
+		ModBarrelRecipes.registerAll();
 		proxy.preInit(evt);
 		
 		Thread contributors = new Thread(new ContributorDownloader());
