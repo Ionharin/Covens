@@ -9,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import zabi.minecraft.covens.common.block.BlockCauldron;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
@@ -105,13 +104,8 @@ public class TileEntityCauldron extends TileEntityBase {
 	}
 	
 	public boolean consumePower(int power, boolean simulate) {
-		final BlockPos pos = getPos();
-		if (te==null || te.isInvalid()) te = getWorld().loadedTileEntityList.stream()
-		.filter(te -> (te instanceof TileEntityAltar))
-		.filter(te -> te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ() ) <= 256)
-		.map(te -> (TileEntityAltar) te)
-		.filter(te -> te.getAltarPower()>=power)
-		.findFirst().orElse(null);
+		if (power==0) return true;
+		if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(pos, world);
 		if (te==null) return false;
 		return te.consumePower(power, simulate);
 	}

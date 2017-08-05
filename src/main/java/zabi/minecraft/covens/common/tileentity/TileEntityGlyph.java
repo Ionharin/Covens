@@ -207,13 +207,8 @@ public class TileEntityGlyph extends TileEntityBase {
 	}
 	
 	public boolean consumePower(int power) {
-		final BlockPos pos = getPos();
-		if (te==null || te.isInvalid()) te = getWorld().loadedTileEntityList.stream()
-		.filter(te -> (te instanceof TileEntityAltar))
-		.filter(te -> te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ() ) <= 256)
-		.map(te -> (TileEntityAltar) te)
-		.filter(te -> te.getAltarPower()>=power)
-		.findFirst().orElse(null);
+		if (power==0) return true;
+		if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(pos, world);
 		if (te==null) return false;
 		return te.consumePower(power, false);
 	}

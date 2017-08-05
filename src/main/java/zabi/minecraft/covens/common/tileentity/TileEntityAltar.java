@@ -1,6 +1,9 @@
 package zabi.minecraft.covens.common.tileentity;
 
 import java.util.HashMap;
+import java.util.Optional;
+
+import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -10,7 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.oredict.OreDictionary;
 import zabi.minecraft.covens.common.block.BlockGoblet;
@@ -208,6 +213,17 @@ public class TileEntityAltar extends TileEntityBase {
 	public void setColor(int newColor) {
 		color=newColor;
 		markDirty();
+	}
+	
+	@Nullable
+	public static TileEntityAltar getClosest(BlockPos pos, World world) { //Cache the returned value!
+		Optional<Tuple<TileEntityAltar, Double>> res = world.loadedTileEntityList.parallelStream()
+		.filter(te -> te instanceof TileEntityAltar)
+		.map(te -> new Tuple<TileEntityAltar, Double>((TileEntityAltar) te, te.getDistanceSq(pos.getX(), pos.getY(), pos.getZ())))
+		.filter(tup -> tup.getSecond()<=256)
+		.min((t1,t2) -> t1.getSecond().compareTo(t2.getSecond()));
+		if (res.isPresent()) return res.get().getFirst();
+		return null;
 	}
 	
 }
