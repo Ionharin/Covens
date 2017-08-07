@@ -25,7 +25,7 @@ import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
 import zabi.minecraft.covens.common.tileentity.ModTileEntities;
 
-@Mod(modid = Reference.MID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.12,1.12.1)")
+@Mod(modid = Reference.MID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.12,1.12.1)", updateJSON=Reference.UPDATE_URL)
 @Mod.EventBusSubscriber
 public class Covens {
 	
