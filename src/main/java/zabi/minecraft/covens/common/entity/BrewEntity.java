@@ -65,9 +65,7 @@ public class BrewEntity extends EntityThrowable {
 			Item i = itemst.getItem();
 			BrewData data = new BrewData(i.equals(ModItems.brew_splash)?1:(i.equals(ModItems.brew_lingering)?2:(i.equals(ModItems.brew_gas)?3:0)));
 			data.readFromNBT(itemst.getOrCreateSubCompound("brewdata"));
-			Log.i(data.getType().getRegistryName());
 			Item type = itemst.getItem();
-			Log.i(itemst.getItem().getRegistryName());
 			if (type==ModItems.brew_splash) {
 				splash(result);
 			} else if (type==ModItems.brew_gas) {
