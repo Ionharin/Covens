@@ -43,7 +43,7 @@ public abstract class BarrelRecipe extends IForgeRegistryEntry.Impl<BarrelRecipe
 		return ticks;
 	}
 	
-	public void onFinish() {}
+	public void onFinish(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {}
 	
 	@Nullable
 	public static BarrelRecipe getRecipe(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {

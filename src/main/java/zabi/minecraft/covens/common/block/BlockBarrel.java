@@ -149,12 +149,12 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 		if (barrel.hasRecipe()) {
 			return false; //Don't do anything if a recipe is cooking or another one is ready
 		}
+		world.notifyBlockUpdate(pos, state, state, 3);
 		ItemStack stack = player.getHeldItem(hand);
 		
 		if (barrel.hasResult()) {
 			if (barrel.getRequiredStackToRetrieve().isItemEqual(stack) || (barrel.getRequiredStackToRetrieve().isEmpty() && stack.isEmpty())) {
-				Log.i("bottling");
-				if (!player.isCreative() && !stack.isEmpty()) stack.setCount(stack.getCount()-1);
+				if (!stack.isEmpty()) stack.setCount(stack.getCount()-1);
 				EntityItem ei = new EntityItem(world, player.posX, player.posY, player.posZ, barrel.popResult().copy());
 				world.spawnEntity(ei);
 				ei.setNoPickupDelay();
@@ -170,46 +170,36 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 				world.spawnEntity(ei);
 				ei.setNoPickupDelay();
 				ei.onCollideWithPlayer(player);
-				Log.i("pop");
 			}
-			Log.i("sneak");
 			return true;
 		}
 
 		if (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
-			Log.i("handler");
 			IFluidHandlerItem itemHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
 			FluidStack fluidInItem = itemHandler.drain(Fluid.BUCKET_VOLUME, false);
 			FluidStack fluidInBarrel = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
-			boolean flag = false;
 			if ((fluidInBarrel!=null && fluidInBarrel.amount>0) && (fluidInItem==null || fluidInItem.amount==0 || (fluidInItem.isFluidEqual(fluidInBarrel) && fluidInItem.amount<Fluid.BUCKET_VOLUME))) {
 				itemHandler.fill(barrelHandler.drain(Fluid.BUCKET_VOLUME, true), true);
-				Log.i("drain barrel");
-				flag=true;
+				player.setHeldItem(hand, itemHandler.getContainer());
 			} else if (fluidInItem!=null && fluidInItem.amount>0 && fluidInItem.getFluid()!=null && (fluidInBarrel==null || fluidInBarrel.amount==0 || (fluidInBarrel.amount<Fluid.BUCKET_VOLUME && fluidInBarrel.isFluidEqual(fluidInItem)))) {
 				barrelHandler.fill(itemHandler.drain(Fluid.BUCKET_VOLUME, true), true);
-				Log.i("fill barrel");
-				flag=true;
+				player.setHeldItem(hand, itemHandler.getContainer());
 			}
-			FluidStack inTheEnd = itemHandler.drain(1000, false);
-			if (flag && (inTheEnd==null || inTheEnd.amount==0)) player.setHeldItem(hand, itemHandler.getContainer());
 			return true;
 		} 
 		
 		if (stack.isEmpty()) {
-			Log.i("Querying");
 			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
 			FluidStack cont = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
 			TextComponentTranslation message = null;
 			if (cont==null || cont.amount==0 || cont.getFluid()==null) message = new TextComponentTranslation("tile.barrel.empty");
-			else message = new TextComponentTranslation("tile.barrel.full", cont.getUnlocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
+			else message = new TextComponentTranslation("tile.barrel.full", cont.getLocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
 			player.sendStatusMessage(message, true);
 			return true;
 		}
-		barrel.addItem(stack);
-		if (!player.isCreative()) stack.setCount(stack.getCount()-1);
-		Log.i("adding");
+		barrel.addItem(stack.copy());
+		stack.setCount(stack.getCount()-1);
 		return true;
 	}
 	

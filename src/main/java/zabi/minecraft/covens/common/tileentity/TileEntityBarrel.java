@@ -9,6 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import zabi.minecraft.covens.common.block.BlockBarrel;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
 public class TileEntityBarrel extends TileEntityBase {
@@ -42,6 +43,8 @@ public class TileEntityBarrel extends TileEntityBase {
 		barrelType = tag.getInteger("type");
 		internalTank = internalTank.readFromNBT(tag.getCompoundTag("fluid"));
 		retrivial = new ItemStack(tag.getCompoundTag("retrivial"));
+		internalTank.setCanDrain(!hasValidRecipe);
+		internalTank.setCanFill(!hasValidRecipe);
 	}
 
 	@Override
@@ -79,16 +82,20 @@ public class TileEntityBarrel extends TileEntityBase {
 					return;
 				}
 			}
+			markDirty();
 			if (consumePower(currentRecipe.getPower())) {
 				brewingTime++;
 				if (brewingTime>=currentRecipe.getRequiredTime()) {
 					result = currentRecipe.getResult();
 					retrivial = currentRecipe.getRetrivialItem();
+					currentRecipe.onFinish(world, input, pos, internalTank.drain(Fluid.BUCKET_VOLUME, false));
 					input.clear();
 					brewingTime=0;
 					internalTank.setFluid(null);
 					currentRecipe = null;
 					hasValidRecipe = false;
+					internalTank.setCanDrain(true);
+					internalTank.setCanFill(true);
 				}
 			}
 		}
@@ -99,7 +106,9 @@ public class TileEntityBarrel extends TileEntityBase {
 	}
 	
 	public void addItem(ItemStack item) {
-		input.add(item);
+		ItemStack add = item.copy().splitStack(1);
+		input.add(add);
+		markDirty();
 		checkRecipe();
 	}
 	
@@ -107,10 +116,15 @@ public class TileEntityBarrel extends TileEntityBase {
 		if (!result.isEmpty()) {
 			hasValidRecipe = false;
 			currentRecipe = null;
+			markDirty();
 			return;
 		}
 		fetchRecipe();
 		this.hasValidRecipe = currentRecipe!=null;
+		if (hasValidRecipe) Log.d("Found recipe: "+currentRecipe.getRegistryName());
+		internalTank.setCanDrain(!hasValidRecipe);
+		internalTank.setCanFill(!hasValidRecipe);
+		markDirty();
 	}
 	
 	public ItemStack getRequiredStackToRetrieve() {
@@ -169,7 +183,12 @@ public class TileEntityBarrel extends TileEntityBase {
 		ItemStack res = result;
 		result = ItemStack.EMPTY;
 		hasValidRecipe = false;
+		markDirty();
 		return res;
+	}
+
+	public NonNullList<ItemStack> getIngredients() {
+		return input;
 	}
 	
 }
