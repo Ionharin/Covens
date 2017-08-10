@@ -9,7 +9,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
@@ -29,22 +28,18 @@ public class PotionExplosion extends BarrelRecipe {
 				BrewData data = new BrewData(1);
 				data.readFromNBT(stack.getOrCreateSubCompound("brewdata"));
 				if (data.isSpoiled()) {
-					Log.d("spoiled");
 					return false;
 				}
 				ing[1]=true;
 			} else {
-				Log.d("unrecognized item: "+stack.getItem().getRegistryName());
 				return false;
 			}
 		}
 		boolean hasIngredients = ing[0] && ing[1];
 		if (!hasIngredients) {
-			Log.i("Missing ingredients");
 			return false;
 		}
 		if (fluid==null || !fluid.getFluid().equals(FluidRegistry.LAVA)) {
-			Log.i("Not lava");
 			return false;
 		}
 		return true;
@@ -62,7 +57,6 @@ public class PotionExplosion extends BarrelRecipe {
 	}
 
 	private void detonate(World world, BlockPos pos, BrewData data) {
-		Log.i("Detonating");
 		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(world, pos.getX(), pos.getY(), pos.getZ());
         entityareaeffectcloud.setRadiusOnUse(0);
         entityareaeffectcloud.setWaitTime(10);
