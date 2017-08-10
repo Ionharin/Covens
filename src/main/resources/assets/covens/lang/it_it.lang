@@ -49,6 +49,8 @@ item.broom_2.name=Scopa volante di ginepro
 item.broom_3.name=Scopa volante di tasso
 item.soulstring.name=Filo dell'anima
 item.soulstring.bound=Legato a: %s
+item.witch_candle.name=Candela delle streghe
+item.witch_candle_revealing.name=Candela rivelatrice
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -82,6 +84,7 @@ tile.barrel.big_oak.name=Botte in legno di quercia scura
 tile.barrel.elder.name=Botte in legno di sambuco
 tile.barrel.juniper.name=Botte in legno di ginepro
 tile.barrel.yew.name=Yew Botte in legno di tasso
+tile.barrel.empty=Vuoto
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
@@ -96,6 +99,7 @@ ritual.covens.charging_1.name=Rituale della carica
 ritual.covens.charging_talisman.name=Rituale della carica
 ritual.covens.redirection.name=Rituale del reindirizzamento
 ritual.covens.identification.name=Rituale del riconoscimento
+ritual.covens.revealing_candle.name=Rituale di infusione
 
 # Potions
 effect.disrobing=Svestimento

@@ -49,6 +49,8 @@ item.broom_2.name=Juniper Flying Broom
 item.broom_3.name=Yew Flying Broom
 item.soulstring.name=Soulstring
 item.soulstring.bound=Bound to: %s
+item.witch_candle.name=Witch Candle
+item.witch_candle_revealing.name=Witch Candle of Revealing
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -82,6 +84,8 @@ tile.barrel.big_oak.name=Dark Oak Barrel
 tile.barrel.elder.name=Elder Barrel
 tile.barrel.juniper.name=Juniper Barrel
 tile.barrel.yew.name=Yew Barrel
+tile.barrel.full=%s (%d/%d)
+tile.barrel.empty=Empty
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
@@ -96,6 +100,7 @@ ritual.covens.charging_1.name=Ritual of Charging
 ritual.covens.charging_talisman.name=Ritual of Charging
 ritual.covens.redirection.name=Ritual of Redirection
 ritual.covens.identification.name=Ritual of Identification
+ritual.covens.revealing_candle.name=Ritual of Infusion
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III
