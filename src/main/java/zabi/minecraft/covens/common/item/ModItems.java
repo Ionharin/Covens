@@ -37,6 +37,7 @@ public class ModItems {
 	public static ItemModLeaves leaves_yew, leaves_elder, leaves_juniper;
 	public static ItemBroom broom;
 	public static ItemSoulString soulstring;
+	public static ItemCandle candle;
 	
 	public static void registerAll() {
 		chalk = new ItemChalk();
@@ -84,6 +85,7 @@ public class ModItems {
 		candle_plate = new ItemBlock(ModBlocks.candle_plate);
 		broom = new ItemBroom();
 		soulstring = new ItemSoulString();
+		candle = new ItemCandle();
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -133,7 +135,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel
+				goblet, candle_plate, soulstring, barrel, candle
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

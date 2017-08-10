@@ -81,7 +81,7 @@ public class VanillaRecipes {
 		GameRegistry.addShapedRecipe(rl("candle_plate"), null, new ItemStack(ModBlocks.candle_plate), 
 				"fff", "ntn",
 				'n', Items.IRON_INGOT,
-				'f', Blocks.TORCH, //TODO swap with candles
+				'f', ModItems.candle, 
 				't', new ItemStack(ModItems.misc,1,9)
 				);
 		GameRegistry.addShapedRecipe(rl("clay_jar"), null, new ItemStack(ModItems.misc,8,10), 
@@ -94,6 +94,11 @@ public class VanillaRecipes {
 					't', new ItemStack(ModItems.misc,1,9),
 					'i', Items.IRON_INGOT,
 					'w', getWoodFromType(i)
+					);
+		GameRegistry.addShapedRecipe(rl("candle"), null, new ItemStack(ModItems.candle), 
+					"s", "w", "w",
+					's', Items.STRING,
+					'w', new ItemStack(ModItems.misc,1,7)
 					);
 	}
 
