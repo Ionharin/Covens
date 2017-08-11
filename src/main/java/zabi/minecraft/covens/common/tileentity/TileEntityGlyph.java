@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -28,7 +31,7 @@ public class TileEntityGlyph extends TileEntityBase {
 	private UUID entityPlayer;
 	private NBTTagCompound ritualData = null;
 	private TileEntityAltar te = null;
-	private ArrayList<String> entityList = new ArrayList<String>();
+	private ArrayList<Tuple<String,String>> entityList = new ArrayList<Tuple<String,String>>();
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
@@ -37,9 +40,14 @@ public class TileEntityGlyph extends TileEntityBase {
 		if (tag.hasKey("player")) entityPlayer = UUID.fromString(tag.getString("player"));
 		if (tag.hasKey("data")) ritualData = tag.getCompoundTag("data");
 		if (tag.hasKey("entityList")) {
-			entityList = new ArrayList<String>();
+			entityList = new ArrayList<Tuple<String,String>>();
 			NBTTagCompound listTag = tag.getCompoundTag("entityList");
-			for (String s:listTag.getKeySet()) entityList.add(listTag.getString(s));
+			for (String s:listTag.getKeySet()) {
+				String unsplit = listTag.getString(s);
+				String[] names=unsplit.split("§");
+				if (names.length!=2) continue;
+				entityList.add(new Tuple<String,String>(names[0], names[1]));
+			}
 		}
 	}
 
@@ -50,7 +58,10 @@ public class TileEntityGlyph extends TileEntityBase {
 		if (entityPlayer!=null) tag.setString("player", entityPlayer.toString());
 		if (ritualData!=null) tag.setTag("data", ritualData);
 		NBTTagCompound list = new NBTTagCompound();
-		for (int i=0;i<entityList.size();i++) list.setString("entity"+i, entityList.get(i));
+		for (int i=0;i<entityList.size();i++) {
+			Tuple<String, String> t = entityList.get(i);
+			list.setString("entity"+i, t.getFirst()+"§"+t.getSecond());
+		}
 		tag.setTag("entityList", list);
 	}
 
@@ -147,15 +158,19 @@ public class TileEntityGlyph extends TileEntityBase {
 	}
 	
 	public boolean isInList(Entity entity) {
-		return entityList.contains(entity.getUniqueID().toString());
+		return entityList.stream().map(t -> t.getFirst()).anyMatch(s -> s.equals(entity.getUniqueID().toString()));
+	}
+	
+	public List<Tuple<String,String>> getWhitelistEntries() {
+		return entityList;
 	}
 	
 	public void addEntityToList(Entity entity) {
-		entityList.add(entity.getUniqueID().toString());
+		entityList.add(new Tuple<String, String>(entity.getUniqueID().toString(),entity.getName()));
 	}
 	
-	public void addEntityUUIDToList(String uuid) {
-		entityList.add(uuid);
+	public void addEntityUUIDToList(String uuid, String name) {
+		entityList.add(new Tuple<String, String>(uuid,name));
 	}
 
 	private boolean checkFirst(GlyphType typeFirst) {
@@ -204,6 +219,13 @@ public class TileEntityGlyph extends TileEntityBase {
 	
 	public boolean hasRunningRitual() {
 		return ritual!=null;
+	}
+	
+	@Nullable
+	public BlockPos getBoundAltar(boolean rebind) {
+		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null || te.isInvalid()) return null;
+		return te.getPos();
 	}
 	
 	public boolean consumePower(int power) {

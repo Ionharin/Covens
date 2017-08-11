@@ -31,7 +31,7 @@ public class RitualIdentification extends Ritual {
 			Log.w("Error in nbt ritual data: missing entity for identification");
 			return;
 		}
-		tile.addEntityUUIDToList(bound.getString("uid"));
+		tile.addEntityUUIDToList(bound.getString("uid"), bound.getString("name"));
 	}
 
 }
