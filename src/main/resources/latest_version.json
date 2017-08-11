@@ -1,17 +1,19 @@
 {
   "homepage": "http://zabi.altervista.org/minecraft/covens",
   "1.12": {
+  	"0.1.6-dev-patron": "- Candle progress", 
     "0.1.5-dev-patron": "- Fixed Barrels\n- Added candles", 
     "0.1.4-dev-patron": "No changelog available"
   },
   "1.12.1": {
+  	"0.1.6-dev-patron": "- Candle progress", 
     "0.1.5-dev-patron": "- Fixed Barrels\n- Added candles", 
     "0.1.4-dev-patron": "No changelog available"
   },
   "promos": {
-    "1.12-latest": "0.1.5-dev-patron",
-    "1.12.1-latest": "0.1.5-dev-patron",
-    "1.12-recommended": "0.1.5-dev-patron",
-    "1.12.1-recommended": "0.1.5-dev-patron"
+    "1.12-latest": "0.1.6-dev-patron",
+    "1.12.1-latest": "0.1.6-dev-patron",
+    "1.12-recommended": "0.1.6-dev-patron",
+    "1.12.1-recommended": "0.1.6-dev-patron"
   }
 }
