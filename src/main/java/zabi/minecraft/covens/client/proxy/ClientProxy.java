@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.client.gui.RenderHUD;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
 import zabi.minecraft.covens.common.block.BlockBarrel;
@@ -40,7 +42,6 @@ import zabi.minecraft.covens.common.proxy.Proxy;
 public class ClientProxy extends Proxy {
 	
 	private void registerEntityRenderers() {
-//		Minecraft.getMinecraft().getRenderManager().entityRenderMap.put(BrewEntity.class, new RenderBrewThrown(Minecraft.getMinecraft().getRenderManager(), ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(BrewEntity.class, m -> new RenderBrewThrown(m, ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFlyingBroom.class, m -> new RenderBroom(m));
 	}
@@ -161,4 +162,9 @@ public class ClientProxy extends Proxy {
 		registerItemModels();
 		ModCreativeTabs.registerIcons();
     }
+	
+	@Override
+	public void setupRenderHUD(World world, BlockPos pos) {
+		RenderHUD.INSTANCE.setup(pos, world);
+	}
 }
