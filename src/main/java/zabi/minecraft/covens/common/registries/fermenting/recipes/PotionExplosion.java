@@ -65,6 +65,9 @@ public class PotionExplosion extends BarrelRecipe {
         int persistency = 0;
         
         NonNullList<CovenPotionEffect> effects = data.getEffects();
+        world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 3, true);
+        
+        if (effects.size()==0) return;
         
         for (CovenPotionEffect pe:effects) {
         	entityareaeffectcloud.addEffect(pe.getPotionEffect());
@@ -77,7 +80,7 @@ public class PotionExplosion extends BarrelRecipe {
         entityareaeffectcloud.setColor(data.getColor());
         entityareaeffectcloud.setDuration(80+persistency*60);
         world.spawnEntity(entityareaeffectcloud);
-		world.createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), 3, true);
+		
 	}
 
 }
