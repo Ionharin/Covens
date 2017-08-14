@@ -17,7 +17,7 @@ public class BlockGoblet extends Block {
 	
 	public static final PropertyBool FULL = PropertyBool.create("filled");
 	
-	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.3125, 0.625);
+	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0.375, 0, 0.375, 0.625, 0.375, 0.625);
 
 	public BlockGoblet() {
 		super(Material.IRON);
