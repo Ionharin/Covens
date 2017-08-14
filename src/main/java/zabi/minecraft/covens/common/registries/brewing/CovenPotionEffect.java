@@ -21,6 +21,7 @@ public class CovenPotionEffect {
 	private boolean showParticle = true;
 	private boolean isAmbient = true;
 	private boolean isCurable = true;
+	private int color = -1;
 	
 	private CovenPotionEffect() {}
 	
@@ -71,6 +72,10 @@ public class CovenPotionEffect {
 	public boolean doesShowParticle() {
 		return showParticle;
 	}
+	
+	public int getColor() {
+		return color;
+	}
 
 	public CovenPotionEffect setShowParticle(boolean showParticle) {
 		this.showParticle = showParticle;
@@ -84,6 +89,7 @@ public class CovenPotionEffect {
 		tag.setBoolean("isAmbient", isAmbient);
 		tag.setBoolean("isCurable", isCurable);
 		tag.setFloat("multiplier", multiplier);
+		tag.setInteger("color", color);
 		return tag;
 	}
 	
@@ -98,6 +104,7 @@ public class CovenPotionEffect {
 		cpe.isAmbient = tag.getBoolean("isAmbient");
 		cpe.isCurable = tag.getBoolean("isCurable");
 		cpe.setMultiplier(tag.getFloat("multiplier"));
+		cpe.setColor(tag.getInteger("color"));
 		return cpe;
 	}
 
@@ -123,6 +130,10 @@ public class CovenPotionEffect {
 		map.put("extraalchemy:cheat_death", 1000); //Example
 		map.put("minecraft:instant_health", 800);
 		map.put("minecraft:regeneration", 800);
+	}
+
+	public void setColor(int color) {
+		this.color = color;
 	}
 	
 }

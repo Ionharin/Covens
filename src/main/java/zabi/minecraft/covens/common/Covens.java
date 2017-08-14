@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -10,6 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.capability.AttachDataHandler;
+import zabi.minecraft.covens.common.capability.CovensData;
 import zabi.minecraft.covens.common.crafting.VanillaRecipes;
 import zabi.minecraft.covens.common.entity.ModEntities;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
@@ -52,6 +55,9 @@ public class Covens {
 		ModPotions.registerAll();
 		ModBarrelRecipes.registerAll();
 		proxy.preInit(evt);
+		
+		CapabilityManager.INSTANCE.register(CovensData.class, new CovensData.Storage(), CovensData.Impl.class);
+		MinecraftForge.EVENT_BUS.register(new AttachDataHandler());
 		
 		Thread contributors = new Thread(new ContributorDownloader());
 		contributors.setDaemon(true);

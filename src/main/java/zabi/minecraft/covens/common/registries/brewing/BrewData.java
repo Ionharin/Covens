@@ -58,6 +58,7 @@ public class BrewData {
 	}
 	
 	public NonNullList<CovenPotionEffect> getEffects() {
+		if (brewEffects.size()>0) brewEffects.get(0).setColor(color);
 		return brewEffects;
 	}
 	

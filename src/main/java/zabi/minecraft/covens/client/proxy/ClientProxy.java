@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.gui.RenderHUD;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
+import zabi.minecraft.covens.client.renderer.entity.TintModifier;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
@@ -49,6 +50,7 @@ public class ClientProxy extends Proxy {
 	@Override
 	public void setup() {
 		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(new TintModifier());
 	}
 	
 	@Override

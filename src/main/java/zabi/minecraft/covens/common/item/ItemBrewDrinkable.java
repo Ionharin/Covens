@@ -10,7 +10,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.CovensData;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.potion.ModPotions;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
 
 public class ItemBrewDrinkable extends ItemBrewBase {
 	
@@ -46,9 +49,14 @@ public class ItemBrewDrinkable extends ItemBrewBase {
 			}
 			return ItemStack.EMPTY;
 		}; 
-		getEffectsFromStack(stack).stream()
+		BrewData data = getEffectsFromStack(stack);
+		data.getEffects().stream()
 			.filter(ce -> entityLiving.isPotionApplicable(ce.getPotionEffect()))
-			.forEach(ce -> entityLiving.addPotionEffect(ce.getPotionEffect()));
+			.forEach(ce -> {
+				PotionEffect pe = ce.getPotionEffect();
+					entityLiving.addPotionEffect(pe);
+					if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(CovensData.CAPABILITY, null).setTint(data.getColor());
+				});
 		return ItemStack.EMPTY;
 	}
 	

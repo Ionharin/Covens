@@ -96,6 +96,7 @@ public class PotionDigester {
 					getOpposite = true;
 				} else if (items[read].getItem().equals(Item.getItemFromBlock(Blocks.WOOL))) {
 					color = colorAverage(color, getHexFromMeta(items[read].getMetadata()));
+					Log.d("color is now "+color);
 				} else {
 					Log.d("unrecognized item, spoiled: "+items[read].getItem().getRegistryName());
 					result.spoil(); //Unrecognized Item, ruined potion
@@ -130,8 +131,11 @@ public class PotionDigester {
 		if (color==-1) return newColor;
 		Color c1 = new Color(color);
 		Color c2 = new Color(newColor);
-		Color res = new Color((c1.getRed()+c2.getRed())/2, (c1.getGreen()+c2.getGreen())/2, (c1.getBlue()+c2.getBlue())/2);
-		return res.getRGB();
+		Color res = new Color(
+				(int) Math.sqrt((c1.getRed()*c1.getRed()+c2.getRed()*c2.getRed())/2), 
+				(int) Math.sqrt((c1.getGreen()*c1.getGreen()+c2.getGreen()*c2.getGreen())/2), 
+				(int) Math.sqrt((c1.getBlue()*c1.getBlue()+c2.getBlue()*c2.getBlue())/2));
+		return res.getRGB()&0xFFFFFF;
 	}
 
 	private static int getHexFromMeta(int metadata) {

@@ -103,6 +103,11 @@ ritual.covens.revealing_candle.name=Rituale di infusione
 
 # Potions
 effect.disrobing=Svestimento
+effect.tinting=Tintura
+
+# Entities
+entity.broom.name=Scopa volante
+entity.brew.name=Intruglio magico
 
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)

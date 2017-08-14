@@ -19,8 +19,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.CovensData;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 import zabi.minecraft.covens.common.registries.brewing.environmental.EnvironmentalPotionEffect;
@@ -60,7 +62,7 @@ public class BrewEntity extends EntityThrowable {
 
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		if (!world.isRemote && result.typeOfHit!=RayTraceResult.Type.MISS && result.getBlockPos()!=null) {
+		if (result.typeOfHit!=RayTraceResult.Type.MISS && result.getBlockPos()!=null) {
 			ItemStack itemst = getDataManager().get(ITEM);
 			Item i = itemst.getItem();
 			BrewData data = new BrewData(i.equals(ModItems.brew_splash)?1:(i.equals(ModItems.brew_lingering)?2:(i.equals(ModItems.brew_gas)?3:0)));
@@ -78,33 +80,36 @@ public class BrewEntity extends EntityThrowable {
 			setDead();
 		}
 	}
-	
+
 	private void linger(RayTraceResult result, boolean fromGas) {
-		EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, result.hitVec.x, result.hitVec.y, result.hitVec.z);
-        entityareaeffectcloud.setOwner(this.getThrower());
-        entityareaeffectcloud.setRadiusOnUse(0);
-        entityareaeffectcloud.setWaitTime(10);
-        entityareaeffectcloud.setRadiusPerTick(0);
-        
-        int persistency = 0;
-        
-        BrewData data = new BrewData();
-		data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
-        
-        NonNullList<CovenPotionEffect> effects = data.getEffects();
-        
-        for (CovenPotionEffect pe:effects) {
-        	if (fromGas) pe.setDiminished();
-        	entityareaeffectcloud.addEffect(pe.getPotionEffect());
-        	persistency += pe.getPersistency();
-        }
-        
-        persistency /= effects.size();
-        entityareaeffectcloud.setRadius(1+persistency);
-        entityareaeffectcloud.setColor(data.getColor());
-        entityareaeffectcloud.setDuration(80+persistency*60);
-        this.world.spawnEntity(entityareaeffectcloud);
-		this.world.playEvent(2007, new BlockPos(this), data.getColor());
+		if (!world.isRemote) {
+			EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, result.hitVec.x, result.hitVec.y, result.hitVec.z);
+			entityareaeffectcloud.setOwner(this.getThrower());
+			entityareaeffectcloud.setRadiusOnUse(0);
+			entityareaeffectcloud.setWaitTime(10);
+			entityareaeffectcloud.setRadiusPerTick(0);
+
+			int persistency = 0;
+
+			BrewData data = new BrewData();
+			data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
+
+			NonNullList<CovenPotionEffect> effects = data.getEffects();
+
+			for (CovenPotionEffect pe:effects) {
+				if (pe.getPotionEffect().getPotion().equals(ModPotions.tinting)) continue;
+				if (fromGas) pe.setDiminished();
+				entityareaeffectcloud.addEffect(pe.getPotionEffect());
+				persistency += pe.getPersistency();
+			}
+
+			persistency /= effects.size();
+			entityareaeffectcloud.setRadius(1+persistency);
+			entityareaeffectcloud.setColor(data.getColor());
+			entityareaeffectcloud.setDuration(80+persistency*60);
+			this.world.spawnEntity(entityareaeffectcloud);
+			this.world.playEvent(2007, new BlockPos(this), data.getColor());
+		}
 	}
 
 	private void gas(RayTraceResult result) {
@@ -126,6 +131,7 @@ public class BrewEntity extends EntityThrowable {
         List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
         if (!list.isEmpty()) {
             for (EntityLivingBase entitylivingbase : list) {
+            	boolean isTinting = false;
                 if (entitylivingbase.canBeHitWithPotion()) {
                     double distance = this.getDistanceSqToEntity(entitylivingbase);
                     if (distance < 16.0D) {
@@ -134,6 +140,7 @@ public class BrewEntity extends EntityThrowable {
                         for (CovenPotionEffect cpotioneffect : data.getEffects()) {
                         	PotionEffect potioneffect = cpotioneffect.getPotionEffect();
                             Potion potion = potioneffect.getPotion();
+                            isTinting = potion.equals(ModPotions.tinting);
                             if (potion.isInstant()) {
                                 potion.affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), falloffCoefficent);
                             } else {
@@ -142,15 +149,15 @@ public class BrewEntity extends EntityThrowable {
                                     entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
                                 }
                             }
-                            
-                            
-                            
                         }
                     }
                 }
+                if (isTinting) {
+                	entitylivingbase.getCapability(CovensData.CAPABILITY, null).setTint(data.getColor());
+                }
             }
         }
-        this.world.playEvent(2007, new BlockPos(this), data.getColor());
+        if (!world.isRemote) this.world.playEvent(2007, new BlockPos(this), data.getColor());
 	}
 
 	

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -102,7 +103,10 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		BrewIngredient disrobing = new BrewIngredient(Items.SLIME_BALL, ModPotions.disrobing, null, 1,1);
 		disrobing.setRegistryName(ModPotions.disrobing.getRegistryName());
 		
-		reg.registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing);
+		BrewIngredient tinting = new BrewIngredient(new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()), ModPotions.tinting, null, true, false, 3600, 1);
+		tinting.setRegistryName(ModPotions.tinting.getRegistryName());
+		
+		reg.registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting);
 	}
 	
 }

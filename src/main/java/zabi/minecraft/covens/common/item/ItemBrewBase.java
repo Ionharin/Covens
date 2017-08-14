@@ -1,6 +1,5 @@
 package zabi.minecraft.covens.common.item;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -76,7 +75,8 @@ public class ItemBrewBase extends Item {
 	
 	@SideOnly(Side.CLIENT)
 	public static void addPotionTooltip(ItemStack itemIn, List<String> stackTooltip) {
-		List<CovenPotionEffect> list = getEffectsFromStack(itemIn);
+		BrewData data = getEffectsFromStack(itemIn);
+		List<CovenPotionEffect> list = data.getEffects();
 		List<Tuple<String, AttributeModifier>> list1 = Lists.<Tuple<String, AttributeModifier>>newArrayList();
 
 		if (list.isEmpty()) {
@@ -140,11 +140,11 @@ public class ItemBrewBase extends Item {
 		}
 	}
 
-	protected static List<CovenPotionEffect> getEffectsFromStack(ItemStack itemIn) {
-		if (itemIn.getMetadata()!=0) return Collections.emptyList();
+	protected static BrewData getEffectsFromStack(ItemStack itemIn) {
 		BrewData data = new BrewData();
-		data.readFromNBT(itemIn.getOrCreateSubCompound("brewdata"));
-		return data.getEffects();
+		if (itemIn.getMetadata()!=0) data.spoil();
+		else data.readFromNBT(itemIn.getOrCreateSubCompound("brewdata"));
+		return data;
 	}
 
 	public static ItemStack getBrewStackWithData(Item item, BrewData data) {

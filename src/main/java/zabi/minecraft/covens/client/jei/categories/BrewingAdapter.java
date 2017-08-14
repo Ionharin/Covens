@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 
 public class BrewingAdapter {
@@ -42,9 +41,9 @@ public class BrewingAdapter {
 	}
 	
 	public static ArrayList<BrewingAdapter> addAll(Collection<BrewIngredient> ingredients) {
+		recipes.clear();
 		ingredients.forEach(i -> {
 			add(i);
-			Log.i(i);
 		});
 		return recipes;
 	}

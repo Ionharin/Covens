@@ -1,13 +1,14 @@
-package zabi.minecraft.covens.common.potion;
+package zabi.minecraft.covens.common.potion.potions;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import zabi.minecraft.covens.common.potion.ModPotionInstant;
 
 public class PotionDisrobing extends ModPotionInstant {
 
-	protected PotionDisrobing(int liquidColorIn, String name) {
+	public PotionDisrobing(int liquidColorIn, String name) {
 		super(true, liquidColorIn, name);
 	}
 
