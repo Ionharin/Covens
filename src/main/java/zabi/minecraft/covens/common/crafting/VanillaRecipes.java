@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreIngredient;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -24,8 +25,9 @@ public class VanillaRecipes {
 		GameRegistry.addShapelessRecipe(rl("wax"), null, new ItemStack(ModItems.misc,2,7), 
 				Ingredient.fromStacks(new ItemStack(ModItems.misc,1,1)),
 				Ingredient.fromStacks(new ItemStack(Items.CLAY_BALL)),
-				Ingredient.fromStacks(new ItemStack(Items.DYE,1,EnumDyeColor.YELLOW.getDyeDamage()))
+				new OreIngredient("dyeYellow")
 				);
+		
 		GameRegistry.addShapelessRecipe(rl("eerie_seeds"), null, new ItemStack(ModItems.eerie_seeds,4), 
 				Ingredient.fromItem(Items.WHEAT_SEEDS),
 				Ingredient.fromStacks(new ItemStack(ModItems.misc,1,3)),
