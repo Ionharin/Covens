@@ -23,6 +23,7 @@ import zabi.minecraft.covens.common.network.NetworkModRegistry;
 import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
+import zabi.minecraft.covens.common.registries.OreDict;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
 import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
@@ -55,6 +56,8 @@ public class Covens {
 		ModPotions.registerAll();
 		ModBarrelRecipes.registerAll();
 		proxy.preInit(evt);
+		
+		OreDict.registerAll();
 		
 		CapabilityManager.INSTANCE.register(CovensData.class, new CovensData.Storage(), CovensData.Impl.class);
 		MinecraftForge.EVENT_BUS.register(new AttachDataHandler());
