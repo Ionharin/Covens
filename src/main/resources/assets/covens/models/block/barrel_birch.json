@@ -1,9 +1,9 @@
 {
 	"parent": "covens:block/barrel",
 	"textures": {
-		"0": "blocks/log_birch_top",
-    	"1": "blocks/log_birch",
-    	"2": "blocks/anvil_base",
-    	"particle":"blocks/log_birch_top"
+		"particle": "blocks/log_brich",
+		"side": "blocks/log_birch",
+		"front": "blocks/log_birch_top",
+		"tap": "blocks/anvil_base"
 	}
 }
