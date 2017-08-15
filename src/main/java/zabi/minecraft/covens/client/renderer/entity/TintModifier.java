@@ -26,4 +26,11 @@ public class TintModifier {
 		}
 	}
 	
+	@SubscribeEvent
+	public void onPostRender(RenderLivingEvent.Post<EntityLivingBase> evt) {
+		if (evt.getEntity().isPotionActive(ModPotions.tinting)) {
+			GL11.glColor3d(1,1,1); //We don't need to paint ALL the things. Stop right here
+		}
+	}
+	
 }
