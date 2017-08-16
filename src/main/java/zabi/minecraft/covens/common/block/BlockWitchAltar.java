@@ -209,14 +209,14 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND) {
+		if (hand==EnumHand.MAIN_HAND) {
 			if (playerIn.getHeldItem(hand).getItem().equals(Item.getItemFromBlock(Blocks.CARPET)) && !playerIn.isSneaking()) {
 				if (!state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.UNFORMED)) {
 					int newColor = playerIn.getHeldItem(hand).getMetadata();
 					setColor(worldIn,pos,newColor);
 					return true;
 				}
-			} else {
+			} else if (worldIn.isRemote && playerIn.getHeldItem(hand).isEmpty()) {
 				if (state.getBlock().hasTileEntity(state)) {
 					TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
 					playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
