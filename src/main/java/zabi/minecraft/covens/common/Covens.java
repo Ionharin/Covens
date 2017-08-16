@@ -57,8 +57,6 @@ public class Covens {
 		ModBarrelRecipes.registerAll();
 		proxy.preInit(evt);
 		
-		OreDict.registerAll();
-		
 		CapabilityManager.INSTANCE.register(CovensData.class, new CovensData.Storage(), CovensData.Impl.class);
 		MinecraftForge.EVENT_BUS.register(new AttachDataHandler());
 		
@@ -72,6 +70,7 @@ public class Covens {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
+		OreDict.registerAll();
 		VanillaRecipes.registerAll();
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.aconitumSeeds), 4);
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.chrysanthemumSeeds), 2);
