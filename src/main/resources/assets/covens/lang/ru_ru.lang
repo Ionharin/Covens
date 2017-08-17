@@ -1,7 +1,7 @@
 ﻿# Creative Tabs names
-itemGroup.covens.herbs=Шабаш - Травы ***
-itemGroup.covens.machines=Шабаш - Устройства ***
-itemGroup.covens.products=Шабаш - Изделия ***
+itemGroup.covens.herbs=Шабаш - Природа
+itemGroup.covens.machines=Шабаш - Блоки
+itemGroup.covens.products=Шабаш - Предметы
 itemGroup.covens.brews=Шабаш - Зелья
 
 # Item names
@@ -31,17 +31,26 @@ item.brew_splash_full.name=Волшебное взрывное зелье
 item.brew_splash_spoiled.name=Испорченное взрывное зелье 
 item.brew_gas_full.name=Волшебное газовое зелье
 item.brew_gas_spoiled.name=Испорченное газовое зелье
-item.brew_lingering_full.name=Волшебное задерживающиеся зелье
-item.brew_lingering_spoiled.name=Испорченное задерживающиеся зелье
-item.brew.spoiled=Лучше не пить это...
-item.cardinal_stone.name=Координирующий камень
-item.cardinal_stone.bound_to=Связанный (%d %d %d)
-item.cardinal_stone.unbound=Не связанный
+item.brew_lingering_full.name=Волшебное оседающее зелье
+item.brew_lingering_spoiled.name=Испорченное оседающее зелье
+item.brew.spoiled=Лучше не пить это
+item.cardinal_stone.name=Главный камень
+item.cardinal_stone.bound_to=Привязанный к (%d %d %d)
+item.cardinal_stone.unbound=Не привязанный
 item.cardinal_stone.uncharged=Не заряженный
 item.ritual_knife.name=Ритуальный кинжал
 item.misc.talisman_charged.name=Заряженный талисман
 item.misc.talisman.name=Талисман
 item.misc.wax_ball.name=Воск
+item.misc.unfired_jar.name=Необожженная банка
+item.broom_0.name=Приземленная летающая метла
+item.broom_1.name=Летающая Метла из бузины
+item.broom_2.name=Летающая Метла из можжевельника
+item.broom_3.name=Летающая Метла из тиса
+item.soulstring.name=Нить Души
+item.soulstring.bound=Привязанна к: %s
+item.witch_candle.name=Ведьмина Свеча
+item.witch_candle_revealing.name=Ведьмина Свеча Прозрения
 
 # Block names
 tile.witch_altar.name=Алтарь ведьм
@@ -50,34 +59,61 @@ tile.hellebore.name=Морозник
 tile.aconitum.name=Аконит
 tile.sagebrush.name=Полынь
 tile.chrysanthemum.name=Хризантема
-tile.chimney.name=Дымоход паров
+tile.chimney.name=Дымоход
 tile.log_juniper.name=Можжевельник 
 tile.log_elder.name=Бузина
 tile.log_yew.name=Тис
+tile.planks_juniper.name=Доски из можжевельника
+tile.planks_elder.name=Доски из бузины
+tile.planks_yew.name=Доски из тиса
 tile.leaves.juniper.name=Листья можжевельника
 tile.leaves.elder.name=Листья бузины
 tile.leaves.yew.name=Листья тиса
-tile.confining_ash.name=Ограничение пеплом 
-tile.chimney.hint=Place this on a Furnace ***
+tile.confining_ash.name=Пепел Ограничения
+tile.goblet.name=Кубок
+tile.candle_plate.name=Церемониальные Свечи
+tile.cauldron.name=Ведьмин Котел
+tile.chimney.hint=Ставится поверх печки
+tile.barrel.name=Бочонок
+tile.barrel.oak.name=Дубовый бочонок
+tile.barrel.birch.name=Березовый бочонок
+tile.barrel.spruce.name=Еловый бочонок
+tile.barrel.jungle.name=Бочонок из тропического дерева
+tile.barrel.acacia.name=Бочонок из акации
+tile.barrel.big_oak.name=Бочонок из темного дуба
+tile.barrel.elder.name=Бочонок из бузины
+tile.barrel.juniper.name=Бочонок из можжевельника
+tile.barrel.yew.name=Тисовый бочонок
+tile.barrel.empty=Пустой
 
 # Ritual Stuff
 ritual.failure.unknown=Вы никогда не слышали о таких обрядах
-ritual.failure.power=Ваш источник волшебства не достаточно силен
-ritual.failure.precondition=Что-то неправильно
-ritual.covens.high_moon.name=Ритуал возвышения луны
-ritual.covens.time_sands.name=Ритуал пески времени
-ritual.covens.perception.name=Ритуал восприятия
-#:control the next two translations
-ritual.covens.ender_gate.name=Ритуал врата Края
-ritual.covens.ender_stream.name=Ритуал врата Края
-ritual.covens.charging_1.name=Ритуал зарядки
-ritual.covens.charging_talisman.name=Ритуал зарядки
-ritual.covens.redirection.name=Ритуал перенаправления 
+ritual.failure.power=Ваш источник магии недостаточно силен
+ritual.failure.precondition=Что-то не так
+ritual.covens.high_moon.name=Ритуал Высокой Луны
+ritual.covens.time_sands.name=Ритуал Песков Времени
+ritual.covens.perception.name=Ритуал Восприятия
+ritual.covens.ender_gate.name=Ритуал Ведьминой Походки
+ritual.covens.ender_stream.name=Ритуал Вечного Путника
+ritual.covens.charging_1.name=Ритуал Зарядки
+ritual.covens.charging_talisman.name=Ритуал Зарядки
+ritual.covens.redirection.name=Ритуал Перенаправления
+ritual.covens.identification.name=Ритуал Распознавания
+ritual.covens.revealing_candle.name=Ритуал Наполнения 
+
+# Potions
+effect.disrobing=Разоблачение
+effect.tinting=Окрашевание
+
+# Entities
+entity.broom.name=Летающая Метла 
+entity.brew.name=Волшебное Зелье
 
 # Misc
-brew.failure.power=Ваш волшебный источник слабый (%d)
-brew.success.power=Ваша потребность %d силы алтаря
+brew.failure.power=Ваш источник магии слаб (%d)
+brew.success.power=Вам нужно %d силы алтаря
 jei.category.rituals=Ритуалы
-jei.category.chimney=Коллекция дыма
-jei.ritual.power.flat=%d Сила алтаря
-jei.ritual.power.tick=%d Сила алтаря в секунду 
+jei.category.chimney=Собирание Дымов
+jei.category.brewing=Варение в Котле
+jei.ritual.power.flat=%d Сила Алтаря
+jei.ritual.power.tick=%d Сила Алтаря в секунду 
