@@ -35,6 +35,8 @@ public class ModRituals {
 	
 	
 	public static void registerAll() {
+		Log.i("Creating rituals");
+		
 		high_moon_ritual = new RitualHighMoon(of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.NETHERBRICK)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
 		sand_time_ritual = new RitualSandsTime(of(new ItemStack(Blocks.SAND), new ItemStack(Blocks.DIAMOND_ORE)), nop(), 24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4);
 		perception_ritual = new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), nop(), -1, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
@@ -77,7 +79,7 @@ public class ModRituals {
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Ritual> evt) {
-		Log.i("Registering rituals for "+Reference.NAME);
+		Log.i("Registering rituals");
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
 		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, 
 				charging_riutual_talisman, redirection_ritual, identification_ritual, revealing_candle);

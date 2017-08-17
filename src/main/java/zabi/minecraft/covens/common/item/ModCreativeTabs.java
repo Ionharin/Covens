@@ -3,6 +3,7 @@ package zabi.minecraft.covens.common.item;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ModCreativeTabs extends CreativeTabs {
@@ -16,6 +17,7 @@ public class ModCreativeTabs extends CreativeTabs {
 	public static ModCreativeTabs herbs, machines, products, brews;
 	
 	public static void registerTabs() {
+		Log.i("Creating tabs");
 		herbs = new ModCreativeTabs("herbs");
 		machines = new ModCreativeTabs("machines");
 		products = new ModCreativeTabs("products");

@@ -6,7 +6,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 
 @Mod.EventBusSubscriber
 public class ModBlocks {
@@ -25,6 +24,7 @@ public class ModBlocks {
 	public static BlockBarrel barrel;
 	
 	public static void registerAll() {
+		Log.i("Creating Blocks");
 		glyphs = new BlockCircleGlyph();
 		altar = new BlockWitchAltar();
 		chimney = new BlockChimney();
@@ -54,7 +54,7 @@ public class ModBlocks {
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
-		Log.i("Registering blocks for "+Reference.NAME);
+		Log.i("Registering blocks");
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, 

@@ -5,6 +5,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.potion.potions.PotionDisrobing;
 import zabi.minecraft.covens.common.potion.potions.PotionTinting;
 
@@ -14,12 +15,14 @@ public class ModPotions {
 	public static ModPotion disrobing, tinting;
 	
 	public static void registerAll() {
+		Log.i("Creating potions");
 		disrobing = new PotionDisrobing(0xb40eff, "disrobing");
 		tinting = new PotionTinting(0xffff99, "tinting");
 	}
 	
 	@SubscribeEvent
 	public static void registerPotions(RegistryEvent.Register<Potion> evt) {
+		Log.i("Registering potions");
 		IForgeRegistry<Potion> reg = evt.getRegistry();
 		reg.registerAll(disrobing, tinting);
 	}

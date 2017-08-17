@@ -20,6 +20,7 @@ public class ModChimneyRecipes {
 	private static ChimneyRecipe spruce_heart;
 	
 	public static void registerAll() {
+		Log.i("Creating chimney recipes");
 		default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 1), true, false);
 		oak_spirit = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,0), new ItemStack(ModItems.misc, 1, 2), true, false);
 		birch_soul = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,2), new ItemStack(ModItems.misc, 1, 3), true, false);
@@ -35,7 +36,7 @@ public class ModChimneyRecipes {
 	
 	@SubscribeEvent
 	public static void registerChimneyRecipes(RegistryEvent.Register<ChimneyRecipe> evt) {
-		Log.i("Registering chimney recipes for "+Reference.NAME);
+		Log.i("Registering chimney recipes");
 		IForgeRegistry<ChimneyRecipe> reg = evt.getRegistry();
 		reg.register(default_recipe);
 		reg.register(oak_spirit);

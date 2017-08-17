@@ -40,6 +40,7 @@ public class ModItems {
 	public static ItemCandle candle;
 	
 	public static void registerAll() {
+		Log.i("Creating Items");
 		chalk = new ItemChalk();
 		flowers = new ItemFlowers();
 		altar = new ItemBlock(ModBlocks.altar);
@@ -131,7 +132,7 @@ public class ModItems {
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Item> evt) {
-		Log.i("Registering items for "+Reference.NAME);
+		Log.i("Registering items");
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,

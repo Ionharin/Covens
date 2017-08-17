@@ -13,6 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 
@@ -37,7 +38,7 @@ public abstract class EnvironmentalPotionEffect extends IForgeRegistryEntry.Impl
 	
 	@SubscribeEvent
 	public static void registerBrewIngredients(RegistryEvent.Register<EnvironmentalPotionEffect> evt) {
-		
+		Log.i("Registering potions");
 	}
 	
 	@Nullable
