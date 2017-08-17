@@ -24,6 +24,7 @@ import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
 import zabi.minecraft.covens.common.registries.OreDict;
+import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
 import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
@@ -54,6 +55,7 @@ public class Covens {
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();
 		ModPotions.registerAll();
+		BrewIngredient.registerAll();
 		ModBarrelRecipes.registerAll();
 		proxy.preInit(evt);
 		
