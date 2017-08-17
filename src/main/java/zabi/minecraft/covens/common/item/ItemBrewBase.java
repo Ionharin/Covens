@@ -85,6 +85,7 @@ public class ItemBrewBase extends Item {
 		} else {
 			for (CovenPotionEffect pef : list) {
 				PotionEffect potioneffect = pef.getPotionEffect();
+				if (potioneffect.getPotion()==null) return;
 				String effectName = I18n.format(potioneffect.getEffectName()).trim();
 				Potion potion = potioneffect.getPotion();
 				Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();

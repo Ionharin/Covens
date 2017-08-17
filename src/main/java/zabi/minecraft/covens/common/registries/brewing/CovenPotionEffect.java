@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import zabi.minecraft.covens.common.lib.Log;
 
 public class CovenPotionEffect {
 	
@@ -97,6 +98,11 @@ public class CovenPotionEffect {
 		CovenPotionEffect cpe = new CovenPotionEffect();
 		cpe.potion = tag.getString("potion");
 		int[] data = tag.getIntArray("data_int");
+		if (data==null || data.length==0) {
+			Log.w("Malformed NBT for CovenPotionEffect#loadFromNBT. They MUST include a \"data_int\"  int array with length, strength and persistency as values");
+			Log.w("Please don't spawn them if you don't know what you're doing");
+			return cpe;
+		}
 		cpe.length = data[0];
 		cpe.strength = data[1];
 		cpe.persistency = data[2];
