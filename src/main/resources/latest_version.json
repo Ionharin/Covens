@@ -1,6 +1,7 @@
 {
   "homepage": "http://zabi.altervista.org/minecraft/covens",
   "1.12": {
+  	"0.1.10-dev-patron": "- Saplings!",
   	"0.1.9-dev-patron": "- Bugfixes",
   	"0.1.8-dev-patron": "- Bugfixes and model reworks",
   	"0.1.7-dev-patron": "- Potion of tinting\n- Goblet remodel", 
@@ -9,6 +10,7 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "1.12.1": {
+  	"0.1.10-dev-patron": "- Saplings!",
   	"0.1.9-dev-patron": "- Bugfixes",  
   	"0.1.8-dev-patron": "- Bugfixes and model reworks",
   	"0.1.7-dev-patron": "- Potion of tinting\n- Goblet remodel", 
@@ -17,9 +19,9 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "promos": {
-    "1.12-latest": "0.1.9-dev-patron",
-    "1.12.1-latest": "0.1.9-dev-patron",
-    "1.12-recommended": "0.1.9-dev-patron",
-    "1.12.1-recommended": "0.1.9-dev-patron"
+    "1.12-latest": "0.1.10-dev-patron",
+    "1.12.1-latest": "0.1.10-dev-patron",
+    "1.12-recommended": "0.1.10-dev-patron",
+    "1.12.1-recommended": "0.1.10-dev-patron"
   }
 }
