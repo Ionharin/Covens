@@ -29,6 +29,7 @@ import zabi.minecraft.covens.client.renderer.entity.TintModifier;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
+import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.entity.BrewEntity;
 import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
@@ -109,6 +110,7 @@ public class ClientProxy extends Proxy {
 		for (int i=0;i<ItemMisc.names.length;i++) if (i!=9) registerModel(ModItems.misc, i);
 		for (int i=0;i<BlockBarrel.WoodType.values().length;i++) registerModel(ModItems.barrel, i);
 		registerModel(ModItems.misc, 9, 8);
+		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
 		
 	}
 
@@ -124,7 +126,11 @@ public class ClientProxy extends Proxy {
 		ModelLoader.setCustomModelResourceLocation(item, realMeta, mrl);
 	}
 	
-	
+	private void registerModel(Item item, int meta, String variant) {
+		ResourceLocation rl = new ResourceLocation(item.getRegistryName()+"_"+variant);
+		ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
+		ModelLoader.setCustomModelResourceLocation(item, meta, mrl);
+	}
 	
 
 	private void registerColors() {
@@ -168,5 +174,10 @@ public class ClientProxy extends Proxy {
 	@Override
 	public void setupRenderHUD(World world, BlockPos pos) {
 		RenderHUD.INSTANCE.setup(pos, world);
+	}
+	
+	@Override
+	public boolean isFancyGraphicsEnabled() {
+		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
 	}
 }

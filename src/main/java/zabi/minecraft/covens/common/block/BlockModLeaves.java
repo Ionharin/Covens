@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.block;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -20,7 +21,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
+import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class BlockModLeaves extends BlockLeaves {
@@ -74,5 +77,29 @@ public class BlockModLeaves extends BlockLeaves {
 			super.harvestBlock(worldIn, player, pos, state, te, stack);
 		}
 	}
-
+	
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return ModItems.sapling;
+	}
+	
+	@Override
+	public int damageDropped(IBlockState state) {
+		if (this==ModBlocks.leaves_elder) return 0;
+		if (this==ModBlocks.leaves_juniper) return 1;
+		if (this==ModBlocks.leaves_yew) return 2;
+		return 3; //give a useless item
+	}
+	
+	@Override
+	protected int getSaplingDropChance(IBlockState state) {
+		if (state.getBlock()==ModBlocks.leaves_juniper) return super.getSaplingDropChance(state)*3;
+		return super.getSaplingDropChance(state);
+	}
+	
+	public boolean isOpaqueCube(IBlockState state) {
+		this.leavesFancy = Covens.proxy.isFancyGraphicsEnabled();
+        return !this.leavesFancy;
+    }
+	
 }

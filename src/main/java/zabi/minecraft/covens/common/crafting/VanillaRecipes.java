@@ -35,9 +35,9 @@ public class VanillaRecipes {
 				Ingredient.fromItem(Items.EGG)
 				);
 		GameRegistry.addShapedRecipe(rl("chimney"), null, new ItemStack(ModBlocks.chimney), " c ", "ccc", "cbc", 'c', Blocks.COBBLESTONE, 'b', Items.BUCKET);
-		GameRegistry.addShapedRecipe(rl("planks_elder"), null, new ItemStack(ModBlocks.elderPlanks,4), "w", 'w', ModBlocks.log_elder);
-		GameRegistry.addShapedRecipe(rl("planks_yew"), null, new ItemStack(ModBlocks.yewPlanks,4), "w", 'w', ModBlocks.log_yew);
-		GameRegistry.addShapedRecipe(rl("planks_juniper"), null, new ItemStack(ModBlocks.juniperPlanks,4), "w", 'w', ModBlocks.log_juniper);
+		GameRegistry.addShapedRecipe(rl("planks_elder"), null, new ItemStack(ModBlocks.planks_elder,4), "w", 'w', ModBlocks.log_elder);
+		GameRegistry.addShapedRecipe(rl("planks_yew"), null, new ItemStack(ModBlocks.planks_yew,1), "w", 'w', ModBlocks.log_yew);
+		GameRegistry.addShapedRecipe(rl("planks_juniper"), null, new ItemStack(ModBlocks.planks_juniper,4), "w", 'w', ModBlocks.log_juniper);
 		GameRegistry.addShapedRecipe(rl("altar"), null, new ItemStack(ModBlocks.altar), 
 				"ccc", "sos", "sos", 
 				'c', new ItemStack(Blocks.CARPET,1,14),

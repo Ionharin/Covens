@@ -11,4 +11,5 @@ public abstract class Proxy {
 	public void init(FMLInitializationEvent evt) {}
 	
 	public void setupRenderHUD(World world, BlockPos pos) {};
+	public boolean isFancyGraphicsEnabled() { return false; }
 }

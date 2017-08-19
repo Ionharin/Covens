@@ -17,11 +17,12 @@ public class ModBlocks {
 	public static BlockModCrop hellebore, aconitum, sagebrush, chrysanthemum;
 	public static BlockModLog log_elder, log_yew, log_juniper;
 	public static BlockModLeaves leaves_elder, leaves_yew, leaves_juniper;
-	public static BlockPlanks yewPlanks, juniperPlanks, elderPlanks;
+	public static BlockPlanks planks_yew, planks_juniper, planks_elder;
 	public static BlockConfiningAsh confining_ash;
 	public static BlockGoblet goblet;
 	public static BlockCandlePlate candle_plate;
 	public static BlockBarrel barrel;
+	public static BlockModSapling sapling;
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
@@ -36,6 +37,7 @@ public class ModBlocks {
 		confining_ash = new BlockConfiningAsh();
 		goblet = new BlockGoblet();
 		candle_plate = new BlockCandlePlate();
+		sapling = new BlockModSapling();
 		
 		log_elder = new BlockModLog("elder");
 		log_yew = new BlockModLog("yew");
@@ -45,9 +47,9 @@ public class ModBlocks {
 		leaves_juniper = new BlockModLeaves("juniper");
 		leaves_yew = new BlockModLeaves("yew");
 		
-		yewPlanks = new BlockPlanks("yew");
-		juniperPlanks = new BlockPlanks("juniper");
-		elderPlanks = new BlockPlanks("elder");
+		planks_yew = new BlockPlanks("yew");
+		planks_juniper = new BlockPlanks("juniper");
+		planks_elder = new BlockPlanks("elder");
 		
 		barrel = new BlockBarrel();
 	}
@@ -57,7 +59,7 @@ public class ModBlocks {
 		Log.i("Registering blocks");
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
-				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, 
-				yewPlanks, confining_ash, goblet, candle_plate, barrel);
+				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
+				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling);
 	}
 }

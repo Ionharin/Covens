@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockBarrel;
+import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -26,7 +27,8 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet, candle_plate, barrel;
+	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet;
+	public static ItemBlock candle_plate, barrel, sapling;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemCardinalStone cardinal_stone;
 	public static ItemFlowers flowers;
@@ -80,13 +82,19 @@ public class ModItems {
 		leaves_elder = new ItemModLeaves(ModBlocks.leaves_elder);
 		leaves_yew = new ItemModLeaves(ModBlocks.leaves_yew);
 		leaves_juniper = new ItemModLeaves(ModBlocks.leaves_juniper);
-		yewPlanks = new ItemBlock(ModBlocks.yewPlanks);
-		juniperPlanks = new ItemBlock(ModBlocks.juniperPlanks);
-		elderPlanks = new ItemBlock(ModBlocks.elderPlanks);
+		yewPlanks = new ItemBlock(ModBlocks.planks_yew);
+		juniperPlanks = new ItemBlock(ModBlocks.planks_juniper);
+		elderPlanks = new ItemBlock(ModBlocks.planks_elder);
 		candle_plate = new ItemBlock(ModBlocks.candle_plate);
 		broom = new ItemBroom();
 		soulstring = new ItemSoulString();
 		candle = new ItemCandle();
+		sapling = new ItemBlock(ModBlocks.sapling) {
+			@Override
+			public String getUnlocalizedName(ItemStack stack) {
+				return super.getUnlocalizedName(stack)+"_"+EnumSaplingType.values()[stack.getMetadata()].getName();
+			}
+		};
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -97,12 +105,13 @@ public class ModItems {
 		leaves_juniper.setRegistryName(ModBlocks.leaves_juniper.getRegistryName());
 		leaves_yew.setRegistryName(ModBlocks.leaves_yew.getRegistryName());
 		leaves_elder.setRegistryName(ModBlocks.leaves_elder.getRegistryName());
-		yewPlanks.setRegistryName(ModBlocks.yewPlanks.getRegistryName());
-		juniperPlanks.setRegistryName(ModBlocks.juniperPlanks.getRegistryName());
-		elderPlanks.setRegistryName(ModBlocks.elderPlanks.getRegistryName());
+		yewPlanks.setRegistryName(ModBlocks.planks_yew.getRegistryName());
+		juniperPlanks.setRegistryName(ModBlocks.planks_juniper.getRegistryName());
+		elderPlanks.setRegistryName(ModBlocks.planks_elder.getRegistryName());
 		goblet.setRegistryName(ModBlocks.goblet.getRegistryName());
 		candle_plate.setRegistryName(ModBlocks.candle_plate.getRegistryName());
 		barrel.setRegistryName(ModBlocks.barrel.getRegistryName());
+		sapling.setRegistryName(ModBlocks.sapling.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -128,6 +137,8 @@ public class ModItems {
 		aconitumSeeds.setRegistryName(Reference.MID, "aconitum_seeds");
 		sagebrushSeeds.setRegistryName(Reference.MID, "sagebrush_seeds");
 		chrysanthemumSeeds.setRegistryName(Reference.MID, "chrysanthemum_seeds");
+		
+		sapling.setHasSubtypes(true);
 	}
 	
 	@SubscribeEvent
@@ -136,7 +147,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle
+				goblet, candle_plate, soulstring, barrel, candle, sapling
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

@@ -86,6 +86,9 @@ tile.barrel.juniper.name=Juniper Barrel
 tile.barrel.yew.name=Yew Barrel
 tile.barrel.full=%s (%d/%d)
 tile.barrel.empty=Empty
+tile.sapling_elder.name=Elder Sapling
+tile.sapling_juniper.name=Juniper Sapling
+tile.sapling_yew.name=Yew Sapling
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites

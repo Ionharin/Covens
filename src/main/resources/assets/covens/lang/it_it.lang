@@ -85,6 +85,9 @@ tile.barrel.elder.name=Botte in legno di sambuco
 tile.barrel.juniper.name=Botte in legno di ginepro
 tile.barrel.yew.name=Yew Botte in legno di tasso
 tile.barrel.empty=Vuoto
+tile.sapling_elder.name=Arboscello di sambuco
+tile.sapling_juniper.name=Arboscello di ginepro
+tile.sapling_yew.name=Arboscello di tasso
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
