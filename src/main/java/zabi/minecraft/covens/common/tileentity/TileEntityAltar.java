@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
@@ -176,9 +177,9 @@ public class TileEntityAltar extends TileEntityBase {
 		IBlockState blockState = world.getBlockState(add);
 		if (blockState.getBlock().equals(Blocks.AIR)) return 0;
 		if (blockState.getBlock() instanceof IPlantable) return 30;
+		if (blockState.getBlock() instanceof IGrowable) return 30;
 		if (blockState.getBlock().equals(Blocks.MELON_BLOCK)) return 30;
 		if (blockState.getBlock().equals(Blocks.PUMPKIN)) return 30;
-		if (blockState.getBlock().equals(Blocks.COCOA)) return 20;
 		ItemStack stack = new ItemStack(blockState.getBlock());
 		if (!stack.isEmpty()) {
 			int[] ids=OreDictionary.getOreIDs(stack);
