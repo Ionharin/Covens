@@ -1,5 +1,9 @@
 package zabi.minecraft.covens.common.item;
 
+import java.util.ArrayList;
+import java.util.Random;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -10,6 +14,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.block.BlockModSapling;
+import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
+import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemEerieSeeds extends Item {
@@ -18,13 +25,41 @@ public class ItemEerieSeeds extends Item {
 		this.setUnlocalizedName("eerie_seeds");
 		this.setRegistryName(Reference.MID, "eerie_seeds");
 	}
-	
+
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (worldIn.getBlockState(pos).getBlock().equals(Blocks.GRASS)) {
 			worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundCategory.BLOCKS, 1, 1, false);
+			if (!worldIn.isRemote) {
+				ArrayList<BlockPos> validSpots = new ArrayList<BlockPos>();
+				for (int dx=-2; dx<=2; dx++) for (int dz=-2; dz<=2; dz++) {
+					BlockPos spot = pos.add(dx, 0, dz);
+					if (worldIn.getBlockState(spot).getBlock().equals(Blocks.GRASS) && worldIn.isAirBlock(spot.up())) validSpots.add(spot);
+				}
+				
+				Random r = new Random();
+				for (int i = 0; i<r.nextInt(5); i++) {
+					if (validSpots.size()>0) {
+						int rngIndex = r.nextInt(validSpots.size());
+						BlockPos place = validSpots.get(rngIndex);
+						growOn(worldIn, place, r);
+						validSpots.remove(rngIndex);
+					}
+				}
+				
+			}
 			return EnumActionResult.SUCCESS;
 		}
 		return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+	}
+	
+	private static IBlockState[] validResources = new IBlockState[] {
+			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.ELDER),
+			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.JUNIPER),
+			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.YEW)
+	};
+
+	private void growOn(World worldIn, BlockPos place, Random r) {
+		worldIn.setBlockState(place.up(), validResources[r.nextInt(validResources.length)], 3);
 	}
 }
