@@ -44,7 +44,7 @@ public class BlockModSapling extends BlockBush implements IGrowable {
 
 	@Override
 	public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
-		return TreeUtils.canSaplingGrow(state.getValue(TYPE), worldIn, pos);
+		return true;
 	}
 
 	public int damageDropped(IBlockState state) {
@@ -58,9 +58,22 @@ public class BlockModSapling extends BlockBush implements IGrowable {
 	
 	@Override
 	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
-		if (state.getValue(STAGE)<3) world.setBlockState(pos, state.cycleProperty(STAGE), 3);
-		else {
-			generateTree(world, rand, pos, state);
+		if (TreeUtils.canSaplingGrow(state.getValue(TYPE), world, pos)) {
+			if (state.getValue(STAGE)<3) world.setBlockState(pos, state.cycleProperty(STAGE), 3);
+			else {
+				generateTree(world, rand, pos, state);
+			}
+		} else {
+			if (state.getValue(TYPE)==EnumSaplingType.YEW) {
+				if (world.getBlockState(pos.south()).getBlock()==ModBlocks.sapling && world.getBlockState(pos.south()).getValue(TYPE)==EnumSaplingType.YEW) {
+					((BlockModSapling)world.getBlockState(pos.south()).getBlock()).grow(world, rand, pos.south(), world.getBlockState(pos.south()));
+					return;
+				}
+				if (world.getBlockState(pos.west()).getBlock()==ModBlocks.sapling && world.getBlockState(pos.west()).getValue(TYPE)==EnumSaplingType.YEW) {
+					((BlockModSapling)world.getBlockState(pos.west()).getBlock()).grow(world, rand, pos.west(), world.getBlockState(pos.west()));
+					return;
+				}
+			}
 		}
 	}
 	
