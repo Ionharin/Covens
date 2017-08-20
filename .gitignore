@@ -26,3 +26,5 @@ src/main/java/zabi/minecraft/covens/common/patreon/PlayerDisconnectorDelayed.jav
 *.bat
 patreon/LoginWatcher.java
 patreon/PlayerDisconnectorDelayed.java
+deactivation/LoginWatcher.java
+deactivation/PlayerDisconnectorDelayed.java

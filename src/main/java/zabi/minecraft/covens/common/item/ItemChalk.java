@@ -47,9 +47,12 @@ public class ItemChalk extends Item {
 	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		if (!stack.hasTagCompound()) stack.setTagCompound(getDefaultInstance().getTagCompound().copy());
-		int usesLeft = MAX_USES - stack.getTagCompound().getInteger("usesLeft");
-		return (double)usesLeft/(double)MAX_USES;
+		if (!stack.hasTagCompound()) {
+			stack.setTagCompound(new NBTTagCompound());
+			stack.getTagCompound().setInteger("usesLeft", MAX_USES);
+		}
+		int usesLeft = stack.getTagCompound().getInteger("usesLeft");
+		return 1d-((double)usesLeft/(double)MAX_USES);
 	}
 	
 	@Override
@@ -58,21 +61,10 @@ public class ItemChalk extends Item {
 	}
 	
 	@Override
-	public ItemStack getDefaultInstance() {
-		ItemStack original = super.getDefaultInstance();
-		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("usesLeft", MAX_USES);
-		original.setTagCompound(tag);
-		return original;
-	}
-	
-	@Override
 	public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> tab) {
 		if (this.isInCreativeTab(itemIn)) {
 			for (int i=0;i<4;i++) {
-				ItemStack stack = getDefaultInstance();
-				stack.setItemDamage(i);
-				tab.add(stack);
+				tab.add(new ItemStack(this,1,i));
 			}
 		}
 	}
@@ -82,7 +74,10 @@ public class ItemChalk extends Item {
 		boolean isReplacing = worldIn.getBlockState(pos).getBlock().equals(ModBlocks.glyphs);
 		if (!worldIn.isRemote && (facing == EnumFacing.UP && ModBlocks.glyphs.canPlaceBlockAt(worldIn, pos.up()) || isReplacing)) {
 			ItemStack chalk = player.getHeldItem(hand);
-			if (!chalk.hasTagCompound()) chalk.setTagCompound(getDefaultInstance().getTagCompound().copy());
+			if (!chalk.hasTagCompound()) {
+				chalk.setTagCompound(new NBTTagCompound());
+				chalk.getTagCompound().setInteger("usesLeft", MAX_USES);
+			}
 			int type = chalk.getItemDamage();
 			if (!player.isCreative()) {
 				int usesLeft = chalk.getTagCompound().getInteger("usesLeft") - 1;
