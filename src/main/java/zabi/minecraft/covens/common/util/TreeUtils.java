@@ -1,10 +1,14 @@
 package zabi.minecraft.covens.common.util;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.BlockLog.EnumAxis;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.block.BlockModLog;
 import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 
@@ -24,6 +28,39 @@ public class TreeUtils {
 
 	public static void generateJuniperTree(World world, BlockPos pos, Random r) {
 		int h = generateTrunk(2, 4,  ModBlocks.log_juniper.getDefaultState(), world, pos, r);
+		EnumFacing branchOffset = EnumFacing.HORIZONTALS[r.nextInt(4)];
+		BlockPos branching = pos.up(h).offset(branchOffset);
+		IBlockState log = ModBlocks.log_juniper.getDefaultState().withProperty(BlockModLog.LOG_AXIS, EnumAxis.NONE);
+		ArrayList<BlockPos> logs = new ArrayList<BlockPos>();
+		if (world.isAirBlock(branching)) {
+			world.setBlockState(branching, log, 3);
+			logs.add(branching);
+		}
+		BlockPos other = branching.offset(branchOffset.getOpposite(), 2);
+		if (world.isAirBlock(other)) {
+			world.setBlockState(other, log, 3);
+			logs.add(other);
+		}
+		for (int i = 0; i<h/2;i++) {
+			BlockPos current = branching.up().offset(branchOffset, i+1);
+			if (world.isAirBlock(current)) {
+				logs.add(current);
+				world.setBlockState(current, log, 3);
+			}
+		}
+		
+		IBlockState leaves = ModBlocks.leaves_juniper.getDefaultState();
+		for (BlockPos p:logs) {
+			for (EnumFacing f:EnumFacing.VALUES) {
+				BlockPos lpos1 = p.offset(f);
+				if (world.isAirBlock(lpos1)) world.setBlockState(lpos1, leaves, 3);
+				for (EnumFacing f2:EnumFacing.VALUES) if (f2!=EnumFacing.DOWN){
+					BlockPos lpos = p.offset(f).offset(f2);
+					if (world.isAirBlock(lpos) && r.nextDouble()<0.8D) world.setBlockState(lpos, leaves, 3);
+				}
+			}
+		}
+		
 	}
 
 	public static void generateYewTree(World world, BlockPos pos, Random r) {
