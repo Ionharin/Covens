@@ -3,6 +3,8 @@ package zabi.minecraft.covens.common.item;
 import java.util.ArrayList;
 import java.util.Random;
 
+import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -38,7 +40,7 @@ public class ItemEerieSeeds extends Item {
 				}
 				
 				Random r = new Random();
-				for (int i = 0; i<r.nextInt(5); i++) {
+				for (int i = 0; i<2+r.nextInt(3); i++) {
 					if (validSpots.size()>0) {
 						int rngIndex = r.nextInt(validSpots.size());
 						BlockPos place = validSpots.get(rngIndex);
@@ -56,10 +58,22 @@ public class ItemEerieSeeds extends Item {
 	private static IBlockState[] validResources = new IBlockState[] {
 			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.ELDER),
 			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.JUNIPER),
-			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.YEW)
+			ModBlocks.sapling.getDefaultState().withProperty(BlockModSapling.TYPE, EnumSaplingType.YEW),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.SPRUCE),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.BIRCH),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.JUNGLE),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.DARK_OAK),
+			Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.ACACIA),
+			Blocks.BROWN_MUSHROOM.getDefaultState(),
+			Blocks.RED_MUSHROOM.getDefaultState(),
+			Blocks.WATERLILY.getDefaultState(),
+			Blocks.VINE.getDefaultState(),
+			Blocks.YELLOW_FLOWER.getDefaultState(),
+			Blocks.RED_FLOWER.getDefaultState()
 	};
 
 	private void growOn(World worldIn, BlockPos place, Random r) {
-		worldIn.setBlockState(place.up(), validResources[r.nextInt(validResources.length)], 3);
+		worldIn.setBlockState(place.up(), validResources[r.nextInt(validResources.length)], 2);
 	}
 }

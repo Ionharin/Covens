@@ -93,12 +93,12 @@ public class TreeUtils {
 		if (world.isRemote) return false;
 		if (!isAirBlock(world, pos.up())) return false;
 		if (type==EnumSaplingType.ELDER) {
-			for (int dx=-1;dx<2;dx++) for (int dz=-1;dz<2;dz++) for (int dy = -2; dy<1; dy++) {
+			for (int dx=-1;dx<2;dx++) for (int dz=-1;dz<2;dz++) for (int dy = 0; dy<1; dy++) {
 				BlockPos current = pos.up(2).add(dx, dy, dz);
 				if (!isAirBlock(world, current)) return false;
 			}
 		} else if (type==EnumSaplingType.JUNIPER) {
-			for (int dx=-2;dx<3;dx++) for (int dz=-2;dz<3;dz++) for (int dy = -2; dy<2; dy++) {
+			for (int dx=-2;dx<3;dx++) for (int dz=-2;dz<3;dz++) for (int dy = 0; dy<2; dy++) {
 				BlockPos current = pos.up(2).add(dx, dy, dz);
 				if (!isAirBlock(world, current)) return false;
 			}
