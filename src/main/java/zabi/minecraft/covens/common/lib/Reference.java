@@ -4,7 +4,7 @@ public class Reference {
 
 	public static final String MID = "covens";
 	public static final String NAME = "Covens";
-	public static final String VERSION = "0.1.13-dev";
+	public static final String VERSION = "0.1.13-dev-patron";
 	
 	public static final int release = 13;
 	

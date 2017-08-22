@@ -16,7 +16,7 @@ repositories {
   }
 }
 
-version = "0.1.13-dev"
+version = "0.1.13-dev-patron"
 group = "zabi.minecraft.covens"
 archivesBaseName = "covens"
 
