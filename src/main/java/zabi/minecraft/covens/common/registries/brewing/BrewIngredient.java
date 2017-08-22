@@ -72,7 +72,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		return ingredient.copy();
 	}
 	
-	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting;
+	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting;
 	
 	public static void registerAll() {
 		
@@ -107,13 +107,16 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		
 		tinting = new BrewIngredient(new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()), ModPotions.tinting, null, true, false, 3600, 1);
 		tinting.setRegistryName(ModPotions.tinting.getRegistryName());
+		
+		skin_rotting = new BrewIngredient(Items.ROTTEN_FLESH, ModPotions.skin_rotting, null, 6000, 1);
+		skin_rotting.setRegistryName(ModPotions.skin_rotting.getRegistryName());
 	}
 	
 	
 	@SubscribeEvent
 	public static void registerBrewIngredients(RegistryEvent.Register<BrewIngredient> evt) {
 		Log.i("Registering brews");
-		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting);
+		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting);
 	}
 	
 }

@@ -113,6 +113,7 @@ potion.potency.5=V
 # Potions
 effect.disrobing=Disrobing
 effect.tinting=Tinting
+effect.skin_rotting=Rotting
 
 # Entities
 entity.broom.name=Flying Broom

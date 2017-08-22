@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -26,6 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.potion.ModPotions;
 
 public class BlockConfiningAsh extends Block {
 	
@@ -139,16 +141,19 @@ public class BlockConfiningAsh extends Block {
     	if (event.getWorld().getBlockState(event.getPos()).getBlock().equals(this)) {
     		event.setCancellationResult(EnumActionResult.FAIL);
     		EntityPlayer playerIn = event.getEntityPlayer();
-    		if (playerIn.getTags().contains(MARKED_UNDEAD)) {
+    		if (playerIn.getActivePotionEffect(ModPotions.skin_rotting)!=null) {
     			event.setCanceled(true);
     		}
     	}
     }
     
+    private static final AxisAlignedBB wall = new AxisAlignedBB(0, 0, 0, 1, 3, 1);
+    
     @Override
     public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185477_7_) {
-    	if (entityIn instanceof EntityLivingBase && (((EntityLivingBase) entityIn).getCreatureAttribute()==EnumCreatureAttribute.UNDEAD || ((EntityLivingBase) entityIn).getTags().contains(MARKED_UNDEAD))) {
-    		collidingBoxes.add(new AxisAlignedBB(pos).expand(0, 10, 0));
+    	if (entityIn instanceof EntityLivingBase && (((EntityLivingBase) entityIn).getCreatureAttribute()==EnumCreatureAttribute.UNDEAD || ((EntityLivingBase) entityIn).getActivePotionEffect(ModPotions.skin_rotting)!=null)) {
+    		addCollisionBoxToList(pos, entityBox, collidingBoxes, wall);
+    		if (worldIn.isRemote && Math.random()<0.3) worldIn.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, pos.getX()+Math.random(), pos.getY()+2*Math.random(), pos.getZ()+Math.random(), 0, 0, 0);
     	}
     }
 	
