@@ -108,6 +108,7 @@ ritual.covens.revealing_candle.name=Rituale di infusione
 effect.disrobing=Svestimento
 effect.tinting=Tintura
 effect.skin_rotting=Putrefazione
+effect.extinguish_fire=Ignifugita'
 
 # Entities
 entity.broom.name=Scopa volante
