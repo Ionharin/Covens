@@ -120,7 +120,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	@SubscribeEvent
 	public static void registerBrewIngredients(RegistryEvent.Register<BrewIngredient> evt) {
 		Log.i("Registering brews");
-		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting);
+		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting, extinguish_fire);
 	}
 	
 }
