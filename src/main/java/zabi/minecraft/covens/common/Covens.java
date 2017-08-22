@@ -3,11 +3,13 @@ package zabi.minecraft.covens.common;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import zabi.minecraft.covens.common.block.ModBlocks;
@@ -79,5 +81,10 @@ public class Covens {
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.helleboreSeeds), 4);
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.sagebrushSeeds), 2);
 		proxy.init(evt);
+	}
+	
+	@EventHandler
+	public void setFlight(FMLServerStartedEvent evt) {
+		FMLCommonHandler.instance().getMinecraftServerInstance().setAllowFlight(true);
 	}
 }
