@@ -14,7 +14,7 @@ public class PotionSkinRotting extends ModPotion {
 	
 	@Override
 	public boolean isReady(int duration, int amplifier) {
-		return duration%60==0;
+		return duration%600==0;
 	}
 	
 	@Override
