@@ -1,10 +1,12 @@
 package zabi.minecraft.covens.common.entity;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +27,7 @@ import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 
@@ -37,6 +40,7 @@ public class EntityFlyingBroom extends Entity {
 	private static final DataParameter<Integer> ORIG_Z = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> ORIG_DIM = EntityDataManager.<Integer>createKey(EntityFlyingBroom.class, DataSerializers.VARINT);
 	
+	Field isJumping = ReflectionHelper.findField(EntityLivingBase.class, "field_70703_bu", "isJumping");
 	
 	public EntityFlyingBroom(World world) {
 		super(world);
@@ -121,7 +125,12 @@ public class EntityFlyingBroom extends Entity {
 				Log.w(this+" is being ridden by a null rider!");
 				return;
 			}
-			float front = rider.moveForward, up = rider.isJumping?1:0, strafe = rider.moveStrafing;
+			float front = rider.moveForward, strafe = rider.moveStrafing, up=0;
+			try {
+				up = isJumping.getBoolean(rider)?1:0;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			Vec3d look = rider.getLookVec();
 			
 			if (broomType==0) handleMundaneMovement(front, look);
