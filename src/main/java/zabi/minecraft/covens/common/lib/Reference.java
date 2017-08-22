@@ -4,9 +4,9 @@ public class Reference {
 
 	public static final String MID = "covens";
 	public static final String NAME = "Covens";
-	public static final String VERSION = "0.1.12-dev";
+	public static final String VERSION = "0.1.13-dev";
 	
-	public static final int release = 12;
+	public static final int release = 13;
 	
 	public static final String PROXY_CLIENT = "zabi.minecraft.covens.client.proxy.ClientProxy";
 	public static final String PROXY_SERVER = "zabi.minecraft.covens.common.proxy.ServerProxy";
