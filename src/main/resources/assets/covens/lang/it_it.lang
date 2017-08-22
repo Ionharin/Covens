@@ -109,6 +109,7 @@ effect.disrobing=Svestimento
 effect.tinting=Tintura
 effect.skin_rotting=Putrefazione
 effect.extinguish_fire=Ignifugita'
+effect.planting=Semina
 
 # Entities
 entity.broom.name=Scopa volante

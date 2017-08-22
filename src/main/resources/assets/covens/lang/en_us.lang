@@ -115,6 +115,7 @@ effect.disrobing=Disrobing
 effect.tinting=Tinting
 effect.skin_rotting=Rotting
 effect.extinguish_fire=Extinguishing
+effect.planting=Planting
 
 # Entities
 entity.broom.name=Flying Broom
