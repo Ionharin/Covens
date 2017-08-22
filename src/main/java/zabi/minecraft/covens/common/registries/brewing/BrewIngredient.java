@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.registries.brewing;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
@@ -72,7 +73,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		return ingredient.copy();
 	}
 	
-	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting;
+	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, skin_rotting, extinguish_fire;
 	
 	public static void registerAll() {
 		
@@ -110,6 +111,9 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		
 		skin_rotting = new BrewIngredient(Items.ROTTEN_FLESH, ModPotions.skin_rotting, null, 6000, 1);
 		skin_rotting.setRegistryName(ModPotions.skin_rotting.getRegistryName());
+		
+		extinguish_fire = new BrewIngredient(Item.getItemFromBlock(Blocks.WATERLILY), ModPotions.extinguish_fire, null, 6000, 1);
+		extinguish_fire.setRegistryName(ModPotions.extinguish_fire.getRegistryName());
 	}
 	
 	
