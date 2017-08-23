@@ -27,28 +27,28 @@ import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 import zabi.minecraft.covens.common.registries.brewing.environmental.EnvironmentalPotionEffect;
 
-public class BrewEntity extends EntityThrowable {
+public class EntityBrew extends EntityThrowable {
 	
 	private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
 
 	private ItemStack potion;
 	
-	public BrewEntity(World worldIn) {
+	public EntityBrew(World worldIn) {
 		super(worldIn);
 		setItem(ItemStack.EMPTY);
 	}
 	
-	public BrewEntity(World worldIn, ItemStack potion) {
+	public EntityBrew(World worldIn, ItemStack potion) {
 		super(worldIn);
 		this.setItem(potion);
 	}
 	
-	public BrewEntity(World worldIn, EntityLivingBase throwerIn, ItemStack potion) {
+	public EntityBrew(World worldIn, EntityLivingBase throwerIn, ItemStack potion) {
         super(worldIn, throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - 0.10000000149011612D, throwerIn.posZ);
         this.setItem(potion);
     }
 	
-	public BrewEntity(World worldIn, double x, double y, double z, ItemStack potion) {
+	public EntityBrew(World worldIn, double x, double y, double z, ItemStack potion) {
         this(worldIn, potion);
         this.setPosition(x, y, z);
         this.setItem(potion);

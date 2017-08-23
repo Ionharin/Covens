@@ -31,7 +31,7 @@ import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
-import zabi.minecraft.covens.common.entity.BrewEntity;
+import zabi.minecraft.covens.common.entity.EntityBrew;
 import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ItemFlowers;
@@ -44,7 +44,7 @@ import zabi.minecraft.covens.common.proxy.Proxy;
 public class ClientProxy extends Proxy {
 	
 	private void registerEntityRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(BrewEntity.class, m -> new RenderBrewThrown(m, ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityBrew.class, m -> new RenderBrewThrown(m, ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFlyingBroom.class, m -> new RenderBroom(m));
 	}
 

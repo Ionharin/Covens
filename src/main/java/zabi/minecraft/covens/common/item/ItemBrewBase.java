@@ -28,7 +28,7 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import zabi.minecraft.covens.common.entity.BrewEntity;
+import zabi.minecraft.covens.common.entity.EntityBrew;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
@@ -181,7 +181,7 @@ public class ItemBrewBase extends Item {
 		if (stack.getMetadata()==0) {
 			ItemStack pot = stack.copy();
 			pot.setCount(1);
-			BrewEntity ent = new BrewEntity(worldIn, playerIn, pot);
+			EntityBrew ent = new EntityBrew(worldIn, playerIn, pot);
 			Vec3d lv = playerIn.getLookVec().scale(0.4d);
 			ent.setVelocity(lv.x, lv.y, lv.z);
 			worldIn.spawnEntity(ent);
