@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.entity.EntityBrew;
+import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
@@ -37,12 +38,13 @@ public class ItemBrewBase extends Item {
 	
 	protected static final String[] names = new String[] {"full", "spoiled"};
 	
-	public ItemBrewBase() {
+	public ItemBrewBase(String name) {
 		this.setCreativeTab(ModCreativeTabs.brews);
 		this.setHasSubtypes(true);
 		this.setMaxStackSize(1);
+		this.setRegistryName(Reference.MID, name);
+		this.setUnlocalizedName(name);
 	}
-	
 
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
@@ -58,15 +60,13 @@ public class ItemBrewBase extends Item {
 					items.add(getBrewStackWithData(this, opp));
 				}
 			}
-			
-			items.add(new ItemStack(this,1,1));
 		}
 	}
 	
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
-		if (stack.getMetadata()==1) {
+		if (BrewData.getDataFromStack(stack).isSpoiled()) {
 			tooltip.add(TextFormatting.LIGHT_PURPLE + I18n.format("item.brew.spoiled"));
 		} else {
 			addPotionTooltip(stack, tooltip);
@@ -75,11 +75,11 @@ public class ItemBrewBase extends Item {
 	
 	@SideOnly(Side.CLIENT)
 	public static void addPotionTooltip(ItemStack itemIn, List<String> stackTooltip) {
-		BrewData data = getEffectsFromStack(itemIn);
+		BrewData data = BrewData.getDataFromStack(itemIn);
 		List<CovenPotionEffect> list = data.getEffects();
 		List<Tuple<String, AttributeModifier>> list1 = Lists.<Tuple<String, AttributeModifier>>newArrayList();
 
-		if (list.isEmpty()) {
+		if (list.isEmpty() || data.isSpoiled()) {
 			String s = I18n.format("effect.none").trim();
 			stackTooltip.add(TextFormatting.GRAY + s);
 		} else {
@@ -141,15 +141,8 @@ public class ItemBrewBase extends Item {
 		}
 	}
 
-	protected static BrewData getEffectsFromStack(ItemStack itemIn) {
-		BrewData data = new BrewData();
-		if (itemIn.getMetadata()!=0) data.spoil();
-		else data.readFromNBT(itemIn.getOrCreateSubCompound("brewdata"));
-		return data;
-	}
-
 	public static ItemStack getBrewStackWithData(Item item, BrewData data) {
-		ItemStack stack = new ItemStack(item,1,data.isSpoiled()?1:0);
+		ItemStack stack = new ItemStack(item);
 		NBTTagCompound tag = stack.getOrCreateSubCompound("brewdata");
 		data.writeToNBT(tag);
 		stack.setTagInfo("brewdata", tag);
@@ -159,26 +152,22 @@ public class ItemBrewBase extends Item {
 	}
 
 	public static int getPotionColor(ItemStack stack) {
-		if (stack.getMetadata()==1) return 0x4f670a;
-		if (stack.hasTagCompound()) {
-			if (stack.getTagCompound().hasKey("color")) return stack.getTagCompound().getInteger("color");
-			NBTTagCompound tag = stack.getOrCreateSubCompound("brewdata");
-			int col = (new BrewData().readFromNBT(tag)).getColor();
-			stack.setTagInfo("color", new NBTTagInt(col));
-			return col;
-		} 
-		return -1;
+		BrewData data = BrewData.getDataFromStack(stack);
+		if (data.isSpoiled()) return 0x4f670a;
+		return data.getColor();
 	}
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName()+"_"+names[stack.getMetadata()];
+		BrewData data = BrewData.getDataFromStack(stack);
+		return super.getUnlocalizedName()+"_"+names[data.isSpoiled()?1:0];
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		ItemStack stack = playerIn.getHeldItem(handIn);
-		if (stack.getMetadata()==0) {
+		BrewData data = BrewData.getDataFromStack(stack);
+		if (!data.isSpoiled()) {
 			ItemStack pot = stack.copy();
 			pot.setCount(1);
 			EntityBrew ent = new EntityBrew(worldIn, playerIn, pot);

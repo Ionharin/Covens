@@ -5,6 +5,9 @@ import net.minecraft.item.ItemStack;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.potion.ModPotions;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
+import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 
 public class ModCreativeTabs extends CreativeTabs {
 	
@@ -28,7 +31,9 @@ public class ModCreativeTabs extends CreativeTabs {
 		herbs.setTabIconItem(new ItemStack(ModItems.flowers));
 		machines.setTabIconItem(new ItemStack(ModBlocks.chimney));
 		products.setTabIconItem(new ItemStack(ModItems.misc));
-		brews.setTabIconItem(new ItemStack(ModItems.brew_drinkable));
+		BrewData icon = new BrewData();
+		icon.addEffectToBrew(new CovenPotionEffect(ModPotions.extinguish_fire, 1, 0));
+		brews.setTabIconItem(ItemBrewBase.getBrewStackWithData(ModItems.brew_drinkable, icon));
 	}
 
 	@Override

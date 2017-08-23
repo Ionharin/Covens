@@ -25,8 +25,7 @@ public class PotionExplosion extends BarrelRecipe {
 		for (ItemStack stack:stacks) {
 			if (stack.getItem().equals(Items.GUNPOWDER)) ing[0]=true;
 			else if (stack.getItem().equals(ModItems.brew_splash)) {
-				BrewData data = new BrewData(1);
-				data.readFromNBT(stack.getOrCreateSubCompound("brewdata"));
+				BrewData data = BrewData.getDataFromStack(stack);
 				if (data.isSpoiled()) {
 					return false;
 				}
@@ -49,8 +48,7 @@ public class PotionExplosion extends BarrelRecipe {
 	public void onFinish(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
 		if (!world.isRemote) for (ItemStack stack:stacks) {
 			if (stack.getItem().equals(ModItems.brew_splash)) {
-				BrewData data = new BrewData(1);
-				data.readFromNBT(stack.getOrCreateSubCompound("brewdata"));
+				BrewData data = BrewData.getDataFromStack(stack);
 				detonate(world, pos, data);
 			}
 		}

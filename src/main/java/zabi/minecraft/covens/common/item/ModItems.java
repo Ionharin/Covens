@@ -75,10 +75,10 @@ public class ModItems {
 		eerie_seeds = new ItemEerieSeeds();
 		misc = new ItemMisc();
 		brew_drinkable = new ItemBrewDrinkable();
-		brew_splash = new ItemBrewSplash();
-		brew_gas = new ItemBrewGas();
+		brew_splash = new ItemBrewBase("brew_splash");
+		brew_gas = new ItemBrewBase("brew_gas");
+		brew_lingering = new ItemBrewBase("brew_lingering");
 		ritual_knife = new ItemRitualKnife();
-		brew_lingering = new ItemBrewLingering();
 		leaves_elder = new ItemModLeaves(ModBlocks.leaves_elder);
 		leaves_yew = new ItemModLeaves(ModBlocks.leaves_yew);
 		leaves_juniper = new ItemModLeaves(ModBlocks.leaves_juniper);

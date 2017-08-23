@@ -37,7 +37,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
@@ -132,7 +131,8 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote && hand==EnumHand.MAIN_HAND && worldIn.getBlockState(pos.down()).getBlock().equals(Blocks.FIRE) && state.getValue(FULL)) {
 			TileEntityCauldron cauldron = (TileEntityCauldron) worldIn.getTileEntity(pos);
-			BrewData data = cauldron.getResult();
+			ItemStack result = cauldron.getResult();
+			BrewData data = BrewData.getDataFromStack(result);
 			int cost = data.getCost();
 			boolean hasPower = cauldron.consumePower(cost, true);
 			boolean hasItems = cauldron.getHasItems();
@@ -145,10 +145,6 @@ public class BlockCauldron extends Block implements ITileEntityProvider {
 						if (!playerIn.isCreative()) playerIn.getHeldItem(hand).setCount(playerIn.getHeldItem(hand).getCount()-1);
 						cauldron.emptyContents(); //TODO make it chance dependent on player brewing level instead of always true
 						cauldron.consumePower(cost, false);
-						ItemStack result = ItemBrewDrinkable.getBrewStackWithData(data.getType(), data);
-						if (data.getEffects().isEmpty()) {
-							result = new ItemStack(data.getType(),1,1);
-						} 
 						worldIn.spawnEntity(new EntityItem(worldIn, playerIn.posX, playerIn.posY, playerIn.posZ, result));
 						worldIn.playSound(pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ITEM_BOTTLE_FILL, SoundCategory.BLOCKS, 0.8F, 1f, false);
 						return true;

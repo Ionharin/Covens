@@ -21,7 +21,7 @@ public class BrewingWrapper implements IRecipeWrapper {
 	
 	public BrewingWrapper(BrewingAdapter recipe) {
 		input = recipe.getInput();
-		out = new BrewData(0);
+		out = new BrewData();
 		out.addEffectToBrew(new CovenPotionEffect(recipe.getOutput(), recipe.getDuration(), 0));
 		positive = recipe.isPositive();
 	}

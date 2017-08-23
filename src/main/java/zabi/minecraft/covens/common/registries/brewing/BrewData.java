@@ -4,27 +4,17 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
-import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.item.ItemBrewBase;
 
 public class BrewData {
 	private NonNullList<CovenPotionEffect> brewEffects = NonNullList.<CovenPotionEffect>create();
-	private int type = 0;
 	private int color = 0x000000;
 	private boolean spoiled = false;
 	
-	public BrewData() {
-		this(0);
-	}
-	
-	public BrewData(int type) {
-		this.type=type;
-	}
-
 	public void addEffectToBrew(CovenPotionEffect potionEffect) {
 		brewEffects.add(potionEffect);
 		recalculateColor();
@@ -42,14 +32,12 @@ public class BrewData {
 			i++;
 		}
 		tag.setInteger("color", color);
-		tag.setInteger("type", type);
 		tag.setBoolean("spoiled", spoiled);
 		return tag;
 	}
 	
-	public BrewData readFromNBT(NBTTagCompound tag) {
+	private BrewData readFromNBT(NBTTagCompound tag) {
 		color = tag.getInteger("color");
-		type = tag.getInteger("type");
 		spoiled = tag.getBoolean("spoiled");
 		for (String tagname:tag.getKeySet()) {
 			if (tagname.startsWith("pot")) {
@@ -62,7 +50,11 @@ public class BrewData {
 	
 	@Nullable
 	public static BrewData getDataFromStack(ItemStack stack) {
-		if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("brewdata")) return null;
+		if (!(stack.getItem() instanceof ItemBrewBase) || stack.getMetadata()!=0 || !stack.hasTagCompound() || !stack.getTagCompound().hasKey("brewdata")) {
+			BrewData data = new BrewData();
+			data.spoil();
+			return data;
+		}
 		return new BrewData().readFromNBT(stack.getOrCreateSubCompound("brewdata"));
 	}
 	
@@ -84,13 +76,6 @@ public class BrewData {
 			cost += addedCost;
 		}
 		return cost;
-	}
-	
-	public Item getType() {
-		if (type==1) return ModItems.brew_splash;
-		if (type==2) return ModItems.brew_lingering;
-		if (type==3) return ModItems.brew_gas;
-		return ModItems.brew_drinkable;
 	}
 	
 	public void spoil() {

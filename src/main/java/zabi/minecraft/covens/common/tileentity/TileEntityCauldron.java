@@ -10,7 +10,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import zabi.minecraft.covens.common.block.BlockCauldron;
-import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
 
 public class TileEntityCauldron extends TileEntityBase {
@@ -67,7 +66,7 @@ public class TileEntityCauldron extends TileEntityBase {
 		}
 	}	
 	
-	public BrewData getResult() {
+	public ItemStack getResult() {
 		return PotionDigester.digestPotion(stacks);
 	}
 	

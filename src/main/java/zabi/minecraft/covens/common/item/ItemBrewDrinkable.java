@@ -11,15 +11,13 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.capability.CovensData;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 
 public class ItemBrewDrinkable extends ItemBrewBase {
 	
 	public ItemBrewDrinkable() {
-		this.setRegistryName(Reference.MID, "brew_drinkable");
-		this.setUnlocalizedName("brew_drinkable");
+		super("brew_drinkable");
 	}
 	
 	@Override
@@ -34,22 +32,20 @@ public class ItemBrewDrinkable extends ItemBrewBase {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
-		if (player.getHeldItem(hand).getMetadata()==1) return new ActionResult<ItemStack>(EnumActionResult.PASS, player.getHeldItem(hand));
 		player.setActiveHand(hand);
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, player.getHeldItem(hand));
 	}
 	
 	@Override
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-		if (stack.getMetadata()==1) {
+		BrewData data = BrewData.getDataFromStack(stack);
+		if (data.isSpoiled()) {
 			if (entityLiving instanceof EntityPlayer) {
 				entityLiving.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 1200, 1, false, true));
-			} else {
-				entityLiving.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 1200, 1, false, true));
 			}
 			return ItemStack.EMPTY;
 		}; 
-		BrewData data = getEffectsFromStack(stack);
+		
 		data.getEffects().stream()
 			.filter(ce -> entityLiving.isPotionApplicable(ce.getPotionEffect()))
 			.forEach(ce -> {

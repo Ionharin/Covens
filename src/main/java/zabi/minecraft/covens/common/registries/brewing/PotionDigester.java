@@ -7,23 +7,24 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 
 public class PotionDigester {
 	
 	
-	public static BrewData digestPotion(NonNullList<ItemStack> stacks) {
+	public static ItemStack digestPotion(NonNullList<ItemStack> stacks) {
 		
 		Log.d("------------ Potion digester ---------------");
 		ItemStack[] items = new ItemStack[stacks.size()];//Performance wise I prefer to have quick read time, since this list can get really long
 		stacks.toArray(items);
 		
-		int type = getType(items);
+		Item type = getType(items);
 		Log.d("-- Potion type id: "+type);
-		BrewData result = new BrewData(type);
-		if (type<0) {
-			result = new BrewData(0);
+		BrewData result = new BrewData();
+		if (type==null) {
+			result = new BrewData();
 			result.spoil();
 		}
 		int effectSize = getEffectSize(items);
@@ -113,9 +114,12 @@ public class PotionDigester {
 			pe.setPersistency(persistency);
 			result.addEffectToBrew(pe);
 			Log.d("-- Analysis finished");
+		} else {
+			Log.d("Brew has no effects, spoiled");
+			result.spoil();
 		}
 		
-		if (!result.getEffects().isEmpty()) Log.d("Potion successful");
+		if (!result.isSpoiled()) Log.d("Potion successful");
 		Log.d("-------- result --------");
 		for (CovenPotionEffect e:result.getEffects()) {
 			Log.d("-->  "+e.getPotionEffect().getEffectName()+"\t"+e.getStrength()+"\t"+e.getMultiplier()+"\t"+e.getPersistency()+"\t"+e.isCurable()+"\t"+e.doesShowParticle());
@@ -124,7 +128,8 @@ public class PotionDigester {
 		if (color!=-1) {
 			result.setColor(color);
 		}
-		return result;
+		if (type==null) type = ModItems.brew_drinkable;
+		return ItemBrewBase.getBrewStackWithData(type, result);
 	}
 
 	private static int colorAverage(int color, int newColor) {
@@ -160,17 +165,17 @@ public class PotionDigester {
 		return 0;
 	}
 
-	private static int getType(ItemStack[] items) {
-		if (items.length==0) return -1;
+	private static Item getType(ItemStack[] items) {
+		if (items.length==0) return null;
 		ItemStack ity = items[items.length-1];
 		Log.d("Potion type item: "+ity.getItem().getRegistryName());
 		items[items.length-1] = null;
-		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==1) return 0; //Hellebore = drinkable
-		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==0) return 3; //Aconitum = gas
-		if (ity.getItem().equals(Items.GUNPOWDER)) return 1; //Gunpowder = splash
-		if (ity.getItem().equals(Items.DRAGON_BREATH)) return 2; //Breath = lingering
+		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==1) return ModItems.brew_drinkable; //Hellebore
+		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==0) return ModItems.brew_gas; //Aconitum
+		if (ity.getItem().equals(Items.GUNPOWDER)) return ModItems.brew_splash; //Gunpowder
+		if (ity.getItem().equals(Items.DRAGON_BREATH)) return ModItems.brew_lingering; //Breath
 		Log.d("No match for "+ity.getItem().getRegistryName());
-		return -1;
+		return null;
 	}
 
 	private static int getEffectSize(ItemStack[] items) { //wart = +1, mysterious seeds  = +2, nether star = +4, some op endgame item = +8
