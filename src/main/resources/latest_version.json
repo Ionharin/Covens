@@ -1,6 +1,7 @@
 {
   "homepage": "http://zabi.altervista.org/minecraft/covens",
   "1.12": {
+  	"0.1.14-dev-patron": "- New potions and bugfixes",
   	"0.1.13-dev-patron": "- New potions and bugfixes",
     "0.1.12-dev": "- Hotfix for chalk crashing servers",
   	"0.1.11-dev": "- Public build 2",
@@ -13,6 +14,7 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "1.12.1": {
+  	"0.1.14-dev-patron": "- New potions and bugfixes",  
   	"0.1.13-dev-patron": "- New potions and bugfixes",  
   	"0.1.12-dev": "- Hotfix for chalk crashing servers",
   	"0.1.11-dev": "- Public build 2",
@@ -25,8 +27,8 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "promos": {
-    "1.12-latest": "0.1.13-dev",
-    "1.12.1-latest": "0.1.13-dev",
+    "1.12-latest": "0.1.14-dev",
+    "1.12.1-latest": "0.1.14-dev",
     "1.12-recommended": "0.1.12-dev",
     "1.12.1-recommended": "0.1.12-dev"
   }
