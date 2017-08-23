@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +28,7 @@ import zabi.minecraft.covens.common.registries.brewing.environmental.Environment
 
 public class EntityBrew extends EntityThrowable {
 	
-	private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityPotion.class, DataSerializers.ITEM_STACK);
+	private static final DataParameter<ItemStack> ITEM = EntityDataManager.<ItemStack>createKey(EntityBrew.class, DataSerializers.ITEM_STACK);
 
 	private ItemStack potion;
 	
@@ -39,7 +38,7 @@ public class EntityBrew extends EntityThrowable {
 	}
 	
 	public EntityBrew(World worldIn, ItemStack potion) {
-		super(worldIn);
+		this(worldIn);
 		this.setItem(potion);
 	}
 	
@@ -63,17 +62,15 @@ public class EntityBrew extends EntityThrowable {
 	@Override
 	protected void onImpact(RayTraceResult result) {
 		if (result.typeOfHit!=RayTraceResult.Type.MISS && result.getBlockPos()!=null) {
-			ItemStack itemst = getDataManager().get(ITEM);
-			Item i = itemst.getItem();
-			BrewData data = new BrewData(i.equals(ModItems.brew_splash)?1:(i.equals(ModItems.brew_lingering)?2:(i.equals(ModItems.brew_gas)?3:0)));
-			data.readFromNBT(itemst.getOrCreateSubCompound("brewdata"));
+			ItemStack itemst = getItemStack();
+			BrewData data = BrewData.getDataFromStack(itemst);
 			Item type = itemst.getItem();
 			if (type==ModItems.brew_splash) {
-				splash(result);
+				splash(result, data);
 			} else if (type==ModItems.brew_gas) {
-				gas(result);
+				gas(result, data);
 			} else if (type==ModItems.brew_lingering) {
-				linger(result, false);
+				linger(result, data, false);
 			} else {
 				Log.e("Invalid Brew type, please report to Covens' author");
 			}
@@ -81,7 +78,7 @@ public class EntityBrew extends EntityThrowable {
 		}
 	}
 
-	private void linger(RayTraceResult result, boolean fromGas) {
+	private void linger(RayTraceResult result, BrewData data, boolean fromGas) {
 		if (!world.isRemote) {
 			EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, result.hitVec.x, result.hitVec.y, result.hitVec.z);
 			entityareaeffectcloud.setOwner(this.getThrower());
@@ -90,9 +87,6 @@ public class EntityBrew extends EntityThrowable {
 			entityareaeffectcloud.setRadiusPerTick(0);
 
 			int persistency = 0;
-
-			BrewData data = new BrewData();
-			data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
 
 			NonNullList<CovenPotionEffect> effects = data.getEffects();
 
@@ -112,21 +106,17 @@ public class EntityBrew extends EntityThrowable {
 		}
 	}
 
-	private void gas(RayTraceResult result) {
-		BrewData data = new BrewData();
-		data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
+	private void gas(RayTraceResult result, BrewData data) {
 		for (CovenPotionEffect cpe:data.getEffects()) {
 			EnvironmentalPotionEffect epe = EnvironmentalPotionEffect.getEffectForPotion(cpe.getPotionEffect().getPotion());
 			if (epe!=null) {
 				epe.splashedOn(world, new BlockPos(result.hitVec), this.getThrower(), cpe);
 			}
 		}
-		linger(result, true);
+		linger(result, data, true);
 	}
 
-	private void splash(RayTraceResult result) {
-		BrewData data = new BrewData();
-		data.readFromNBT(getDataManager().get(ITEM).getOrCreateSubCompound("brewdata"));
+	private void splash(RayTraceResult result, BrewData data) {
 		AxisAlignedBB axisalignedbb = this.getEntityBoundingBox().grow(4.0D, 2.0D, 4.0D);
         List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
         if (!list.isEmpty()) {
@@ -178,7 +168,7 @@ public class EntityBrew extends EntityThrowable {
 	}
 	
 	public ItemStack getItemStack() {
-		return potion;
+		return getDataManager().get(ITEM);
 	}
 
 	public void setItem(ItemStack stack) {
