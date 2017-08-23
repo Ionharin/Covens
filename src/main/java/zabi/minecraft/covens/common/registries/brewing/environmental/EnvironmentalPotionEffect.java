@@ -38,17 +38,18 @@ public abstract class EnvironmentalPotionEffect extends IForgeRegistryEntry.Impl
 	
 	public abstract void splashedOn(World world, BlockPos pos, @Nullable EntityLivingBase thrower, CovenPotionEffect data);
 	
-	public static EnvironmentalPotionEffect planting;
+	public static EnvironmentalPotionEffect planting, extinguishing;
 	
 	@SubscribeEvent
 	public static void registerEnvironmentalEffects(RegistryEvent.Register<EnvironmentalPotionEffect> evt) {
 		Log.i("Registering environmental effects");
-		evt.getRegistry().registerAll(planting);
+		evt.getRegistry().registerAll(planting, extinguishing);
 	}
 	
 	public static void registerAll() {
 		Log.i("Creating environmental effects");
 		planting = new PlantingEffect(ModPotions.planting);
+		extinguishing = new ExtinguishFireEffect(ModPotions.extinguish_fire);
 	}
 	
 	@Nullable
