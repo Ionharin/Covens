@@ -110,10 +110,10 @@ public class EntityBrew extends EntityThrowable {
 		for (CovenPotionEffect cpe:data.getEffects()) {
 			EnvironmentalPotionEffect epe = EnvironmentalPotionEffect.getEffectForPotion(cpe.getPotionEffect().getPotion());
 			if (epe!=null) {
-				epe.splashedOn(world, new BlockPos(result.hitVec), this.getThrower(), cpe);
+				epe.splashedOn(world, result.getBlockPos(), this.getThrower(), cpe);
 			}
 		}
-		linger(result, data, true);
+		splash(result, data);
 	}
 
 	private void splash(RayTraceResult result, BrewData data) {

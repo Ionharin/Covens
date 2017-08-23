@@ -15,6 +15,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
+import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 
 
@@ -22,23 +23,32 @@ import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 @Mod.EventBusSubscriber
 public abstract class EnvironmentalPotionEffect extends IForgeRegistryEntry.Impl<EnvironmentalPotionEffect> {
 	
-	public static final IForgeRegistry<EnvironmentalPotionEffect> REGISTRY = new RegistryBuilder<EnvironmentalPotionEffect>().setName(new ResourceLocation(Reference.MID, "pot_to_environmental")).setType(EnvironmentalPotionEffect.class).setIDRange(0, 200).create();
+	public static final IForgeRegistry<EnvironmentalPotionEffect> REGISTRY = new RegistryBuilder<EnvironmentalPotionEffect>().setName(new ResourceLocation(Reference.MID, "environmental")).setType(EnvironmentalPotionEffect.class).setIDRange(0, 200).create();
 	
 	private Potion potion;
 	
 	public EnvironmentalPotionEffect(Potion potion) {
 		this.potion = potion;
+		this.setRegistryName(potion.getRegistryName());
 	}
 	
 	public Potion getPotion() {
 		return potion;
 	}
 	
-	public abstract void splashedOn(World world, BlockPos pos, EntityLivingBase thrower, CovenPotionEffect data);
+	public abstract void splashedOn(World world, BlockPos pos, @Nullable EntityLivingBase thrower, CovenPotionEffect data);
+	
+	public static EnvironmentalPotionEffect planting;
 	
 	@SubscribeEvent
-	public static void registerBrewIngredients(RegistryEvent.Register<EnvironmentalPotionEffect> evt) {
-		Log.i("Registering potions");
+	public static void registerEnvironmentalEffects(RegistryEvent.Register<EnvironmentalPotionEffect> evt) {
+		Log.i("Registering environmental effects");
+		evt.getRegistry().registerAll(planting);
+	}
+	
+	public static void registerAll() {
+		Log.i("Creating environmental effects");
+		planting = new PlantingEffect(ModPotions.planting);
 	}
 	
 	@Nullable

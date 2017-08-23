@@ -173,7 +173,7 @@ public class ItemBrewBase extends Item {
 			EntityBrew ent = new EntityBrew(worldIn, playerIn, pot);
 			Vec3d lv = playerIn.getLookVec().scale(0.4d);
 			ent.setVelocity(lv.x, lv.y, lv.z);
-			worldIn.spawnEntity(ent);
+			if (!worldIn.isRemote) worldIn.spawnEntity(ent);
 			if (!playerIn.isCreative()) stack.setCount(stack.getCount()-1);
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 		}

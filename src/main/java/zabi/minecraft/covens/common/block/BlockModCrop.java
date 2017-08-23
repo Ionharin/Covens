@@ -16,6 +16,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.EnumPlantType;
 import zabi.minecraft.covens.common.lib.Reference;
 
 //Wow, the default vanilla implementation for BlockCrops sucks
@@ -55,6 +56,11 @@ public class BlockModCrop extends BlockCrops {
 	@Override
 	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
 		return seedType.copy();
+	}
+	
+	@Override
+	public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
+		return EnumPlantType.Crop;
 	}
 	
 	@Override
