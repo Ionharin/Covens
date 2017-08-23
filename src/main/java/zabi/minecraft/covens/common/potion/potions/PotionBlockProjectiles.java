@@ -10,7 +10,6 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntityArrow.PickupStatus;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.potion.ModPotion;
 
 public class PotionBlockProjectiles extends ModPotion {
