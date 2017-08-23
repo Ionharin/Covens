@@ -11,7 +11,7 @@ public abstract class ModPotion extends Potion {
 	
 	public static final ResourceLocation EXTRA_EFFECTS = new ResourceLocation(Reference.MID, "textures/icons/potions.png");
 
-	protected ModPotion(boolean isBadEffectIn, int liquidColorIn, String name) {
+	public ModPotion(boolean isBadEffectIn, int liquidColorIn, String name) {
 		super(isBadEffectIn, liquidColorIn);
 		this.setPotionName("effect."+name);
 		this.setRegistryName(Reference.MID, name);

@@ -75,7 +75,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	}
 	
 	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, 
-		skin_rotting, extinguish_fire, planting;
+		skin_rotting, extinguish_fire, planting, arrow_block;
 	
 	public static void registerAll() {
 		Log.i("Creating brews");
@@ -92,6 +92,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 		skin_rotting = new BrewIngredient(Items.ROTTEN_FLESH, ModPotions.skin_rotting, null, 6000, 1);
 		extinguish_fire = new BrewIngredient(Item.getItemFromBlock(Blocks.WATERLILY), ModPotions.extinguish_fire, null, 6000, 1);
 		planting = new BrewIngredient(Items.WHEAT_SEEDS, ModPotions.planting, null, 1, 1);
+		arrow_block = new BrewIngredient(Item.getItemFromBlock(Blocks.IRON_ORE), ModPotions.arrow_block, null, 20*180, 1);
 	}
 	
 	
@@ -99,7 +100,7 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	public static void registerBrewIngredients(RegistryEvent.Register<BrewIngredient> evt) {
 		Log.i("Registering brews");
 		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, 
-				tinting, skin_rotting, extinguish_fire, planting);
+				tinting, skin_rotting, extinguish_fire, planting, arrow_block);
 	}
 	
 }
