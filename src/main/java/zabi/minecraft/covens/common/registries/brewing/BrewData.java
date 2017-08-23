@@ -2,7 +2,10 @@ package zabi.minecraft.covens.common.registries.brewing;
 
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
@@ -55,6 +58,12 @@ public class BrewData {
 			}
 		}
 		return this;
+	}
+	
+	@Nullable
+	public static BrewData getDataFromStack(ItemStack stack) {
+		if (!stack.hasTagCompound() || !stack.getTagCompound().hasKey("brewdata")) return null;
+		return new BrewData().readFromNBT(stack.getOrCreateSubCompound("brewdata"));
 	}
 	
 	public NonNullList<CovenPotionEffect> getEffects() {
