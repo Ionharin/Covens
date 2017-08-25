@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThreadRecipe> {
@@ -49,23 +48,18 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 				}
 			}
 		}
-		int c = 0;
 		for (boolean b:found) {
 			if (!b) {
-				Log.d("Not "+this.getRegistryName().toString()+" because "+inputs[c]+" is missing");
 				return false;
 			}
-			c++;
 		}
 		return true;
 	}
 
 	@Nullable
 	public static SpinningThreadRecipe getRecipe(NonNullList<ItemStack> list) {
-		Log.d("Scanning recipes");
 		for (SpinningThreadRecipe r:REGISTRY) {
 			if (r.matches(list)) {
-				Log.d("found recipe");
 				return r;
 			}
 		}

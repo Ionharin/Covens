@@ -151,7 +151,6 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 	}
 
 	private void checkRecipe() {
-		Log.d("Checking recipe");
 		SpinningThreadRecipe recipe = SpinningThreadRecipe.getRecipe(inputs);
 		if (recipe!=null) {
 			loadedRecipe = recipe.getRegistryName().toString();
