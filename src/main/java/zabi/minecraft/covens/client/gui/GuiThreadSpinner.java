@@ -26,7 +26,7 @@ public class GuiThreadSpinner extends GuiContainer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		double progress = (double) te.getField(0) / (double) TileEntityThreadSpinner.MAX_TICKS;
-		drawTexturedModalRect(210, 71, 176, 0, (int)(22*progress), 16);
+		drawTexturedModalRect(guiLeft+84, guiTop+33, 176, 0, (int)(22*progress), 16);
 	}
 	
 	@Override
