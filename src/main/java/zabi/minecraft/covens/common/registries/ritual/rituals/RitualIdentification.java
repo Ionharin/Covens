@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +14,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualIdentification extends Ritual {
 
-	public RitualIdentification(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
+	public RitualIdentification(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
 	}
 	

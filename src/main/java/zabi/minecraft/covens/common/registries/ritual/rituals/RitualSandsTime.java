@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +12,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualSandsTime extends Ritual {
 
-	public RitualSandsTime(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
+	public RitualSandsTime(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
 	}
 	

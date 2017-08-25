@@ -2,11 +2,14 @@ package zabi.minecraft.covens.common.registries.ritual;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
@@ -37,16 +40,68 @@ public class ModRituals {
 	public static void registerAll() {
 		Log.i("Creating rituals");
 		
-		high_moon_ritual = new RitualHighMoon(of(new ItemStack(Items.GOLD_INGOT), new ItemStack(Items.NETHERBRICK)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
-		sand_time_ritual = new RitualSandsTime(of(new ItemStack(Blocks.SAND), new ItemStack(Blocks.DIAMOND_ORE)), nop(), 24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4);
-		perception_ritual = new RitualPerception(of(new ItemStack(Blocks.GLOWSTONE), new ItemStack(Items.GOLDEN_CARROT)), nop(), -1, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
-		charging_ritual_cardinal_stone = new Ritual(of(new ItemStack(ModItems.cardinal_stone), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST)), of(new ItemStack(ModItems.cardinal_stone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 2000, 0);
-		ender_gate = new RitualEnderGate(of(new ItemStack(ModItems.cardinal_stone,1,2), new ItemStack(Items.ENDER_PEARL)), nop(), 100, circles(GlyphType.ENDER, null, null), 1000, 5);
-		ender_stream = new RitualEnderStream(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(Items.ENDER_EYE), new ItemStack(ModItems.cardinal_stone,1,2), new ItemStack(Items.GOLD_INGOT)), nop(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
-		charging_riutual_talisman = new Ritual(of(new ItemStack(ModItems.misc, 1, 8), new ItemStack(Items.REDSTONE), new ItemStack(Items.GLOWSTONE_DUST), new ItemStack(ModItems.misc,1,6)), of(new ItemStack(ModItems.misc,1,9)), 80, circles(GlyphType.NORMAL, null, null), 3000, 0);
-		redirection_ritual = new RitualRedirection(of(new ItemStack(Items.ENDER_PEARL), new ItemStack(ModItems.cardinal_stone,1,2)), nop(), -1, circles(GlyphType.NORMAL, GlyphType.ENDER, null), 2000, 6);
-		identification_ritual = new RitualIdentification(of(new ItemStack(ModItems.soulstring,1,1), new ItemStack(Items.GOLD_NUGGET), new ItemStack(Items.PAPER)), nop(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
-		revealing_candle = new Ritual(of(new ItemStack(ModItems.candle,1,0), new ItemStack(ModItems.misc,1,9), new ItemStack(ModItems.misc,1,3)), of(new ItemStack(ModItems.candle,1,1), new ItemStack(ModItems.misc,1,8)), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		high_moon_ritual = new RitualHighMoon(
+				of(
+						new OreIngredient("ingotGold"),
+						Ingredient.fromItem(Items.NETHERBRICK)), 
+				nops(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		sand_time_ritual = new RitualSandsTime(
+				of(
+						new OreIngredient("sand"), 
+						new OreIngredient("oreDiamond")), 
+				nops(), 24000, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.ENDER), 4000, 4);
+		perception_ritual = new RitualPerception(
+				of(
+						Ingredient.fromItem(Item.getItemFromBlock(Blocks.GLOWSTONE)), 
+						Ingredient.fromItem(Items.GOLDEN_CARROT)), 
+				nops(), -1, circles(GlyphType.ENDER, GlyphType.ENDER, null), 1500, 5);
+		charging_ritual_cardinal_stone = new Ritual(
+				of(
+						Ingredient.fromStacks(new ItemStack(ModItems.cardinal_stone,1,0)), 
+						new OreIngredient("dustRedstone"), 
+						new OreIngredient("dustGlowstone")), 
+				ofs(new ItemStack(ModItems.cardinal_stone,1,1)), 80, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		ender_gate = new RitualEnderGate(
+				of(
+						Ingredient.fromStacks(new ItemStack(ModItems.cardinal_stone,1,2)), 
+						new OreIngredient("enderpearl")), 
+				nops(), 100, circles(GlyphType.ENDER, null, null), 1000, 5);
+		ender_stream = new RitualEnderStream(
+				of(
+						new OreIngredient("enderpearl"), 
+						Ingredient.fromItem(Items.ENDER_EYE), 
+						Ingredient.fromStacks(new ItemStack(ModItems.cardinal_stone,1,2)), 
+						new OreIngredient("ingotGold")), 
+				nops(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
+		charging_riutual_talisman = new Ritual(
+				of(
+						Ingredient.fromStacks(new ItemStack(ModItems.misc, 1, 8)), 
+						new OreIngredient("dustRedstone"), 
+						new OreIngredient("dustGlowstone"),
+						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,6))), 
+				ofs(
+						new ItemStack(ModItems.misc,1,9)), 
+				80, circles(GlyphType.NORMAL, null, null), 3000, 0);
+		redirection_ritual = new RitualRedirection(
+				of(
+						new OreIngredient("enderpearl"), 
+						Ingredient.fromStacks(new ItemStack(ModItems.cardinal_stone,1,2))), 
+				nops(), -1, circles(GlyphType.NORMAL, GlyphType.ENDER, null), 2000, 6);
+		identification_ritual = new RitualIdentification(
+				of(
+						Ingredient.fromStacks(new ItemStack(ModItems.soulstring,1,1)), 
+						new OreIngredient("nuggetGold"), 
+						new OreIngredient("paper")), 
+				nops(), 100, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		revealing_candle = new Ritual(
+				of(
+						Ingredient.fromStacks(new ItemStack(ModItems.candle,1,0)), 
+						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,9)), 
+						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,3))), 
+				ofs(
+						new ItemStack(ModItems.candle,1,1), 
+						new ItemStack(ModItems.misc,1,8)), 
+				100, circles(GlyphType.NORMAL, null, null), 2000, 0);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -59,11 +114,16 @@ public class ModRituals {
 		revealing_candle.setRegistryName(Reference.MID, "revealing_candle");
 	}
 	
-	public static NonNullList<ItemStack> of(ItemStack... list) {
-		if (list==null||list.length==0) return nop();
+	public static NonNullList<Ingredient> of(Ingredient... list) {
+		return NonNullList.<Ingredient>from(Ingredient.EMPTY, list);
+	}
+	
+	public static NonNullList<ItemStack> ofs(ItemStack... list) {
+		if (list==null||list.length==0) return nops();
 		return NonNullList.<ItemStack>from(ItemStack.EMPTY, list);
 	}
-	public static NonNullList<ItemStack> nop() {
+	
+	public static NonNullList<ItemStack> nops() {
 		return NonNullList.<ItemStack>create();
 	}
 	

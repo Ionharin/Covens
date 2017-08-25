@@ -43,7 +43,7 @@ public class RitualCategory implements IRecipeCategory<RitualWrapper> {
 
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, RitualWrapper recipeWrapper, IIngredients ingredients) {
-		List<ItemStack> stacksIn = recipeWrapper.input;
+		List<List<ItemStack>> stacksIn = recipeWrapper.input;
 		for (int i=0;i<stacksIn.size();i++) {
 			recipeLayout.getItemStacks().init(i, true, 18*i+(140-18*stacksIn.size())/2, 15);
 			recipeLayout.getItemStacks().set(i, stacksIn.get(i));

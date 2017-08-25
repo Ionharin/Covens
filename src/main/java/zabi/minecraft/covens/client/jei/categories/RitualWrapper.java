@@ -18,8 +18,8 @@ import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
 public class RitualWrapper implements IRecipeWrapper {
-	
-	List<ItemStack> input, output;
+	List<List<ItemStack>> input;
+	List<ItemStack> output;
 	private int circles, powerStart, powerTick;
 	private String name;
 	
@@ -27,7 +27,7 @@ public class RitualWrapper implements IRecipeWrapper {
 	
 	public RitualWrapper(Ritual ritual, IGuiHelper igh) {
 		output = ritual.getOutput();
-		input = ritual.getInput();
+		input = ritual.getJeiInput();
 		circles = ritual.getCircles();
 		powerStart = ritual.getRequiredStartingPower();
 		powerTick = ritual.getRunningPower();
@@ -42,7 +42,7 @@ public class RitualWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, input);
+		ingredients.setInputLists(ItemStack.class, input);
 		if (!output.isEmpty()) ingredients.setOutputs(ItemStack.class, output);
 	}
 	

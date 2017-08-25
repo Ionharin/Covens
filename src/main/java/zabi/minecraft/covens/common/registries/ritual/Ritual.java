@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.registries.ritual;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -8,6 +9,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -23,7 +25,9 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	
 	private int time, circles, altarStartingPower, tickPower;
-	private NonNullList<ItemStack> input, output;
+	private NonNullList<ItemStack> output;
+	private NonNullList<Ingredient> input;
+	private List<List<ItemStack>> jei_cache;
 	public static final IForgeRegistry<Ritual> REGISTRY = new RegistryBuilder<Ritual>().setName(new ResourceLocation(Reference.MID, "rituals")).setType(Ritual.class).setIDRange(0, 200).create();
 	
 	/**
@@ -35,7 +39,7 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	 * @param circles is the byte annotation to define what circles are needed. It follows this pattern 332211TT where 33, 22, 11 are the glyph type of the nth circle, and TT the number of required circles, 0 being 1, 2 being 3. 3 (11) will always return a failed circle
 	 * 
 	 */
-	public Ritual(@Nonnull NonNullList<ItemStack> input, @Nonnull NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
+	public Ritual(@Nonnull NonNullList<Ingredient> input, @Nonnull NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		this.time = timeInTicks;
 		this.input = input;
 		this.output = output;
@@ -70,16 +74,17 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 			Log.d("input size mismatch for "+this.getRegistryName());
 			return false;
 		}
-		for (ItemStack is_recipe:input) {
+		for (Ingredient is_recipe:input) {
 			boolean found = false;
 			for (ItemStack is_present:recipe){
-				if (is_recipe.getItem() == is_present.getItem() && is_recipe.getMetadata()==is_present.getMetadata()) {
+				if (is_recipe.apply(is_present)) {
 					found = true;
 					continue;
 				}
 			}
 			if (!found) {
-				Log.d(this.getRegistryName()+" -> not found: "+is_recipe.getItem().getRegistryName()+":"+is_recipe.getMetadata());
+				Log.d("-> Ingredient not found (any):");
+				for (ItemStack is_i:is_recipe.getMatchingStacks()) Log.d(this.getRegistryName()+" -> not found: "+is_i);
 				return false;
 			}
 		}
@@ -98,10 +103,20 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		return tickPower;
 	}
 
-	public List<ItemStack> getInput() {
-		ArrayList<ItemStack> stacks = new ArrayList<ItemStack>(input.size());
+	public List<Ingredient> getInput() {
+		ArrayList<Ingredient> stacks = new ArrayList<Ingredient>(input.size());
 		stacks.addAll(input);
 		return stacks;
+	}
+	
+	public List<List<ItemStack>> getJeiInput() {
+		if (jei_cache==null) generateCache();
+		return jei_cache;
+	}
+
+	private void generateCache() {
+		jei_cache = new ArrayList<List<ItemStack>>();
+		for (Ingredient i:input) jei_cache.add(Arrays.asList(i.getMatchingStacks()));
 	}
 	
 }

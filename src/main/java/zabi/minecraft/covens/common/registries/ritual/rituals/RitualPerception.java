@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.NonNullList;
@@ -15,7 +16,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualPerception extends Ritual {
 
-	public RitualPerception(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
+	public RitualPerception(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
 	}
 	

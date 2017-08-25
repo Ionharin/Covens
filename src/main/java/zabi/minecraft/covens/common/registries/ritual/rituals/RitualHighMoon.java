@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +14,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualHighMoon extends Ritual {
 
-	public RitualHighMoon(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarPower, int costPerTick) {
+	public RitualHighMoon(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarPower, int costPerTick) {
 		super(input, output, timeInTicks, circles, altarPower, costPerTick);
 	}
 

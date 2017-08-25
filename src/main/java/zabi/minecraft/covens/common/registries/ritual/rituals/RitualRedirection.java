@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -27,7 +28,7 @@ public class RitualRedirection extends Ritual {
 
 	public static final int TP_SENSITIVITY = 4, RADIUS = 20;
 	
-	public RitualRedirection(NonNullList<ItemStack> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
+	public RitualRedirection(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);
 		this.setRegistryName(Reference.MID, "redirection");
 		MinecraftForge.EVENT_BUS.register(this);
