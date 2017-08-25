@@ -15,7 +15,7 @@ import zabi.minecraft.covens.common.registries.brewing.CovenPotionEffect;
 public class BrewingWrapper implements IRecipeWrapper {
 	
 	static ItemStack eye = new ItemStack(Items.FERMENTED_SPIDER_EYE);
-	ItemStack input;
+	ItemStack[] input;
 	BrewData out;
 	boolean positive;
 	
@@ -28,7 +28,8 @@ public class BrewingWrapper implements IRecipeWrapper {
 
 	@Override
 	public void getIngredients(IIngredients ingredients) {
-		ingredients.setInputs(ItemStack.class, positive?Arrays.asList(input):Arrays.asList(input, eye));
+		if (positive) ingredients.setInputLists(ItemStack.class, Arrays.asList(Arrays.asList(input)));
+		else ingredients.setInputLists(ItemStack.class, Arrays.asList(Arrays.asList(input), Arrays.asList(eye)));
 		ingredients.setOutputLists(ItemStack.class, Arrays.asList(getListFor(out)));
 	}
 	

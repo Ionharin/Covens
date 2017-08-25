@@ -19,7 +19,7 @@ public class BrewingAdapter {
 		this.positive = getPositive;
 	}
 	
-	public ItemStack getInput() {
+	public ItemStack[] getInput() {
 		return ingr.getInput();
 	}
 	

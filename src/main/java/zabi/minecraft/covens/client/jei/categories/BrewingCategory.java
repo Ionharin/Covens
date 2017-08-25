@@ -46,7 +46,7 @@ public class BrewingCategory implements IRecipeCategory<BrewingWrapper> {
 	public void setRecipe(IRecipeLayout l, BrewingWrapper w, IIngredients ingredients) {
 		IGuiItemStackGroup is = l.getItemStacks();
 		is.init(0, true, w.positive?18:9, 0);
-		is.set(0, w.input);
+		is.set(0, w.input[0]);
 		is.init(1, false, 62, 19);
 		is.set(1, ingredients.getOutputs(ItemStack.class).get(0));
 		if (!w.positive) {
