@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.registries.chimney;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,11 +22,11 @@ public class ModChimneyRecipes {
 	
 	public static void registerAll() {
 		Log.i("Creating chimney recipes");
-		default_recipe = new ChimneyRecipe(ItemStack.EMPTY, new ItemStack(ModItems.misc, 1, 1), true, false);
-		oak_spirit = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,0), new ItemStack(ModItems.misc, 1, 2), true, false);
-		birch_soul = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,2), new ItemStack(ModItems.misc, 1, 3), true, false);
-		acacia_essence = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,4), new ItemStack(ModItems.misc, 1, 4), true, false);
-		spruce_heart = new ChimneyRecipe(new ItemStack(Blocks.SAPLING,1,1), new ItemStack(ModItems.misc, 1, 5), true, false);
+		default_recipe = new ChimneyRecipe(Ingredient.EMPTY, new ItemStack(ModItems.misc, 1, 1));
+		oak_spirit = new ChimneyRecipe(Ingredient.fromStacks(new ItemStack(Blocks.SAPLING,1,0)), new ItemStack(ModItems.misc, 1, 2));
+		birch_soul = new ChimneyRecipe(Ingredient.fromStacks(new ItemStack(Blocks.SAPLING,1,2)), new ItemStack(ModItems.misc, 1, 3));
+		acacia_essence = new ChimneyRecipe(Ingredient.fromStacks(new ItemStack(Blocks.SAPLING,1,4)), new ItemStack(ModItems.misc, 1, 4));
+		spruce_heart = new ChimneyRecipe(Ingredient.fromStacks(new ItemStack(Blocks.SAPLING,1,1)), new ItemStack(ModItems.misc, 1, 5));
 		ChimneyRecipe.setDefault(default_recipe);
 		default_recipe.setRegistryName(Reference.MID, "cloudy_oil");
 		oak_spirit.setRegistryName(Reference.MID, "oak_fume");

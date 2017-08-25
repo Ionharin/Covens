@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.client.jei.categories;
 
+import java.util.Arrays;
+
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -42,7 +44,7 @@ public class ChimneyCategory implements IRecipeCategory<ChimneyWrapper> {
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout, ChimneyWrapper recipeWrapper, IIngredients ingredients) {
 		recipeLayout.getItemStacks().init(0, true, 0, 0);
-		recipeLayout.getItemStacks().set(0, recipeWrapper.input);
+		recipeLayout.getItemStacks().set(0, Arrays.asList(recipeWrapper.input));
 		recipeLayout.getItemStacks().init(1, false, 36, 0);
 		recipeLayout.getItemStacks().set(1, recipeWrapper.output);
 	}

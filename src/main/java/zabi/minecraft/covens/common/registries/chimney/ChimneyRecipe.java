@@ -3,6 +3,7 @@ package zabi.minecraft.covens.common.registries.chimney;
 import javax.annotation.Nonnull;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -13,34 +14,25 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 	
 	public static final IForgeRegistry<ChimneyRecipe> REGISTRY = new RegistryBuilder<ChimneyRecipe>().setName(new ResourceLocation(Reference.MID, "chimney")).setType(ChimneyRecipe.class).setIDRange(0, 200).create();
 	
-	private ItemStack in, out;
-	private boolean meta, nbt;
+	private ItemStack out;
+	private Ingredient in;
 	public static ChimneyRecipe defaultReicpe = null;
 	
-	public ChimneyRecipe(@Nonnull ItemStack in, @Nonnull ItemStack out, boolean matchMetadata, boolean matchNBT) {
-		this.in=in.copy();
+	public ChimneyRecipe(@Nonnull Ingredient in, @Nonnull ItemStack out) {
+		this.in=in;
 		this.out=out.copy();
-		meta=matchMetadata;
-		nbt=matchNBT;
 	}
 	
 	public boolean isValidIngredient(@Nonnull ItemStack ingredient) {
-		boolean itemFlag = in.getItem().equals(ingredient.getItem());
-		boolean metaFlag = !meta || in.getMetadata() == ingredient.getMetadata();
-		boolean nbtFlag = !nbt || ItemStack.areItemStackTagsEqual(ingredient, in);
-		return itemFlag && metaFlag && nbtFlag;
+		return in.apply(ingredient);
 	}
 	
 	public ItemStack getOutput() {
 		return out.copy();
 	}
 	
-	public ItemStack getInput() {
-		ItemStack res = new ItemStack(in.getItem(),1);
-		if (meta) res.setItemDamage(in.getMetadata());
-		else res.setItemDamage(-1);
-		if (nbt) res.setTagCompound(in.getTagCompound().copy());
-		return res;
+	public ItemStack[] getInput() {
+		return in.getMatchingStacks();
 	}
 	
 	public static ChimneyRecipe getRecipeFor(ItemStack ingredient) {
