@@ -28,7 +28,7 @@ public class ModItems {
 	
 	public static ItemChalk chalk;
 	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet;
-	public static ItemBlock candle_plate, barrel, sapling;
+	public static ItemBlock candle_plate, barrel, sapling, threadSpinner;
 	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
 	public static ItemCardinalStone cardinal_stone;
 	public static ItemFlowers flowers;
@@ -95,6 +95,7 @@ public class ModItems {
 				return super.getUnlocalizedName(stack)+"_"+EnumSaplingType.values()[stack.getMetadata()].getName();
 			}
 		};
+		threadSpinner = new ItemBlock(ModBlocks.threadSpinner);
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -112,6 +113,7 @@ public class ModItems {
 		candle_plate.setRegistryName(ModBlocks.candle_plate.getRegistryName());
 		barrel.setRegistryName(ModBlocks.barrel.getRegistryName());
 		sapling.setRegistryName(ModBlocks.sapling.getRegistryName());
+		threadSpinner.setRegistryName(ModBlocks.threadSpinner.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -147,7 +149,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle, sapling
+				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

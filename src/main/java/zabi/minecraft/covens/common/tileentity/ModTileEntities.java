@@ -11,6 +11,7 @@ public class ModTileEntities {
 		GameRegistry.registerTileEntity(TileEntityChimney.class, "covens:chimney");
 		GameRegistry.registerTileEntity(TileEntityCauldron.class, "covens:cauldron");
 		GameRegistry.registerTileEntity(TileEntityBarrel.class, "covens:barrel");
+		GameRegistry.registerTileEntity(TileEntityThreadSpinner.class, "covens:thread_spinner");
 	}
 	
 }

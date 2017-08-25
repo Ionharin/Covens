@@ -23,6 +23,7 @@ public class ModBlocks {
 	public static BlockCandlePlate candle_plate;
 	public static BlockBarrel barrel;
 	public static BlockModSapling sapling;
+	public static BlockThreadSpinner threadSpinner;
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
@@ -52,6 +53,7 @@ public class ModBlocks {
 		planks_elder = new BlockPlanks("elder");
 		
 		barrel = new BlockBarrel();
+		threadSpinner = new BlockThreadSpinner();
 	}
 	
 	@SubscribeEvent
@@ -60,6 +62,6 @@ public class ModBlocks {
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
-				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling);
+				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, threadSpinner);
 	}
 }

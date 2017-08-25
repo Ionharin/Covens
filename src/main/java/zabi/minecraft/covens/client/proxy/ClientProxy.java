@@ -111,7 +111,7 @@ public class ClientProxy extends Proxy {
 		for (int i=0;i<BlockBarrel.WoodType.values().length;i++) registerModel(ModItems.barrel, i);
 		registerModel(ModItems.misc, 9, 8);
 		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
-		
+		registerModel(ModItems.threadSpinner, 0);
 	}
 
 	private void registerModel(Item item, int meta) {
