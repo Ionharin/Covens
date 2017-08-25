@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -18,13 +16,14 @@ import net.minecraft.util.Tuple;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
-public class TileEntityGlyph extends TileEntityBase {
+public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 	
 	private Ritual ritual = null;
 	private int cooldown = 0;
@@ -221,13 +220,6 @@ public class TileEntityGlyph extends TileEntityBase {
 		return ritual!=null;
 	}
 	
-	@Nullable
-	public BlockPos getBoundAltar(boolean rebind) {
-		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
-		if (te==null || te.isInvalid()) return null;
-		return te.getPos();
-	}
-	
 	public boolean consumePower(int power) {
 		if (power==0) return true;
 		if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(pos, world);
@@ -241,6 +233,12 @@ public class TileEntityGlyph extends TileEntityBase {
 		super.invalidate();
 	}
 	
+	@Override
+	public TileEntityAltar getAltar(boolean rebind) {
+		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null || te.isInvalid()) return null;
+		return te;
+	}
 	
 	//##################################################################################################################
 	

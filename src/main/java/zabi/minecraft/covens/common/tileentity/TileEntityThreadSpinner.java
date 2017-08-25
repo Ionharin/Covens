@@ -11,10 +11,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.threads.SpinningThreadRecipe;
 
-public class TileEntityThreadSpinner extends TileEntityBase implements IInventory {
+public class TileEntityThreadSpinner extends TileEntityBase implements IInventory, IAltarUser {
 	
 	public static final int MAX_TICKS = 200;
 	public static final int POWER_PER_TICK = 6;
@@ -23,7 +24,7 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 	private ItemStack out = ItemStack.EMPTY;
 	private int tickProcessed = 0;
 	private String loadedRecipe = null;
-	private TileEntityAltar altar = null;
+	private TileEntityAltar te = null;
 	private InvWrapper inventoryWrapper = new InvWrapper(this);
 
 	@Override
@@ -45,12 +46,12 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 	@Override
 	protected void tick() {
 		if (loadedRecipe!=null) {
-			if (altar==null || altar.isInvalid()) altar = TileEntityAltar.getClosest(getPos(), getWorld());
-			if (altar==null || altar.isInvalid()) {
+			if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(getPos(), getWorld());
+			if (te==null || te.isInvalid()) {
 				loadedRecipe = null;
 				return;
 			}
-			if (altar.consumePower(POWER_PER_TICK, false)) {
+			if (te.consumePower(POWER_PER_TICK, false)) {
 				tickProcessed++;
 				if (tickProcessed>=MAX_TICKS) {
 					out = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
@@ -187,4 +188,11 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 		markDirty();
 	}
 
+	@Override
+	public TileEntityAltar getAltar(boolean rebind) {
+		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null || te.isInvalid()) return null;
+		return te;
+	}
+	
 }

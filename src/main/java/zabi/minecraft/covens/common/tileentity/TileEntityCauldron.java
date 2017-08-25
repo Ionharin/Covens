@@ -9,10 +9,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockCauldron;
 import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
 
-public class TileEntityCauldron extends TileEntityBase {
+public class TileEntityCauldron extends TileEntityBase implements IAltarUser {
 	
 	public void setNoLiquid() {
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockCauldron.FULL, false), 3);
@@ -107,5 +108,12 @@ public class TileEntityCauldron extends TileEntityBase {
 		if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(pos, world);
 		if (te==null) return false;
 		return te.consumePower(power, simulate);
+	}
+	
+	@Override
+	public TileEntityAltar getAltar(boolean rebind) {
+		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null || te.isInvalid()) return null;
+		return te;
 	}
 }

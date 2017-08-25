@@ -8,11 +8,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
-public class TileEntityBarrel extends TileEntityBase {
+public class TileEntityBarrel extends TileEntityBase implements IAltarUser {
 	
 	FluidTank internalTank = new FluidTank(Fluid.BUCKET_VOLUME) {
 		protected void onContentsChanged() {
@@ -189,6 +190,13 @@ public class TileEntityBarrel extends TileEntityBase {
 
 	public NonNullList<ItemStack> getIngredients() {
 		return input;
+	}
+
+	@Override
+	public TileEntityAltar getAltar(boolean rebind) {
+		if ((te==null || te.isInvalid()) && rebind) te = TileEntityAltar.getClosest(pos, world);
+		if (te==null || te.isInvalid()) return null;
+		return te;
 	}
 	
 }
