@@ -89,6 +89,7 @@ tile.barrel.empty=Empty
 tile.sapling_elder.name=Elder Sapling
 tile.sapling_juniper.name=Juniper Sapling
 tile.sapling_yew.name=Yew Sapling
+tile.thread_spinner.name=Thread Spinner
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
@@ -116,6 +117,7 @@ effect.tinting=Tinting
 effect.skin_rotting=Rotting
 effect.extinguish_fire=Extinguishing
 effect.planting=Planting
+effect.block_arrows=Arrow Repulsion
 
 # Entities
 entity.broom.name=Flying Broom

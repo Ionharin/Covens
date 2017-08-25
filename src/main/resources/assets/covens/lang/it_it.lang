@@ -88,6 +88,7 @@ tile.barrel.empty=Vuoto
 tile.sapling_elder.name=Arboscello di sambuco
 tile.sapling_juniper.name=Arboscello di ginepro
 tile.sapling_yew.name=Arboscello di tasso
+tile.thread_spinner.name=Filiera
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
@@ -110,6 +111,7 @@ effect.tinting=Tintura
 effect.skin_rotting=Putrefazione
 effect.extinguish_fire=Ignifugita'
 effect.planting=Semina
+effect.block_arrows=Repulsione Frecce
 
 # Entities
 entity.broom.name=Scopa volante
