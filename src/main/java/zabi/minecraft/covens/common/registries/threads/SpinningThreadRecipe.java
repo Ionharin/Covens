@@ -35,6 +35,8 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 	}
 	
 	public boolean matches(NonNullList<ItemStack> list) {
+		for (ItemStack is:list) if (is.getCount()>1) return false;
+		if (list.size()!=inputs.length) return false;
 		boolean[] found = new boolean[inputs.length];
 		ArrayList<ItemStack> comp = new ArrayList<ItemStack>(list);
 		for (int i=0;i<inputs.length;i++) {
