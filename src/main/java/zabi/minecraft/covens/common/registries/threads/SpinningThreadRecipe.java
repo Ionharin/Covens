@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.registries.threads;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
@@ -9,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThreadRecipe> {
@@ -34,22 +37,38 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 	
 	public boolean matches(NonNullList<ItemStack> list) {
 		boolean[] found = new boolean[inputs.length];
+		ArrayList<ItemStack> comp = new ArrayList<ItemStack>(list);
 		for (int i=0;i<inputs.length;i++) {
 			Ingredient current = inputs[i];
-			for (ItemStack is:list) {
-				if (current.apply(is)) {
+			for (int j=0;j<comp.size();j++) {
+				ItemStack is = comp.get(j);
+				if (!is.isEmpty() && current.apply(is)) {
 					found[i]=true;
+					comp.set(j, ItemStack.EMPTY);
 					break;
 				}
 			}
 		}
-		for (boolean b:found) if (!b) return false;
+		int c = 0;
+		for (boolean b:found) {
+			if (!b) {
+				Log.d("Not "+this.getRegistryName().toString()+" because "+inputs[c]+" is missing");
+				return false;
+			}
+			c++;
+		}
 		return true;
 	}
-	
+
 	@Nullable
 	public static SpinningThreadRecipe getRecipe(NonNullList<ItemStack> list) {
-		for (SpinningThreadRecipe r:REGISTRY) if (r.matches(list)) return r;
+		Log.d("Scanning recipes");
+		for (SpinningThreadRecipe r:REGISTRY) {
+			if (r.matches(list)) {
+				Log.d("found recipe");
+				return r;
+			}
+		}
 		return null;
 	}
 	

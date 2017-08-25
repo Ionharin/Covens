@@ -34,6 +34,7 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 		out = new ItemStack(tag.getCompoundTag("output"));
 		if (tag.hasKey("recipe")) loadedRecipe = tag.getString("recipe");
 		else loadedRecipe = null;
+		tickProcessed = tag.getInteger("ticks");
 	}
 
 	@Override
@@ -41,11 +42,12 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 		tag.setTag("inputs", ItemStackHelper.saveAllItems(new NBTTagCompound(), inputs));
 		tag.setTag("output", out.writeToNBT(new NBTTagCompound()));
 		if (loadedRecipe!=null) tag.setString("recipe", loadedRecipe);
+		tag.setInteger("ticks", tickProcessed);
 	}
 
 	@Override
 	protected void tick() {
-		if (loadedRecipe!=null) {
+		if (loadedRecipe!=null && canStackResults()) {
 			if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(getPos(), getWorld());
 			if (te==null || te.isInvalid()) {
 				loadedRecipe = null;
@@ -54,7 +56,11 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 			if (te.consumePower(POWER_PER_TICK, false)) {
 				tickProcessed++;
 				if (tickProcessed>=MAX_TICKS) {
-					out = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
+					ItemStack result = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
+					if (out.isEmpty()) out = result;
+					else {
+						out.setCount(out.getCount()+result.getCount());
+					}
 					for (int i=0; i<inputs.size(); i++) decrStackSize(i+1, 1);
 				}
 			}
@@ -63,6 +69,16 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 		}
 	}
 	
+	private boolean canStackResults() {
+		if (out.isEmpty()) return true;
+		ItemStack recipeResult = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
+		if (ItemStack.areItemStacksEqual(out, recipeResult)) {
+			int sum = out.getCount() + recipeResult.getCount();
+			return sum<=recipeResult.getMaxStackSize();
+		}
+		return false;
+	}
+
 	@Override
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return true;
@@ -116,15 +132,15 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
-		ItemStack res =  decrStackSize(index, getStackInSlot(index).getCount());
-		checkRecipe();
-		markDirty();
-		return res;
+		return decrStackSize(index, getStackInSlot(index).getCount());
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
-		if (index==0) out=stack;
+		if (index==0) {
+			out=stack;
+			return;
+		}
 		if (index>4) {
 			Log.w("Slot doesn't exist: "+index);
 			return;
@@ -135,9 +151,13 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 	}
 
 	private void checkRecipe() {
+		Log.d("Checking recipe");
 		SpinningThreadRecipe recipe = SpinningThreadRecipe.getRecipe(inputs);
-		if (recipe!=null) loadedRecipe = recipe.getRegistryName().toString();
-		else loadedRecipe = null;
+		if (recipe!=null) {
+			loadedRecipe = recipe.getRegistryName().toString();
+		} else {
+			loadedRecipe = null;
+		}
 		markDirty();
 	}
 
