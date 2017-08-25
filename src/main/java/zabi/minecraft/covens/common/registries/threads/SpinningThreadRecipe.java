@@ -11,6 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThreadRecipe> {
@@ -35,8 +36,18 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 	}
 	
 	public boolean matches(NonNullList<ItemStack> list) {
-		for (ItemStack is:list) if (is.getCount()>1) return false;
-		if (list.size()!=inputs.length) return false;
+		int nonEmpty = 0;
+		for (ItemStack is:list) {
+			if (is.getCount()==1) nonEmpty++;
+			else if (is.getCount()>1) {
+				Log.i("One stack was bigger than 1");
+				return false;
+			}
+		}
+		if (nonEmpty!=inputs.length) {
+			Log.i("recipe size mismatch: list "+list.size()+", input "+inputs.length);
+			return false;
+		}
 		boolean[] found = new boolean[inputs.length];
 		ArrayList<ItemStack> comp = new ArrayList<ItemStack>(list);
 		for (int i=0;i<inputs.length;i++) {

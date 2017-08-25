@@ -5,10 +5,13 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
@@ -34,6 +37,15 @@ public class BlockThreadSpinner extends Block implements ITileEntityProvider {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		playerIn.openGui(Covens.INSTANCE, GuiHandler.IDs.THREAD_SPINNER.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
 		return true;
+	}
+	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		ItemStack stack = super.getPickBlock(state, target, world, pos, player);
+		if (player.isSneaking()) {
+			stack.setTagCompound(world.getTileEntity(pos).writeToNBT(new NBTTagCompound()));
+		}
+		return stack;
 	}
 	
 }

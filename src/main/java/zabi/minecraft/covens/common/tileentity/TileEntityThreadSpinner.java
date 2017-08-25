@@ -63,6 +63,7 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 					}
 					for (int i=0; i<inputs.size(); i++) decrStackSize(i+1, 1);
 				}
+				markDirty();
 			}
 		} else {
 			tickProcessed=0;
@@ -157,7 +158,6 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 		} else {
 			loadedRecipe = null;
 		}
-		markDirty();
 	}
 
 	@Override
@@ -180,7 +180,7 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return index!=0;
+		return (index!=0 && getStackInSlot(index).isEmpty());
 	}
 
 	@Override
@@ -204,6 +204,7 @@ public class TileEntityThreadSpinner extends TileEntityBase implements IInventor
 	public void clear() {
 		out = ItemStack.EMPTY;
 		inputs.clear();
+		checkRecipe();
 		markDirty();
 	}
 
