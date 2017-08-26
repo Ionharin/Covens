@@ -25,7 +25,11 @@ public class ItemMisc extends Item {
 			"wax_ball", //7
 			"talisman", //8
 			"talisman_charged", //9
-			"unfired_jar" //10
+			"unfired_jar", //10
+			"cleansing_aura", //11
+			"emanation_of_dishonesty", //12
+			"foul_presence", //13
+			"undying_image" //14
 	};
 	
 	public ItemMisc() {
@@ -45,7 +49,7 @@ public class ItemMisc extends Item {
 			tab.add(new ItemStack(this,1,10));
 			tab.add(new ItemStack(this,1,0));
 			for (int i = 2;i<6;i++) tab.add(new ItemStack(this,1,i));
-			//Future fumes
+			for (int i = 11;i<15;i++) tab.add(new ItemStack(this,1,i));
 			tab.add(new ItemStack(this,1,6));
 			tab.add(new ItemStack(this,1,1));
 			tab.add(new ItemStack(this,1,7));
