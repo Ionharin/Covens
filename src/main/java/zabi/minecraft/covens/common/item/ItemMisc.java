@@ -42,7 +42,15 @@ public class ItemMisc extends Item {
 	@Override
 	public void getSubItems(CreativeTabs itemIn, NonNullList<ItemStack> tab) {
 		if (this.isInCreativeTab(itemIn)) {
-			for (int i = 0;i<names.length;i++) tab.add(new ItemStack(this,1,i));
+			tab.add(new ItemStack(this,1,10));
+			tab.add(new ItemStack(this,1,0));
+			for (int i = 2;i<6;i++) tab.add(new ItemStack(this,1,i));
+			//Future fumes
+			tab.add(new ItemStack(this,1,6));
+			tab.add(new ItemStack(this,1,1));
+			tab.add(new ItemStack(this,1,7));
+			tab.add(new ItemStack(this,1,8));
+			tab.add(new ItemStack(this,1,9));
 		}
 	}
 	
