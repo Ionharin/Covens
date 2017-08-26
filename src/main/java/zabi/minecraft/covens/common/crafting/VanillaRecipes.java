@@ -1,12 +1,15 @@
 package zabi.minecraft.covens.common.crafting;
 
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.ModBlocks;
@@ -114,7 +117,10 @@ public class VanillaRecipes {
 	}
 
 	private static void registerFurnaceRecipes() {
-		GameRegistry.addSmelting(Blocks.SAPLING, new ItemStack(ModItems.misc,1,1), 0);
+		ItemStack ash = new ItemStack(ModItems.misc,1,1);
+		OreDictionary.getOres("treeSapling").stream()
+		.map(s -> Block.getBlockFromItem(s.getItem()))
+		.distinct().forEach(b -> GameRegistry.addSmelting(b, ash, 0));
 		GameRegistry.addSmelting(new ItemStack(ModItems.misc,1,10), new ItemStack(ModItems.misc,1,0), 0);
 	}
 	
