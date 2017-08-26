@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.registries.chimney;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -16,7 +17,6 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 	
 	private ItemStack out;
 	private Ingredient in;
-	public static ChimneyRecipe defaultReicpe = null;
 	
 	public ChimneyRecipe(@Nonnull Ingredient in, @Nonnull ItemStack out) {
 		this.in=in;
@@ -35,14 +35,11 @@ public class ChimneyRecipe extends IForgeRegistryEntry.Impl<ChimneyRecipe> {
 		return in.getMatchingStacks();
 	}
 	
+	@Nullable
 	public static ChimneyRecipe getRecipeFor(ItemStack ingredient) {
 		for (ChimneyRecipe cr:REGISTRY) {
 			if (cr.isValidIngredient(ingredient)) return cr;
 		}
-		return defaultReicpe;
-	}
-	
-	public static void setDefault(ChimneyRecipe r) {
-		defaultReicpe = r;
+		return null;
 	}
 }

@@ -1,8 +1,5 @@
 package zabi.minecraft.covens.client.jei;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
@@ -40,11 +37,8 @@ public class CovensJEIPlugin implements IModPlugin {
 		registry.addRecipes(Ritual.REGISTRY.getValues(), RitualCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.chalk, 1, BlockCircleGlyph.GlyphType.GOLDEN.ordinal()), RitualCategory.UID);
 		
-		List<ChimneyRecipe> chimList = new ArrayList<ChimneyRecipe>(ChimneyRecipe.REGISTRY.getValues());
-		chimList.remove(ChimneyRecipe.defaultReicpe);
-		
 		registry.handleRecipes(ChimneyRecipe.class, i -> new ChimneyWrapper(i), ChimneyCategory.UID);
-		registry.addRecipes(chimList, ChimneyCategory.UID);
+		registry.addRecipes(ChimneyRecipe.REGISTRY.getValues(), ChimneyCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.chimney), ChimneyCategory.UID);
 		
 		registry.handleRecipes(BrewingAdapter.class, i -> new BrewingWrapper(i), BrewingCategory.UID);
