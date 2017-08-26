@@ -6,11 +6,11 @@ itemGroup.covens.brews=Covens - Brews
 
 # Item names
 item.hellebore_seeds.name=Hellebore Seeds
-item.aconitum_seeds.name=Aconitum Seeds
+item.aconitum_seeds.name=Monkshood Seeds
 item.sagebrush_seeds.name=Sagebrush Seeds
 item.chrysanthemum_seeds.name=Chrysanthemum Seeds
 item.flower.hellebore.name=Hellebore
-item.flower.aconitum.name=Aconitum Napellus
+item.flower.aconitum.name=Monkshood
 item.flower.sagebrush.name=Sagebrush flower
 item.flower.chrysanthemum.name=Chrysanthemum
 item.chalk_normal.name=Ritual Chalk
@@ -56,7 +56,7 @@ item.witch_candle_revealing.name=Witch Candle of Revealing
 tile.witch_altar.name=Witch Altar
 tile.magic_glyph.name=Ritual Glyph
 tile.hellebore.name=Hellebore
-tile.aconitum.name=Aconitum
+tile.aconitum.name=Monkshood
 tile.sagebrush.name=Sagebrush
 tile.chrysanthemum.name=Chrysanthemum
 tile.chimney.name=Fume Chimney
