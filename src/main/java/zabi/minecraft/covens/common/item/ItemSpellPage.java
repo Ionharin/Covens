@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.item;
 
+import javax.annotation.Nullable;
+
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -43,7 +45,7 @@ public class ItemSpellPage extends Item {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) return super.getUnlocalizedName(stack)+"."+stack.getTagCompound().getString("spell").replace(':', '_');
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) return super.getUnlocalizedName(stack)+"."+stack.getTagCompound().getString("spell").replace(':', '.');
 		return super.getUnlocalizedName(stack);
 	}
 	
@@ -54,6 +56,7 @@ public class ItemSpellPage extends Item {
 		return stack;
 	}
 	
+	@Nullable
 	public static Spell getSpellFromItemStack(ItemStack stack) {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) {
 			return Spell.REGISTRY.getValue(new ResourceLocation(stack.getTagCompound().getString("spell")));
@@ -64,7 +67,7 @@ public class ItemSpellPage extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		Spell s = getSpellFromItemStack(playerIn.getHeldItem(handIn));
-		if (s.canBeUsed(worldIn, playerIn.getPosition(), playerIn)) {
+		if (s!=null && s.canBeUsed(worldIn, playerIn.getPosition(), playerIn)) {
 			playerIn.setActiveHand(handIn);
 			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
 		} else {
@@ -76,12 +79,12 @@ public class ItemSpellPage extends Item {
 	public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		Spell spell = getSpellFromItemStack(stack);
 		if (spell!=null && !worldIn.isRemote) {
-			if (spell.getType()==EnumSpellType.INSTANT) spell.performEffect(new RayTraceResult(Type.MISS, entityLiving.getLookVec(), EnumFacing.UP, entityLiving.getPosition()), entityLiving);
+			if (spell.getType()==EnumSpellType.INSTANT) spell.performEffect(new RayTraceResult(Type.MISS, entityLiving.getLookVec(), EnumFacing.UP, entityLiving.getPosition()), entityLiving, worldIn);
 			else {
 				EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX+entityLiving.getLookVec().x, entityLiving.posY+entityLiving.getEyeHeight()+entityLiving.getLookVec().y, entityLiving.posZ+entityLiving.getLookVec().z);
 				car.setSpell(spell);
 				car.setCaster(entityLiving);
-				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 1f, 0);
+				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 2f, 0);
 				worldIn.spawnEntity(car);
 			}
 		}

@@ -26,7 +26,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualRedirection extends Ritual {
 
-	public static final int TP_SENSITIVITY = 4, RADIUS = 20;
+	public static final int TP_SENSITIVITY = 1, RADIUS = 20;
 	
 	public RitualRedirection(NonNullList<Ingredient> input, NonNullList<ItemStack> output, int timeInTicks, int circles, int altarStartingPower, int powerPerTick) {
 		super(input, output, timeInTicks, circles, altarStartingPower, powerPerTick);

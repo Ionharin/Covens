@@ -1,24 +1,24 @@
 package zabi.minecraft.covens.common.registries.spell.spells;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.registries.spell.Spell;
 
-public class SpellPoke extends Spell {
-	
-	public SpellPoke(int color, EnumSpellType type, String name, String mod_id) {
+public class SpellBlink extends Spell {
+
+	public SpellBlink(int color, EnumSpellType type, String name, String mod_id) {
 		super(color, type, name, mod_id);
 	}
 
 	@Override
 	public void performEffect(RayTraceResult rtrace, EntityLivingBase caster, World world) {
-		if (rtrace.typeOfHit==Type.ENTITY && rtrace.entityHit instanceof EntityLivingBase) {
-			rtrace.entityHit.attackEntityFrom(new EntityDamageSource(DamageSource.MAGIC.getDamageType(), caster), 1f);
+		if (caster!=null && rtrace.typeOfHit==Type.BLOCK) {
+			BlockPos dest = rtrace.getBlockPos().offset(EnumFacing.UP);
+			caster.attemptTeleport(dest.getX()+0.5, dest.getY()+0.5, dest.getZ()+0.5);
 		}
 	}
 

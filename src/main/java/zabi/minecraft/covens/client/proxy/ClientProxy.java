@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -197,5 +198,10 @@ public class ClientProxy extends Proxy {
 	@Override
 	public boolean isFancyGraphicsEnabled() {
 		return Minecraft.getMinecraft().gameSettings.fancyGraphics;
+	}
+	
+	@Override
+	public void spawnParticle(EnumParticleTypes type, double x, double y, double z, double sx, double sy, double sz, World world) {
+		world.spawnParticle(type, x, y, z, sx, sy, sz);
 	}
 }

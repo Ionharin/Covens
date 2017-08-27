@@ -17,9 +17,9 @@ public class SpellMagnet extends Spell {
 	}
 
 	@Override
-	public void performEffect(RayTraceResult rtrace, EntityLivingBase caster) {
+	public void performEffect(RayTraceResult rtrace, EntityLivingBase caster, World world) {
 		if (rtrace.typeOfHit==Type.BLOCK && caster!=null) {
-			caster.world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(rtrace.hitVec, rtrace.hitVec.addVector(1, 1, 1)).grow(2)).forEach(ei -> {
+			world.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(rtrace.hitVec, rtrace.hitVec.addVector(1, 1, 1)).grow(2)).forEach(ei -> {
 				ei.setNoPickupDelay();
 				if (caster instanceof EntityPlayer) {
 					ei.onCollideWithPlayer((EntityPlayer) caster);

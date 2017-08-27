@@ -38,7 +38,7 @@ public abstract class Spell extends IForgeRegistryEntry.Impl<Spell> {
 		return type;
 	}
 	
-	public abstract void performEffect(RayTraceResult rtrace, EntityLivingBase caster);
+	public abstract void performEffect(RayTraceResult rtrace, EntityLivingBase caster, World world);
 	public abstract boolean canBeUsed(World world, BlockPos pos, EntityLivingBase caster);
 	
 	public static enum EnumSpellType {

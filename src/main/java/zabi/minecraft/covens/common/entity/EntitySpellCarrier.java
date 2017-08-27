@@ -14,10 +14,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.registries.spell.Spell;
 import zabi.minecraft.covens.common.registries.spell.Spell.EnumSpellType;
 
@@ -110,11 +112,17 @@ public class EntitySpellCarrier extends EntityThrowable {
 	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
 			Spell spell = getSpell();
-			if (spell!=null) spell.performEffect(result, getCaster());
+			if (spell!=null) spell.performEffect(result, getCaster(), world);
 			else Log.w("Spell is null for "+this+" with spell reg name of "+getSpellName());
 			if (result.typeOfHit == Type.BLOCK && (spell.getType()==EnumSpellType.PROJECTILE_BLOCK||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
 			if (result.typeOfHit == Type.ENTITY && (spell.getType()==EnumSpellType.PROJECTILE_ENTITY||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
 		}
+	}
+	
+	@Override
+	public void setDead() {
+		for (int i=0; i<40;i++) Covens.proxy.spawnParticle(EnumParticleTypes.END_ROD, posX, posY, posZ, 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), world);
+		super.setDead();
 	}
 
 }
