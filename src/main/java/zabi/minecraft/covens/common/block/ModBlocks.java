@@ -1,13 +1,13 @@
 package zabi.minecraft.covens.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.lib.Log;
 
-@Mod.EventBusSubscriber
+import net.minecraft.block.Block;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.registries.IForgeRegistry;
+
 public class ModBlocks {
 	
 	public static BlockCircleGlyph glyphs;
@@ -27,6 +27,7 @@ public class ModBlocks {
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
+		MinecraftForge.EVENT_BUS.register(new ModBlocks());
 		glyphs = new BlockCircleGlyph();
 		altar = new BlockWitchAltar();
 		chimney = new BlockChimney();
@@ -57,7 +58,7 @@ public class ModBlocks {
 	}
 	
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
+	public void registerBlocks(RegistryEvent.Register<Block> evt) {
 		Log.i("Registering blocks");
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 

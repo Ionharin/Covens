@@ -1,10 +1,12 @@
 package zabi.minecraft.covens.common.crafting;
 
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -14,8 +16,6 @@ import net.minecraftforge.oredict.OreIngredient;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 
 public class VanillaRecipes {
 	public static void registerAll() {

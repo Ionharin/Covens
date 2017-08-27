@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.registries;
+package zabi.minecraft.covens.common.crafting;
 
 import net.minecraftforge.oredict.OreDictionary;
 import zabi.minecraft.covens.common.block.ModBlocks;

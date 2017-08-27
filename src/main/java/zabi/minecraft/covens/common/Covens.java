@@ -1,5 +1,8 @@
 package zabi.minecraft.covens.common;
 
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -15,22 +18,22 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.capability.AttachDataHandler;
 import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.crafting.OreDict;
 import zabi.minecraft.covens.common.crafting.VanillaRecipes;
 import zabi.minecraft.covens.common.entity.ModEntities;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.network.NetworkModRegistry;
 import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
-import zabi.minecraft.covens.common.registries.OreDict;
-import zabi.minecraft.covens.common.registries.brewing.BrewIngredient;
-import zabi.minecraft.covens.common.registries.brewing.environmental.EnvironmentalPotionEffect;
+import zabi.minecraft.covens.common.registries.brewing.ModBrewIngredients;
+import zabi.minecraft.covens.common.registries.brewing.environmental.ModEnvironmentalPotionEffects;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
 import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
+import zabi.minecraft.covens.common.registries.spell.ModSpells;
 import zabi.minecraft.covens.common.registries.threads.ModSpinningThreadRecipes;
 import zabi.minecraft.covens.common.tileentity.ModTileEntities;
 
@@ -55,14 +58,16 @@ public class Covens {
 		NetworkModRegistry.registerMessages(network);
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		ModEntities.registerAll();
+		Log.d("Resuming registration");
 		ModTileEntities.registerAll();
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();
 		ModPotions.registerAll();
-		BrewIngredient.registerAll();
+		ModBrewIngredients.registerAll();
 		ModBarrelRecipes.registerAll();
-		EnvironmentalPotionEffect.registerAll();
+		ModEnvironmentalPotionEffects.registerAll();
 		ModSpinningThreadRecipes.registerAll();
+		ModSpells.registerAll();
 		proxy.preInit(evt);
 		
 		CapabilityManager.INSTANCE.register(CovensData.class, new CovensData.Storage(), CovensData.Impl.class);

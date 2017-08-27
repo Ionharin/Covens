@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -40,9 +41,11 @@ public class ModItems {
 	public static ItemBroom broom;
 	public static ItemSoulString soulstring;
 	public static ItemCandle candle;
+	public static ItemSpellPage spell_page;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
+		MinecraftForge.EVENT_BUS.register(new ModItems());
 		chalk = new ItemChalk();
 		flowers = new ItemFlowers();
 		altar = new ItemBlock(ModBlocks.altar);
@@ -96,6 +99,7 @@ public class ModItems {
 			}
 		};
 		threadSpinner = new ItemBlock(ModBlocks.threadSpinner);
+		spell_page = new ItemSpellPage();
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -144,12 +148,12 @@ public class ModItems {
 	}
 	
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Item> evt) {
+	public void registerBlocks(RegistryEvent.Register<Item> evt) {
 		Log.i("Registering items");
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner
+				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner, spell_page
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

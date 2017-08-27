@@ -1,11 +1,15 @@
 package zabi.minecraft.covens.common.registries.ritual;
 
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,8 +18,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
@@ -39,6 +41,8 @@ public class ModRituals {
 	
 	public static void registerAll() {
 		Log.i("Creating rituals");
+		
+		MinecraftForge.EVENT_BUS.register(new ModRituals());
 		
 		high_moon_ritual = new RitualHighMoon(
 				of(
@@ -138,7 +142,7 @@ public class ModRituals {
 	}
 	
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Ritual> evt) {
+	public void registerBlocks(RegistryEvent.Register<Ritual> evt) {
 		Log.i("Registering rituals");
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
 		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, 
