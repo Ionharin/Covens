@@ -84,7 +84,6 @@ public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 			}
 			if (hasPowerToUpdate) {
 				ritual.onUpdate(player, this, getWorld(), getPos(), ritualData, cooldown);
-				Log.d("Ritual Updated: "+ritual.getRegistryName());
 			} else {
 				ritual.onLowPower(player, this, world, pos, ritualData, cooldown);
 			}
@@ -166,10 +165,12 @@ public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 	
 	public void addEntityToList(Entity entity) {
 		entityList.add(new Tuple<String, String>(entity.getUniqueID().toString(),entity.getName()));
+		markDirty();
 	}
 	
 	public void addEntityUUIDToList(String uuid, String name) {
 		entityList.add(new Tuple<String, String>(uuid,name));
+		markDirty();
 	}
 
 	private boolean checkFirst(GlyphType typeFirst) {
@@ -212,7 +213,8 @@ public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 			entityPlayer = null;
 			cooldown = 0;
 			ritual = null;
-			ritualData=null;
+			ritualData = null;
+			markDirty();
 		}
 	}
 	
