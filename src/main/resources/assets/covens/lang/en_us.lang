@@ -55,6 +55,9 @@ item.soulstring.name=Soulstring
 item.soulstring.bound=Bound to: %s
 item.witch_candle.name=Witch Candle
 item.witch_candle_revealing.name=Witch Candle of Revealing
+item.spell_page.covens_magnet.name=Spell of Far Reach
+item.spell_page.covens_poke.name=Spell of Punch
+item.spell_page.name=Forgotten Spell
 
 # Block names
 tile.witch_altar.name=Witch Altar

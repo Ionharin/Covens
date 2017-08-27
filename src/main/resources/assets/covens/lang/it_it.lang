@@ -55,6 +55,9 @@ item.soulstring.name=Filo dell'anima
 item.soulstring.bound=Legato a: %s
 item.witch_candle.name=Candela delle streghe
 item.witch_candle_revealing.name=Candela rivelatrice
+item.spell_page.covens_magnet.name=Incanto della presa lontana
+item.spell_page.covens_magnet.name=Incanto del pugno
+item.spell_page.name=Incanto dimenticato
 
 # Block names
 tile.witch_altar.name=Altare delle streghe

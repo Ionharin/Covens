@@ -4,7 +4,9 @@ import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -37,6 +39,7 @@ public abstract class Spell extends IForgeRegistryEntry.Impl<Spell> {
 	}
 	
 	public abstract void performEffect(RayTraceResult rtrace, EntityLivingBase caster);
+	public abstract boolean canBeUsed(World world, BlockPos pos, EntityLivingBase caster);
 	
 	public static enum EnumSpellType {
 		INSTANT, PROJECTILE_BLOCK, PROJECTILE_ENTITY, PROJECTILE_ALL

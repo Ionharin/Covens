@@ -1,12 +1,7 @@
 package zabi.minecraft.covens.common.item;
 
-import java.util.List;
-
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -41,12 +36,17 @@ public class ItemSpellPage extends Item {
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (this.isInCreativeTab(tab)) {
 			for (Spell s:Spell.REGISTRY) {
-				Log.i("sn: "+s.getRegistryName().toString());
 				items.add(getStackFor(s));
 			}
 		}
 	}
-
+	
+	@Override
+	public String getUnlocalizedName(ItemStack stack) {
+		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) return super.getUnlocalizedName(stack)+"."+stack.getTagCompound().getString("spell").replace(':', '_');
+		return super.getUnlocalizedName(stack);
+	}
+	
 	public ItemStack getStackFor(Spell s) {
 		ItemStack stack = new ItemStack(this);
 		stack.setTagCompound(new NBTTagCompound());
@@ -54,7 +54,7 @@ public class ItemSpellPage extends Item {
 		return stack;
 	}
 	
-	public Spell getSpellFromItemStack(ItemStack stack) {
+	public static Spell getSpellFromItemStack(ItemStack stack) {
 		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) {
 			return Spell.REGISTRY.getValue(new ResourceLocation(stack.getTagCompound().getString("spell")));
 		}
@@ -62,16 +62,14 @@ public class ItemSpellPage extends Item {
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		Spell spell = getSpellFromItemStack(stack);
-		if (spell!=null) tooltip.add(I18n.format(spell.getName()));
-		else tooltip.add(I18n.format("item.spell_page.no_spell"));
-	}
-	
-	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-		playerIn.setActiveHand(handIn);
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+		Spell s = getSpellFromItemStack(playerIn.getHeldItem(handIn));
+		if (s.canBeUsed(worldIn, playerIn.getPosition(), playerIn)) {
+			playerIn.setActiveHand(handIn);
+			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+		} else {
+			return super.onItemRightClick(worldIn, playerIn, handIn);
+		}
 	}
 	
 	@Override
@@ -80,13 +78,14 @@ public class ItemSpellPage extends Item {
 		if (spell!=null && !worldIn.isRemote) {
 			if (spell.getType()==EnumSpellType.INSTANT) spell.performEffect(new RayTraceResult(Type.MISS, entityLiving.getLookVec(), EnumFacing.UP, entityLiving.getPosition()), entityLiving);
 			else {
-				EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX, entityLiving.posY+entityLiving.getEyeHeight(), entityLiving.posZ);
+				EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX+entityLiving.getLookVec().x, entityLiving.posY+entityLiving.getEyeHeight()+entityLiving.getLookVec().y, entityLiving.posZ+entityLiving.getLookVec().z);
 				car.setSpell(spell);
 				car.setCaster(entityLiving);
-				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 0.1f, 0);
+				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 1f, 0);
 				worldIn.spawnEntity(car);
 			}
 		}
+		if (entityLiving instanceof EntityPlayer && ((EntityPlayer)entityLiving).isCreative()) return stack;
 		return ItemStack.EMPTY;
 	}
 	

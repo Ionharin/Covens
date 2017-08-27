@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.client.proxy;
 
+import zabi.minecraft.covens.common.lib.Log;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -38,10 +40,11 @@ import zabi.minecraft.covens.common.entity.EntitySpellCarrier;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
 import zabi.minecraft.covens.common.item.ItemFlowers;
 import zabi.minecraft.covens.common.item.ItemMisc;
+import zabi.minecraft.covens.common.item.ItemSpellPage;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.proxy.Proxy;
+import zabi.minecraft.covens.common.registries.spell.Spell;
 
 public class ClientProxy extends Proxy {
 	
@@ -115,6 +118,7 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.misc, 9, 8);
 		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
 		registerModel(ModItems.threadSpinner, 0);
+		registerModel(ModItems.spell_page, 0);
 	}
 
 	private void registerModel(Item item, int meta) {
@@ -165,6 +169,17 @@ public class ClientProxy extends Proxy {
 			}
 		}, ModItems.brew_drinkable, ModItems.brew_gas, ModItems.brew_lingering, ModItems.brew_splash);
 		
+		ic.registerItemColorHandler(new IItemColor() {
+			
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				if (tintIndex==0) {
+					Spell s = ItemSpellPage.getSpellFromItemStack(stack);
+					if (s!=null) return s.getColor();
+				}
+				return -1;
+			}
+		}, ModItems.spell_page);
 	}
 	
 	@SubscribeEvent
