@@ -35,6 +35,10 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 		return output.copy();
 	}
 	
+	public Ingredient[] getInputs() {
+		return inputs;
+	}
+	
 	public boolean matches(NonNullList<ItemStack> list) {
 		int nonEmpty = 0;
 		for (ItemStack is:list) {
