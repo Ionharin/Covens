@@ -4,6 +4,7 @@ import javax.annotation.Nullable;
 
 import zabi.minecraft.covens.common.lib.Reference;
 
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,6 +33,9 @@ public class ItemSpellPage extends Item {
 		this.setMaxStackSize(1);
 		this.setHasSubtypes(true);
 		this.setCreativeTab(ModCreativeTabs.products);
+		
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, new DispenseSpells());
+		
 	}
 	
 	@Override

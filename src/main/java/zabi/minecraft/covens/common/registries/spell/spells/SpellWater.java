@@ -24,7 +24,7 @@ public class SpellWater extends Spell {
 
 	@Override
 	public boolean canBeUsed(World world, BlockPos pos, EntityLivingBase caster) {
-		return true;
+		return !world.provider.isNether();
 	}
 
 }

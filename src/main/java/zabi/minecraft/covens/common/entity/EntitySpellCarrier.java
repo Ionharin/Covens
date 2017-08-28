@@ -60,7 +60,8 @@ public class EntitySpellCarrier extends EntityThrowable {
 	}
 	
 	public void setCaster(EntityLivingBase player) {
-		setCaster(player.getUniqueID().toString());
+		if (player!=null) setCaster(player.getUniqueID().toString());
+		else setCaster("");
 	}
 	
 	@Override
@@ -101,6 +102,7 @@ public class EntitySpellCarrier extends EntityThrowable {
 	@Nullable
 	public EntityLivingBase getCaster() {
 		String uuid = getCasterUUID();
+		if (uuid==null || uuid.equals("")) return null;
 		EntityLivingBase player = this.world.getPlayerEntityByUUID(UUID.fromString(uuid));
 		if (player!=null) return player;
 		ArrayList<Entity> ent = new ArrayList<Entity>(world.getLoadedEntityList());
@@ -112,10 +114,12 @@ public class EntitySpellCarrier extends EntityThrowable {
 	protected void onImpact(RayTraceResult result) {
 		if (!world.isRemote) {
 			Spell spell = getSpell();
-			if (spell!=null) spell.performEffect(result, getCaster(), world);
-			else Log.w("Spell is null for "+this+" with spell reg name of "+getSpellName());
+			EntityLivingBase caster = getCaster();
+			if (spell!=null) {
+				if (result.typeOfHit!=Type.ENTITY || result.entityHit!=caster) spell.performEffect(result, caster, world);
+			} else Log.w("Spell is null for "+this+" with spell reg name of "+getSpellName());
 			if (result.typeOfHit == Type.BLOCK && (spell.getType()==EnumSpellType.PROJECTILE_BLOCK||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
-			if (result.typeOfHit == Type.ENTITY && (spell.getType()==EnumSpellType.PROJECTILE_ENTITY||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
+			if (result.typeOfHit == Type.ENTITY && (spell.getType()==EnumSpellType.PROJECTILE_ENTITY||spell.getType()==EnumSpellType.PROJECTILE_ALL) && result.entityHit!=caster) this.setDead();
 		}
 	}
 	
