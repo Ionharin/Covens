@@ -1,6 +1,7 @@
 {
   "homepage": "http://zabi.altervista.org/minecraft/covens",
   "1.12": {
+  	"0.1.17-dev-patron": "- More Spells and rituals",
   	"0.1.16-dev-patron": "- Spells",
   	"0.1.15-dev-patron": "- Thread spinner",
   	"0.1.14-dev-patron": "- New potions and bugfixes",
@@ -16,6 +17,7 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "1.12.1": {
+  	"0.1.17-dev-patron": "- More Spells and rituals",
   	"0.1.16-dev-patron": "- Spells",
   	"0.1.15-dev-patron": "- Thread spinner",  
   	"0.1.14-dev-patron": "- New potions and bugfixes",  
@@ -31,8 +33,8 @@
     "0.1.4-dev-patron": "No changelog available"
   },
   "promos": {
-    "1.12-latest": "0.1.16-dev",
-    "1.12.1-latest": "0.1.16-dev",
+    "1.12-latest": "0.1.17-dev",
+    "1.12.1-latest": "0.1.17-dev",
     "1.12-recommended": "0.1.12-dev",
     "1.12.1-recommended": "0.1.12-dev"
   }
