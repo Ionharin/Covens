@@ -60,10 +60,10 @@ item.spell_page.covens.magnet.name=Spell of Far Reach
 item.spell_page.covens.poke.name=Spell of Punch
 item.spell_page.covens.water.name=Spell of the Puddle
 item.spell_page.covens.activation.name=Spell of Telekinesis
-item.spell_page.covens.slowness.name=Spell of the Tangled Teet
+item.spell_page.covens.slowness.name=Spell of the Tangled Feet
 item.spell_page.covens.lesser_blink.name=Spell of Lesser Blink
 item.spell_page.covens.blink.name=Spell of Blink
-item.spell_page.covens.destabilization.name=Spell of Destabilization
+item.spell_page.covens.explosion.name=Spell of Destabilization
 
 # Block names
 tile.witch_altar.name=Witch Altar
