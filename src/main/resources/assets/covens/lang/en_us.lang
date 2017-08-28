@@ -118,6 +118,8 @@ ritual.covens.charging_talisman.name=Ritual of Charging
 ritual.covens.redirection.name=Ritual of Redirection
 ritual.covens.identification.name=Ritual of Identification
 ritual.covens.revealing_candle.name=Ritual of Infusion
+ritual.covens.conjure_wither_ritual.name=Ritual of Conjuration (Wither)
+ritual.covens.conjure_witch_ritual.name=Ritual of Conjuration (Witch)
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III

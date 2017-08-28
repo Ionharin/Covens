@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.registries.ritual;
 
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.QuickItemStacks;
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.init.Blocks;
@@ -18,6 +19,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualConjurationWitch;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualConjurationWither;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
@@ -37,6 +40,8 @@ public class ModRituals {
 	private static RitualEnderStream ender_stream = null;
 	private static RitualRedirection redirection_ritual = null;
 	private static RitualIdentification identification_ritual = null;
+	private static RitualConjurationWither conjure_wither_ritual = null;
+	private static RitualConjurationWitch conjure_witch_ritual = null;
 	
 	
 	public static void registerAll() {
@@ -79,12 +84,12 @@ public class ModRituals {
 				nops(), -1, circles(GlyphType.ENDER,GlyphType.ENDER,GlyphType.ENDER), 0, 15);
 		charging_riutual_talisman = new Ritual(
 				of(
-						Ingredient.fromStacks(new ItemStack(ModItems.misc, 1, 8)), 
+						Ingredient.fromStacks(QuickItemStacks.uncharged_talisman), 
 						new OreIngredient("dustRedstone"), 
 						new OreIngredient("dustGlowstone"),
 						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,6))), 
 				ofs(
-						new ItemStack(ModItems.misc,1,9)), 
+						QuickItemStacks.charged_talisman), 
 				80, circles(GlyphType.NORMAL, null, null), 3000, 0);
 		redirection_ritual = new RitualRedirection(
 				of(
@@ -100,12 +105,28 @@ public class ModRituals {
 		revealing_candle = new Ritual(
 				of(
 						Ingredient.fromStacks(new ItemStack(ModItems.candle,1,0)), 
-						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,9)), 
+						Ingredient.fromStacks(QuickItemStacks.charged_talisman), 
 						Ingredient.fromStacks(new ItemStack(ModItems.misc,1,3))), 
 				ofs(
 						new ItemStack(ModItems.candle,1,1), 
-						new ItemStack(ModItems.misc,1,8)), 
+						QuickItemStacks.uncharged_talisman), 
 				100, circles(GlyphType.NORMAL, null, null), 2000, 0);
+		conjure_wither_ritual = new RitualConjurationWither(of(
+					Ingredient.fromStacks(QuickItemStacks.wither_skull),
+					Ingredient.fromItem(Item.getItemFromBlock(Blocks.SOUL_SAND)), 
+					Ingredient.fromStacks(QuickItemStacks.charged_talisman),
+					Ingredient.fromStacks(new ItemStack(ModItems.misc,1,13))
+				), ofs(
+						QuickItemStacks.uncharged_talisman
+				), 200, circles(GlyphType.NETHER, GlyphType.NETHER, GlyphType.NETHER), 8000, 2);
+		conjure_witch_ritual = new RitualConjurationWitch(of(
+					Ingredient.fromItem(ModItems.ritual_knife),
+					Ingredient.fromItem(Items.POISONOUS_POTATO),
+					Ingredient.fromItem(Item.getItemFromBlock(Blocks.RED_MUSHROOM)),
+					Ingredient.fromStacks(QuickItemStacks.charged_talisman)
+				), ofs(
+					QuickItemStacks.uncharged_talisman
+				), 60, circles(GlyphType.NORMAL, GlyphType.NETHER, null), 6000, 4);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -116,6 +137,8 @@ public class ModRituals {
 		ender_stream.setRegistryName(Reference.MID, "ender_stream");
 		identification_ritual.setRegistryName(Reference.MID, "identification");
 		revealing_candle.setRegistryName(Reference.MID, "revealing_candle");
+		conjure_wither_ritual.setRegistryName(Reference.MID, "conjure_wither_ritual");
+		conjure_witch_ritual.setRegistryName(Reference.MID, "conjure_witch_ritual");
 	}
 	
 	public static NonNullList<Ingredient> of(Ingredient... list) {
@@ -146,6 +169,8 @@ public class ModRituals {
 		Log.i("Registering rituals");
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
 		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, 
-				charging_riutual_talisman, redirection_ritual, identification_ritual, revealing_candle);
+				charging_riutual_talisman, redirection_ritual, identification_ritual, revealing_candle, conjure_wither_ritual,
+				conjure_witch_ritual
+				);
 	}
 }

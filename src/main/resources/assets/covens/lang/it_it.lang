@@ -117,6 +117,8 @@ ritual.covens.charging_talisman.name=Rituale della carica
 ritual.covens.redirection.name=Rituale del reindirizzamento
 ritual.covens.identification.name=Rituale del riconoscimento
 ritual.covens.revealing_candle.name=Rituale di infusione
+ritual.covens.conjure_wither_ritual.name=Rituale dell'evocazione (Wither)
+ritual.covens.conjure_witch_ritual.name=Rituale dell'evocazione (Strega)
 
 # Potions
 effect.disrobing=Svestimento
