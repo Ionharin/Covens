@@ -11,7 +11,7 @@ item.sagebrush_seeds.name=Semi di artemisia
 item.chrysanthemum_seeds.name=Semi di crisantemo
 item.flower.hellebore.name=Elleboro
 item.flower.aconitum.name=Aconito napello
-item.flower.sagebrush.name=Fiore di artemisia
+item.flower.sagebrush.name=Artemisia
 item.flower.chrysanthemum.name=Crisantemo
 item.chalk_normal.name=Gesso rituale
 item.chalk_golden.name=Gesso sacrale
@@ -63,6 +63,7 @@ item.spell_page.covens.activation.name=Incanto della telecinesi
 item.spell_page.covens.slowness.name=Incanto dei piedi ingarbugliati
 item.spell_page.covens.lesser_blink.name=Incanto del salto minore
 item.spell_page.covens.blink.name=Incanto del salto
+item.spell_page.covens.destabilization.name=Incanto dell'instabilita'
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
