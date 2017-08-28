@@ -98,12 +98,14 @@ public class TileEntityBarrel extends TileEntityBase implements IAltarUser {
 					internalTank.setCanDrain(true);
 					internalTank.setCanFill(true);
 				}
+				markDirty();
 			}
 		}
 	}
 	
 	private void fetchRecipe() {
 		currentRecipe = BarrelRecipe.getRecipe(getWorld(), input, getPos(), internalTank.getFluid());
+		markDirty();
 	}
 	
 	public void addItem(ItemStack item) {
@@ -147,10 +149,12 @@ public class TileEntityBarrel extends TileEntityBase implements IAltarUser {
 	
 	public void setType(BlockBarrel.WoodType type) {
 		barrelType = type.ordinal();
+		markDirty();
 	}
 	
 	public void setType(int type) {
 		barrelType = type;
+		markDirty();
 	}
 	
 	public BlockBarrel.WoodType getType() {
@@ -168,6 +172,7 @@ public class TileEntityBarrel extends TileEntityBase implements IAltarUser {
 		if (input.size()==0) return ItemStack.EMPTY;
 		ItemStack res = input.get(input.size()-1);
 		input.remove(res);
+		markDirty();
 		checkRecipe();
 		return res;
 	}

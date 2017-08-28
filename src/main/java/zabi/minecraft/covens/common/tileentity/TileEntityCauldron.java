@@ -75,6 +75,7 @@ public class TileEntityCauldron extends TileEntityBase implements IAltarUser {
 		stacks = NonNullList.<ItemStack>create();
 		hasItemsInside = false;
 		setNoLiquid();
+		markDirty();
 	}
 
 	public void dropItemInside(ItemStack stack) {
@@ -89,6 +90,7 @@ public class TileEntityCauldron extends TileEntityBase implements IAltarUser {
 					stacks.add(drop);
 				}
 			}
+			markDirty();
 		}
 	}
 	

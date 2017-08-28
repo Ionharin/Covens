@@ -113,19 +113,21 @@ public class TileEntityChimney extends TileEntityBase implements IInventory /*im
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
+		markDirty();
 		return getStackInSlot(index).splitStack(count);
 	}
 
 	@Override
 	public ItemStack removeStackFromSlot(int index) {
 		ItemStack res = handler.getStackInSlot(index).copy();
-		setInventorySlotContents(index, ItemStack.EMPTY.copy());
+		setInventorySlotContents(index, ItemStack.EMPTY.copy());//This marks dirty
 		return res;
 	}
 
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		handler.setStackInSlot(index, stack);
+		markDirty();
 	}
 
 	@Override
@@ -170,6 +172,7 @@ public class TileEntityChimney extends TileEntityBase implements IInventory /*im
 	public void clear() {
 		removeStackFromSlot(0);
 		removeStackFromSlot(1);
+		markDirty();
 	}
 
 	@Override
