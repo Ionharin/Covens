@@ -64,6 +64,7 @@ item.spell_page.covens.slowness.name=Incanto dei piedi ingarbugliati
 item.spell_page.covens.lesser_blink.name=Incanto del salto minore
 item.spell_page.covens.blink.name=Incanto del salto
 item.spell_page.covens.explosion.name=Incanto dell'instabilita'
+item.spell_page.covens.disarming.name=Incanto del Disarmo
 
 # Block names
 tile.witch_altar.name=Altare delle streghe

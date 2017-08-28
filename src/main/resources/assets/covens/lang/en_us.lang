@@ -64,6 +64,7 @@ item.spell_page.covens.slowness.name=Spell of the Tangled Feet
 item.spell_page.covens.lesser_blink.name=Spell of Lesser Blink
 item.spell_page.covens.blink.name=Spell of Blink
 item.spell_page.covens.explosion.name=Spell of Destabilization
+item.spell_page.covens.disarming.name=Spell of Disarming
 
 # Block names
 tile.witch_altar.name=Witch Altar
