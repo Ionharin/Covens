@@ -25,7 +25,10 @@ public class RenderSpell extends Render<EntitySpellCarrier> {
 	
 	@Override
 	public void doRender(EntitySpellCarrier entity, double x, double y, double z, float entityYaw, float partialTicks) {
-		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.END_ROD, entity.posX, entity.posY, entity.posZ, 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian());
+		double ipx = (entity.posX - entity.lastTickPosX)*partialTicks + entity.lastTickPosX;
+		double ipy = (entity.posY - entity.lastTickPosY)*partialTicks + entity.lastTickPosY;
+		double ipz = (entity.posZ - entity.lastTickPosZ)*partialTicks + entity.lastTickPosZ;
+		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.END_ROD, ipx, ipy, ipz, 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian());
 	}
  
 	@Override
