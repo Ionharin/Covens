@@ -5,6 +5,9 @@ import java.util.Arrays;
 
 import javax.annotation.Nullable;
 
+import zabi.minecraft.covens.common.lib.Log;
+
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
@@ -29,7 +32,6 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
 
 @Mod.EventBusSubscriber
 public class EntityFlyingBroom extends Entity {
@@ -112,7 +114,6 @@ public class EntityFlyingBroom extends Entity {
 		super.onEntityUpdate();
 		this.doBlockCollisions();
 		int broomType = getType();
-		
 		float friction = broomType==0?0.99f:0.98f;
 		if (onGround) friction = 0.8f;
 		
@@ -321,4 +322,8 @@ public class EntityFlyingBroom extends Entity {
 		}
 	}
 	
+	@Override
+	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+		//No fall
+	}
 }
