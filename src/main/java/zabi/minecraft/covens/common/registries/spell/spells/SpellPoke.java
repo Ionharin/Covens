@@ -19,7 +19,7 @@ public class SpellPoke extends Spell {
 	public void performEffect(RayTraceResult rtrace, EntityLivingBase caster, World world) {
 		if (rtrace.typeOfHit==Type.ENTITY && rtrace.entityHit instanceof EntityLivingBase) {
 			if (caster!=null) rtrace.entityHit.attackEntityFrom(new EntityDamageSource(DamageSource.MAGIC.getDamageType(), caster), 1f);
-			else rtrace.entityHit.attackEntityFrom(DamageSource.MAGIC, 1f);
+			else rtrace.entityHit.attackEntityFrom(DamageSource.MAGIC, 0.5f);
 		}
 	}
 
