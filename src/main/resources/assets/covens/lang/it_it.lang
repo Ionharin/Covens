@@ -57,14 +57,19 @@ item.witch_candle.name=Candela delle streghe
 item.witch_candle_revealing.name=Candela rivelatrice
 item.spell_page.name=Incanto dimenticato
 item.spell_page.covens.magnet.name=Incanto della presa lontana
-item.spell_page.covens.magnet.name=Incanto del pugno
+item.spell_page.covens.poke.name=Incanto del pugno
 item.spell_page.covens.water.name=Incanto della pozzanghera
 item.spell_page.covens.activation.name=Incanto della telecinesi
 item.spell_page.covens.slowness.name=Incanto dei piedi ingarbugliati
 item.spell_page.covens.lesser_blink.name=Incanto del salto minore
 item.spell_page.covens.blink.name=Incanto del salto
 item.spell_page.covens.explosion.name=Incanto dell'instabilita'
-item.spell_page.covens.disarming.name=Incanto del Disarmo
+item.spell_page.covens.disarming.name=Incanto del disarmo
+item.spell_page.covens.infuse_life.name=Incanto del dono
+item.spell_page.covens.self_heal.name=Incanto di cura
+item.grimoire.format.name=%s (%s)
+item.grimoire.name=Grimorio
+item.grimoire.creative.name=Grimorio creativo
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
