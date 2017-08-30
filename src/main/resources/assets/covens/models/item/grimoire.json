@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer1": "covens:items/grimoire",
+        "layer0": "covens:items/grimoire_rune"
+    }
+}

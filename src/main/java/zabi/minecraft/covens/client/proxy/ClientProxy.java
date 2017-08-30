@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.client.proxy;
 
+import java.awt.Color;
+
 import zabi.minecraft.covens.common.lib.Log;
 
 import net.minecraft.block.state.IBlockState;
@@ -26,6 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.gui.RenderHUD;
+import zabi.minecraft.covens.client.gui.ScrollHijacker;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
 import zabi.minecraft.covens.client.renderer.entity.RenderSpell;
@@ -59,6 +62,7 @@ public class ClientProxy extends Proxy {
 	public void setup() {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new TintModifier());
+		MinecraftForge.EVENT_BUS.register(new ScrollHijacker());
 	}
 	
 	@Override
@@ -120,6 +124,7 @@ public class ClientProxy extends Proxy {
 		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
 		registerModel(ModItems.threadSpinner, 0);
 		registerModel(ModItems.spell_page, 0);
+		registerModel(ModItems.grimoire, 0);
 	}
 
 	private void registerModel(Item item, int meta) {
@@ -181,8 +186,19 @@ public class ClientProxy extends Proxy {
 				return -1;
 			}
 		}, ModItems.spell_page);
+
+		ic.registerItemColorHandler(new IItemColor() {
+
+			@Override
+			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+				if (tintIndex==0) {
+					return Minecraft.getMinecraft().world!=null?Color.HSBtoRGB(Minecraft.getMinecraft().world.getTotalWorldTime() % 180 / 180f, 0.6f, 0.8f):-1;
+				}
+				return -1;
+			}
+		}, ModItems.grimoire);
 	}
-	
+
 	@SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void registerModels(ModelRegistryEvent event) {
