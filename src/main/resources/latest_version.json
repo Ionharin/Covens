@@ -1,40 +1,12 @@
 {
   "homepage": "http://zabi.altervista.org/minecraft/covens",
   "1.12": {
-  	"0.1.17-dev-patron": "- More Spells and rituals",
-  	"0.1.16-dev-patron": "- Spells",
-  	"0.1.15-dev-patron": "- Thread spinner",
-  	"0.1.14-dev-patron": "- New potions and bugfixes",
-  	"0.1.13-dev-patron": "- New potions and bugfixes",
-    "0.1.12-dev": "- Hotfix for chalk crashing servers",
-  	"0.1.11-dev": "- Public build 2",
-  	"0.1.10-dev-patron": "- Saplings!",
-  	"0.1.9-dev-patron": "- Bugfixes",
-  	"0.1.8-dev-patron": "- Bugfixes and model reworks",
-  	"0.1.7-dev-patron": "- Potion of tinting\n- Goblet remodel", 
-  	"0.1.6-dev-patron": "- Candle progress", 
-    "0.1.5-dev-patron": "- Fixed Barrels\n- Added candles", 
-    "0.1.4-dev-patron": "No changelog available"
   },
   "1.12.1": {
-  	"0.1.17-dev-patron": "- More Spells and rituals",
-  	"0.1.16-dev-patron": "- Spells",
-  	"0.1.15-dev-patron": "- Thread spinner",  
-  	"0.1.14-dev-patron": "- New potions and bugfixes",  
-  	"0.1.13-dev-patron": "- New potions and bugfixes",  
-  	"0.1.12-dev": "- Hotfix for chalk crashing servers",
-  	"0.1.11-dev": "- Public build 2",
-  	"0.1.10-dev-patron": "- Saplings!",
-  	"0.1.9-dev-patron": "- Bugfixes",  
-  	"0.1.8-dev-patron": "- Bugfixes and model reworks",
-  	"0.1.7-dev-patron": "- Potion of tinting\n- Goblet remodel", 
-  	"0.1.6-dev-patron": "- Candle progress", 
-    "0.1.5-dev-patron": "- Fixed Barrels\n- Added candles", 
-    "0.1.4-dev-patron": "No changelog available"
   },
   "promos": {
-    "1.12-latest": "0.1.17-dev",
-    "1.12.1-latest": "0.1.17-dev",
+    "1.12-latest": "0.1.18-dev",
+    "1.12.1-latest": "0.1.18-dev",
     "1.12-recommended": "0.1.12-dev",
     "1.12.1-recommended": "0.1.12-dev"
   }
