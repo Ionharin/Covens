@@ -1,9 +1,12 @@
 package zabi.minecraft.covens.common.item;
 
+import java.util.List;
+
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +22,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import zabi.minecraft.covens.common.entity.EntitySpellCarrier;
 import zabi.minecraft.covens.common.registries.spell.Spell;
@@ -51,6 +55,23 @@ public class ItemGrimoire extends Item {
 			s.getTagCompound().setBoolean("creative", true);
 			s.getTagCompound().setInteger("selected", 0);
 			items.add(s);
+		}
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		if (stack.hasTagCompound()) {
+			NBTTagCompound tag = stack.getTagCompound();
+			if (tag.hasKey("spells")) {
+				if (tag.getInteger("selected")>=0) {
+					String spellRegName = tag.getCompoundTag("spells").getString("spell"+tag.getInteger("selected"));
+					String spellName = TextFormatting.AQUA+I18n.format("item.spell_page."+(spellRegName.replace(':', '.'))+".name");
+					tooltip.add(I18n.format("item.grimoire.selected", spellName));
+				} else {
+					tooltip.add(I18n.format("item.grimoire.selected.none"));
+				}
+			}
+			tooltip.add(I18n.format("item.grimoire.spells_number", tag.getInteger("storedSpells")));
 		}
 	}
 	

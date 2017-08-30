@@ -71,6 +71,9 @@ item.spell_page.covens.self_heal.name=Incanto di cura
 item.grimoire.format.name=%s (%s)
 item.grimoire.name=Grimorio
 item.grimoire.creative.name=Grimorio creativo
+item.grimoire.spells_number=Ci sono %d incanti trascritti
+item.grimoire.selected.none=Nessun incanto selezionato
+item.grimoire.selected=Incanto: %s
 
 # Block names
 tile.witch_altar.name=Altare delle streghe

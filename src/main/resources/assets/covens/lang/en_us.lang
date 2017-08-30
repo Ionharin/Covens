@@ -71,6 +71,9 @@ item.spell_page.covens.self_heal.name=Spell of Restoration
 item.grimoire.format.name=%s (%s)
 item.grimoire.name=Grimoire
 item.grimoire.creative.name=Creative Grimoire
+item.grimoire.spells_number=There are %d spells inside
+item.grimoire.selected.none=No spell selected
+item.grimoire.selected=Spell: %s
 
 # Block names
 tile.witch_altar.name=Witch Altar
