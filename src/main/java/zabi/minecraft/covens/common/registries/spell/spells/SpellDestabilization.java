@@ -14,7 +14,7 @@ public class SpellDestabilization extends Spell {
 
 	@Override
 	public void performEffect(RayTraceResult rtrace, EntityLivingBase caster, World world) {
-		world.newExplosion(caster, rtrace.hitVec.x, rtrace.hitVec.y, rtrace.hitVec.z, 0.3f, false, true);
+		world.newExplosion(caster, rtrace.hitVec.x, rtrace.hitVec.y+0.5, rtrace.hitVec.z, 0.3f, false, true);
 	}
 
 	@Override
