@@ -1,6 +1,7 @@
 package zabi.minecraft.covens.common.crafting;
 
 import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.QuickItemStacks;
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.block.Block;
@@ -105,6 +106,21 @@ public class VanillaRecipes {
 					's', Items.STRING,
 					'w', new ItemStack(ModItems.misc,1,7)
 					);
+		GameRegistry.addShapedRecipe(rl("grimoire"), null, new ItemStack(ModItems.grimoire), 
+					"ltl", "lbl", "lal",
+					'l', new ItemStack(ModItems.misc,1,15),
+					't', QuickItemStacks.charged_talisman,
+					'b', Items.ENCHANTED_BOOK,
+					'a', new ItemStack(ModItems.misc,1,11)
+				);
+		GameRegistry.addShapedRecipe(rl("magic_leather"), null, new ItemStack(ModItems.misc,1,15), 
+				"lol", "bla", "lsl",
+				'l', Items.LEATHER,
+				'o', new ItemStack(ModItems.misc,1,2),
+				'b', new ItemStack(ModItems.misc,1,3),
+				'a', new ItemStack(ModItems.misc,1,4),
+				's', new ItemStack(ModItems.misc,1,5)
+			);
 	}
 
 	private static ItemStack getWoodFromType(int i) {
