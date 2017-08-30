@@ -6,6 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemSeeds;
@@ -43,6 +44,7 @@ public class ModItems {
 	public static ItemCandle candle;
 	public static ItemSpellPage spell_page;
 	public static ItemGrimoire grimoire;
+	public static ItemWitchRobes witch_hat, witch_cloak;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
@@ -102,6 +104,8 @@ public class ModItems {
 		threadSpinner = new ItemBlock(ModBlocks.threadSpinner);
 		spell_page = new ItemSpellPage();
 		grimoire = new ItemGrimoire();
+		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
+		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -150,12 +154,12 @@ public class ModItems {
 	}
 	
 	@SubscribeEvent
-	public void registerBlocks(RegistryEvent.Register<Item> evt) {
+	public void registerItems(RegistryEvent.Register<Item> evt) {
 		Log.i("Registering items");
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner, spell_page, grimoire
+				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner, spell_page, grimoire, witch_hat, witch_cloak
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
 	}

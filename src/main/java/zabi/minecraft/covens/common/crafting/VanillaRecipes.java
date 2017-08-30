@@ -113,13 +113,23 @@ public class VanillaRecipes {
 					'b', Items.ENCHANTED_BOOK,
 					'a', new ItemStack(ModItems.misc,1,11)
 				);
-		GameRegistry.addShapedRecipe(rl("magic_leather"), null, new ItemStack(ModItems.misc,1,15), 
+		GameRegistry.addShapedRecipe(rl("magic_leather"), null, new ItemStack(ModItems.misc,5,15), true,
 				"lol", "bla", "lsl",
 				'l', Items.LEATHER,
 				'o', new ItemStack(ModItems.misc,1,2),
 				'b', new ItemStack(ModItems.misc,1,3),
 				'a', new ItemStack(ModItems.misc,1,4),
 				's', new ItemStack(ModItems.misc,1,5)
+			);
+		GameRegistry.addShapedRecipe(rl("witch_hat"), null, new ItemStack(ModItems.witch_hat), 
+				" l ", "l l", "lol", 
+				'l', new ItemStack(ModItems.misc,1,15),
+				'o', new OreIngredient("dyeBlack")
+			);
+		GameRegistry.addShapedRecipe(rl("witch_cloak"), null, new ItemStack(ModItems.witch_cloak), 
+				"lll", "lll", "lol", 
+				'l', new ItemStack(ModItems.misc,1,15),
+				'o', new OreIngredient("dyeBlack")
 			);
 	}
 
