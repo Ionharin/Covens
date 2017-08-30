@@ -36,8 +36,10 @@ public class RecipeAddSpellToGrimoire implements IRecipe {
 			ItemStack stack = inv.getStackInSlot(i); 
 			if (stack.isEmpty()) continue;
 			itemsFound++;
+			if (itemsFound>2) return false;
 			if (stack.getItem()==ModItems.grimoire) grimoireFound=true;
 			else if (stack.getItem()==ModItems.spell_page && stack.hasTagCompound() && stack.getTagCompound().hasKey("spell")) spellFound=true;
+			else return false;
 		}
 		
 		return itemsFound==2 && grimoireFound && spellFound;
