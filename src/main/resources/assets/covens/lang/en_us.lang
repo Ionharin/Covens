@@ -130,6 +130,9 @@ ritual.covens.identification.name=Ritual of Identification
 ritual.covens.revealing_candle.name=Ritual of Infusion
 ritual.covens.conjure_wither_ritual.name=Ritual of Conjuration (Wither)
 ritual.covens.conjure_witch_ritual.name=Ritual of Conjuration (Witch)
+ritual.covens.infusion_ritual_overworld.name=Ritual of Infusion of Mainworld
+ritual.covens.infusion_ritual_end.name=Ritual of Infusion of Otherworld
+ritual.covens.infusion_ritual_nether.name=Ritual of Infusion of Hellworld
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III

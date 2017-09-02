@@ -43,7 +43,11 @@ public class AttachDataHandler {
 		PlayerData newPlayerData = newPlayer.getCapability(PlayerData.CAPABILITY, null);
 		PlayerData oldPlayerData = oldPlayer.getCapability(PlayerData.CAPABILITY, null);
 		newEntityData.setTint(oldEntityData.getTint());
-		newPlayerData.setInfusion(oldPlayerData.getInfusion());
+		if (!event.isWasDeath()) {
+			newPlayerData.setInfusion(oldPlayerData.getInfusion());
+			newPlayerData.setMaxPower(oldPlayerData.getMaxPower());
+			newPlayerData.setPower(oldPlayerData.getInfusionPower());
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)

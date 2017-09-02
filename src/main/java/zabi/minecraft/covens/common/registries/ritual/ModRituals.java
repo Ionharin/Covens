@@ -19,6 +19,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualConjurationWitch;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualConjurationWither;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
@@ -43,7 +44,9 @@ public class ModRituals {
 	private static RitualIdentification identification_ritual = null;
 	private static RitualConjurationWither conjure_wither_ritual = null;
 	private static RitualConjurationWitch conjure_witch_ritual = null;
-	private static RitualInfusion infusion_ritual = null;
+	private static RitualInfusion infusion_ritual_overworld = null;
+	private static RitualInfusion infusion_ritual_nether = null;
+	private static RitualInfusion infusion_ritual_end = null;
 	
 	
 	public static void registerAll() {
@@ -129,9 +132,21 @@ public class ModRituals {
 				), ofs(
 					QuickItemStacks.uncharged_talisman
 				), 60, circles(GlyphType.NORMAL, GlyphType.NETHER, null), 6000, 4);
-		infusion_ritual = new RitualInfusion(of(
-					Ingredient.fromItem(Items.APPLE)
-				), nops(), 200, circles(GlyphType.NORMAL, null, null), 6000, 5);
+		infusion_ritual_overworld = new RitualInfusion(of(
+					Ingredient.fromItem(Items.EXPERIENCE_BOTTLE),
+					Ingredient.fromStacks(QuickItemStacks.charged_talisman),
+					Ingredient.fromStacks(new ItemStack(ModItems.misc, 1, 12))
+				), nops(), 200, circles(GlyphType.NORMAL, GlyphType.NORMAL, GlyphType.NORMAL), 6000, 5, EnumInfusion.OVERWORLD);
+		infusion_ritual_nether = new RitualInfusion(of(
+				Ingredient.fromItem(Items.NETHER_STAR),
+				Ingredient.fromStacks(QuickItemStacks.charged_talisman),
+				Ingredient.fromStacks(new ItemStack(ModItems.misc, 1, 12))
+			), nops(), 200, circles(GlyphType.NETHER, GlyphType.NETHER, GlyphType.NETHER), 6000, 5, EnumInfusion.NETHER);
+		infusion_ritual_end = new RitualInfusion(of(
+				Ingredient.fromItem(Items.END_CRYSTAL),
+				Ingredient.fromStacks(QuickItemStacks.charged_talisman),
+				Ingredient.fromStacks(new ItemStack(ModItems.misc, 1, 12))
+			), nops(), 200, circles(GlyphType.ENDER, GlyphType.ENDER, GlyphType.ENDER), 6000, 5, EnumInfusion.END);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -144,7 +159,9 @@ public class ModRituals {
 		revealing_candle.setRegistryName(Reference.MID, "revealing_candle");
 		conjure_wither_ritual.setRegistryName(Reference.MID, "conjure_wither_ritual");
 		conjure_witch_ritual.setRegistryName(Reference.MID, "conjure_witch_ritual");
-		infusion_ritual.setRegistryName(Reference.MID, "infusion_ritual");
+		infusion_ritual_overworld.setRegistryName(Reference.MID, "infusion_ritual_overworld");
+		infusion_ritual_nether.setRegistryName(Reference.MID, "infusion_ritual_nether");
+		infusion_ritual_end.setRegistryName(Reference.MID, "infusion_ritual_end");
 	}
 	
 	public static NonNullList<Ingredient> of(Ingredient... list) {
@@ -176,7 +193,7 @@ public class ModRituals {
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
 		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, 
 				charging_riutual_talisman, redirection_ritual, identification_ritual, revealing_candle, conjure_wither_ritual,
-				conjure_witch_ritual, infusion_ritual
+				conjure_witch_ritual, infusion_ritual_end, infusion_ritual_nether, infusion_ritual_overworld
 				);
 	}
 }

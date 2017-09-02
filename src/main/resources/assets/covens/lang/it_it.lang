@@ -129,6 +129,9 @@ ritual.covens.identification.name=Rituale del riconoscimento
 ritual.covens.revealing_candle.name=Rituale di infusione
 ritual.covens.conjure_wither_ritual.name=Rituale dell'evocazione (Wither)
 ritual.covens.conjure_witch_ritual.name=Rituale dell'evocazione (Strega)
+ritual.covens.infusion_ritual_overworld.name=Rituale di infusione di questo mondo
+ritual.covens.infusion_ritual_end.name=Rituale di infusione dell'ultimo mondo
+ritual.covens.infusion_ritual_nether.name=Rituale di infusione del mondo infernale
 
 # Potions
 effect.disrobing=Svestimento
