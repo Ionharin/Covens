@@ -25,10 +25,10 @@ public class AttachDataHandler {
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityLivingBase) {
 			Log.d("Injecting entityLivingBase capabilities");
-			event.addCapability(ENTITY_DATA, new CovensData.Provider());
+			event.addCapability(ENTITY_DATA, new EntityData.Provider());
 			if (event.getObject() instanceof EntityPlayer) {
 				Log.d("Injecting entityPlayer capabilities");
-				event.addCapability(PLAYER_DATA, new WitchData.Provider());
+				event.addCapability(PLAYER_DATA, new PlayerData.Provider());
 			}
 		}
 	}
@@ -38,10 +38,10 @@ public class AttachDataHandler {
 	public void onPlayerRespawn(PlayerEvent.Clone event) {
 		EntityPlayer newPlayer = event.getEntityPlayer();
 		EntityPlayer oldPlayer = event.getOriginal();
-		CovensData newEntityData = newPlayer.getCapability(CovensData.CAPABILITY, null);
-		CovensData oldEntityData = oldPlayer.getCapability(CovensData.CAPABILITY, null);
-		WitchData newPlayerData = newPlayer.getCapability(WitchData.CAPABILITY, null);
-		WitchData oldPlayerData = oldPlayer.getCapability(WitchData.CAPABILITY, null);
+		EntityData newEntityData = newPlayer.getCapability(EntityData.CAPABILITY, null);
+		EntityData oldEntityData = oldPlayer.getCapability(EntityData.CAPABILITY, null);
+		PlayerData newPlayerData = newPlayer.getCapability(PlayerData.CAPABILITY, null);
+		PlayerData oldPlayerData = oldPlayer.getCapability(PlayerData.CAPABILITY, null);
 		newEntityData.setTint(oldEntityData.getTint());
 		newPlayerData.setInfusion(oldPlayerData.getInfusion());
 	}

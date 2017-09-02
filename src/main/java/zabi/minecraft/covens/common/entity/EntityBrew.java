@@ -18,7 +18,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.EntityData;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.potion.ModPotions;
@@ -143,7 +143,7 @@ public class EntityBrew extends EntityThrowable {
                     }
                 }
                 if (isTinting) {
-                	entitylivingbase.getCapability(CovensData.CAPABILITY, null).setTint(data.getColor());
+                	entitylivingbase.getCapability(EntityData.CAPABILITY, null).setTint(data.getColor());
                 }
             }
         }

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.EntityData;
 
 public class SyncEntityDataResponse implements IMessage {
 	
@@ -44,7 +44,7 @@ public class SyncEntityDataResponse implements IMessage {
 		public IMessage onMessage(SyncEntityDataResponse message, MessageContext ctx) {
 			List<Entity> list = new ArrayList<Entity>(Minecraft.getMinecraft().world.loadedEntityList);
 			list.parallelStream().filter(e -> e.getUniqueID().toString().equals(message.id)).forEach(e -> {
-				CovensData.CAPABILITY.getStorage().readNBT(CovensData.CAPABILITY, e.getCapability(CovensData.CAPABILITY, null), null, message.data);
+				EntityData.CAPABILITY.getStorage().readNBT(EntityData.CAPABILITY, e.getCapability(EntityData.CAPABILITY, null), null, message.data);
 			});
 			return null;
 		}

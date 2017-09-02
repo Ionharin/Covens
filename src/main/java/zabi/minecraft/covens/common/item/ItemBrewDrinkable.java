@@ -10,7 +10,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.EntityData;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.registries.brewing.BrewData;
 
@@ -51,7 +51,7 @@ public class ItemBrewDrinkable extends ItemBrewBase {
 			.forEach(ce -> {
 				PotionEffect pe = ce.getPotionEffect();
 					entityLiving.addPotionEffect(pe);
-					if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(CovensData.CAPABILITY, null).setTint(data.getColor());
+					if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(EntityData.CAPABILITY, null).setTint(data.getColor());
 				});
 		return ItemStack.EMPTY;
 	}

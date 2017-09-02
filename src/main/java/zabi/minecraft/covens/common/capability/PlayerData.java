@@ -11,15 +11,15 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 
-public interface WitchData {
+public interface PlayerData {
 
-	@CapabilityInject(WitchData.class)
-	public static final Capability<WitchData> CAPABILITY = null;
+	@CapabilityInject(PlayerData.class)
+	public static final Capability<PlayerData> CAPABILITY = null;
 
 	@Nullable public EnumInfusion getInfusion();
 	public void setInfusion(@Nullable EnumInfusion infusion);
 
-	public static class Impl implements WitchData {
+	public static class Impl implements PlayerData {
 
 		private EnumInfusion infusion = null;
 
@@ -34,16 +34,16 @@ public interface WitchData {
 		}
 	}
 
-	public static class Storage implements IStorage<WitchData> {
+	public static class Storage implements IStorage<PlayerData> {
 		@Override
-		public NBTBase writeNBT(Capability<WitchData> capability, WitchData instance, EnumFacing side) {
+		public NBTBase writeNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side) {
 			NBTTagCompound tag = new NBTTagCompound();
 			if (instance.getInfusion()!=null) tag.setInteger("infusion", instance.getInfusion().ordinal());
 			return tag;
 		}
 
 		@Override
-		public void readNBT(Capability<WitchData> capability, WitchData instance, EnumFacing side, NBTBase nbt) {
+		public void readNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side, NBTBase nbt) {
 			NBTTagCompound tag = (NBTTagCompound) nbt;
 			if (tag.hasKey("infusion")) instance.setInfusion(EnumInfusion.values()[tag.getInteger("infusion")]);
 		}
@@ -51,7 +51,7 @@ public interface WitchData {
 
 	public static class Provider implements ICapabilitySerializable<NBTBase> {
 
-		private WitchData default_capability = CAPABILITY.getDefaultInstance();
+		private PlayerData default_capability = CAPABILITY.getDefaultInstance();
 
 		@Override
 		public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

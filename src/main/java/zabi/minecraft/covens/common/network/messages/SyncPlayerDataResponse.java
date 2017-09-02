@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.WitchData;
+import zabi.minecraft.covens.common.capability.PlayerData;
 
 public class SyncPlayerDataResponse implements IMessage {
 	
@@ -42,7 +42,7 @@ public class SyncPlayerDataResponse implements IMessage {
 		@Override
 		public IMessage onMessage(SyncPlayerDataResponse message, MessageContext ctx) {
 			EntityPlayer witch = Minecraft.getMinecraft().world.getPlayerEntityByUUID(UUID.fromString(message.id));
-			if (witch!=null) WitchData.CAPABILITY.getStorage().readNBT(WitchData.CAPABILITY, witch.getCapability(WitchData.CAPABILITY, null), null, message.data);
+			if (witch!=null) PlayerData.CAPABILITY.getStorage().readNBT(PlayerData.CAPABILITY, witch.getCapability(PlayerData.CAPABILITY, null), null, message.data);
 			return null;
 		}
 

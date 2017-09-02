@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.WitchData;
+import zabi.minecraft.covens.common.capability.PlayerData;
 
 public class SyncPlayerDataRequest implements IMessage {
 	
@@ -34,7 +34,7 @@ public class SyncPlayerDataRequest implements IMessage {
 
 		@Override
 		public SyncPlayerDataResponse onMessage(SyncPlayerDataRequest message, MessageContext ctx) {
-			return new SyncPlayerDataResponse(message.uid, (NBTTagCompound) WitchData.CAPABILITY.getStorage().writeNBT(WitchData.CAPABILITY, ctx.getServerHandler().player.getCapability(WitchData.CAPABILITY, null), null));
+			return new SyncPlayerDataResponse(message.uid, (NBTTagCompound) PlayerData.CAPABILITY.getStorage().writeNBT(PlayerData.CAPABILITY, ctx.getServerHandler().player.getCapability(PlayerData.CAPABILITY, null), null));
 		}
 
 	}

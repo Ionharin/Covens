@@ -8,15 +8,15 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
-public interface CovensData {
+public interface EntityData {
 	
-	@CapabilityInject(CovensData.class)
-	public static final Capability<CovensData> CAPABILITY = null;
+	@CapabilityInject(EntityData.class)
+	public static final Capability<EntityData> CAPABILITY = null;
 	
 	public int getTint();
 	public void setTint(int tint);
 	
-	public static class Impl implements CovensData {
+	public static class Impl implements EntityData {
 		
 		private int tint = -1;
 
@@ -31,16 +31,16 @@ public interface CovensData {
 		}
 	}
 	
-	public static class Storage implements IStorage<CovensData> {
+	public static class Storage implements IStorage<EntityData> {
 		@Override
-		public NBTBase writeNBT(Capability<CovensData> capability, CovensData instance, EnumFacing side) {
+		public NBTBase writeNBT(Capability<EntityData> capability, EntityData instance, EnumFacing side) {
 			NBTTagCompound tag = new NBTTagCompound();
 			tag.setInteger("tint", instance.getTint());
 			return tag;
 		}
 
 		@Override
-		public void readNBT(Capability<CovensData> capability, CovensData instance, EnumFacing side, NBTBase nbt) {
+		public void readNBT(Capability<EntityData> capability, EntityData instance, EnumFacing side, NBTBase nbt) {
 			NBTTagCompound tag = (NBTTagCompound) nbt;
 			instance.setTint(tag.getInteger("tint"));
 		}
@@ -48,7 +48,7 @@ public interface CovensData {
 	
 	public static class Provider implements ICapabilitySerializable<NBTBase> {
 		
-		private CovensData default_capability = CAPABILITY.getDefaultInstance();
+		private EntityData default_capability = CAPABILITY.getDefaultInstance();
 
 		@Override
 		public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

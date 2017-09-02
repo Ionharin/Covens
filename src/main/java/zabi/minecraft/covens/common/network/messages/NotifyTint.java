@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.EntityData;
 
 public class NotifyTint implements IMessage {
 
@@ -43,7 +43,7 @@ public class NotifyTint implements IMessage {
 		@Override
 		public IMessage onMessage(NotifyTint message, MessageContext ctx) {
 			List<Entity> list = Collections.unmodifiableList(Minecraft.getMinecraft().world.loadedEntityList);
-			list.parallelStream().filter(e -> e.getUniqueID().toString().equals(message.entity)).forEach(e -> e.getCapability(CovensData.CAPABILITY, null).setTint(message.color));
+			list.parallelStream().filter(e -> e.getUniqueID().toString().equals(message.entity)).forEach(e -> e.getCapability(EntityData.CAPABILITY, null).setTint(message.color));
 			return null;
 		}
 

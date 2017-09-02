@@ -17,8 +17,8 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.capability.AttachDataHandler;
-import zabi.minecraft.covens.common.capability.CovensData;
-import zabi.minecraft.covens.common.capability.WitchData;
+import zabi.minecraft.covens.common.capability.EntityData;
+import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.crafting.ModIRecipes;
 import zabi.minecraft.covens.common.crafting.OreDict;
 import zabi.minecraft.covens.common.crafting.VanillaRecipes;
@@ -73,8 +73,8 @@ public class Covens {
 		ModIRecipes.registerAll();
 		proxy.preInit(evt);
 		
-		CapabilityManager.INSTANCE.register(CovensData.class, new CovensData.Storage(), CovensData.Impl.class);
-		CapabilityManager.INSTANCE.register(WitchData.class, new WitchData.Storage(), WitchData.Impl.class);
+		CapabilityManager.INSTANCE.register(EntityData.class, new EntityData.Storage(), EntityData.Impl.class);
+		CapabilityManager.INSTANCE.register(PlayerData.class, new PlayerData.Storage(), PlayerData.Impl.class);
 		MinecraftForge.EVENT_BUS.register(new AttachDataHandler());
 		
 		Thread contributors = new Thread(new ContributorDownloader());

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.EntityData;
 
 public class SyncEntityDataRequest implements IMessage {
 	
@@ -34,7 +34,7 @@ public class SyncEntityDataRequest implements IMessage {
 
 		@Override
 		public SyncEntityDataResponse onMessage(SyncEntityDataRequest message, MessageContext ctx) {
-			return new SyncEntityDataResponse(message.uid, (NBTTagCompound) CovensData.CAPABILITY.getStorage().writeNBT(CovensData.CAPABILITY, ctx.getServerHandler().player.getCapability(CovensData.CAPABILITY, null), null));
+			return new SyncEntityDataResponse(message.uid, (NBTTagCompound) EntityData.CAPABILITY.getStorage().writeNBT(EntityData.CAPABILITY, ctx.getServerHandler().player.getCapability(EntityData.CAPABILITY, null), null));
 		}
 
 	}
