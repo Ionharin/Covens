@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import zabi.minecraft.covens.common.lib.Log;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +22,6 @@ import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
 public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
