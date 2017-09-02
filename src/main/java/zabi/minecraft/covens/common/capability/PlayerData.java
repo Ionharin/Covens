@@ -18,10 +18,17 @@ public interface PlayerData {
 
 	@Nullable public EnumInfusion getInfusion();
 	public void setInfusion(@Nullable EnumInfusion infusion);
+	public int getInfusionPower();
+	public boolean usePower(int amount, boolean simulate);
+	public void restorePower();
+	public void setMaxPower(int maxPower);
+	public void setPower(int power);
+	public int getMaxPower();
 
 	public static class Impl implements PlayerData {
 
 		private EnumInfusion infusion = null;
+		private int infusionPower = 0, maxInfusionPower = 0;
 
 		@Override
 		public EnumInfusion getInfusion() {
@@ -32,20 +39,62 @@ public interface PlayerData {
 		public void setInfusion(EnumInfusion infusion) {
 			this.infusion = infusion;
 		}
+
+		@Override
+		public int getInfusionPower() {
+			return infusionPower;
+		}
+
+		@Override
+		public boolean usePower(int amount, boolean simulate) {
+			if (infusionPower<amount) return false;
+			if (!simulate) infusionPower-=amount;
+			return true;
+		}
+
+		@Override
+		public void restorePower() {
+			infusionPower += maxInfusionPower/20;
+			if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+		}
+
+		@Override
+		public void setMaxPower(int maxPower) {
+			maxInfusionPower=maxPower;
+		}
+
+		@Override
+		public int getMaxPower() {
+			return maxInfusionPower;
+		}
+
+		@Override
+		public void setPower(int power) {
+			infusionPower = power;
+			if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+		}
 	}
 
 	public static class Storage implements IStorage<PlayerData> {
 		@Override
 		public NBTBase writeNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side) {
 			NBTTagCompound tag = new NBTTagCompound();
-			if (instance.getInfusion()!=null) tag.setInteger("infusion", instance.getInfusion().ordinal());
+			if (instance.getInfusion()!=null) {
+				tag.setInteger("infusion", instance.getInfusion().ordinal());
+				tag.setInteger("power", instance.getInfusionPower());
+				tag.setInteger("maxPower", instance.getMaxPower());
+			}
 			return tag;
 		}
 
 		@Override
 		public void readNBT(Capability<PlayerData> capability, PlayerData instance, EnumFacing side, NBTBase nbt) {
 			NBTTagCompound tag = (NBTTagCompound) nbt;
-			if (tag.hasKey("infusion")) instance.setInfusion(EnumInfusion.values()[tag.getInteger("infusion")]);
+			if (tag.hasKey("infusion")) {
+				instance.setInfusion(EnumInfusion.values()[tag.getInteger("infusion")]);
+				instance.setMaxPower(tag.getInteger("maxPower"));
+				instance.setPower(tag.getInteger("power"));
+			}
 		}
 	}
 
