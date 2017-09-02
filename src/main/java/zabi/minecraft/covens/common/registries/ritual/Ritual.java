@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -18,8 +20,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
@@ -69,24 +69,37 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		return copy;
 	}
 	
-	public boolean isValidInput(List<ItemStack> recipe, boolean circles) {
-		if (recipe.size()!=input.size()) {
-			Log.d("input size mismatch for "+this.getRegistryName());
+	public boolean isValidInput(List<ItemStack> ground, boolean circles) {
+//		Log.d("Computing recipe validity for "+this.getRegistryName());
+		ArrayList<ItemStack> checklist = new ArrayList<ItemStack>(ground.size());
+		for (ItemStack item:ground) for (int j=0;j<item.getCount();j++) {
+			ItemStack copy = item.copy();
+			copy.setCount(1);
+			checklist.add(copy);
+		}
+		
+		if (checklist.size()!=input.size()) {
+//			Log.d("Wrong input size for "+this.getRegistryName()+": found "+checklist.size()+", expected "+input.size());
 			return false;
 		}
-		for (Ingredient is_recipe:input) {
-			boolean found = false;
-			for (ItemStack is_present:recipe){
-				if (is_recipe.apply(is_present)) {
-					found = true;
-					continue;
+		ArrayList<Ingredient> removalList = new ArrayList<Ingredient>(input);
+		
+		for (ItemStack stack_on_ground:checklist) {
+			Ingredient found = null;
+			for (Ingredient ingredient:removalList) {
+				if (ingredient.apply(stack_on_ground)) {
+					found = ingredient;
+					break;
 				}
 			}
-			if (!found) {
-				Log.d("-> Ingredient not found (any):");
-				for (ItemStack is_i:is_recipe.getMatchingStacks()) Log.d(this.getRegistryName()+" -> not found: "+is_i);
-				return false;
+			if (found==null) {
+				return false; //The stack on the ground doesn't belong to the rite 
 			}
+			removalList.remove(found);
+		}
+		if (!removalList.isEmpty()) {
+//			for (Ingredient ing:removalList) Log.d("Missing ingredient: "+ing.getMatchingStacks()[0]);
+			return false;
 		}
 		return circles;
 	}

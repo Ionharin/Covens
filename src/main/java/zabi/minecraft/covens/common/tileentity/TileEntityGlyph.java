@@ -11,6 +11,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -105,8 +106,8 @@ public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 							NBTTagCompound item = new NBTTagCompound();
 							ei.getItem().writeToNBT(item);
 							ritualData.getCompoundTag("itemsUsed").setTag("item"+ritualData.getCompoundTag("itemsUsed").getKeySet().size(), item);
-							ei.setInfinitePickupDelay();
-							ei.setDead();
+							ei.getItem().setCount(ei.getItem().getCount()-1);
+							if (ei.getItem().getCount()<1) ei.setDead();
 						});
 						this.ritual = rit;
 						this.entityPlayer = player.getPersistentID();
@@ -126,8 +127,6 @@ public class TileEntityGlyph extends TileEntityBase implements IAltarUser {
 					return;
 				}
 
-			} else {
-				Log.d("invalid input for "+rit.getRegistryName());
 			}
 		}
 		player.sendStatusMessage(new TextComponentTranslation("ritual.failure.unknown", new Object[0]), true);
