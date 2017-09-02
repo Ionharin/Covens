@@ -62,13 +62,6 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 		return bounding_box_NS;
 	}
 	
-	
-	
-	@Override
-	public String getUnlocalizedName() {
-		return super.getUnlocalizedName();
-	}
-	
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		return state.getValue(FACING).getHorizontalIndex();
