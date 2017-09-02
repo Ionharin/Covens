@@ -1,4 +1,4 @@
-package zabi.minecraft.covens.common.registries;
+package zabi.minecraft.covens.common.crafting;
 
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -9,7 +9,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import zabi.minecraft.covens.common.crafting.RecipeAddSpellToGrimoire;
 
 @Mod.EventBusSubscriber
 public class ModIRecipes {
