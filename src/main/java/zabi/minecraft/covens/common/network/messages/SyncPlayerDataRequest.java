@@ -1,22 +1,22 @@
 package zabi.minecraft.covens.common.network.messages;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import zabi.minecraft.covens.common.capability.CovensData;
+import zabi.minecraft.covens.common.capability.WitchData;
 
-public class SyncDataRequest implements IMessage {
+public class SyncPlayerDataRequest implements IMessage {
 	
 	String uid;
 	
-	public SyncDataRequest() {
+	public SyncPlayerDataRequest() {
 	}
 	
-	public SyncDataRequest(EntityLivingBase entity) {
+	public SyncPlayerDataRequest(EntityPlayer entity) {
 		uid = entity.getUniqueID().toString();
 	}
 
@@ -30,11 +30,11 @@ public class SyncDataRequest implements IMessage {
 		ByteBufUtils.writeUTF8String(buf, uid);
 	}
 	
-	public static class Handler implements IMessageHandler<SyncDataRequest, SyncDataResponse> {
+	public static class Handler implements IMessageHandler<SyncPlayerDataRequest, SyncPlayerDataResponse> {
 
 		@Override
-		public SyncDataResponse onMessage(SyncDataRequest message, MessageContext ctx) {
-			return new SyncDataResponse(message.uid, (NBTTagCompound) CovensData.CAPABILITY.getStorage().writeNBT(CovensData.CAPABILITY, ctx.getServerHandler().player.getCapability(CovensData.CAPABILITY, null), null));
+		public SyncPlayerDataResponse onMessage(SyncPlayerDataRequest message, MessageContext ctx) {
+			return new SyncPlayerDataResponse(message.uid, (NBTTagCompound) WitchData.CAPABILITY.getStorage().writeNBT(WitchData.CAPABILITY, ctx.getServerHandler().player.getCapability(WitchData.CAPABILITY, null), null));
 		}
 
 	}

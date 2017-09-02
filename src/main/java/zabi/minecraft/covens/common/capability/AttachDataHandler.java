@@ -13,17 +13,23 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
-import zabi.minecraft.covens.common.network.messages.SyncDataRequest;
+import zabi.minecraft.covens.common.network.messages.SyncEntityDataRequest;
+import zabi.minecraft.covens.common.network.messages.SyncPlayerDataRequest;
 
 public class AttachDataHandler {
 
-	public static final ResourceLocation BASE_DATA = new ResourceLocation(Reference.MID, "covens_data");
+	public static final ResourceLocation ENTITY_DATA = new ResourceLocation(Reference.MID, "covens_entity_data");
+	public static final ResourceLocation PLAYER_DATA = new ResourceLocation(Reference.MID, "covens_player_data");
 
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityLivingBase) {
 			Log.d("Injecting entityLivingBase capabilities");
-			event.addCapability(BASE_DATA, new CovensData.Provider());
+			event.addCapability(ENTITY_DATA, new CovensData.Provider());
+			if (event.getObject() instanceof EntityPlayer) {
+				Log.d("Injecting entityPlayer capabilities");
+				event.addCapability(PLAYER_DATA, new WitchData.Provider());
+			}
 		}
 	}
 
@@ -32,16 +38,22 @@ public class AttachDataHandler {
 	public void onPlayerRespawn(PlayerEvent.Clone event) {
 		EntityPlayer newPlayer = event.getEntityPlayer();
 		EntityPlayer oldPlayer = event.getOriginal();
-		CovensData newData = newPlayer.getCapability(CovensData.CAPABILITY, null);
-		CovensData oldData = oldPlayer.getCapability(CovensData.CAPABILITY, null);
-		newData.setTint(oldData.getTint());
+		CovensData newEntityData = newPlayer.getCapability(CovensData.CAPABILITY, null);
+		CovensData oldEntityData = oldPlayer.getCapability(CovensData.CAPABILITY, null);
+		WitchData newPlayerData = newPlayer.getCapability(WitchData.CAPABILITY, null);
+		WitchData oldPlayerData = oldPlayer.getCapability(WitchData.CAPABILITY, null);
+		newEntityData.setTint(oldEntityData.getTint());
+		newPlayerData.setInfusion(oldPlayerData.getInfusion());
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onEntityJoin(EntityJoinWorldEvent evt) {
 		if (evt.getEntity() instanceof EntityLivingBase) {
-			Covens.network.sendToServer(new SyncDataRequest((EntityLivingBase) evt.getEntity()));
+			Covens.network.sendToServer(new SyncEntityDataRequest((EntityLivingBase) evt.getEntity()));
+			if (evt.getEntity() instanceof EntityPlayer) {
+				Covens.network.sendToServer(new SyncPlayerDataRequest((EntityPlayer) evt.getEntity()));
+			}
 		}
 	}
 }
