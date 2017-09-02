@@ -6,6 +6,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiIngame;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +29,7 @@ public class RenderInfusionBar {
 				PlayerData data = player.getCapability(PlayerData.CAPABILITY, null);
 				EnumInfusion inf = data.getInfusion(); 
 				if (inf!=null) {
+					ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
 					GL11.glPushMatrix();
 					GlStateManager.enableAlpha();
 					GlStateManager.enableAlpha();
@@ -35,10 +37,10 @@ public class RenderInfusionBar {
 					int color = inf.color();
 					GlStateManager.color((color>>16 & 0xff)/255f, (color>>8 & 0xff)/255f, (color & 0xff)/255f);
 					Minecraft.getMinecraft().renderEngine.bindTexture(bar_content);
-					GuiIngame.drawModalRectWithCustomSizedTexture(10, 101+((int)(64 * (1-progress))), 0, (1-progress)*64, 16, (int) (64*progress), 16, 64);
+					GuiIngame.drawModalRectWithCustomSizedTexture(10, sr.getScaledHeight()/2-32+((int)(64 * (1-progress))), 0, (1-progress)*64, 16, (int) (64*progress), 16, 64);
 					GlStateManager.color(1f, 1f, 1f);
 					Minecraft.getMinecraft().renderEngine.bindTexture(bar_frame);
-					GuiIngame.drawModalRectWithCustomSizedTexture(10, 100, 0, 0, 16, 64, 16, 64);
+					GuiIngame.drawModalRectWithCustomSizedTexture(10, sr.getScaledHeight()/2-32, 0, 0, 16, 64, 16, 64);
 					GL11.glPopMatrix();
 				}
 			}
