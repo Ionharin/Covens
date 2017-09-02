@@ -6,9 +6,9 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.Capability.IStorage;
 import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 
 public interface PlayerData {
@@ -38,6 +38,10 @@ public interface PlayerData {
 		@Override
 		public void setInfusion(EnumInfusion infusion) {
 			this.infusion = infusion;
+			if (infusion==null) {
+				setMaxPower(0); 
+				setPower(0);
+			}
 		}
 
 		@Override
@@ -47,31 +51,41 @@ public interface PlayerData {
 
 		@Override
 		public boolean usePower(int amount, boolean simulate) {
+			if (infusion==null) return false;
 			if (infusionPower<amount) return false;
-			if (!simulate) infusionPower-=amount;
+			if (!simulate) {
+				infusionPower-=amount;
+				if (infusionPower<0) setInfusion(null);
+			}
 			return true;
 		}
 
 		@Override
 		public void restorePower() {
-			infusionPower += maxInfusionPower/20;
-			if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+			if (infusion!=null) {
+				infusionPower += maxInfusionPower/20;
+				if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+			}
 		}
 
 		@Override
 		public void setMaxPower(int maxPower) {
-			maxInfusionPower=maxPower;
+			if (infusion!=null) maxInfusionPower=maxPower;
 		}
 
 		@Override
 		public int getMaxPower() {
+			if (infusion==null) return 0;
 			return maxInfusionPower;
 		}
 
 		@Override
 		public void setPower(int power) {
-			infusionPower = power;
-			if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+			if (infusion!=null) {
+				infusionPower = power;
+				if (infusionPower>maxInfusionPower) infusionPower = maxInfusionPower;
+				if (power<=0) setInfusion(null);
+			}
 		}
 	}
 

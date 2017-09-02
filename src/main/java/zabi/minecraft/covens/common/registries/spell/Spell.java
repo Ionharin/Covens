@@ -15,14 +15,15 @@ public abstract class Spell extends IForgeRegistryEntry.Impl<Spell> {
 	
 	public static final IForgeRegistry<Spell> REGISTRY = new RegistryBuilder<Spell>().setName(new ResourceLocation(Reference.MID, "witch_spells")).setType(Spell.class).setIDRange(0, 200).create();
 	
-	int color;
+	int color,cost;
 	String name;
 	EnumSpellType type;
 	
-	public Spell(int color, EnumSpellType type, String name, String mod_id) {
+	public Spell(int cost, int color, EnumSpellType type, String name, String mod_id) {
 		this.color = color;
 		this.name = name;
 		this.type = type;
+		this.cost = cost;
 		this.setRegistryName(mod_id, name);
 	}
 	
@@ -32,6 +33,10 @@ public abstract class Spell extends IForgeRegistryEntry.Impl<Spell> {
 	
 	public int getColor() {
 		return color;
+	}
+	
+	public int getCost() {
+		return cost;
 	}
 	
 	public EnumSpellType getType() {

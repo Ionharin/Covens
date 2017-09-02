@@ -8,8 +8,8 @@ import zabi.minecraft.covens.common.registries.spell.Spell;
 
 public class SpellDestabilization extends Spell {
 
-	public SpellDestabilization(int color, EnumSpellType type, String name, String mod_id) {
-		super(color, type, name, mod_id);
+	public SpellDestabilization(int cost, int color, EnumSpellType type, String name, String mod_id) {
+		super(cost, color, type, name, mod_id);
 	}
 
 	@Override

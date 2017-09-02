@@ -10,8 +10,8 @@ import zabi.minecraft.covens.common.registries.spell.Spell;
 
 public class SpellBlink extends Spell {
 
-	public SpellBlink(int color, EnumSpellType type, String name, String mod_id) {
-		super(color, type, name, mod_id);
+	public SpellBlink(int cost, int color, EnumSpellType type, String name, String mod_id) {
+		super(cost, color, type, name, mod_id);
 	}
 
 	@Override

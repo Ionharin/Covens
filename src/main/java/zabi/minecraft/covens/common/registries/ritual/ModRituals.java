@@ -25,6 +25,7 @@ import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderGate;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualEnderStream;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualHighMoon;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualIdentification;
+import zabi.minecraft.covens.common.registries.ritual.rituals.RitualInfusion;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualPerception;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualRedirection;
 import zabi.minecraft.covens.common.registries.ritual.rituals.RitualSandsTime;
@@ -42,6 +43,7 @@ public class ModRituals {
 	private static RitualIdentification identification_ritual = null;
 	private static RitualConjurationWither conjure_wither_ritual = null;
 	private static RitualConjurationWitch conjure_witch_ritual = null;
+	private static RitualInfusion infusion_ritual = null;
 	
 	
 	public static void registerAll() {
@@ -127,6 +129,9 @@ public class ModRituals {
 				), ofs(
 					QuickItemStacks.uncharged_talisman
 				), 60, circles(GlyphType.NORMAL, GlyphType.NETHER, null), 6000, 4);
+		infusion_ritual = new RitualInfusion(of(
+					Ingredient.fromItem(Items.APPLE)
+				), nops(), 200, circles(GlyphType.NORMAL, null, null), 6000, 5);
 		
 		high_moon_ritual.setRegistryName(Reference.MID, "high_moon");
 		sand_time_ritual.setRegistryName(Reference.MID, "time_sands");
@@ -139,6 +144,7 @@ public class ModRituals {
 		revealing_candle.setRegistryName(Reference.MID, "revealing_candle");
 		conjure_wither_ritual.setRegistryName(Reference.MID, "conjure_wither_ritual");
 		conjure_witch_ritual.setRegistryName(Reference.MID, "conjure_witch_ritual");
+		infusion_ritual.setRegistryName(Reference.MID, "infusion_ritual");
 	}
 	
 	public static NonNullList<Ingredient> of(Ingredient... list) {
@@ -170,7 +176,7 @@ public class ModRituals {
 		IForgeRegistry<Ritual> ritualRegistry = evt.getRegistry();
 		ritualRegistry.registerAll(high_moon_ritual, sand_time_ritual, perception_ritual, charging_ritual_cardinal_stone, ender_gate, ender_stream, 
 				charging_riutual_talisman, redirection_ritual, identification_ritual, revealing_candle, conjure_wither_ritual,
-				conjure_witch_ritual
+				conjure_witch_ritual, infusion_ritual
 				);
 	}
 }

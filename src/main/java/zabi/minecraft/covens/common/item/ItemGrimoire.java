@@ -24,12 +24,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.api.utils.IInfusionPowerUser;
+import zabi.minecraft.covens.common.Covens;
+import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.entity.EntitySpellCarrier;
+import zabi.minecraft.covens.common.network.messages.InfusionPowerChanged;
 import zabi.minecraft.covens.common.registries.spell.Spell;
 import zabi.minecraft.covens.common.registries.spell.Spell.EnumSpellType;
 
-public class ItemGrimoire extends Item {
-	
+public class ItemGrimoire extends Item implements IInfusionPowerUser {
+
 	public ItemGrimoire() {
 		this.setRegistryName(Reference.MID, "grimoire");
 		this.setUnlocalizedName("grimoire");
@@ -57,7 +61,7 @@ public class ItemGrimoire extends Item {
 			items.add(s);
 		}
 	}
-	
+
 	@Override
 	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		if (stack.hasTagCompound()) {
@@ -74,13 +78,13 @@ public class ItemGrimoire extends Item {
 			tooltip.add(I18n.format("item.grimoire.spells_number", tag.getInteger("storedSpells")));
 		}
 	}
-	
+
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		if (stack.hasTagCompound() && stack.getTagCompound().getBoolean("creative")) return super.getUnlocalizedName(stack)+".creative";
 		return super.getUnlocalizedName(stack);
 	}
-	
+
 	@Override
 	public String getHighlightTip(ItemStack item, String displayName) {
 		if (item.hasTagCompound() && item.getTagCompound().hasKey("selected") && item.getTagCompound().getInteger("selected")>=0) {
@@ -92,16 +96,17 @@ public class ItemGrimoire extends Item {
 		}
 		return super.getHighlightTip(item, displayName);
 	}
-	
+
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 		Spell s = getSpellFromItemStack(playerIn.getHeldItem(handIn));
 		if (s!=null && s.canBeUsed(worldIn, playerIn.getPosition(), playerIn)) {
-			playerIn.setActiveHand(handIn);
-			return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
-		} else {
-			return super.onItemRightClick(worldIn, playerIn, handIn);
+			if (playerIn.getCapability(PlayerData.CAPABILITY, null).usePower(s.getCost(), true)) {
+				playerIn.setActiveHand(handIn);
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+			}
 		}
+		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 
 	private Spell getSpellFromItemStack(ItemStack item) {
@@ -116,18 +121,21 @@ public class ItemGrimoire extends Item {
 	public ItemStack onItemUseFinish(ItemStack item, World worldIn, EntityLivingBase entityLiving) {
 		Spell spell = getSpellFromItemStack(item);
 		if (spell!=null && !worldIn.isRemote) {
-			if (spell.getType()==EnumSpellType.INSTANT) spell.performEffect(new RayTraceResult(Type.MISS, entityLiving.getLookVec(), EnumFacing.UP, entityLiving.getPosition()), entityLiving, worldIn);
-			else {
-				EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX+entityLiving.getLookVec().x, entityLiving.posY+entityLiving.getEyeHeight()+entityLiving.getLookVec().y, entityLiving.posZ+entityLiving.getLookVec().z);
-				car.setSpell(spell);
-				car.setCaster(entityLiving);
-				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 2f, 0);
-				worldIn.spawnEntity(car);
+			if ((!(entityLiving instanceof EntityPlayer)) || entityLiving.getCapability(PlayerData.CAPABILITY, null).usePower(spell.getCost(), false)) {
+				if (spell.getType()==EnumSpellType.INSTANT) spell.performEffect(new RayTraceResult(Type.MISS, entityLiving.getLookVec(), EnumFacing.UP, entityLiving.getPosition()), entityLiving, worldIn);
+				else {
+					EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX+entityLiving.getLookVec().x, entityLiving.posY+entityLiving.getEyeHeight()+entityLiving.getLookVec().y, entityLiving.posZ+entityLiving.getLookVec().z);
+					car.setSpell(spell);
+					car.setCaster(entityLiving);
+					car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 2f, 0);
+					worldIn.spawnEntity(car);
+				}
+				Covens.network.sendToDimension(new InfusionPowerChanged((EntityPlayer) entityLiving, entityLiving.getCapability(PlayerData.CAPABILITY, null).getInfusionPower()), entityLiving.world.provider.getDimension());
 			}
 		}
 		return super.onItemUseFinish(item, worldIn, entityLiving);
 	}
-	
+
 	@Override
 	public int getMaxItemUseDuration(ItemStack stack) {
 		return 10;
@@ -158,11 +166,11 @@ public class ItemGrimoire extends Item {
 			}
 		}
 	}
-	
+
 	private static void selectSpell(ItemStack stack, int currentlySelected) {
 		stack.getTagCompound().setInteger("selected", currentlySelected);
 	}
-	
+
 	@Override
 	public EnumAction getItemUseAction(ItemStack stack) {
 		return EnumAction.BOW;

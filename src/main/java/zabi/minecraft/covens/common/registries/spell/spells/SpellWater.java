@@ -10,8 +10,8 @@ import zabi.minecraft.covens.common.registries.spell.Spell;
 
 public class SpellWater extends Spell {
 
-	public SpellWater(int color, EnumSpellType type, String name, String mod_id) {
-		super(color, type, name, mod_id);
+	public SpellWater(int cost, int color, EnumSpellType type, String name, String mod_id) {
+		super(cost, color, type, name, mod_id);
 	}
 
 	@Override

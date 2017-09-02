@@ -13,8 +13,8 @@ import zabi.minecraft.covens.common.registries.spell.Spell;
 
 public class SpellDisarming extends Spell {
 
-	public SpellDisarming(int color, EnumSpellType type, String name, String mod_id) {
-		super(color, type, name, mod_id);
+	public SpellDisarming(int cost, int color, EnumSpellType type, String name, String mod_id) {
+		super(cost, color, type, name, mod_id);
 	}
 
 	@Override

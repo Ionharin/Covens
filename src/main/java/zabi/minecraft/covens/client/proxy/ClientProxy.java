@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.gui.RenderCandleData;
+import zabi.minecraft.covens.client.gui.RenderInfusionBar;
 import zabi.minecraft.covens.client.gui.ScrollHijacker;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
@@ -63,6 +64,7 @@ public class ClientProxy extends Proxy {
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new TintModifier());
 		MinecraftForge.EVENT_BUS.register(new ScrollHijacker());
+		MinecraftForge.EVENT_BUS.register(new RenderInfusionBar());
 	}
 	
 	@Override
