@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import zabi.minecraft.covens.client.gui.RenderHUD;
+import zabi.minecraft.covens.client.gui.RenderCandleData;
 import zabi.minecraft.covens.client.gui.ScrollHijacker;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
@@ -208,7 +208,7 @@ public class ClientProxy extends Proxy {
 	
 	@Override
 	public void setupRenderHUD(World world, BlockPos pos) {
-		RenderHUD.INSTANCE.setup(pos, world);
+		RenderCandleData.INSTANCE.setup(pos, world);
 	}
 	
 	@Override

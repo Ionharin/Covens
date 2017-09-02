@@ -22,12 +22,12 @@ import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 @SideOnly(Side.CLIENT)
-public class RenderHUD {
+public class RenderCandleData {
 	
-	public static final RenderHUD INSTANCE = new RenderHUD();
+	public static final RenderCandleData INSTANCE = new RenderCandleData();
 	public static final int MAX_TIME_TICKS = 1000;
 	
-	private RenderHUD() {}
+	private RenderCandleData() {}
 	
 	private HUDSubject subject = null;
 	
