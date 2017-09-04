@@ -15,7 +15,7 @@ import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.threads.SpinningThreadRecipe;
 
-public class TileEntityThreadSpinner extends TileEntityBase implements IInventory, IAltarUser {
+public class TileEntityThreadSpinner extends TileEntityBaseTickable implements IInventory, IAltarUser {
 	
 	public static final int MAX_TICKS = 200;
 	public static final int POWER_PER_TICK = 6;

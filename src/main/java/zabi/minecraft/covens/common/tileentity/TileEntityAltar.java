@@ -24,7 +24,7 @@ import zabi.minecraft.covens.common.block.BlockWitchAltar;
 import zabi.minecraft.covens.common.block.BlockWitchAltar.AltarMultiblockType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 
-public class TileEntityAltar extends TileEntityBase {
+public class TileEntityAltar extends TileEntityBaseTickable {
 	
 	private static final int REFRESH_TIME = 200, RADIUS = 18, MAX_SCORE_PER_CATEGORY = 20;
 	

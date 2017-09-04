@@ -1,15 +1,14 @@
 package zabi.minecraft.covens.common.tileentity;
 
+import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ITickable;
-import zabi.minecraft.covens.common.lib.Reference;
 
 
-public abstract class TileEntityBase extends TileEntity implements ITickable {
+public abstract class TileEntityBase extends TileEntity {
 
 	private static final String UNIQUE_TAG = Reference.MID;
 
@@ -38,8 +37,6 @@ public abstract class TileEntityBase extends TileEntity implements ITickable {
 
 	protected abstract void NBTSave(NBTTagCompound tag);
 
-	protected abstract void tick();
-
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -51,12 +48,6 @@ public abstract class TileEntityBase extends TileEntity implements ITickable {
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
 		readFromNBT((pkt.getNbtCompound()));
-	}
-
-	@Override
-	public void update() {
-//		if (!Config.disableTileEntities) tick();
-		tick();
 	}
 	
 	@Override

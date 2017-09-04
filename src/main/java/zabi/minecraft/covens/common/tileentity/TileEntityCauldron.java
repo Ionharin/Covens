@@ -13,7 +13,7 @@ import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockCauldron;
 import zabi.minecraft.covens.common.registries.brewing.PotionDigester;
 
-public class TileEntityCauldron extends TileEntityBase implements IAltarUser {
+public class TileEntityCauldron extends TileEntityBaseTickable implements IAltarUser {
 	
 	public void setNoLiquid() {
 		world.setBlockState(pos, world.getBlockState(pos).withProperty(BlockCauldron.FULL, false), 3);

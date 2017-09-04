@@ -16,7 +16,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.registries.chimney.ChimneyRecipe;
 
-public class TileEntityChimney extends TileEntityBase implements IInventory /*implements ISidedInventory*/ {
+public class TileEntityChimney extends TileEntityBaseTickable implements IInventory /*implements ISidedInventory*/ {
 	
 	ItemStackHandler handler = new ItemStackHandler(2) {
 		@Override

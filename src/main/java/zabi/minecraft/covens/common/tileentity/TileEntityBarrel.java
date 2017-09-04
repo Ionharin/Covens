@@ -13,7 +13,7 @@ import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
-public class TileEntityBarrel extends TileEntityBase implements IAltarUser {
+public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUser {
 	
 	FluidTank internalTank = new FluidTank(Fluid.BUCKET_VOLUME) {
 		protected void onContentsChanged() {
