@@ -117,9 +117,9 @@ public class EntitySpellCarrier extends EntityThrowable {
 			EntityLivingBase caster = getCaster();
 			if (spell!=null) {
 				if (result.typeOfHit!=Type.ENTITY || result.entityHit!=caster) spell.performEffect(result, caster, world);
+				if (result.typeOfHit == Type.BLOCK && (spell.getType()==EnumSpellType.PROJECTILE_BLOCK||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
+				if (result.typeOfHit == Type.ENTITY && (spell.getType()==EnumSpellType.PROJECTILE_ENTITY||spell.getType()==EnumSpellType.PROJECTILE_ALL) && result.entityHit!=caster) this.setDead();
 			} else Log.w("Spell is null for "+this+" with spell reg name of "+getSpellName());
-			if (result.typeOfHit == Type.BLOCK && (spell.getType()==EnumSpellType.PROJECTILE_BLOCK||spell.getType()==EnumSpellType.PROJECTILE_ALL)) this.setDead();
-			if (result.typeOfHit == Type.ENTITY && (spell.getType()==EnumSpellType.PROJECTILE_ENTITY||spell.getType()==EnumSpellType.PROJECTILE_ALL) && result.entityHit!=caster) this.setDead();
 		}
 	}
 	

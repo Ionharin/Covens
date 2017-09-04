@@ -4,7 +4,9 @@ import javax.annotation.Nullable;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -24,11 +26,14 @@ public interface PlayerData {
 	public void setMaxPower(int maxPower);
 	public void setPower(int power);
 	public int getMaxPower();
+	public BlockPos getSpectatingPoint();
+	public void setSpectatingPoint(BlockPos pos);
 
 	public static class Impl implements PlayerData {
 
 		private EnumInfusion infusion = null;
 		private int infusionPower = 0, maxInfusionPower = 0;
+		private BlockPos pos = null; 
 
 		@Override
 		public EnumInfusion getInfusion() {
@@ -87,6 +92,16 @@ public interface PlayerData {
 				if (power<=0) setInfusion(null);
 			}
 		}
+		
+		@Override
+		public BlockPos getSpectatingPoint() {
+			return pos;
+		}
+		
+		@Override
+		public void setSpectatingPoint(BlockPos pos) {
+			this.pos = pos;
+		}
 	}
 
 	public static class Storage implements IStorage<PlayerData> {
@@ -98,6 +113,7 @@ public interface PlayerData {
 				tag.setInteger("power", instance.getInfusionPower());
 				tag.setInteger("maxPower", instance.getMaxPower());
 			}
+			if (instance.getSpectatingPoint()!=null) tag.setTag("spect_position", NBTUtil.createPosTag(instance.getSpectatingPoint()));
 			return tag;
 		}
 
@@ -109,6 +125,7 @@ public interface PlayerData {
 				instance.setMaxPower(tag.getInteger("maxPower"));
 				instance.setPower(tag.getInteger("power"));
 			}
+			if (tag.hasKey("spect_position")) instance.setSpectatingPoint(NBTUtil.getPosFromTag(tag.getCompoundTag("spect_position")));
 		}
 	}
 

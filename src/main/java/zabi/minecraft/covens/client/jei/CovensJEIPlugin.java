@@ -51,7 +51,7 @@ public class CovensJEIPlugin implements IModPlugin {
 		
 		registry.handleRecipes(SpinningThreadRecipe.class, i -> new SpinnerWrapper(i), SpinnerCategory.UID);
 		registry.addRecipes(SpinningThreadRecipe.REGISTRY.getValues(), SpinnerCategory.UID);
-		registry.addRecipeCatalyst(new ItemStack(ModBlocks.threadSpinner), SpinnerCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.thread_spinner), SpinnerCategory.UID);
 	}
 	
 	protected static class RitualWrapperFactory implements IRecipeWrapperFactory<Ritual> {

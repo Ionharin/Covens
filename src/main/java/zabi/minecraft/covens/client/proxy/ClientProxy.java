@@ -50,6 +50,7 @@ import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.proxy.Proxy;
 import zabi.minecraft.covens.common.registries.spell.Spell;
+import zabi.minecraft.covens.common.tileentity.TileEntityCrystalBall;
 
 public class ClientProxy extends Proxy {
 	
@@ -65,6 +66,7 @@ public class ClientProxy extends Proxy {
 		MinecraftForge.EVENT_BUS.register(new TintModifier());
 		MinecraftForge.EVENT_BUS.register(new ScrollHijacker());
 		MinecraftForge.EVENT_BUS.register(new RenderInfusionBar());
+		MinecraftForge.EVENT_BUS.register(new TileEntityCrystalBall.Handler());
 	}
 	
 	@Override
@@ -109,9 +111,9 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.leaves_elder, 0);
 		registerModel(ModItems.leaves_juniper, 0);
 		registerModel(ModItems.leaves_yew, 0);
-		registerModel(ModItems.yewPlanks,0);
-		registerModel(ModItems.juniperPlanks,0);
-		registerModel(ModItems.elderPlanks,0);
+		registerModel(ModItems.planks_yew,0);
+		registerModel(ModItems.planks_juniper,0);
+		registerModel(ModItems.planks_elder,0);
 		registerModel(ModItems.goblet, 0);
 		registerModel(ModItems.candle_plate, 0);
 		registerModel(ModItems.soulstring, 0);
@@ -124,9 +126,10 @@ public class ClientProxy extends Proxy {
 		for (int i=0;i<BlockBarrel.WoodType.values().length;i++) registerModel(ModItems.barrel, i);
 		registerModel(ModItems.misc, 9, 8);
 		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
-		registerModel(ModItems.threadSpinner, 0);
+		registerModel(ModItems.thread_spinner, 0);
 		registerModel(ModItems.spell_page, 0);
 		registerModel(ModItems.grimoire, 0);
+		registerModel(ModItems.crystal_ball, 0);
 	}
 
 	private void registerModel(Item item, int meta) {

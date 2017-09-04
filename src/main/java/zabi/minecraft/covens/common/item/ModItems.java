@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.item;
 
 import java.util.List;
 
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -20,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 import zabi.minecraft.covens.common.block.BlockBarrel;
+import zabi.minecraft.covens.common.block.BlockModCrop;
 import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.lib.Log;
@@ -28,23 +30,11 @@ import zabi.minecraft.covens.common.lib.Reference;
 @Mod.EventBusSubscriber
 public class ModItems {
 	
-	public static ItemChalk chalk;
-	public static ItemBlock altar,chimney,cauldron, log_yew, log_juniper, log_elder, yewPlanks, juniperPlanks, elderPlanks, goblet;
-	public static ItemBlock candle_plate, barrel, sapling, threadSpinner;
-	public static ItemSeeds helleboreSeeds, aconitumSeeds, sagebrushSeeds, chrysanthemumSeeds;
-	public static ItemCardinalStone cardinal_stone;
-	public static ItemFlowers flowers;
-	public static ItemBrewBase brew_drinkable, brew_splash, brew_gas, brew_lingering;
-	public static ItemMisc misc;
-	public static ItemRitualKnife ritual_knife;
-	public static ItemEerieSeeds eerie_seeds;
-	public static ItemModLeaves leaves_yew, leaves_elder, leaves_juniper;
-	public static ItemBroom broom;
-	public static ItemSoulString soulstring;
-	public static ItemCandle candle;
-	public static ItemSpellPage spell_page;
-	public static ItemGrimoire grimoire;
-	public static ItemWitchRobes witch_hat, witch_cloak;
+	public static Item chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
+		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
+		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
+		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
+		crystal_ball;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
@@ -85,12 +75,12 @@ public class ModItems {
 		brew_gas = new ItemBrewBase("brew_gas");
 		brew_lingering = new ItemBrewBase("brew_lingering");
 		ritual_knife = new ItemRitualKnife();
-		leaves_elder = new ItemModLeaves(ModBlocks.leaves_elder);
-		leaves_yew = new ItemModLeaves(ModBlocks.leaves_yew);
-		leaves_juniper = new ItemModLeaves(ModBlocks.leaves_juniper);
-		yewPlanks = new ItemBlock(ModBlocks.planks_yew);
-		juniperPlanks = new ItemBlock(ModBlocks.planks_juniper);
-		elderPlanks = new ItemBlock(ModBlocks.planks_elder);
+		leaves_elder = new ItemModLeaves((BlockLeaves) ModBlocks.leaves_elder);
+		leaves_yew = new ItemModLeaves((BlockLeaves) ModBlocks.leaves_yew);
+		leaves_juniper = new ItemModLeaves((BlockLeaves) ModBlocks.leaves_juniper);
+		planks_yew = new ItemBlock(ModBlocks.planks_yew);
+		planks_juniper = new ItemBlock(ModBlocks.planks_juniper);
+		planks_elder = new ItemBlock(ModBlocks.planks_elder);
 		candle_plate = new ItemBlock(ModBlocks.candle_plate);
 		broom = new ItemBroom();
 		soulstring = new ItemSoulString();
@@ -101,11 +91,12 @@ public class ModItems {
 				return super.getUnlocalizedName(stack)+"_"+EnumSaplingType.values()[stack.getMetadata()].getName();
 			}
 		};
-		threadSpinner = new ItemBlock(ModBlocks.threadSpinner);
+		thread_spinner = new ItemBlock(ModBlocks.thread_spinner);
 		spell_page = new ItemSpellPage();
 		grimoire = new ItemGrimoire();
 		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
 		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
+		crystal_ball = new ItemBlock(ModBlocks.crystal_ball);
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -116,14 +107,15 @@ public class ModItems {
 		leaves_juniper.setRegistryName(ModBlocks.leaves_juniper.getRegistryName());
 		leaves_yew.setRegistryName(ModBlocks.leaves_yew.getRegistryName());
 		leaves_elder.setRegistryName(ModBlocks.leaves_elder.getRegistryName());
-		yewPlanks.setRegistryName(ModBlocks.planks_yew.getRegistryName());
-		juniperPlanks.setRegistryName(ModBlocks.planks_juniper.getRegistryName());
-		elderPlanks.setRegistryName(ModBlocks.planks_elder.getRegistryName());
+		planks_yew.setRegistryName(ModBlocks.planks_yew.getRegistryName());
+		planks_juniper.setRegistryName(ModBlocks.planks_juniper.getRegistryName());
+		planks_elder.setRegistryName(ModBlocks.planks_elder.getRegistryName());
 		goblet.setRegistryName(ModBlocks.goblet.getRegistryName());
 		candle_plate.setRegistryName(ModBlocks.candle_plate.getRegistryName());
 		barrel.setRegistryName(ModBlocks.barrel.getRegistryName());
 		sapling.setRegistryName(ModBlocks.sapling.getRegistryName());
-		threadSpinner.setRegistryName(ModBlocks.threadSpinner.getRegistryName());
+		thread_spinner.setRegistryName(ModBlocks.thread_spinner.getRegistryName());
+		crystal_ball.setRegistryName(ModBlocks.crystal_ball.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -135,10 +127,10 @@ public class ModItems {
 		sagebrushSeeds.setCreativeTab(ModCreativeTabs.herbs);
 		chrysanthemumSeeds.setCreativeTab(ModCreativeTabs.herbs);
 		
-		ModBlocks.hellebore.setSeeds(new ItemStack(helleboreSeeds,1,0)).setDropType(new ItemStack(flowers, 1, 1));
-		ModBlocks.aconitum.setSeeds(new ItemStack(aconitumSeeds)).setDropType(new ItemStack(flowers, 1, 0));
-		ModBlocks.sagebrush.setSeeds(new ItemStack(sagebrushSeeds)).setDropType(new ItemStack(flowers, 1, 2));
-		ModBlocks.chrysanthemum.setSeeds(new ItemStack(chrysanthemumSeeds)).setDropType(new ItemStack(flowers, 1, 3));
+		((BlockModCrop)ModBlocks.hellebore).setSeeds(new ItemStack(helleboreSeeds,1,0)).setDropType(new ItemStack(flowers, 1, 1));
+		((BlockModCrop)ModBlocks.aconitum).setSeeds(new ItemStack(aconitumSeeds)).setDropType(new ItemStack(flowers, 1, 0));
+		((BlockModCrop)ModBlocks.sagebrush).setSeeds(new ItemStack(sagebrushSeeds)).setDropType(new ItemStack(flowers, 1, 2));
+		((BlockModCrop)ModBlocks.chrysanthemum).setSeeds(new ItemStack(chrysanthemumSeeds)).setDropType(new ItemStack(flowers, 1, 3));
 		
 		helleboreSeeds.setUnlocalizedName("hellebore_seeds");
 		aconitumSeeds.setUnlocalizedName("aconitum_seeds");
@@ -159,8 +151,9 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle, sapling, threadSpinner, spell_page, grimoire, witch_hat, witch_cloak
+				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
+				crystal_ball
 				);
-		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, elderPlanks, juniperPlanks, yewPlanks);
+		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew);
 	}
 }

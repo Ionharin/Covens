@@ -10,20 +10,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModBlocks {
 	
-	public static BlockCircleGlyph glyphs;
-	public static BlockWitchAltar altar;
-	public static BlockChimney chimney;
-	public static BlockCauldron cauldron;
-	public static BlockModCrop hellebore, aconitum, sagebrush, chrysanthemum;
-	public static BlockModLog log_elder, log_yew, log_juniper;
-	public static BlockModLeaves leaves_elder, leaves_yew, leaves_juniper;
-	public static BlockPlanks planks_yew, planks_juniper, planks_elder;
-	public static BlockConfiningAsh confining_ash;
-	public static BlockGoblet goblet;
-	public static BlockCandlePlate candle_plate;
-	public static BlockBarrel barrel;
-	public static BlockModSapling sapling;
-	public static BlockThreadSpinner threadSpinner;
+	public static Block glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
+		log_elder, log_yew, log_juniper, leaves_elder, leaves_yew, leaves_juniper, planks_yew, planks_juniper, planks_elder,
+		confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball;
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
@@ -54,7 +43,8 @@ public class ModBlocks {
 		planks_elder = new BlockPlanks("elder");
 		
 		barrel = new BlockBarrel();
-		threadSpinner = new BlockThreadSpinner();
+		thread_spinner = new BlockThreadSpinner();
+		crystal_ball = new BlockCrystalBall();
 	}
 	
 	@SubscribeEvent
@@ -63,6 +53,6 @@ public class ModBlocks {
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
-				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, threadSpinner);
+				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball);
 	}
 }
