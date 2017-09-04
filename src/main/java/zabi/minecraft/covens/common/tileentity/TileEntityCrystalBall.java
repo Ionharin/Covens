@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.event.MouseEvent;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.capability.PlayerData;
+import zabi.minecraft.covens.common.entity.EntityCrystalBallObserver;
 import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.network.messages.SpectatorStart;
@@ -48,7 +50,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	public EnumCrystalBallResult tryAddItem(ItemStack is) {
 		Item i = is.getItem();
 		if (locator.isEmpty()) {
-			if ((i==ModItems.soulstring && is.getMetadata()==1) || (i==ModItems.cardinal_stone && is.getMetadata()==1 && is.getOrCreateSubCompound("pos").hasKey("x"))) {
+			if ((i==ModItems.soulstring && is.getMetadata()==1) || (i==ModItems.cardinal_stone && is.getMetadata()==2 && is.getOrCreateSubCompound("pos").hasKey("x"))) {
 				locator = is.copy();
 				return EnumCrystalBallResult.INSERT_ITEM;
 			}
@@ -72,7 +74,13 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	@Nullable
-	public BlockPos getDestinationPosition() {
+	public Tuple<BlockPos, Integer> getDestinationPosition() {
+		if (locator.getItem()!=ModItems.cardinal_stone) return null;
+		if (locator.getOrCreateSubCompound("pos").hasKey("x")) {
+			NBTTagCompound tag = locator.getOrCreateSubCompound("pos");
+			BlockPos pos = new BlockPos(tag.getInteger("x"), tag.getInteger("y"), tag.getInteger("z"));
+			return new Tuple<BlockPos, Integer>(pos, tag.getInteger("dim"));
+		}
 		return null;
 	}
 
@@ -122,12 +130,29 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		if (p instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) p;
 			EntityLivingBase elb = getDestinationEntity();
-			if (elb!=null && consumePower(3000, false) && elb.world.provider.getDimension()==p.world.provider.getDimension()) {
+			if (elb!=null && elb.world.provider.getDimension()==p.world.provider.getDimension() && consumePower(3000, false)) {
 				player.getCapability(PlayerData.CAPABILITY, null).setSpectatingPoint(player.getPosition());
 				player.setSpectatingEntity(elb);
 				Covens.network.sendTo(new SpectatorStart(), player);
 				locator = ItemStack.EMPTY;
 				return true;
+			} else {
+				Tuple<BlockPos, Integer> posdim = getDestinationPosition();
+				if (pos!=null) {
+					BlockPos pos = posdim.getFirst();
+					int dim = posdim.getSecond();
+					if (p.world.provider.getDimension()==dim && consumePower(2000, false)) {
+						player.getCapability(PlayerData.CAPABILITY, null).setSpectatingPoint(player.getPosition());
+						EntityCrystalBallObserver observer = new EntityCrystalBallObserver(world);
+						observer.setPosition(pos.getX(), pos.getY(), pos.getZ());
+						world.spawnEntity(observer);
+						player.setSpectatingEntity(observer);
+						player.setPositionAndUpdate(pos.getX(), pos.getY()+0.2, pos.getZ());
+						Covens.network.sendTo(new SpectatorStart(), player);
+						locator = ItemStack.EMPTY;
+						return true;
+					}
+				}
 			}
 		}
 		return false;

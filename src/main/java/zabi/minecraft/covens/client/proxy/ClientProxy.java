@@ -32,6 +32,7 @@ import zabi.minecraft.covens.client.gui.RenderInfusionBar;
 import zabi.minecraft.covens.client.gui.ScrollHijacker;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
+import zabi.minecraft.covens.client.renderer.entity.RenderObserver;
 import zabi.minecraft.covens.client.renderer.entity.RenderSpell;
 import zabi.minecraft.covens.client.renderer.entity.TintModifier;
 import zabi.minecraft.covens.common.block.BlockBarrel;
@@ -40,6 +41,7 @@ import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.entity.EntityBrew;
+import zabi.minecraft.covens.common.entity.EntityCrystalBallObserver;
 import zabi.minecraft.covens.common.entity.EntityFlyingBroom;
 import zabi.minecraft.covens.common.entity.EntitySpellCarrier;
 import zabi.minecraft.covens.common.item.ItemBrewDrinkable;
@@ -58,6 +60,7 @@ public class ClientProxy extends Proxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityBrew.class, m -> new RenderBrewThrown(m, ModItems.brew_drinkable, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityFlyingBroom.class, m -> new RenderBroom(m));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySpellCarrier.class, m -> new RenderSpell(m));
+		RenderingRegistry.registerEntityRenderingHandler(EntityCrystalBallObserver.class, m -> new RenderObserver(m));
 	}
 
 	@Override
