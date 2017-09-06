@@ -80,36 +80,41 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	private boolean applyBrew(EntityPlayer thrower, ItemStack is) {
-		if (consumePower(4000, false)) {
-			EntityLivingBase de = getDestinationEntity();
-			Tuple<BlockPos, Integer> dp = getDestinationPosition();
-			if (is.getItem()==ModItems.brew_drinkable) {
-				if (de!=null) applyPotion(de,is);
+		EntityLivingBase de = getDestinationEntity();
+		Tuple<BlockPos, Integer> dp = getDestinationPosition();
+		if (is.getItem()==ModItems.brew_drinkable) {
+			if (de!=null) {
+				int cost = (int) (10*de.getDistance(pos.getX(), pos.getY(), pos.getZ()));
+				if (de.dimension!=this.world.provider.getDimension()) return false;
+				if (consumePower(cost, false)) applyPotionEffectsToEntity(de,is);
 				else return false;
-			} else if (is.getItem() instanceof ItemBrewBase) {
-				if (dp!=null && this.world.provider.getDimension()==dp.getSecond().intValue()) {
-					launchPotion(is,dp,thrower);
-				}
+			}
+			else return false;
+		} else if (is.getItem() instanceof ItemBrewBase) {
+			if (dp!=null && this.world.provider.getDimension()==dp.getSecond().intValue()) {
+				int cost = (int) (50*dp.getFirst().getDistance(pos.getX(), pos.getY(), pos.getZ()));
+				if (consumePower(cost, false)) launchBrew(is,dp,thrower);
+				else return false;
 			} else return false;
-			locator = ItemStack.EMPTY;
-			markDirty();
-			return true;
-		}
-		return false;
+		} else return false;
+		locator = ItemStack.EMPTY;
+		markDirty();
+		return true;
 	}
 
-	private void launchPotion(ItemStack stack, Tuple<BlockPos, Integer> dp, EntityPlayer player) {
+	private void launchBrew(ItemStack stack, Tuple<BlockPos, Integer> dp, EntityPlayer player) {
 		BrewData data = BrewData.getDataFromStack(stack);
 		if (!data.isSpoiled()) {
+			BlockPos tpos = dp.getFirst();
 			ItemStack pot = stack.copy();
 			pot.setCount(1);
-			EntityBrew ent = new EntityBrew(player.world, player, pot);
+			EntityBrew ent = new EntityBrew(player.world, tpos.getX()+0.5, tpos.getY()+0.5, tpos.getZ()+0.5, pot);
 			ent.setVelocity(0, -1, 0);
 			player.world.spawnEntity(ent);
 		}
 	}
 
-	private void applyPotion(EntityLivingBase entityLiving, ItemStack stack) {
+	private void applyPotionEffectsToEntity(EntityLivingBase entityLiving, ItemStack stack) {
 		BrewData data = BrewData.getDataFromStack(stack);
 		if (data.isSpoiled()) {
 			if (entityLiving instanceof EntityPlayer) {
@@ -162,7 +167,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	public boolean fortune(EntityPlayer reader) {
-		if (consumePower(1000, false)) {
+		if (consumePower(5000, false)) {
 			EntityLivingBase de = getDestinationEntity();
 			if (de instanceof EntityPlayer) return readFortune((EntityPlayer)de, reader);
 			else if (de==null && this.getDestinationPosition()==null) return readFortune(reader, null);
@@ -176,9 +181,17 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	private boolean readFortune(@Nonnull EntityPlayer endPlayer, @Nullable EntityPlayer externalReader) {
-		Fortune fortune = endPlayer.getCapability(PlayerData.CAPABILITY, null).getFortune();
+		
 		EntityPlayer messageRecpt = endPlayer;
 		if (externalReader!=null) messageRecpt = externalReader;
+		
+		if (endPlayer.getDistanceSq(this.getPos())>25) {
+			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.too_far"), true);
+			return false;
+		}
+		
+		Fortune fortune = endPlayer.getCapability(PlayerData.CAPABILITY, null).getFortune();
+		
 		if (fortune!=null) {
 			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.already_told",  fortune.getLocalizedName(endPlayer)), true);
 			return false;
