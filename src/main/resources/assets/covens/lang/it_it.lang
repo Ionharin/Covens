@@ -112,6 +112,7 @@ tile.sapling_elder.name=Arboscello di sambuco
 tile.sapling_juniper.name=Arboscello di ginepro
 tile.sapling_yew.name=Arboscello di tasso
 tile.thread_spinner.name=Filiera
+tile.crystal_ball.name=Sfera di cristallo
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile
@@ -140,6 +141,15 @@ effect.skin_rotting=Putrefazione
 effect.extinguish_fire=Ignifugita'
 effect.planting=Semina
 effect.block_arrows=Repulsione Frecce
+
+# Crystal Ball/Fortunes
+crystal_ball.error.ingredients=Il futuro rifiuta il tuo sguardo, forse sbagli qualcosa
+crystal_ball.error.no_power=Ammirare le cose future richiede magia
+crystal_ball.error.too_far=Coloro che vogliono conoscere dovranno avvicinarsi
+crystal_ball.error.already_told=Il futuro di questa persona ti e' noto: %s
+crystal_ball.error.no_available_fortunes=Questo mondo non ha nulla da rivelarti
+crystal_ball.read.other=Riesci a vedere il futuro di %2$s: %1$s
+fortunes.covens.meet_zombie.name=Coloro che dormono nel suolo saranno risvegliati
 
 # Entities
 entity.broom.name=Scopa volante

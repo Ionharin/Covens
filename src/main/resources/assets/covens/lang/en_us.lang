@@ -113,6 +113,7 @@ tile.sapling_elder.name=Elder Sapling
 tile.sapling_juniper.name=Juniper Sapling
 tile.sapling_yew.name=Yew Sapling
 tile.thread_spinner.name=Thread Spinner
+tile.crystal_ball.name=Crystal Ball
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites
@@ -150,6 +151,15 @@ effect.block_arrows=Arrow Repulsion
 # Entities
 entity.broom.name=Flying Broom
 entity.brew.name=Magic Brew
+
+# Crystal Ball/Fortunes
+crystal_ball.error.ingredients=The future refuses to be perceived, something's wrong
+crystal_ball.error.no_power=Gazing into the future requires magic
+crystal_ball.error.too_far=Those who want a prophecy need to come closer
+crystal_ball.error.already_told=This one's future has already been revealed: %s
+crystal_ball.error.no_available_fortunes=This world has no secrets awaiting
+crystal_ball.read.other=You can see %2$s's future: %1$s
+fortunes.covens.meet_zombie.name=Those who rise from the ground will be awakened
 
 # Misc
 brew.failure.power=Your magic source is weak (%d)
