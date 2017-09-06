@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.tileentity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,6 +17,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
@@ -31,6 +33,7 @@ import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.network.messages.SpectatorStart;
 import zabi.minecraft.covens.common.network.messages.SpectatorStop;
+import zabi.minecraft.covens.common.registries.fortune.Fortune;
 
 public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser {
 
@@ -48,9 +51,12 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	public EnumCrystalBallResult tryAddItem(ItemStack is) {
+		markDirty();
 		Item i = is.getItem();
 		if (locator.isEmpty()) {
-			if ((i==ModItems.soulstring && is.getMetadata()==1) || (i==ModItems.cardinal_stone && is.getMetadata()==2 && is.getOrCreateSubCompound("pos").hasKey("x"))) {
+			if (is.isEmpty()) {
+				return EnumCrystalBallResult.FORTUNE;
+			} else if ((i==ModItems.soulstring && is.getMetadata()==1) || (i==ModItems.cardinal_stone && is.getMetadata()==2 && is.getOrCreateSubCompound("pos").hasKey("x"))) {
 				locator = is.copy();
 				return EnumCrystalBallResult.INSERT_ITEM;
 			}
@@ -110,20 +116,48 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	public boolean fortune(EntityPlayer reader) {
 		if (consumePower(1000, false)) {
 			EntityLivingBase de = getDestinationEntity();
-			if (de instanceof EntityPlayer) readFortune((EntityPlayer)de, reader);
-			else readFortune(reader, null);
-			return true;
+			if (de instanceof EntityPlayer) return readFortune((EntityPlayer)de, reader);
+			else if (de==null && this.getDestinationPosition()==null) return readFortune(reader, null);
+			else {
+				reader.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.ingredients"), true);
+				return false;
+			}
 		}
-		reader.sendStatusMessage(new TextComponentString("nopower"), true);
+		reader.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.no_power"), true);
 		return false;
 	}
 
-	private void readFortune(@Nonnull EntityPlayer endPlayer, @Nullable EntityPlayer externalReader) {
-		endPlayer.sendStatusMessage(new TextComponentString("fortune_message"), true);
+	private boolean readFortune(@Nonnull EntityPlayer endPlayer, @Nullable EntityPlayer externalReader) {
+		Fortune fortune = endPlayer.getCapability(PlayerData.CAPABILITY, null).getFortune();
+		EntityPlayer messageRecpt = endPlayer;
+		if (externalReader!=null) messageRecpt = externalReader;
+		if (fortune!=null) {
+			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.already_told",  fortune.getLocalizedName(endPlayer)), true);
+			return false;
+		}
+		List<Fortune> valid = Fortune.REGISTRY.getValues().parallelStream().filter(f -> f.canBeUsedFor(endPlayer)).collect(Collectors.toList());
+		if (valid.size()==0) {
+			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.no_available_fortunes"), true);
+			return false;
+		}
+		int totalEntries = valid.parallelStream().mapToInt(f -> f.getDrawingWeight()).sum();
+		final int draw = endPlayer.getRNG().nextInt(totalEntries);
+		int current = 0;
+		for (Fortune f:valid) {
+			int entries = f.getDrawingWeight();
+			if (current<draw && draw<current+entries) {
+				fortune = f;
+				break;
+			}
+			current+=entries;
+		}
+		endPlayer.getCapability(PlayerData.CAPABILITY, null).setFortune(fortune);
+		endPlayer.sendStatusMessage(new TextComponentString(fortune.getLocalizedName(endPlayer)), true);
 		if (externalReader!=null) {
-			externalReader.sendStatusMessage(new TextComponentString("fortune_message_read_to"), true);
+			externalReader.sendStatusMessage(new TextComponentTranslation("crystal_ball.read.other", fortune.getLocalizedName(endPlayer)), false);
 			locator = ItemStack.EMPTY;
 		}
+		return true;
 	}
 
 	public boolean spectate(EntityPlayer p) {

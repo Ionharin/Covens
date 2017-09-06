@@ -6,12 +6,14 @@ import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
+import zabi.minecraft.covens.common.registries.fortune.Fortune;
 
 public interface PlayerData {
 
@@ -26,14 +28,17 @@ public interface PlayerData {
 	public void setMaxPower(int maxPower);
 	public void setPower(int power);
 	public int getMaxPower();
-	public BlockPos getSpectatingPoint();
+	@Nullable public BlockPos getSpectatingPoint();
 	public void setSpectatingPoint(BlockPos pos);
+	public void setFortune(Fortune fortune);
+	@Nullable public Fortune getFortune();
 
 	public static class Impl implements PlayerData {
 
 		private EnumInfusion infusion = null;
 		private int infusionPower = 0, maxInfusionPower = 0;
 		private BlockPos pos = null; 
+		private Fortune fortune = null;
 
 		@Override
 		public EnumInfusion getInfusion() {
@@ -102,6 +107,16 @@ public interface PlayerData {
 		public void setSpectatingPoint(BlockPos pos) {
 			this.pos = pos;
 		}
+
+		@Override
+		public void setFortune(Fortune fortune) {
+			this.fortune = fortune;
+		}
+
+		@Override
+		public Fortune getFortune() {
+			return fortune;
+		}
 	}
 
 	public static class Storage implements IStorage<PlayerData> {
@@ -114,6 +129,7 @@ public interface PlayerData {
 				tag.setInteger("maxPower", instance.getMaxPower());
 			}
 			if (instance.getSpectatingPoint()!=null) tag.setTag("spect_position", NBTUtil.createPosTag(instance.getSpectatingPoint()));
+			if (instance.getFortune()!=null) tag.setString("fortune", instance.getFortune().getRegistryName().toString());
 			return tag;
 		}
 
@@ -126,6 +142,7 @@ public interface PlayerData {
 				instance.setPower(tag.getInteger("power"));
 			}
 			if (tag.hasKey("spect_position")) instance.setSpectatingPoint(NBTUtil.getPosFromTag(tag.getCompoundTag("spect_position")));
+			if (tag.hasKey("fortune")) instance.setFortune(Fortune.REGISTRY.getValue(new ResourceLocation(tag.getString("fortune"))));
 		}
 	}
 

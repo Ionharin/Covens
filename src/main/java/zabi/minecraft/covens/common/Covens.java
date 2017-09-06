@@ -34,6 +34,7 @@ import zabi.minecraft.covens.common.registries.brewing.ModBrewIngredients;
 import zabi.minecraft.covens.common.registries.brewing.environmental.ModEnvironmentalPotionEffects;
 import zabi.minecraft.covens.common.registries.chimney.ModChimneyRecipes;
 import zabi.minecraft.covens.common.registries.fermenting.ModBarrelRecipes;
+import zabi.minecraft.covens.common.registries.fortune.ModFortunes;
 import zabi.minecraft.covens.common.registries.ritual.ModRituals;
 import zabi.minecraft.covens.common.registries.spell.ModSpells;
 import zabi.minecraft.covens.common.registries.threads.ModSpinningThreadRecipes;
@@ -71,6 +72,7 @@ public class Covens {
 		ModSpinningThreadRecipes.registerAll();
 		ModSpells.registerAll();
 		ModIRecipes.registerAll();
+		ModFortunes.registerAll();
 		proxy.preInit(evt);
 		
 		CapabilityManager.INSTANCE.register(EntityData.class, new EntityData.Storage(), EntityData.Impl.class);
