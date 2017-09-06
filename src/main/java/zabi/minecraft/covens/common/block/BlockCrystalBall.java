@@ -74,7 +74,7 @@ public class BlockCrystalBall extends Block implements ITileEntityProvider {
 		if (hand == EnumHand.OFF_HAND) return false;
 		if (worldIn.isRemote) return true;
 		TileEntityCrystalBall te = (TileEntityCrystalBall) worldIn.getTileEntity(pos);
-		EnumCrystalBallResult result = te.tryAddItem(playerIn.getHeldItemMainhand());
+		EnumCrystalBallResult result = te.tryAddItem(playerIn, playerIn.getHeldItemMainhand());
 		if (result == EnumCrystalBallResult.BLOCK) return false;
 		if (result == EnumCrystalBallResult.FORTUNE) return te.fortune(playerIn);
 		if (result == EnumCrystalBallResult.INSERT_ITEM) {

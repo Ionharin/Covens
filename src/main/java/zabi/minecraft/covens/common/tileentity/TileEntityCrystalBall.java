@@ -11,9 +11,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -27,12 +29,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.Covens;
+import zabi.minecraft.covens.common.capability.EntityData;
 import zabi.minecraft.covens.common.capability.PlayerData;
+import zabi.minecraft.covens.common.entity.EntityBrew;
 import zabi.minecraft.covens.common.entity.EntityCrystalBallObserver;
 import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.network.messages.SpectatorStart;
 import zabi.minecraft.covens.common.network.messages.SpectatorStop;
+import zabi.minecraft.covens.common.potion.ModPotions;
+import zabi.minecraft.covens.common.registries.brewing.BrewData;
 import zabi.minecraft.covens.common.registries.fortune.Fortune;
 
 public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser {
@@ -50,7 +56,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		locator = new ItemStack(tag);
 	}
 
-	public EnumCrystalBallResult tryAddItem(ItemStack is) {
+	public EnumCrystalBallResult tryAddItem(EntityPlayer player, ItemStack is) {
 		markDirty();
 		Item i = is.getItem();
 		if (locator.isEmpty()) {
@@ -65,8 +71,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 			if (is.isEmpty()) {
 				return EnumCrystalBallResult.FORTUNE;
 			} else if (i instanceof ItemBrewBase) {
-				return applyBrew(is)?
-						EnumCrystalBallResult.INSERT_ITEM : EnumCrystalBallResult.BLOCK;
+				return applyBrew(player,is)? EnumCrystalBallResult.INSERT_ITEM : EnumCrystalBallResult.BLOCK;
 			} else if (i==ModItems.candle && is.getMetadata()==0) {
 				return EnumCrystalBallResult.SPECTATE;
 			}
@@ -74,9 +79,52 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		}
 	}
 
-	private boolean applyBrew(ItemStack is) {
-		locator = ItemStack.EMPTY;
+	private boolean applyBrew(EntityPlayer thrower, ItemStack is) {
+		if (consumePower(4000, false)) {
+			EntityLivingBase de = getDestinationEntity();
+			Tuple<BlockPos, Integer> dp = getDestinationPosition();
+			if (is.getItem()==ModItems.brew_drinkable) {
+				if (de!=null) applyPotion(de,is);
+				else return false;
+			} else if (is.getItem() instanceof ItemBrewBase) {
+				if (dp!=null && this.world.provider.getDimension()==dp.getSecond().intValue()) {
+					launchPotion(is,dp,thrower);
+				}
+			} else return false;
+			locator = ItemStack.EMPTY;
+			markDirty();
+			return true;
+		}
 		return false;
+	}
+
+	private void launchPotion(ItemStack stack, Tuple<BlockPos, Integer> dp, EntityPlayer player) {
+		BrewData data = BrewData.getDataFromStack(stack);
+		if (!data.isSpoiled()) {
+			ItemStack pot = stack.copy();
+			pot.setCount(1);
+			EntityBrew ent = new EntityBrew(player.world, player, pot);
+			ent.setVelocity(0, -1, 0);
+			player.world.spawnEntity(ent);
+		}
+	}
+
+	private void applyPotion(EntityLivingBase entityLiving, ItemStack stack) {
+		BrewData data = BrewData.getDataFromStack(stack);
+		if (data.isSpoiled()) {
+			if (entityLiving instanceof EntityPlayer) {
+				entityLiving.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 1200, 1, false, true));
+			}
+			return;
+		}; 
+		
+		data.getEffects().stream()
+			.filter(ce -> entityLiving.isPotionApplicable(ce.getPotionEffect()))
+			.forEach(ce -> {
+				PotionEffect pe = ce.getPotionEffect();
+					entityLiving.addPotionEffect(pe);
+					if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(EntityData.CAPABILITY, null).setTint(data.getColor());
+			});
 	}
 
 	@Nullable
