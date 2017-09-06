@@ -205,6 +205,16 @@ public class ClientProxy extends Proxy {
 				return -1;
 			}
 		}, ModItems.grimoire);
+		
+		bc.registerBlockColorHandler(new IBlockColor() {
+			@Override
+			public int colorMultiplier(IBlockState state, IBlockAccess worldIn, BlockPos pos, int tintIndex) {
+				if (tintIndex==1) {
+					return Color.HSBtoRGB((float)((pos.getX()+pos.getY()+pos.getZ())%50)/50f, 0.4f, 1f);
+				}
+				return -1;
+			}
+		}, ModBlocks.crystal_ball);
 	}
 
 	@SubscribeEvent
