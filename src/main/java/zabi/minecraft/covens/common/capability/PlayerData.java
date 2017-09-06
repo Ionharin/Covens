@@ -30,7 +30,7 @@ public interface PlayerData {
 	public int getMaxPower();
 	@Nullable public BlockPos getSpectatingPoint();
 	public void setSpectatingPoint(BlockPos pos);
-	public void setFortune(Fortune fortune);
+	public void setFortune(@Nullable Fortune fortune);
 	@Nullable public Fortune getFortune();
 
 	public static class Impl implements PlayerData {

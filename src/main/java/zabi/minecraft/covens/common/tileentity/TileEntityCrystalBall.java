@@ -215,7 +215,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		endPlayer.getCapability(PlayerData.CAPABILITY, null).setFortune(fortune);
 		endPlayer.sendStatusMessage(new TextComponentString(fortune.getLocalizedName(endPlayer)), true);
 		if (externalReader!=null) {
-			externalReader.sendStatusMessage(new TextComponentTranslation("crystal_ball.read.other", fortune.getLocalizedName(endPlayer)), false);
+			externalReader.sendStatusMessage(new TextComponentTranslation("crystal_ball.read.other", fortune.getLocalizedName(endPlayer), endPlayer.getDisplayNameString()), false);
 			locator = ItemStack.EMPTY;
 		}
 		return true;
