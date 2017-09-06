@@ -193,7 +193,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		Fortune fortune = endPlayer.getCapability(PlayerData.CAPABILITY, null).getFortune();
 		
 		if (fortune!=null) {
-			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.already_told",  fortune.getLocalizedName(endPlayer)), true);
+			messageRecpt.sendStatusMessage(new TextComponentTranslation("crystal_ball.error.already_told",  fortune.getLocalizedName(endPlayer)), false);
 			return false;
 		}
 		List<Fortune> valid = Fortune.REGISTRY.getValues().parallelStream().filter(f -> f.canBeUsedFor(endPlayer)).collect(Collectors.toList());
