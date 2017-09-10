@@ -14,6 +14,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "broom"), EntityFlyingBroom.class, "broom", id++, Covens.INSTANCE, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "spellcarrier"), EntitySpellCarrier.class, "spellcarrier", id++, Covens.INSTANCE, 64, 1, true);
 		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "crystal_camera"), EntityCrystalBallObserver.class, "crystal_camera", id++, Covens.INSTANCE, 1, 400, false);
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MID, "player_body"), EntityPlayerBody.class, "player_body", id++, Covens.INSTANCE, 16, 60, false);
 		Log.d("Finished registering entities");
 	}
 }

@@ -23,6 +23,7 @@ import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.capability.EntityData;
 import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.entity.EntityBrew;
+import zabi.minecraft.covens.common.entity.EntityPlayerBody;
 import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.potion.ModPotions;
@@ -210,7 +211,12 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 	}
 
 	public boolean spectate(EntityPlayer p) {
-		return false;
+		EntityPlayerBody body = new EntityPlayerBody(world);
+		body.setPositionAndRotation(p.posX, p.posY, p.posZ, p.rotationYaw, p.rotationPitch);
+		world.spawnEntity(body);
+		body.setPlayer(p.getUniqueID().toString());
+		body.setActive(true);
+		return true;
 	}
 
 	private boolean consumePower(int power, boolean simulate) {
