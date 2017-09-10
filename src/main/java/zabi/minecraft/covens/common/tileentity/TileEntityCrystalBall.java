@@ -33,8 +33,10 @@ import zabi.minecraft.covens.common.capability.EntityData;
 import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.entity.EntityBrew;
 import zabi.minecraft.covens.common.entity.EntityCrystalBallObserver;
+import zabi.minecraft.covens.common.entity.EntityPlayerShell;
 import zabi.minecraft.covens.common.item.ItemBrewBase;
 import zabi.minecraft.covens.common.item.ModItems;
+import zabi.minecraft.covens.common.network.messages.ChangeShellOwner;
 import zabi.minecraft.covens.common.network.messages.SpectatorStart;
 import zabi.minecraft.covens.common.network.messages.SpectatorStop;
 import zabi.minecraft.covens.common.potion.ModPotions;
@@ -227,6 +229,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 			EntityLivingBase elb = getDestinationEntity();
 			if (elb!=null && elb.world.provider.getDimension()==p.world.provider.getDimension() && consumePower(3000, false)) {
 				player.getCapability(PlayerData.CAPABILITY, null).setSpectatingPoint(player.getPosition());
+				setupFakePlayer(player);
 				player.setSpectatingEntity(elb);
 				Covens.network.sendTo(new SpectatorStart(), player);
 				locator = ItemStack.EMPTY;
@@ -239,6 +242,7 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 					if (p.world.provider.getDimension()==dim && consumePower(2000, false)) {
 						player.getCapability(PlayerData.CAPABILITY, null).setSpectatingPoint(player.getPosition());
 						EntityCrystalBallObserver observer = new EntityCrystalBallObserver(world);
+						setupFakePlayer(player);
 						observer.setPosition(pos.getX(), pos.getY(), pos.getZ());
 						world.spawnEntity(observer);
 						player.setSpectatingEntity(observer);
@@ -251,6 +255,14 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 			}
 		}
 		return false;
+	}
+
+	private void setupFakePlayer(EntityPlayerMP player) {
+		EntityPlayerShell shell = new EntityPlayerShell(world, player);
+		shell.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
+		world.spawnEntity(shell);
+		shell.setPositionAndUpdate(player.posX, player.posY, player.posZ);
+		Covens.network.sendToDimension(new ChangeShellOwner(shell, player.getUniqueID().toString()), world.provider.getDimension());
 	}
 
 	private boolean consumePower(int power, boolean simulate) {

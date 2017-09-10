@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.capability;
 
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,8 +13,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.Covens;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.network.messages.SyncEntityDataRequest;
 import zabi.minecraft.covens.common.network.messages.SyncPlayerDataRequest;
 
@@ -24,10 +24,10 @@ public class AttachDataHandler {
 	@SubscribeEvent
 	public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
 		if (event.getObject() instanceof EntityLivingBase) {
-			Log.d("Injecting entityLivingBase capabilities");
+//			Log.d("Injecting entityLivingBase capabilities");
 			event.addCapability(ENTITY_DATA, new EntityData.Provider());
 			if (event.getObject() instanceof EntityPlayer) {
-				Log.d("Injecting entityPlayer capabilities");
+//				Log.d("Injecting entityPlayer capabilities");
 				event.addCapability(PLAYER_DATA, new PlayerData.Provider());
 			}
 		}
