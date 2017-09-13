@@ -3,6 +3,7 @@ package zabi.minecraft.covens.client.renderer.entity;
 import java.util.Random;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleEndRod;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -28,7 +29,13 @@ public class RenderSpell extends Render<EntitySpellCarrier> {
 		double ipx = (entity.posX - entity.lastTickPosX)*partialTicks + entity.lastTickPosX;
 		double ipy = (entity.posY - entity.lastTickPosY)*partialTicks + entity.lastTickPosY;
 		double ipz = (entity.posZ - entity.lastTickPosZ)*partialTicks + entity.lastTickPosZ;
-		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.END_ROD, ipx, ipy, ipz, 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian());
+		ParticleEndRod part = new ParticleEndRod(Minecraft.getMinecraft().world, ipx, ipy, ipz, 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian());
+		part.setMaxAge(14);
+		Minecraft.getMinecraft().effectRenderer.addEffect(part);
+		part = new ParticleEndRod(Minecraft.getMinecraft().world, ipx, ipy, ipz, 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian(), 0.02*rnd.nextGaussian());
+		part.setMaxAge(5);
+		Minecraft.getMinecraft().effectRenderer.addEffect(part);
+		Minecraft.getMinecraft().world.spawnParticle(EnumParticleTypes.SPELL_WITCH, ipx, ipy, ipz, 0, 0, 0);
 	}
  
 	@Override

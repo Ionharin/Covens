@@ -14,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.RayTraceResult.Type;
@@ -125,7 +124,7 @@ public class EntitySpellCarrier extends EntityThrowable {
 	
 	@Override
 	public void setDead() {
-		for (int i=0; i<40;i++) Covens.proxy.spawnParticle(EnumParticleTypes.END_ROD, posX, posY, posZ, 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), world);
+		for (int i=0; i<40;i++) Covens.proxy.spawnParticleExplosionSpell(posX, posY, posZ, rand);
 		super.setDead();
 	}
 

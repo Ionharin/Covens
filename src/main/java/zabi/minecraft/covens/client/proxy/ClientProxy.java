@@ -1,11 +1,14 @@
 package zabi.minecraft.covens.client.proxy;
 
 import java.awt.Color;
+import java.util.Random;
 
 import zabi.minecraft.covens.common.lib.Log;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleEndRod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
@@ -13,7 +16,6 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -236,7 +238,9 @@ public class ClientProxy extends Proxy {
 	}
 	
 	@Override
-	public void spawnParticle(EnumParticleTypes type, double x, double y, double z, double sx, double sy, double sz, World world) {
-		world.spawnParticle(type, x, y, z, sx, sy, sz);
+	public void spawnParticleExplosionSpell(double posX, double posY, double posZ, Random rand) {
+		Particle p = new ParticleEndRod(Minecraft.getMinecraft().world, posX, posY, posZ, 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian());
+		p.setMaxAge(15);
+		Minecraft.getMinecraft().effectRenderer.addEffect(p);
 	}
 }
