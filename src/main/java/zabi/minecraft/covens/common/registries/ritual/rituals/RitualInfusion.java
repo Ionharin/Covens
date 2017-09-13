@@ -26,11 +26,13 @@ public class RitualInfusion extends Ritual {
 	
 	@Override
 	public void onFinish(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {
-		PlayerData cdata = player.getCapability(PlayerData.CAPABILITY, null);
-		cdata.setInfusion(infusion);
-		cdata.setMaxPower(infusion.getPower());
-		cdata.setPower(infusion.getPower());
-		player.attackEntityFrom(DamageSource.MAGIC, (float) Integer.MAX_VALUE);
+		if (player!=null) {
+			PlayerData cdata = player.getCapability(PlayerData.CAPABILITY, null);
+			cdata.setInfusion(infusion);
+			cdata.setMaxPower(infusion.getPower());
+			cdata.setPower(infusion.getPower());
+			player.attackEntityFrom(DamageSource.MAGIC, (float) Integer.MAX_VALUE);
+		}
 	}
 	
 
