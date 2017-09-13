@@ -57,7 +57,10 @@ public interface PlayerData {
 		@Override
 		public boolean usePower(int amount, boolean simulate) {
 			if (infusion==null) return false;
-			if (infusionPower<amount) return false;
+			if (infusionPower<amount) {
+				if (!simulate) setInfusion(null);
+				return false;
+			}
 			if (!simulate) {
 				infusionPower-=amount;
 				if (infusionPower<0) setInfusion(null);
