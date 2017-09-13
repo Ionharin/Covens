@@ -93,7 +93,7 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 
 	public void startRitual(EntityPlayer player) {
 		if (player.getEntityWorld().isRemote) return;
-		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos()).expand(3, 0, 3));
+		List<EntityItem> itemsOnGround = getWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(getPos()).grow(3, 0, 3));
 		List<ItemStack> recipe = itemsOnGround.stream().map(i -> i.getItem()).collect(Collectors.toList());
 		for (Ritual rit:Ritual.REGISTRY) {
 			if (rit.isValidInput(recipe, hasCircles(rit))) {
