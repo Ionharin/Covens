@@ -18,8 +18,14 @@ import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 
 public class RenderInfusionBar {
 
-	private static final ResourceLocation bar_frame = new ResourceLocation(Reference.MID, "textures/gui/infusion_frame.png");
-	private static final ResourceLocation bar_content = new ResourceLocation(Reference.MID, "textures/gui/infusion_content.png");
+	private static final ResourceLocation bar_frame_ovw = new ResourceLocation(Reference.MID, "textures/gui/infusion_frame_overworld.png");
+	private static final ResourceLocation bar_content_ovw = new ResourceLocation(Reference.MID, "textures/gui/infusion_content_overworld.png");
+	private static final ResourceLocation bar_frame_ntr = new ResourceLocation(Reference.MID, "textures/gui/infusion_frame_nether.png");
+	private static final ResourceLocation bar_content_ntr = new ResourceLocation(Reference.MID, "textures/gui/infusion_content_nether.png");
+	private static final ResourceLocation bar_frame_end = new ResourceLocation(Reference.MID, "textures/gui/infusion_frame_end.png");
+	private static final ResourceLocation bar_content_end = new ResourceLocation(Reference.MID, "textures/gui/infusion_content_end.png");
+	
+	private static final int textureHeight = 64;
 
 	@SubscribeEvent
 	public void render(TickEvent.RenderTickEvent evt) {
@@ -33,17 +39,47 @@ public class RenderInfusionBar {
 					GL11.glPushMatrix();
 					GlStateManager.enableAlpha();
 					GlStateManager.enableAlpha();
-					float progress = (float)data.getInfusionPower()/(float)(data.getMaxPower()+1);
-					int color = inf.color();
-					GlStateManager.color((color>>16 & 0xff)/255f, (color>>8 & 0xff)/255f, (color & 0xff)/255f);
-					Minecraft.getMinecraft().renderEngine.bindTexture(bar_content);
-					GuiIngame.drawModalRectWithCustomSizedTexture(10, sr.getScaledHeight()/2-32+((int)(64 * (1-progress))), 0, (1-progress)*64, 16, (int) (64*progress), 16, 64);
+					float remaining = (float)data.getInfusionPower()/(float)(data.getMaxPower()+1);
+					GlStateManager.color(1, 1, 1);
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTextureContent(inf));
+					int startPixels = (sr.getScaledHeight()-textureHeight)/2;
+					int actualPixels = (int) Math.ceil(textureHeight*remaining);
+					int paddingPixels = textureHeight-actualPixels;
+					
+					GuiIngame.drawModalRectWithCustomSizedTexture(10, startPixels+paddingPixels, 0, paddingPixels, 16, actualPixels, 16, textureHeight);
+					
 					GlStateManager.color(1f, 1f, 1f);
-					Minecraft.getMinecraft().renderEngine.bindTexture(bar_frame);
-					GuiIngame.drawModalRectWithCustomSizedTexture(10, sr.getScaledHeight()/2-32, 0, 0, 16, 64, 16, 64);
+					Minecraft.getMinecraft().renderEngine.bindTexture(getTextureFrame(inf));
+					GuiIngame.drawModalRectWithCustomSizedTexture(10, startPixels, 0, 0, 16, textureHeight, 16, textureHeight);
 					GL11.glPopMatrix();
 				}
 			}
+		}
+	}
+
+	private ResourceLocation getTextureContent(EnumInfusion inf) {
+		switch (inf) {
+		case END:
+			return bar_content_end;
+		case NETHER:
+			return bar_content_ntr;
+		case OVERWORLD:
+			return bar_content_ovw;
+		default:
+			return null;
+		}
+	}
+	
+	private ResourceLocation getTextureFrame(EnumInfusion inf) {
+		switch (inf) {
+		case END:
+			return bar_frame_end;
+		case NETHER:
+			return bar_frame_ntr;
+		case OVERWORLD:
+			return bar_frame_ovw;
+		default:
+			return null;
 		}
 	}
 }
