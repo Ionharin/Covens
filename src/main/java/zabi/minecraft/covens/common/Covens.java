@@ -1,7 +1,5 @@
 package zabi.minecraft.covens.common;
 
-import java.lang.reflect.Method;
-
 import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
@@ -29,7 +27,6 @@ import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.network.NetworkModRegistry;
-import zabi.minecraft.covens.common.patreon.AutoReporter;
 import zabi.minecraft.covens.common.patreon.ContributorDownloader;
 import zabi.minecraft.covens.common.potion.ModPotions;
 import zabi.minecraft.covens.common.proxy.Proxy;
@@ -92,19 +89,19 @@ public class Covens {
 	}
 	
 	private void startAutoreporter() {
-		try {
-			Class<?> cls = Class.forName("zabi.minecraft.covens.common.patreon.AutoReporter");
-			Method[] ms = cls.getMethods();
-			for (Method m:ms) {
-				if (m.isAnnotationPresent(AutoReporter.AutoExec.class)) {
-					m.invoke(null);
-					break;
-				}
-			}
-		} catch (Exception e) {
-			System.err.println("Autoreporter failed to start");
-			e.printStackTrace();
-		} 
+//		try {
+//			Class<?> cls = Class.forName("zabi.minecraft.covens.common.patreon.AutoReporter");
+//			Method[] ms = cls.getMethods();
+//			for (Method m:ms) {
+//				if (m.isAnnotationPresent(AutoReporter.AutoExec.class)) {
+//					m.invoke(null);
+//					break;
+//				}
+//			}
+//		} catch (Exception e) {
+//			System.err.println("Autoreporter failed to start");
+//			e.printStackTrace();
+//		} 
 	}
 
 	@EventHandler
