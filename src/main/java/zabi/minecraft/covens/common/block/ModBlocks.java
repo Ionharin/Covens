@@ -51,8 +51,22 @@ public class ModBlocks {
 	public void registerBlocks(RegistryEvent.Register<Block> evt) {
 		Log.i("Registering blocks");
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
-		blockRegistry.registerAll(glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
+		/*blockRegistry. -use custom static method instead*/registerAll(blockRegistry, glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
 				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball);
+	}
+	
+	//Why the fuck the registerAll impl of IForgeRegistry<Block> finds null blocks on 1.12.2, while this does not?
+	//They do the same exact thing! wtf
+	//Minecraft code is weird
+	private static void registerAll(IForgeRegistry<Block> reg, Block... blocks) { 
+		for (Block b:blocks) {
+			Log.d("Registering block: "+(b==null?"null":b.getRegistryName().toString()));
+			if (b == null) {
+				Log.w("Null block registration, skipping. Report this to Covens' issue tracker");
+				continue;
+			}
+			reg.register(b);
+		}
 	}
 }
