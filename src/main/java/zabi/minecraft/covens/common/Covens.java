@@ -23,6 +23,7 @@ import zabi.minecraft.covens.common.crafting.ModIRecipes;
 import zabi.minecraft.covens.common.crafting.OreDict;
 import zabi.minecraft.covens.common.crafting.VanillaRecipes;
 import zabi.minecraft.covens.common.entity.ModEntities;
+import zabi.minecraft.covens.common.integration.CompatibilityModules;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.item.ModItems;
@@ -56,6 +57,7 @@ public class Covens {
 	public void preInit(FMLPreInitializationEvent evt) {
 		startAutoreporter();
 		proxy.setup();
+		CompatibilityModules.preload();
 		ModCreativeTabs.registerTabs();
 		ModBlocks.registerAll();
 		ModItems.registerAll();
@@ -113,6 +115,7 @@ public class Covens {
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.helleboreSeeds), 4);
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.sagebrushSeeds), 2);
 		proxy.init(evt);
+		CompatibilityModules.load();
 	}
 	
 	@EventHandler

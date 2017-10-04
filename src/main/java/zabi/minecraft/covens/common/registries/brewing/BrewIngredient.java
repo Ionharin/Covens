@@ -1,5 +1,6 @@
 package zabi.minecraft.covens.common.registries.brewing;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import zabi.minecraft.covens.common.lib.Reference;
@@ -20,13 +21,22 @@ public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	private Potion result = null, opposite = null;
 	private int baseDuration = 0, oppositeDuration=0;
 	
-	public BrewIngredient(Ingredient in, Potion out, Potion opposite, int duration, int durationOpposite) {
+	public BrewIngredient(@Nonnull Ingredient in, @Nonnull Potion out, @Nullable Potion opposite, int duration, int durationOpposite) {
 		ingredient = in;
 		result = out;
 		baseDuration = duration;
 		this.opposite=opposite;
 		oppositeDuration = durationOpposite;
 		this.setRegistryName(out.getRegistryName());
+	}
+	
+	public BrewIngredient(Ingredient in, Potion out, int duration) {
+		this(in, out, null, duration, 0);
+	}
+	
+	public void setOpposite(Potion potion, int duration) {
+		this.opposite=potion;
+		this.oppositeDuration=duration;
 	}
 	
 	public boolean isValid(ItemStack test) {
