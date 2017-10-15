@@ -12,7 +12,7 @@ public class ModBlocks {
 	
 	public static Block glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 		log_elder, log_yew, log_juniper, leaves_elder, leaves_yew, leaves_juniper, planks_yew, planks_juniper, planks_elder,
-		confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball;
+		confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball, ritual_candle;
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
@@ -45,6 +45,8 @@ public class ModBlocks {
 		barrel = new BlockBarrel();
 		thread_spinner = new BlockThreadSpinner();
 		crystal_ball = new BlockCrystalBall();
+		
+		ritual_candle = new BlockCandle();
 	}
 	
 	@SubscribeEvent
@@ -53,7 +55,7 @@ public class ModBlocks {
 		IForgeRegistry<Block> blockRegistry = evt.getRegistry();
 		/*blockRegistry. -use custom static method instead*/registerAll(blockRegistry, glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
-				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball);
+				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball, ritual_candle);
 	}
 	
 	//Why the fuck the registerAll impl of IForgeRegistry<Block> finds null blocks on 1.12.2, while this does not?

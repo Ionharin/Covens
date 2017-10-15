@@ -88,7 +88,7 @@ public class ItemSpellPage extends Item {
 				EntitySpellCarrier car = new EntitySpellCarrier(worldIn, entityLiving.posX+entityLiving.getLookVec().x, entityLiving.posY+entityLiving.getEyeHeight()+entityLiving.getLookVec().y, entityLiving.posZ+entityLiving.getLookVec().z);
 				car.setSpell(spell);
 				car.setCaster(entityLiving);
-				car.setHeadingFromThrower(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 2f, 0);
+				car.shoot(entityLiving, entityLiving.rotationPitch, entityLiving.rotationYaw, 0, 2f, 0);
 				worldIn.spawnEntity(car);
 			}
 		}

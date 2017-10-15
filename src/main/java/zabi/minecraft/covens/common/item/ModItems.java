@@ -34,7 +34,7 @@ public class ModItems {
 		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
 		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
 		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
-		crystal_ball;
+		crystal_ball, ritual_candle;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
@@ -97,6 +97,7 @@ public class ModItems {
 		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
 		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
 		crystal_ball = new ItemBlock(ModBlocks.crystal_ball);
+		ritual_candle = new ItemBlock(ModBlocks.ritual_candle);
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -116,6 +117,7 @@ public class ModItems {
 		sapling.setRegistryName(ModBlocks.sapling.getRegistryName());
 		thread_spinner.setRegistryName(ModBlocks.thread_spinner.getRegistryName());
 		crystal_ball.setRegistryName(ModBlocks.crystal_ball.getRegistryName());
+		ritual_candle.setRegistryName(ModBlocks.ritual_candle.getRegistryName());
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
@@ -152,7 +154,7 @@ public class ModItems {
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
 				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
-				crystal_ball
+				crystal_ball, ritual_candle
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew);
 	}

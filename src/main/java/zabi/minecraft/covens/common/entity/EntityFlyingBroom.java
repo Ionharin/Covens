@@ -144,17 +144,17 @@ public class EntityFlyingBroom extends Entity {
 			this.setRotationYawHead(rider.rotationYaw);
 			
 		} else {
-			if (!this.isCollidedVertically) {
+			if (!this.collidedVertically) {
 				motionY-=0.009;
 				if (motionY<-0.5) motionY=-0.5;
 			}
 		}
 		
-		if (this.isCollidedHorizontally) {
+		if (this.collidedHorizontally) {
 			if (this.prevPosX==this.posX) motionX=0;
 			if (this.prevPosZ==this.posZ) motionZ=0;
 		}
-		if (this.isCollidedVertically) {
+		if (this.collidedVertically) {
 			if (this.prevPosY==this.posY) motionY=0;
 		}
 		this.setSize(1f, 2);

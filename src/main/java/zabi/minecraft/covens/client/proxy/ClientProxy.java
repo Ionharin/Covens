@@ -136,6 +136,7 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.spell_page, 0);
 		registerModel(ModItems.grimoire, 0);
 		registerModel(ModItems.crystal_ball, 0);
+		registerModel(ModItems.ritual_candle, 0);
 	}
 
 	private void registerModel(Item item, int meta) {
@@ -180,7 +181,7 @@ public class ClientProxy extends Proxy {
 				
 		ic.registerItemColorHandler(new IItemColor() {
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				if (tintIndex==0) return ItemBrewDrinkable.getPotionColor(stack);
 				return -1;
 			}
@@ -189,7 +190,7 @@ public class ClientProxy extends Proxy {
 		ic.registerItemColorHandler(new IItemColor() {
 			
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				if (tintIndex==0) {
 					Spell s = ItemSpellPage.getSpellFromItemStack(stack);
 					if (s!=null) return s.getColor();
@@ -201,7 +202,7 @@ public class ClientProxy extends Proxy {
 		ic.registerItemColorHandler(new IItemColor() {
 
 			@Override
-			public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+			public int colorMultiplier(ItemStack stack, int tintIndex) {
 				if (tintIndex==0) {
 					return Minecraft.getMinecraft().world!=null?Color.HSBtoRGB(Minecraft.getMinecraft().world.getTotalWorldTime() % 180 / 180f, 0.6f, 0.8f):-1;
 				}
@@ -241,6 +242,11 @@ public class ClientProxy extends Proxy {
 	public void spawnParticleExplosionSpell(double posX, double posY, double posZ, Random rand) {
 		Particle p = new ParticleEndRod(Minecraft.getMinecraft().world, posX, posY, posZ, 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian(), 0.2*rand.nextGaussian());
 		p.setMaxAge(15);
+		spawnParticle(p);
+	}
+	
+	@Override
+	public void spawnParticle(Particle p) {
 		Minecraft.getMinecraft().effectRenderer.addEffect(p);
 	}
 }

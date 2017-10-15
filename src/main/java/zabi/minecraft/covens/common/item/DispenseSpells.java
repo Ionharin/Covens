@@ -26,7 +26,7 @@ public class DispenseSpells implements IBehaviorDispenseItem {
 					EntitySpellCarrier car = new EntitySpellCarrier(source.getWorld(), source.getBlockPos().getX()+1.5*lookVect.x+0.5, source.getBlockPos().getY()+0.5d+lookVect.y, source.getBlockPos().getZ()+1.5*lookVect.z+0.5);
 					car.setSpell(s);
 					car.setCaster(null);
-					car.setHeadingFromThrower(car, 0, enumfacing.getHorizontalAngle(), 0, 1f, 0);
+					car.shoot(car, 0, enumfacing.getHorizontalAngle(), 0, 1f, 0);
 					source.getWorld().spawnEntity(car);
 				}
 				return ItemStack.EMPTY;

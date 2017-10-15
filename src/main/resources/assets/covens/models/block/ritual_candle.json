@@ -1,0 +1,77 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "textures": {
+    	"body": "covens:blocks/ritual_candle", 
+    	"particle": "covens:blocks/ritual_candle",
+    	"wick": "covens:blocks/ritual_candle_wick"
+    },
+    "elements": [
+        {
+            "name": "Body",
+            "from": [ 7.0, 0.0, 7.0 ], 
+            "to": [ 9.0, 7.0, 9.0 ], 
+            "faces": {
+                "north": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 7.0 ] },
+                "east": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 7.0 ] },
+                "south": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 7.0 ] },
+                "west": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 7.0 ] },
+                "up": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 2.0 ] },
+                "down": { "texture": "#body", "uv": [ 0.0, 0.0, 2.0, 2.0 ] }
+            }
+        },
+        {
+            "name": "wick1",
+            "from": [ 8.0, 7.0, 7.5 ], 
+            "to": [ 8.0, 8.0, 8.5 ], 
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "east": { "texture": "#wick", "uv": [ 0.0, 0.0, 3.0, 3.0 ] },
+                "west": { "texture": "#wick", "uv": [ 0.0, 0.0, 3.0, 3.0 ] }
+            }
+        },
+        {
+            "name": "wick2",
+            "from": [ 7.5, 7.0, 8.0 ], 
+            "to": [ 8.5, 8.0, 8.0 ], 
+            "rotation": { "origin": [ 8.0, 8.0, 8.0 ], "axis": "y", "angle": 45.0 },
+            "faces": {
+                "north": { "texture": "#wick", "uv": [ 0.0, 0.0, 3.0, 3.0 ] },
+                "south": { "texture": "#wick", "uv": [ 0.0, 0.0, 3.0, 3.0 ] }
+            }
+        }
+    ],
+    "display": {
+		"thirdperson_righthand": {
+			"rotation":  [ 0, -90, -35 ],
+			"translation":  [ 0, 6.5, 6.5 ],
+			"scale": [2, 2, 2]
+		},
+		"thirdperson_lefthand": {
+			"rotation":  [ 0, -90, -35 ],
+			"translation":  [ 0, 6.5, 6.5 ],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_righthand": {
+			"rotation":  [ 0, 45, 0 ],
+			"translation":  [ 0, 5.75, 0 ],
+			"scale": [2, 2, 2]
+		},
+		"firstperson_lefthand": {
+			"rotation":  [ 0, 45, 0 ],
+			"translation":  [ 0, 5.75, 0 ],
+			"scale": [2, 2, 2]
+		},
+		"gui": {
+			"rotation":  [ 30, 225, 0 ],
+			"scale": [2, 2, 2]
+		},
+		"head": {
+			"rotation":  [ 0, 0, 180 ],
+			"translation":  [ 0, 4.25, 0 ]
+		},
+		"ground": {
+			"translation":  [ 0, 4, 0 ],
+			"scale":  [ 0.75, 0.75, 0.75 ]
+		}
+	}
+}

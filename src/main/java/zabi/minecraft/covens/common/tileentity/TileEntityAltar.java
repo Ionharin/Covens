@@ -134,6 +134,10 @@ public class TileEntityAltar extends TileEntityBaseTickable {
 			if (types[1]) return 0;
 			types[1]=true;
 			return 2;
+		} else if (blockState.getBlock().equals(ModBlocks.ritual_candle)) {
+			if (types[1]) return 0;
+			types[1]=true;
+			return 2;
 		}
 		return 0;
 	}

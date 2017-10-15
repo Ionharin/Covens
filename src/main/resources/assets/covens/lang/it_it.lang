@@ -113,6 +113,7 @@ tile.sapling_juniper.name=Arboscello di ginepro
 tile.sapling_yew.name=Arboscello di tasso
 tile.thread_spinner.name=Filiera
 tile.crystal_ball.name=Sfera di cristallo
+tile.ritual_candle.name=Candela rituale
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile

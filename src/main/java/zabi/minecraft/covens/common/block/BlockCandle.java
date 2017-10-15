@@ -1,5 +1,9 @@
 package zabi.minecraft.covens.common.block;
 
+import java.util.Random;
+
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -13,21 +17,17 @@ import zabi.minecraft.covens.client.particle.ParticleSmallFlame;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 
-import java.util.Random;
-
-import zabi.minecraft.covens.common.lib.Reference;
-
-public class BlockCandlePlate extends Block {
-
-	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0.125, 0, 0.125, 0.875, 0.21875, 0.875);
+public class BlockCandle extends Block {
 	
-	public BlockCandlePlate() {
-		super(Material.IRON);
-		this.setUnlocalizedName("candle_plate");
+	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(7D/16D, 0, 7D/16D, 9D/16D, 7D/16D, 9D/16D);
+
+	public BlockCandle() {
+		super(Material.SPONGE);
+		this.setUnlocalizedName("ritual_candle");
 		this.setCreativeTab(ModCreativeTabs.machines);
-		this.setRegistryName(Reference.MID, "candle_plate");
-		this.setHarvestLevel("pickaxe", 0);
+		this.setRegistryName(Reference.MID, "ritual_candle");
 		this.setLightOpacity(0);
+		this.setLightLevel(0.4f);
 	}
 
 	@Override
@@ -72,21 +72,7 @@ public class BlockCandlePlate extends Block {
 	
 	@Override
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-		if (rand.nextBoolean()) {
-			ParticleSmallFlame p = new ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.35, 0, 0, 0, 0.03f);
-			Covens.proxy.spawnParticle(p);
-		}
-		if (rand.nextBoolean()) {
-			ParticleSmallFlame p1 = new ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.273, pos.getZ()+0.37, 0, 0, 0, 0.03f);
-			Covens.proxy.spawnParticle(p1);
-		}
-		if (rand.nextBoolean()) {
-			ParticleSmallFlame p2 = new ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.15, pos.getZ()+0.65, 0, 0, 0, 0.03f);
-			Covens.proxy.spawnParticle(p2);
-		}
-		if (rand.nextBoolean()) {
-			ParticleSmallFlame p3 = new ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.65, 0, 0, 0, 0.03f);
-			Covens.proxy.spawnParticle(p3);
-		}
+		ParticleSmallFlame flame = new ParticleSmallFlame(worldIn, pos.getX()+0.5D+rand.nextGaussian()*0.005, pos.getY()+0.54, pos.getZ()+rand.nextGaussian()*0.005+0.5D, 0, 0, 0, 0.06f);
+		Covens.proxy.spawnParticle(flame);
 	}
 }

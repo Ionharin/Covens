@@ -114,6 +114,7 @@ tile.sapling_juniper.name=Juniper Sapling
 tile.sapling_yew.name=Yew Sapling
 tile.thread_spinner.name=Thread Spinner
 tile.crystal_ball.name=Crystal Ball
+tile.ritual_candle.name=Ritual Candle
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites

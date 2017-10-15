@@ -62,7 +62,7 @@ public class RenderBody extends Render<EntityPlayerBody> {
 				for (int i=0;i<p.inventory.armorInventory.size();i++) p.inventory.armorInventory.set(i, ItemStack.EMPTY);
 				
 				//Render
-				Minecraft.getMinecraft().getRenderManager().doRenderEntity(p, x, y, z, p.rotationYaw, 0, false);
+				Minecraft.getMinecraft().getRenderManager().renderEntity(p, x, y, z, p.rotationYaw, 0, false);
 				
 				//Restore
 				p.limbSwingAmount = swing;

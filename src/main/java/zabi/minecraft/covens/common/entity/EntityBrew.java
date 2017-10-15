@@ -123,7 +123,7 @@ public class EntityBrew extends EntityThrowable {
             for (EntityLivingBase entitylivingbase : list) {
             	boolean isTinting = false;
                 if (entitylivingbase.canBeHitWithPotion()) {
-                    double distance = this.getDistanceSqToEntity(entitylivingbase);
+                    double distance = this.getDistanceSq(entitylivingbase);
                     if (distance < 16.0D) {
                         double falloffCoefficent = (1.0D - Math.sqrt(distance) / 4.0D);
                         if (entitylivingbase == result.entityHit) falloffCoefficent = 1.0D;
