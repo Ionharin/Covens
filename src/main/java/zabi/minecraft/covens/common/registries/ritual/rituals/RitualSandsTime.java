@@ -7,8 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
-import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualSandsTime extends Ritual {
 
@@ -17,7 +17,7 @@ public class RitualSandsTime extends Ritual {
 	}
 	
 	@Override
-	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onUpdate(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		/*if (!world.isRemote)*/ world.setWorldTime(world.getWorldTime()+5);
 	}
 

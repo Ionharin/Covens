@@ -10,10 +10,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
-import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualInfusion extends Ritual {
 	
@@ -25,7 +25,7 @@ public class RitualInfusion extends Ritual {
 	}
 	
 	@Override
-	public void onFinish(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {
+	public void onFinish(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {
 		if (player!=null) {
 			PlayerData cdata = player.getCapability(PlayerData.CAPABILITY, null);
 			cdata.setInfusion(infusion);
@@ -33,6 +33,11 @@ public class RitualInfusion extends Ritual {
 			cdata.setPower(infusion.getPower());
 			player.attackEntityFrom(DamageSource.MAGIC, (float) Integer.MAX_VALUE);
 		}
+	}
+	
+	@Override
+	public boolean canBeUsedFromCandle() {
+		return false;
 	}
 	
 

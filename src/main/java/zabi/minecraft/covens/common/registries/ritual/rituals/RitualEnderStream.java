@@ -2,6 +2,8 @@ package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import java.util.List;
 
+import zabi.minecraft.covens.common.lib.Log;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,10 +13,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
-import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualEnderStream extends Ritual {
 
@@ -34,7 +35,7 @@ public class RitualEnderStream extends Ritual {
 	}
 	
 	@Override
-	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onUpdate(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		if (ticks%20!=0) return;
 		
 		List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 3, 5).expand(-5, 0, -5));
@@ -61,7 +62,7 @@ public class RitualEnderStream extends Ritual {
 	}
 	
 	@Override
-	public void onLowPower(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onLowPower(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		tile.stopRitual(player);
 	}
 

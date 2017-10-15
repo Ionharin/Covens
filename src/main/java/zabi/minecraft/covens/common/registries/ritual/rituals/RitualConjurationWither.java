@@ -10,8 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
-import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
 public class RitualConjurationWither extends Ritual {
 
@@ -20,7 +20,7 @@ public class RitualConjurationWither extends Ritual {
 	}
 	
 	@Override
-	public void onFinish(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {
+	public void onFinish(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {
 		if (!world.isRemote) {
 			EntityWither entitywither = new EntityWither(world);
 			BlockPos blockpos1 = pos.add(0, 0, 0);

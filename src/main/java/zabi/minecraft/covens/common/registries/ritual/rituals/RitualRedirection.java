@@ -2,6 +2,9 @@ package zabi.minecraft.covens.common.registries.ritual.rituals;
 
 import java.util.List;
 
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,9 +21,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.item.ModItems;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
 
@@ -35,7 +37,7 @@ public class RitualRedirection extends Ritual {
 	}
 	
 	@Override
-	public void onUpdate(EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
+	public void onUpdate(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {
 		if (world.isRemote) return;
 		NBTTagCompound dest = null;
 		for (String iname:data.getCompoundTag("itemsUsed").getKeySet()) {
@@ -50,12 +52,13 @@ public class RitualRedirection extends Ritual {
 			return;
 		}
 		double x = dest.getDouble("x"),y = dest.getDouble("y"),z = dest.getDouble("z");
-		world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(RADIUS)).stream()
+			world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).grow(RADIUS)).stream()
 			.filter(e -> shouldRedirect(e))
-			.filter(e -> !tile.isInList(e))
+			.filter(e -> !(tile instanceof TileEntityGlyph) || !((TileEntityGlyph)tile).isInList(e))
 			.forEach(e -> {
 				if (tile.consumePower((int) (pos.distanceSq(x, y, z)/10))) e.attemptTeleport(x, y, z);
 			});
+		
 	}
 	
 	@Override

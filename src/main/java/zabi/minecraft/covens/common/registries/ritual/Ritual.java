@@ -20,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
-import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 
 public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	
@@ -53,11 +53,11 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 		return true;
 	}
 	
-	public void onUpdate(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
-	public void onFinish(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStopped(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onStarted(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data) {}
-	public void onLowPower(@Nullable EntityPlayer player, TileEntityGlyph tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
+	public void onUpdate(@Nullable EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
+	public void onFinish(@Nullable EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStopped(@Nullable EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onStarted(@Nullable EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {}
+	public void onLowPower(@Nullable EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data, int ticks) {}
 	
 	public int getTime() {
 		return time;
@@ -130,6 +130,10 @@ public class Ritual extends IForgeRegistryEntry.Impl<Ritual> {
 	private void generateCache() {
 		jei_cache = new ArrayList<List<ItemStack>>();
 		for (Ingredient i:input) jei_cache.add(Arrays.asList(i.getMatchingStacks()));
+	}
+	
+	public boolean canBeUsedFromCandle() {
+		return true;
 	}
 	
 }

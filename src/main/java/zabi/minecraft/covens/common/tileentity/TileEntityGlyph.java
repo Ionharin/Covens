@@ -22,9 +22,10 @@ import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.block.ModBlocks;
+import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
-public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUser {
+public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUser, IRitualHandler {
 	
 	private Ritual ritual = null;
 	private int cooldown = 0;
