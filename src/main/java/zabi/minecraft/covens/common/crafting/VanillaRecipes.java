@@ -85,9 +85,9 @@ public class VanillaRecipes {
 				't', new ItemStack(ModItems.misc,1,9)
 				);
 		GameRegistry.addShapedRecipe(rl("candle_plate"), null, new ItemStack(ModBlocks.candle_plate), 
-				"fff", "ntn",
+				"f f", "fnf", "ntn",
 				'n', Items.IRON_INGOT,
-				'f', ModItems.candle, 
+				'f', new ItemStack(ModItems.candle,1,0), 
 				't', new ItemStack(ModItems.misc,1,9)
 				);
 		GameRegistry.addShapedRecipe(rl("clay_jar"), null, new ItemStack(ModItems.misc,8,10), 
