@@ -244,6 +244,19 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 	
 	//##################################################################################################################
 	
+	public static ArrayList<int[]> getSmall() {
+		return small;
+	}
+	
+	public static ArrayList<int[]> getMedium() {
+		return medium;
+	}
+	
+	public static ArrayList<int[]> getBig() {
+		return big;
+	}
+	
+	
 	private static final ArrayList<int[]> small = new ArrayList<int[]>();
 	private static final ArrayList<int[]> medium = new ArrayList<int[]>();
 	private static final ArrayList<int[]> big = new ArrayList<int[]>();

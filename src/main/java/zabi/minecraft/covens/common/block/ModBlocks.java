@@ -46,7 +46,7 @@ public class ModBlocks {
 		thread_spinner = new BlockThreadSpinner();
 		crystal_ball = new BlockCrystalBall();
 		
-		ritual_candle = new BlockCandle();
+		ritual_candle = new BlockRitualCandle();
 	}
 	
 	@SubscribeEvent

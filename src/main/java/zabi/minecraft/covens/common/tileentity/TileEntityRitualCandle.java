@@ -19,15 +19,19 @@ import zabi.minecraft.covens.common.registries.ritual.Ritual;
 public class TileEntityRitualCandle extends TileEntityBaseTickable implements IRitualHandler {
 
 	private Ritual ritual = null;
-	private int cooldown = 0;
+	private int cooldown = 0, waxLeft = 10000;
 	private UUID entityPlayer;
 	private NBTTagCompound ritualData = null;
 	private int internalAP = 3000;
+	private boolean lit = false, depleted = false;
 
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
 		cooldown = tag.getInteger("cooldown");
 		internalAP = tag.getInteger("internalAP");
+		lit = tag.getBoolean("lit");
+		depleted = tag.getBoolean("depleted");
+		waxLeft = tag.getInteger("waxLeft");
 		if (tag.hasKey("ritual")) ritual = Ritual.REGISTRY.getValue(new ResourceLocation(tag.getString("ritual")));
 		if (tag.hasKey("player")) entityPlayer = UUID.fromString(tag.getString("player"));
 		if (tag.hasKey("data")) ritualData = tag.getCompoundTag("data");
@@ -37,6 +41,9 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 	protected void NBTSave(NBTTagCompound tag) {
 		tag.setInteger("cooldown", cooldown);
 		tag.setInteger("internalAP", internalAP);
+		tag.setBoolean("lit", lit);
+		tag.setBoolean("depleted", depleted);
+		tag.setInteger("waxLeft", waxLeft);
 		if (ritual!=null) tag.setString("ritual", ritual.getRegistryName().toString());
 		if (entityPlayer!=null) tag.setString("player", entityPlayer.toString());
 		if (ritualData!=null) tag.setTag("data", ritualData);
@@ -44,35 +51,42 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 
 	@Override
 	protected void tick() {
-		if (ritual!=null) {
-			EntityPlayer player = getWorld().getPlayerEntityByUUID(entityPlayer);
-			boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
-			if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
-			if (ritual.getTime()<=cooldown && ritual.getTime()>=0) {
-				ritual.onFinish(player, this, getWorld(), getPos(), ritualData);
-				deplete();
-				Log.d("Ritual Finished: "+ritual.getRegistryName());
-				if (!getWorld().isRemote) for (ItemStack stack : ritual.getOutput()) {
-					EntityItem ei = new EntityItem(getWorld(), getPos().getX(), getPos().up().getY(), getPos().getZ(), stack);
-					getWorld().spawnEntity(ei);
+		if (lit) {
+			waxLeft--;
+			if (ritual!=null) {
+				EntityPlayer player = getWorld().getPlayerEntityByUUID(entityPlayer);
+				boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
+				if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
+				if (ritual.getTime()<=cooldown && ritual.getTime()>=0) {
+					ritual.onFinish(player, this, getWorld(), getPos(), ritualData);
+					deplete();
+					Log.d("Ritual Finished: "+ritual.getRegistryName());
+					if (!getWorld().isRemote) for (ItemStack stack : ritual.getOutput()) {
+						EntityItem ei = new EntityItem(getWorld(), getPos().getX(), getPos().up().getY(), getPos().getZ(), stack);
+						getWorld().spawnEntity(ei);
+					}
+					entityPlayer = null;
+					cooldown = 0;
+					ritual = null;
+					return;
 				}
-				entityPlayer = null;
-				cooldown = 0;
-				ritual = null;
-				return;
+				if (hasPowerToUpdate) {
+					ritual.onUpdate(player, this, getWorld(), getPos(), ritualData, cooldown);
+				} else {
+					ritual.onLowPower(player, this, world, pos, ritualData, cooldown);
+					deplete();
+				}
 			}
-			if (hasPowerToUpdate) {
-				ritual.onUpdate(player, this, getWorld(), getPos(), ritualData, cooldown);
-			} else {
-				ritual.onLowPower(player, this, world, pos, ritualData, cooldown);
-				deplete();
-			}
+			if (waxLeft<=0) deplete();
 		}
 	}
-	
+
 	private void deplete() {
-		this.world.playEvent(2001, pos, Block.getStateId(this.world.getBlockState(getPos())));
-		this.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+		if (!depleted) {
+			this.world.playEvent(2001, pos, Block.getStateId(this.world.getBlockState(getPos())));
+			this.world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+			depleted=true;
+		}
 	}
 
 	public void startRitual(EntityPlayer player, NonNullList<ItemStack> itemsUsed) {
@@ -117,5 +131,13 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 	public void invalidate() {
 		stopRitual(null);
 		super.invalidate();
+	}
+
+	public boolean isLit() {
+		return lit;
+	}
+
+	public void setLit(boolean lit) {
+		this.lit = lit;
 	}
 }

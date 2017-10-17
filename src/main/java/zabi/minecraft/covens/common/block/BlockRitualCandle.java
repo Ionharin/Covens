@@ -17,11 +17,11 @@ import zabi.minecraft.covens.client.particle.ParticleSmallFlame;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 
-public class BlockCandle extends Block {
+public class BlockRitualCandle extends Block {
 	
 	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(7D/16D, 0, 7D/16D, 9D/16D, 7D/16D, 9D/16D);
 
-	public BlockCandle() {
+	public BlockRitualCandle() {
 		super(Material.SPONGE);
 		this.setUnlocalizedName("ritual_candle");
 		this.setCreativeTab(ModCreativeTabs.machines);
