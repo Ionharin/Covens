@@ -194,13 +194,6 @@ public class BlockCandlePlate extends Block {
 				return false;
 			}
 		}
-		for (EnumFacing f:EnumFacing.HORIZONTALS) {
-			BlockPos bp = pos.offset(f);
-			IBlockState bs = world.getBlockState(bp);
-			if (!bs.getBlock().equals(ModBlocks.glyphs) || !bs.getValue(BlockCircleGlyph.TYPE).equals(GlyphType.GOLDEN)) {
-				return false;
-			}
-		}
 		return true;
 	}
 
