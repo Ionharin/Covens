@@ -1,5 +1,12 @@
 package zabi.minecraft.covens.common.block;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,13 +30,6 @@ import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 import zabi.minecraft.covens.common.tileentity.TileEntityAltar;
 import zabi.minecraft.covens.common.tileentity.TileEntityGlyph;
-
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
-
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 
 public class BlockCandlePlate extends Block {
 
@@ -184,7 +184,6 @@ public class BlockCandlePlate extends Block {
 		}
 		return true;
 	}
-	
 	
 	private boolean checkFirst(GlyphType typeFirst, BlockPos pos, World world) {
 		for (int[] c:TileEntityGlyph.getSmall()) {

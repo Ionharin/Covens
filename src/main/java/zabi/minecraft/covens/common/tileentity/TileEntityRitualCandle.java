@@ -134,10 +134,20 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 	}
 
 	public boolean isLit() {
+		markDirty();
 		return lit;
 	}
 
 	public void setLit(boolean lit) {
 		this.lit = lit;
+		markDirty();
+	}
+	
+	public void setFromStack(ItemStack stack) {
+		NBTTagCompound tag = stack.getOrCreateSubCompound("ritual_data");
+		ritual = Ritual.REGISTRY.getValue(new ResourceLocation(tag.getString("ritual")));
+		entityPlayer = UUID.fromString(tag.getString("player"));
+		ritualData = tag.getCompoundTag("data");
+		markDirty();
 	}
 }
