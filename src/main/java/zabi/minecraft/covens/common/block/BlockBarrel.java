@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -33,8 +35,6 @@ import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityBarrel;
 
 public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider {
@@ -122,7 +122,6 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		((TileEntityBarrel)worldIn.getTileEntity(pos)).setType(stack.getMetadata());
-		if (worldIn.getTileEntity(pos)==null) Log.e("Null TE");
 	}
 	
 	@Override
