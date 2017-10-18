@@ -8,6 +8,12 @@
 		"normal": {
 			"model": "covens:ritual_candle"
 		}, 
+		"lit": {
+			"true": {
+			},
+			"false": {
+			}
+		},
 		"inventory": {
 			"model": "covens:ritual_candle",
 			"transform": "forge:default-block"

@@ -7,6 +7,8 @@ import zabi.minecraft.covens.common.lib.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +30,7 @@ import zabi.minecraft.covens.common.tileentity.TileEntityRitualCandle;
 
 public class BlockRitualCandle extends Block implements ITileEntityProvider {
 	
+	public static final PropertyBool lit = PropertyBool.create("lit");
 	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(7D/16D, 0, 7D/16D, 9D/16D, 7D/16D, 9D/16D);
 
 	public BlockRitualCandle() {
@@ -35,9 +39,14 @@ public class BlockRitualCandle extends Block implements ITileEntityProvider {
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setRegistryName(Reference.MID, "ritual_candle");
 		this.setLightOpacity(0);
-		this.setLightLevel(0.4f);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(lit, false));
 	}
 
+	@Override
+	public int getLightValue(IBlockState state) {
+		return state.getValue(lit)?5:0;
+	}
+	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return bounding_box;
@@ -98,14 +107,22 @@ public class BlockRitualCandle extends Block implements ITileEntityProvider {
 		TileEntityRitualCandle te = (TileEntityRitualCandle) worldIn.getTileEntity(pos);
 		if (playerIn.getHeldItem(hand).getItem()==Items.FLINT_AND_STEEL) {
 			flag = true;
-			te.setLit(true);
 		} else if (playerIn.getHeldItem(hand).getItem()==Items.FIRE_CHARGE) {
 			flag=true;
-			te.setLit(true);
 			playerIn.getHeldItem(hand).shrink(1);
 		}
-		if (flag) return true;
+		if (flag) {
+			te.setLit(true);
+			worldIn.setBlockState(pos, worldIn.getBlockState(pos).withProperty(lit, true));
+			return true;
+		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		if (state.getValue(lit)) return;
+		super.getDrops(drops, world, pos, state, fortune);
 	}
 
 	@Override
@@ -113,4 +130,18 @@ public class BlockRitualCandle extends Block implements ITileEntityProvider {
 		return new TileEntityRitualCandle();
 	}
 	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, lit);
+	}
+	
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(lit)?1:0;
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(lit, meta==1);
+	}
 }

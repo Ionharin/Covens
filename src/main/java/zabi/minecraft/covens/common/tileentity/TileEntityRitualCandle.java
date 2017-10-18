@@ -5,6 +5,7 @@ import java.util.UUID;
 import zabi.minecraft.covens.common.lib.Log;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -12,7 +13,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
@@ -149,5 +152,11 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 		entityPlayer = UUID.fromString(tag.getString("player"));
 		ritualData = tag.getCompoundTag("data");
 		markDirty();
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		if (oldState.getBlock()==newSate.getBlock()) return false;
+		return super.shouldRefresh(world, pos, oldState, newSate);
 	}
 }
