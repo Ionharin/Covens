@@ -108,10 +108,12 @@ public class ItemBrewBase extends Item {
 
 				if (potion.isBadEffect()) {
 					stackTooltip.add(TextFormatting.RED + effectName);
-				}
-				else {
+				} else {
 					stackTooltip.add(TextFormatting.BLUE + effectName);
 				}
+				
+				if (!pef.hasEntityEffect()) stackTooltip.add(" "+TextFormatting.GRAY+I18n.format("potion.removed.entity"));
+				if (!pef.hasEnvironmentalEffect()) stackTooltip.add(" "+TextFormatting.GRAY+I18n.format("potion.removed.environmental"));
 			}
 		}
 		if (!list1.isEmpty()) {

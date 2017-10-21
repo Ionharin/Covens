@@ -67,10 +67,10 @@ public class EntityBrew extends EntityThrowable {
 			Item type = itemst.getItem();
 			if (type==ModItems.brew_splash) {
 				splash(result, data);
-			} else if (type==ModItems.brew_gas) {
-				gas(result, data);
+//			} else if (type==ModItems.brew_gas) {
+//				addEnvironmentalEffect(result, data);
 			} else if (type==ModItems.brew_lingering) {
-				linger(result, data, false);
+				linger(result, data);
 			} else {
 				Log.e("Invalid Brew type, please report to Covens' author");
 			}
@@ -78,7 +78,8 @@ public class EntityBrew extends EntityThrowable {
 		}
 	}
 
-	private void linger(RayTraceResult result, BrewData data, boolean fromGas) {
+	private void linger(RayTraceResult result, BrewData data) {
+		addEnvironmentalEffect(result, data);
 		if (!world.isRemote) {
 			EntityAreaEffectCloud entityareaeffectcloud = new EntityAreaEffectCloud(this.world, result.hitVec.x, result.hitVec.y, result.hitVec.z);
 			entityareaeffectcloud.setOwner(this.getThrower());
@@ -91,8 +92,7 @@ public class EntityBrew extends EntityThrowable {
 			NonNullList<CovenPotionEffect> effects = data.getEffects();
 
 			for (CovenPotionEffect pe:effects) {
-				if (pe.getPotionEffect().getPotion().equals(ModPotions.tinting)) continue;
-				if (fromGas) pe.setDiminished();
+				if (pe.getPotionEffect().getPotion().equals(ModPotions.tinting) || !pe.hasEntityEffect()) continue;
 				entityareaeffectcloud.addEffect(pe.getPotionEffect());
 				persistency += pe.getPersistency();
 			}
@@ -106,14 +106,15 @@ public class EntityBrew extends EntityThrowable {
 		}
 	}
 
-	private void gas(RayTraceResult result, BrewData data) {
+	private void addEnvironmentalEffect(RayTraceResult result, BrewData data) {
 		for (CovenPotionEffect cpe:data.getEffects()) {
-			EnvironmentalPotionEffect epe = EnvironmentalPotionEffect.getEffectForPotion(cpe.getPotionEffect().getPotion());
-			if (epe!=null) {
-				epe.splashedOn(world, result.getBlockPos(), this.getThrower(), cpe);
+			if (cpe.hasEnvironmentalEffect()) {
+				EnvironmentalPotionEffect epe = EnvironmentalPotionEffect.getEffectForPotion(cpe.getPotionEffect().getPotion());
+				if (epe!=null) {
+					epe.splashedOn(world, result.getBlockPos(), this.getThrower(), cpe);
+				}
 			}
 		}
-		splash(result, data);
 	}
 
 	private void splash(RayTraceResult result, BrewData data) {
@@ -128,17 +129,19 @@ public class EntityBrew extends EntityThrowable {
                         double falloffCoefficent = (1.0D - Math.sqrt(distance) / 4.0D);
                         if (entitylivingbase == result.entityHit) falloffCoefficent = 1.0D;
                         for (CovenPotionEffect cpotioneffect : data.getEffects()) {
-                        	PotionEffect potioneffect = cpotioneffect.getPotionEffect();
-                            Potion potion = potioneffect.getPotion();
-                            isTinting = potion.equals(ModPotions.tinting);
-                            if (potion.isInstant()) {
-                                potion.affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), falloffCoefficent);
-                            } else {
-                                int i = (int)(cpotioneffect.getMultiplier() * falloffCoefficent * (double)potioneffect.getDuration() + 0.5D);
-                                if (i > 20) {
-                                    entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
-                                }
-                            }
+                        	if (cpotioneffect.hasEntityEffect()) {
+                        		PotionEffect potioneffect = cpotioneffect.getPotionEffect();
+                        		Potion potion = potioneffect.getPotion();
+                        		isTinting = potion.equals(ModPotions.tinting);
+                        		if (potion.isInstant()) {
+                        			potion.affectEntity(this, this.getThrower(), entitylivingbase, potioneffect.getAmplifier(), falloffCoefficent);
+                        		} else {
+                        			int i = (int)(cpotioneffect.getMultiplier() * falloffCoefficent * (double)potioneffect.getDuration() + 0.5D);
+                        			if (i > 20) {
+                        				entitylivingbase.addPotionEffect(new PotionEffect(potion, i, potioneffect.getAmplifier(), potioneffect.getIsAmbient(), potioneffect.doesShowParticles()));
+                        			}
+                        		}
+                        	}
                         }
                     }
                 }
@@ -147,6 +150,7 @@ public class EntityBrew extends EntityThrowable {
                 }
             }
         }
+        addEnvironmentalEffect(result, data);
         if (!world.isRemote) this.world.playEvent(2007, new BlockPos(this), data.getColor());
 	}
 

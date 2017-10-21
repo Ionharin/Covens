@@ -31,7 +31,7 @@ import zabi.minecraft.covens.common.lib.Reference;
 public class ModItems {
 	
 	public static Item chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
-		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
+		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
 		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
 		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
 		crystal_ball, ritual_candle;
@@ -72,7 +72,7 @@ public class ModItems {
 		misc = new ItemMisc();
 		brew_drinkable = new ItemBrewDrinkable();
 		brew_splash = new ItemBrewBase("brew_splash");
-		brew_gas = new ItemBrewBase("brew_gas");
+//		brew_gas = new ItemBrewBase("brew_gas");
 		brew_lingering = new ItemBrewBase("brew_lingering");
 		ritual_knife = new ItemRitualKnife();
 		leaves_elder = new ItemModLeaves((BlockLeaves) ModBlocks.leaves_elder);
@@ -152,7 +152,7 @@ public class ModItems {
 		Log.i("Registering items");
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
-				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, brew_gas, brew_lingering, cardinal_stone, ritual_knife, broom,
+				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
 				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
 				crystal_ball, ritual_candle
 				);

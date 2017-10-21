@@ -34,8 +34,6 @@ item.brew_drinkable_full.name=Magic Brew
 item.brew_drinkable_spoiled.name=Spoiled Brew
 item.brew_splash_full.name=Magic Splash Brew
 item.brew_splash_spoiled.name=Spoiled Splash Brew
-item.brew_gas_full.name=Magic Gas Brew
-item.brew_gas_spoiled.name=Spoiled Gas Brew
 item.brew_lingering_full.name=Magic Lingering Brew
 item.brew_lingering_spoiled.name=Spoiled Lingering Brew
 item.brew.spoiled=Better not drink this
@@ -142,6 +140,8 @@ potion.potency.4=IV
 potion.potency.5=V
 
 # Potions
+potion.removed.entity=Doesn't affect entities
+potion.removed.environmental=Doesn't affect environment
 effect.disrobing=Disrobing
 effect.tinting=Tinting
 effect.skin_rotting=Rotting

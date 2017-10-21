@@ -40,6 +40,8 @@ public class PotionDigester {
 		boolean isCurable = true;
 		boolean showParticles = true;
 		boolean getOpposite = false;
+		boolean suppressEnv = false;
+		boolean suppressNrm = false;
 		Log.d("-- Starting recipe analysis");
 		while (read<items.length - 1) {
 			if (items[read]!=null) Log.d(read+") Item analyzed: "+items[read].getItem().getRegistryName()+":"+items[read].getMetadata());
@@ -54,6 +56,8 @@ public class PotionDigester {
 						pe.setMultiplier(currentLengthModifier);
 						pe.setShowParticle(showParticles);
 						pe.setPersistency(persistency);
+						if (suppressEnv) pe.removeEnvironmentalEffect();
+						if (suppressNrm) pe.removeEntityEffect();
 						result.addEffectToBrew(pe);
 						if (result.getEffects().size()>=effectSize) { //RuinedPotion
 							Log.d("Too many effects for slots: spoiled");
@@ -98,6 +102,18 @@ public class PotionDigester {
 				} else if (items[read].getItem().equals(Item.getItemFromBlock(Blocks.WOOL))) {
 					color = colorAverage(color, getHexFromMeta(items[read].getMetadata()));
 					Log.d("color is now "+color);
+				} else if (items[read].getItem().equals(Items.BEETROOT_SOUP)) {	
+					if (suppressEnv || suppressNrm) {
+						Log.d("Already removed effect: spoiled");
+						result.spoil();
+					}
+					suppressEnv=true;
+				} else if (items[read].getItem().equals(Items.MUSHROOM_STEW)) {
+					if (suppressEnv || suppressNrm) {
+						Log.d("Already removed effect: spoiled");
+						result.spoil();
+					}
+					suppressNrm = true;
 				} else {
 					Log.d("unrecognized item, spoiled: "+items[read].getItem().getRegistryName());
 					result.spoil(); //Unrecognized Item, ruined potion
@@ -112,6 +128,8 @@ public class PotionDigester {
 			pe.setMultiplier(currentLengthModifier);
 			pe.setShowParticle(showParticles);
 			pe.setPersistency(persistency);
+			if (suppressEnv) pe.removeEnvironmentalEffect();
+			if (suppressNrm) pe.removeEntityEffect();
 			result.addEffectToBrew(pe);
 			Log.d("-- Analysis finished");
 		} else {
@@ -171,7 +189,7 @@ public class PotionDigester {
 		Log.d("Potion type item: "+ity.getItem().getRegistryName());
 		items[items.length-1] = null;
 		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==1) return ModItems.brew_drinkable; //Hellebore
-		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==0) return ModItems.brew_gas; //Aconitum
+//		if (ity.getItem().equals(ModItems.flowers) && ity.getMetadata()==0) return ModItems.brew_gas; //Aconitum
 		if (ity.getItem().equals(Items.GUNPOWDER)) return ModItems.brew_splash; //Gunpowder
 		if (ity.getItem().equals(Items.DRAGON_BREATH)) return ModItems.brew_lingering; //Breath
 		Log.d("No match for "+ity.getItem().getRegistryName());

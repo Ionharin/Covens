@@ -34,8 +34,6 @@ item.brew_drinkable_full.name=Intruglio magico
 item.brew_drinkable_spoiled.name=Intruglio rovinato
 item.brew_splash_full.name=Intruglio magico da lancio
 item.brew_splash_spoiled.name=Intruglio rovinato
-item.brew_gas_full.name=Intruglio magico gassoso
-item.brew_gas_spoiled.name=Intruglio rovinato
 item.brew_lingering_full.name=Intruglio magico persistente
 item.brew_lingering_spoiled.name=Intruglio rovinato
 item.brew.spoiled=Meglio non berlo
@@ -136,6 +134,8 @@ ritual.covens.infusion_ritual_end.name=Rituale di infusione dell'ultimo mondo
 ritual.covens.infusion_ritual_nether.name=Rituale di infusione del mondo infernale
 
 # Potions
+potion.removed.entity=Non ha effetto sugli esseri
+potion.removed.environmental=Non ha effetto sull'ambiente
 effect.disrobing=Svestimento
 effect.tinting=Tintura
 effect.skin_rotting=Putrefazione

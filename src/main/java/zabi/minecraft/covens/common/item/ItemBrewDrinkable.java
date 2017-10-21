@@ -47,11 +47,12 @@ public class ItemBrewDrinkable extends ItemBrewBase {
 		}; 
 		
 		data.getEffects().stream()
+			.filter(ce -> ce.hasEntityEffect())
 			.filter(ce -> entityLiving.isPotionApplicable(ce.getPotionEffect()))
 			.forEach(ce -> {
 				PotionEffect pe = ce.getPotionEffect();
-					entityLiving.addPotionEffect(pe);
-					if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(EntityData.CAPABILITY, null).setTint(data.getColor());
+				entityLiving.addPotionEffect(pe);
+				if (pe.getPotion().equals(ModPotions.tinting)) entityLiving.getCapability(EntityData.CAPABILITY, null).setTint(data.getColor());
 				});
 		return ItemStack.EMPTY;
 	}

@@ -37,8 +37,8 @@ public class BrewingWrapper implements IRecipeWrapper {
 		return Arrays.asList(
 				ItemBrewBase.getBrewStackWithData(ModItems.brew_drinkable, data),
 				ItemBrewBase.getBrewStackWithData(ModItems.brew_splash, data),
-				ItemBrewBase.getBrewStackWithData(ModItems.brew_lingering, data),
-				ItemBrewBase.getBrewStackWithData(ModItems.brew_gas, data)
+				ItemBrewBase.getBrewStackWithData(ModItems.brew_lingering, data)
+//				ItemBrewBase.getBrewStackWithData(ModItems.brew_gas, data)
 			);
 	}
 }

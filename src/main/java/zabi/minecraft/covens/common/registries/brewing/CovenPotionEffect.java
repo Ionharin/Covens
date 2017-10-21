@@ -19,7 +19,7 @@ public class CovenPotionEffect {
 	private float multiplier = 1;
 	private int strength = 0;
 	private int persistency = 0;
-	private boolean showParticle = true;
+	private boolean showParticle = true, suppressEnvironmentalEffect = false, suppressNormalEffect=false;
 	private boolean isAmbient = true;
 	private boolean isCurable = true;
 	private int color = -1;
@@ -89,6 +89,8 @@ public class CovenPotionEffect {
 		tag.setBoolean("showParticle", showParticle);
 		tag.setBoolean("isAmbient", isAmbient);
 		tag.setBoolean("isCurable", isCurable);
+		tag.setBoolean("suppressEnv", suppressEnvironmentalEffect);
+		tag.setBoolean("suppressNrm", suppressNormalEffect);
 		tag.setFloat("multiplier", multiplier);
 		tag.setInteger("color", color);
 		return tag;
@@ -109,6 +111,8 @@ public class CovenPotionEffect {
 		cpe.showParticle = tag.getBoolean("showParticle");
 		cpe.isAmbient = tag.getBoolean("isAmbient");
 		cpe.isCurable = tag.getBoolean("isCurable");
+		cpe.suppressEnvironmentalEffect = tag.getBoolean("suppressEnv");
+		cpe.suppressNormalEffect = tag.getBoolean("suppressNrm");
 		cpe.setMultiplier(tag.getFloat("multiplier"));
 		cpe.setColor(tag.getInteger("color"));
 		return cpe;
@@ -140,6 +144,22 @@ public class CovenPotionEffect {
 
 	public void setColor(int color) {
 		this.color = color;
+	}
+	
+	public boolean hasEnvironmentalEffect() {
+		return !suppressEnvironmentalEffect;
+	}
+	
+	public boolean hasEntityEffect() {
+		return !suppressNormalEffect;
+	}
+	
+	public void removeEnvironmentalEffect() {
+		suppressEnvironmentalEffect=true;
+	}
+	
+	public void removeEntityEffect() {
+		suppressNormalEffect=true;
 	}
 	
 }

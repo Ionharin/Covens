@@ -96,8 +96,8 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.cauldron, 0);
 		registerModel(ModItems.brew_drinkable, 0);
 		registerModel(ModItems.brew_drinkable, 1, 0);
-		registerModel(ModItems.brew_gas, 0);
-		registerModel(ModItems.brew_gas, 1, 0);
+//		registerModel(ModItems.brew_gas, 0);
+//		registerModel(ModItems.brew_gas, 1, 0);
 		registerModel(ModItems.ritual_knife,0);
 		registerModel(ModItems.brew_lingering, 0);
 		registerModel(ModItems.brew_lingering, 1, 0);
@@ -185,7 +185,7 @@ public class ClientProxy extends Proxy {
 				if (tintIndex==0) return ItemBrewDrinkable.getPotionColor(stack);
 				return -1;
 			}
-		}, ModItems.brew_drinkable, ModItems.brew_gas, ModItems.brew_lingering, ModItems.brew_splash);
+		}, ModItems.brew_drinkable, /*ModItems.brew_gas,*/ ModItems.brew_lingering, ModItems.brew_splash);
 		
 		ic.registerItemColorHandler(new IItemColor() {
 			
