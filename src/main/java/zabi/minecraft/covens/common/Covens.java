@@ -1,6 +1,5 @@
 package zabi.minecraft.covens.common;
 
-import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.item.ItemStack;
@@ -41,7 +40,7 @@ import zabi.minecraft.covens.common.registries.spell.ModSpells;
 import zabi.minecraft.covens.common.registries.threads.ModSpinningThreadRecipes;
 import zabi.minecraft.covens.common.tileentity.ModTileEntities;
 
-@Mod(modid = Reference.MID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.12,1.13)", updateJSON=Reference.UPDATE_URL)
+@Mod(modid = Reference.MID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = "[1.12,1.13)", updateJSON=Reference.UPDATE_URL, dependencies="after:lilliputian")
 @Mod.EventBusSubscriber
 public class Covens {
 	
@@ -64,7 +63,6 @@ public class Covens {
 		NetworkModRegistry.registerMessages(network);
 		NetworkRegistry.INSTANCE.registerGuiHandler(INSTANCE, new GuiHandler());
 		ModEntities.registerAll();
-		Log.d("Resuming registration");
 		ModTileEntities.registerAll();
 		ModChimneyRecipes.registerAll();
 		ModRituals.registerAll();

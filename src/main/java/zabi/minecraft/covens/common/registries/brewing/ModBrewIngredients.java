@@ -12,14 +12,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.potion.ModPotions;
 
+@Mod.EventBusSubscriber
 public class ModBrewIngredients {
-	
+
 	public static BrewIngredient healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, tinting, 
-	skin_rotting, extinguish_fire, planting, arrow_block;
+	skin_rotting, extinguish_fire, planting, arrow_block, harvest;
 
 	public static void registerAll() {
 		Log.i("Creating brews");
@@ -39,6 +41,7 @@ public class ModBrewIngredients {
 		extinguish_fire = new BrewIngredient(Ingredient.fromItem(Item.getItemFromBlock(Blocks.WATERLILY)), ModPotions.extinguish_fire, null, 6000, 1);
 		planting = new BrewIngredient(Ingredient.fromItem(Items.WHEAT_SEEDS), ModPotions.planting, null, 1, 1);
 		arrow_block = new BrewIngredient(Ingredient.fromItem(Item.getItemFromBlock(Blocks.IRON_ORE)), ModPotions.arrow_block, null, 20*180, 1);
+		harvest = new BrewIngredient(Ingredient.fromItem(Items.WHEAT), ModPotions.harvest, 1);
 	}
 
 
@@ -46,6 +49,6 @@ public class ModBrewIngredients {
 	public void registerBrewIngredients(RegistryEvent.Register<BrewIngredient> evt) {
 		Log.i("Registering brews");
 		evt.getRegistry().registerAll(healing, speedPot, jump, fireRes, nightVis, instaHealth, strength, invis, disrobing, 
-				tinting, skin_rotting, extinguish_fire, planting, arrow_block);
+				tinting, skin_rotting, extinguish_fire, planting, arrow_block, harvest);
 	}
 }

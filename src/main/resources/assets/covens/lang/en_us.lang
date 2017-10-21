@@ -148,6 +148,7 @@ effect.skin_rotting=Rotting
 effect.extinguish_fire=Extinguishing
 effect.planting=Planting
 effect.block_arrows=Arrow Repulsion
+effect.harvest=Harvest
 
 # Entities
 entity.broom.name=Flying Broom

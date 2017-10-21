@@ -9,13 +9,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import zabi.minecraft.covens.common.potion.potions.PotionBlockProjectiles;
 import zabi.minecraft.covens.common.potion.potions.PotionDisrobing;
 import zabi.minecraft.covens.common.potion.potions.PotionExtinguishFire;
+import zabi.minecraft.covens.common.potion.potions.PotionHarvest;
 import zabi.minecraft.covens.common.potion.potions.PotionPlanting;
 import zabi.minecraft.covens.common.potion.potions.PotionSkinRotting;
 import zabi.minecraft.covens.common.potion.potions.PotionTinting;
 
 public class ModPotions {
 	
-	public static ModPotion disrobing, tinting, skin_rotting, extinguish_fire, planting, arrow_block;
+	public static ModPotion disrobing, tinting, skin_rotting, extinguish_fire, planting, arrow_block, harvest;
 	
 	public static void registerAll() {
 		Log.i("Creating potions");
@@ -27,11 +28,12 @@ public class ModPotions {
 		extinguish_fire = new PotionExtinguishFire(0x008080, "extinguish_fire");
 		planting = new PotionPlanting(0x45c91c, "planting");
 		arrow_block = new PotionBlockProjectiles(0x6f12bf, "block_arrows");
+		harvest = new PotionHarvest(0x8dd017, "harvest");
 	}
 	
 	@SubscribeEvent
 	public void registerPotions(RegistryEvent.Register<Potion> evt) {
 		Log.i("Registering potions");
-		evt.getRegistry().registerAll(disrobing, tinting, skin_rotting, extinguish_fire, planting, arrow_block);
+		evt.getRegistry().registerAll(disrobing, tinting, skin_rotting, extinguish_fire, planting, arrow_block, harvest);
 	}
 }

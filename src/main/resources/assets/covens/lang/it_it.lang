@@ -142,6 +142,7 @@ effect.skin_rotting=Putrefazione
 effect.extinguish_fire=Ignifugita'
 effect.planting=Semina
 effect.block_arrows=Repulsione Frecce
+effect.harvest=Raccolta
 
 # Crystal Ball/Fortunes
 crystal_ball.error.ingredients=Il futuro rifiuta il tuo sguardo, forse sbagli qualcosa

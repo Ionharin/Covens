@@ -15,7 +15,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 public class BrewIngredient extends IForgeRegistryEntry.Impl<BrewIngredient> {
 	
-	public static final IForgeRegistry<BrewIngredient> REGISTRY = new RegistryBuilder<BrewIngredient>().setName(new ResourceLocation(Reference.MID, "brew_ingredients")).setType(BrewIngredient.class).setIDRange(0, 200).create();
+	public static final IForgeRegistry<BrewIngredient> REGISTRY = new RegistryBuilder<BrewIngredient>().setName(new ResourceLocation(Reference.MID, "z_brew_ingredients")).setType(BrewIngredient.class).setIDRange(0, 200).create();
 
 	private Ingredient ingredient;
 	private Potion result = null, opposite = null;
