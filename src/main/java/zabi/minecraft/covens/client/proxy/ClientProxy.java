@@ -32,6 +32,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.client.gui.RenderCandleData;
 import zabi.minecraft.covens.client.gui.RenderInfusionBar;
 import zabi.minecraft.covens.client.gui.ScrollHijacker;
+import zabi.minecraft.covens.client.gui.books.BookManager;
 import zabi.minecraft.covens.client.renderer.entity.RenderBody;
 import zabi.minecraft.covens.client.renderer.entity.RenderBrewThrown;
 import zabi.minecraft.covens.client.renderer.entity.RenderBroom;
@@ -83,6 +84,7 @@ public class ClientProxy extends Proxy {
 	@Override
 	public void init(FMLInitializationEvent evt) {
 		registerColors();
+		BookManager.registerPagesReloadListener();
 	}
 	
 	public void registerItemModels() {
