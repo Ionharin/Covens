@@ -22,7 +22,7 @@ public class ModBarrelRecipes {
 		
 		slime = new SlimeRecipe(new ItemStack(Items.SLIME_BALL), 1200, 0);
 		slime.setRegistryName(Reference.MID, "slime");
-		potionDetonation = new PotionExplosion(ItemStack.EMPTY, ItemStack.EMPTY, 100, 2);
+		potionDetonation = new PotionExplosion(ItemStack.EMPTY, ItemStack.EMPTY, 100, 200);
 		potionDetonation.setRegistryName(Reference.MID, "detonation");
 	}
 	

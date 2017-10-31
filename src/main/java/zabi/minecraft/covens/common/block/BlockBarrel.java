@@ -13,7 +13,6 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -24,7 +23,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -34,6 +32,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import zabi.minecraft.covens.common.Covens;
+import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.tileentity.TileEntityBarrel;
 
@@ -138,34 +138,12 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
 		TileEntityBarrel barrel = (TileEntityBarrel) world.getTileEntity(pos);
-		if (barrel.hasRecipe()) {
-			return false; //Don't do anything if a recipe is cooking or another one is ready
-		}
+//		if (barrel.hasRecipe()) {
+//			return false; //Don't do anything if a recipe is cooking or another one is ready
+//		}
 		world.notifyBlockUpdate(pos, state, state, 3);
 		ItemStack stack = player.getHeldItem(hand);
 		
-		if (barrel.hasResult()) {
-			if (barrel.getRequiredStackToRetrieve().isItemEqual(stack) || (barrel.getRequiredStackToRetrieve().isEmpty() && stack.isEmpty())) {
-				if (!stack.isEmpty()) stack.setCount(stack.getCount()-1);
-				EntityItem ei = new EntityItem(world, player.posX, player.posY, player.posZ, barrel.popResult().copy());
-				world.spawnEntity(ei);
-				ei.setNoPickupDelay();
-				ei.onCollideWithPlayer(player);
-				return true;
-			}
-			return false;
-		}
-
-		if (player.isSneaking()) {
-			if (stack.isEmpty()) {
-				EntityItem ei = new EntityItem(world, player.posX, player.posY, player.posZ, barrel.popLastInsertedItem());
-				world.spawnEntity(ei);
-				ei.setNoPickupDelay();
-				ei.onCollideWithPlayer(player);
-			}
-			return true;
-		}
-
 		if (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
 			IFluidHandlerItem itemHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
@@ -181,17 +159,16 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 			return true;
 		} 
 		
-		if (stack.isEmpty()) {
-			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
-			FluidStack cont = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
-			TextComponentTranslation message = null;
-			if (cont==null || cont.amount==0 || cont.getFluid()==null) message = new TextComponentTranslation("tile.barrel.empty");
-			else message = new TextComponentTranslation("tile.barrel.full", cont.getLocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
-			player.sendStatusMessage(message, true);
-			return true;
-		}
-		barrel.addItem(stack.copy());
-		stack.setCount(stack.getCount()-1);
+//		if (stack.isEmpty()) {
+//			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
+//			FluidStack cont = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
+//			TextComponentTranslation message = null;
+//			if (cont==null || cont.amount==0 || cont.getFluid()==null) message = new TextComponentTranslation("tile.barrel.empty");
+//			else message = new TextComponentTranslation("tile.barrel.full", cont.getLocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
+//			player.sendStatusMessage(message, true);
+//			return true;
+//		}
+		player.openGui(Covens.INSTANCE, GuiHandler.IDs.BARREL.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
 	

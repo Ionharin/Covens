@@ -6,17 +6,20 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
+import zabi.minecraft.covens.client.gui.GuiBarrel;
 import zabi.minecraft.covens.client.gui.GuiBook;
 import zabi.minecraft.covens.client.gui.GuiChimney;
 import zabi.minecraft.covens.client.gui.GuiThreadSpinner;
 import zabi.minecraft.covens.common.lib.Log;
+
+import zabi.minecraft.covens.common.tileentity.TileEntityBarrel;
 import zabi.minecraft.covens.common.tileentity.TileEntityChimney;
 import zabi.minecraft.covens.common.tileentity.TileEntityThreadSpinner;
 
 public class GuiHandler implements IGuiHandler {
 
 	public enum IDs {
-		CHIMNEY, THREAD_SPINNER, BOOK_TEST
+		CHIMNEY, THREAD_SPINNER, BOOK_TEST, BARREL
 	}
 
 	@Override
@@ -29,6 +32,8 @@ public class GuiHandler implements IGuiHandler {
 			return new ContainerThreadSpinner(player.inventory, (TileEntityThreadSpinner) world.getTileEntity(pos));
 		case BOOK_TEST:
 			return null;
+		case BARREL:
+			return new ContainerBarrel(player.inventory, (TileEntityBarrel) world.getTileEntity(pos));
 		default:
 			Log.w("invalid GUI requested: " + ID);
 			return null;
@@ -46,6 +51,8 @@ public class GuiHandler implements IGuiHandler {
 			return new GuiThreadSpinner((Container) getServerGuiElement(ID, player, world, x, y, z), (TileEntityThreadSpinner) world.getTileEntity(pos));
 		case BOOK_TEST:
 			return new GuiBook("testBook");
+		case BARREL:
+			return new GuiBarrel((Container) getServerGuiElement(ID, player, world, x, y, z), (TileEntityBarrel) world.getTileEntity(pos));
 		default:
 			Log.w("invalid GUI requested");
 			return null;

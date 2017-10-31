@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.registries.fermenting.recipes;
 
+import java.util.List;
+
 import net.minecraft.entity.EntityAreaEffectCloud;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -20,8 +22,9 @@ public class PotionExplosion extends BarrelRecipe {
 	}
 
 	@Override
-	public boolean isValidRecipe(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
+	public boolean isValidRecipe(World world, List<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
 		boolean[] ing = new boolean[2];
+		int emptyOnes = 0;
 		for (ItemStack stack:stacks) {
 			if (stack.getItem().equals(Items.GUNPOWDER)) ing[0]=true;
 			else if (stack.getItem().equals(ModItems.brew_splash)) {
@@ -30,11 +33,13 @@ public class PotionExplosion extends BarrelRecipe {
 					return false;
 				}
 				ing[1]=true;
+			} else if (stack.isEmpty()) {
+				emptyOnes++;
 			} else {
 				return false;
 			}
 		}
-		boolean hasIngredients = ing[0] && ing[1];
+		boolean hasIngredients = ing[0] && ing[1] && emptyOnes==4;
 		if (!hasIngredients) {
 			return false;
 		}
@@ -45,7 +50,7 @@ public class PotionExplosion extends BarrelRecipe {
 	}
 	
 	@Override
-	public void onFinish(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
+	public void onFinish(World world, List<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
 		if (!world.isRemote) for (ItemStack stack:stacks) {
 			if (stack.getItem().equals(ModItems.brew_splash)) {
 				BrewData data = BrewData.getDataFromStack(stack);

@@ -1,7 +1,8 @@
 package zabi.minecraft.covens.common.registries.fermenting.recipes;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeSwamp;
@@ -17,7 +18,7 @@ public class SlimeRecipe extends BarrelRecipe {
 	}
 	
 	@Override
-	public boolean isValidRecipe(World world, NonNullList<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
+	public boolean isValidRecipe(World world, List<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
 		return fluid!=null && fluid.getFluid()!=null && fluid.amount == Fluid.BUCKET_VOLUME && fluid.getFluid().equals(FluidRegistry.WATER) && stacks.isEmpty() && world.getBiome(pos) instanceof BiomeSwamp;
 	}
 
