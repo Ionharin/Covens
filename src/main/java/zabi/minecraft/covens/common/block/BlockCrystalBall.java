@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,6 +20,8 @@ import zabi.minecraft.covens.common.tileentity.TileEntityCrystalBall;
 import zabi.minecraft.covens.common.tileentity.TileEntityCrystalBall.EnumCrystalBallResult;
 
 public class BlockCrystalBall extends Block implements ITileEntityProvider {
+	
+	private static final AxisAlignedBB bbox = new AxisAlignedBB(3d/16d, 0d, 3d/16d, 13d/16d, 12d/16d, 13d/16d);
 
 	public BlockCrystalBall() {
 		super(Material.GLASS);
@@ -27,6 +30,11 @@ public class BlockCrystalBall extends Block implements ITileEntityProvider {
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setLightOpacity(0);
 		this.setLightLevel(0.3f);
+	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return bbox;
 	}
 
 	@Override

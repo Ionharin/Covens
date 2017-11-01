@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,6 +26,8 @@ import zabi.minecraft.covens.common.lib.Reference;
 import zabi.minecraft.covens.common.tileentity.TileEntityChimney;
 
 public class BlockChimney extends Block implements ITileEntityProvider {
+	
+	private static final AxisAlignedBB bbox = new AxisAlignedBB(1d/16d, 0d, 1d/16d, 15d/16d, 1d, 15d/16d);
 
 	public BlockChimney() {
 		super(Material.ROCK);
@@ -32,6 +35,11 @@ public class BlockChimney extends Block implements ITileEntityProvider {
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setUnlocalizedName("chimney");
 		this.setRegistryName(Reference.MID, "chimney");
+	}
+	
+	@Override
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+		return bbox;
 	}
 	
 	@Override
