@@ -2,10 +2,12 @@ package zabi.minecraft.covens.common.block;
 
 import zabi.minecraft.covens.common.lib.Reference;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
@@ -23,12 +24,11 @@ import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.tileentity.TileEntityThreadSpinner;
 
-public class BlockThreadSpinner extends Block implements ITileEntityProvider {
+public class BlockThreadSpinner extends BlockHorizontal implements ITileEntityProvider {
 
-	private static final AxisAlignedBB bounding_box = new AxisAlignedBB(0, 0, 0, 1, 10d/16d, 1);
-	
 	public BlockThreadSpinner() {
 		super(Material.WOOD);
+		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.SOUTH));
 		this.setRegistryName(Reference.MID, "thread_spinner");
 		this.setUnlocalizedName("thread_spinner");
 		this.setCreativeTab(ModCreativeTabs.machines);
@@ -37,11 +37,6 @@ public class BlockThreadSpinner extends Block implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityThreadSpinner();
-	}
-	
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return bounding_box;
 	}
 	
 	@Override
@@ -94,4 +89,23 @@ public class BlockThreadSpinner extends Block implements ITileEntityProvider {
 		return false;
 	}
 	
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(FACING).getHorizontalIndex();
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(FACING, EnumFacing.HORIZONTALS[meta]);
+	}
+	
+	@Override
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+		return this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing());
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, FACING);
+	}
 }
