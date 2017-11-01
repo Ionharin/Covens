@@ -285,7 +285,12 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 
 	@Override
 	public ItemStack decrStackSize(int index, int count) {
-		return extractItem(index, count, false);
+		ItemStack resultSlot = inventory.get(index);
+		ItemStack extracted = resultSlot.splitStack(count);
+		inventory.set(0, resultSlot);
+		markDirty();
+		checkRecipe();
+		return extracted;
 	}
 
 	@Override

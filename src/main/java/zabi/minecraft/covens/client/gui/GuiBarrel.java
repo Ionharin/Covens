@@ -102,5 +102,4 @@ public class GuiBarrel extends GuiContainer {
 		super.updateScreen();
 		if (te.isInvalid()) mc.player.closeScreen();
 	}
-	
 }

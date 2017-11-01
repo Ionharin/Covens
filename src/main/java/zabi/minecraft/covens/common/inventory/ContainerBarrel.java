@@ -1,6 +1,5 @@
 package zabi.minecraft.covens.common.inventory;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -29,10 +28,6 @@ public class ContainerBarrel extends ContainerBase {
 		public void onSlotChanged() {
 			super.onSlotChanged();
 			te.checkRecipe();
-		}
-		@Override
-		public boolean canTakeStack(EntityPlayer playerIn) {
-			return true;
 		}
 	}
 	
