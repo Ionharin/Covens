@@ -61,6 +61,17 @@ public class ModItems {
 			public String getUnlocalizedName(ItemStack stack) {
 				return super.getUnlocalizedName(stack)+"."+BlockBarrel.WoodType.values()[stack.getMetadata()].getName();
 			}
+			
+			@Override
+			public int getMetadata(int damage) {
+				return damage;
+			}
+			
+			@Override
+			public boolean getHasSubtypes() {
+				return true;
+			}
+			
 		};
 		cauldron = new ItemBlock(ModBlocks.cauldron);
 		log_yew = new ItemBlock(ModBlocks.log_yew);
@@ -72,7 +83,6 @@ public class ModItems {
 		misc = new ItemMisc();
 		brew_drinkable = new ItemBrewDrinkable();
 		brew_splash = new ItemBrewBase("brew_splash");
-//		brew_gas = new ItemBrewBase("brew_gas");
 		brew_lingering = new ItemBrewBase("brew_lingering");
 		ritual_knife = new ItemRitualKnife();
 		leaves_elder = new ItemModLeaves((BlockLeaves) ModBlocks.leaves_elder);
@@ -89,6 +99,16 @@ public class ModItems {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
 				return super.getUnlocalizedName(stack)+"_"+EnumSaplingType.values()[stack.getMetadata()].getName();
+			}
+			
+			@Override
+			public int getMetadata(int damage) {
+				return damage;
+			}
+			
+			@Override
+			public boolean getHasSubtypes() {
+				return true;
 			}
 		};
 		thread_spinner = new ItemBlock(ModBlocks.thread_spinner);
