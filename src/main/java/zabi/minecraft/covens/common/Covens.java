@@ -21,6 +21,7 @@ import zabi.minecraft.covens.common.capability.PlayerData;
 import zabi.minecraft.covens.common.crafting.ModIRecipes;
 import zabi.minecraft.covens.common.crafting.OreDict;
 import zabi.minecraft.covens.common.crafting.VanillaRecipes;
+import zabi.minecraft.covens.common.enchantment.ModEnchantments;
 import zabi.minecraft.covens.common.entity.ModEntities;
 import zabi.minecraft.covens.common.integration.CompatibilityModules;
 import zabi.minecraft.covens.common.inventory.GuiHandler;
@@ -74,6 +75,7 @@ public class Covens {
 		ModSpells.registerAll();
 		ModIRecipes.registerAll();
 		ModFortunes.registerAll();
+		ModEnchantments.registerAll();
 		proxy.preInit(evt);
 		
 		CapabilityManager.INSTANCE.register(EntityData.class, new EntityData.Storage(), EntityData.Impl.class);

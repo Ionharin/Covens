@@ -72,6 +72,11 @@ item.grimoire.creative.name=Grimorio creativo
 item.grimoire.spells_number=Ci sono %d incanti trascritti
 item.grimoire.selected.none=Nessun incanto selezionato
 item.grimoire.selected=Incanto: %s
+item.watching_eye.name=Pendente dell'occhio osservatore
+item.ruby_orb.name=Talismano della sfera di rubino
+item.adamantine_star_ring.name=Anello della stella adamantina
+item.emerald_pendant.name=Collana di smeraldo
+item.aquamarine_crown.name=Corona di cristalli di prismarino
 
 # Block names
 tile.witch_altar.name=Altare delle streghe
@@ -160,6 +165,11 @@ fortunes.covens.meet_zombie.name=Coloro che dormono nel suolo saranno risvegliat
 # Entities
 entity.broom.name=Scopa volante
 entity.brew.name=Intruglio magico
+
+# Enchantments
+enchantment.soul_siphon=Assorbimento dell'anima
+enchantment.curse_resilience=Resistenza al malocchio
+enchantment.spell_shielding=Protezione dagli incanti
 
 # Misc
 brew.failure.power=La tua magia e' troppo debole (%d)

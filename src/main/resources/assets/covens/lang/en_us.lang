@@ -72,6 +72,11 @@ item.grimoire.creative.name=Creative Grimoire
 item.grimoire.spells_number=There are %d spells inside
 item.grimoire.selected.none=No spell selected
 item.grimoire.selected=Spell: %s
+item.watching_eye.name=Watching Eye Pendant
+item.ruby_orb.name=Ruby Orb Charm
+item.adamantine_star_ring.name=Adamantine Star Ring
+item.emerald_pendant.name=Emerald Necklace
+item.aquamarine_crown.name=Aquamarine Crown
 
 # Block names
 tile.witch_altar.name=Witch Altar
@@ -157,6 +162,11 @@ effect.harvest=Harvest
 # Entities
 entity.broom.name=Flying Broom
 entity.brew.name=Magic Brew
+
+# Enchantments
+enchantment.soul_siphon=Soul Siphon
+enchantment.curse_resilience=Curse Resilience
+enchantment.spell_shielding=Spell Shielding
 
 # Crystal Ball/Fortunes
 crystal_ball.error.ingredients=The future refuses to be perceived, something's wrong

@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
+import zabi.minecraft.covens.common.enchantment.EnchantmentTalismans;
 
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "baubles")
 public class ItemTalisman extends Item implements IBauble {
@@ -46,6 +47,11 @@ public class ItemTalisman extends Item implements IBauble {
 	}
 	
 	@Override
+	public boolean isEnchantable(ItemStack stack) {
+		return true;
+	}
+	
+	@Override
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return !EnchantmentHelper.hasBindingCurse(itemstack);
 	}
@@ -68,7 +74,7 @@ public class ItemTalisman extends Item implements IBauble {
 	
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-		return false;
+		return enchantment instanceof EnchantmentTalismans;
 	}
 	
 }
