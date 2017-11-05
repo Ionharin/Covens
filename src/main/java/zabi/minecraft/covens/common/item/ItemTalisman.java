@@ -24,7 +24,7 @@ public class ItemTalisman extends Item implements IBauble {
 		
 		this.setCreativeTab(ModCreativeTabs.products);
 		this.setUnlocalizedName(name);
-		this.setRegistryName(Reference.MID, name);
+		this.setRegistryName(Reference.MID, "talisman_"+name);
 		slot = equipmentSlotAlternative;
 		
 		if ((type<0 || type>6) && Loader.isModLoaded("baubles")) {
