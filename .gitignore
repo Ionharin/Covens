@@ -30,3 +30,4 @@ deactivation/LoginWatcher.java
 deactivation/PlayerDisconnectorDelayed.java
 src/main/java/zabi/minecraft/covens/common/patreon/AutoReporter.java
 lib/Baubles-1.12-1.5.1-api.jar
+lib/Baubles-1.12-1.5.1-deobf.jar
