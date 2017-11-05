@@ -139,6 +139,11 @@ public class ClientProxy extends Proxy {
 		registerModel(ModItems.grimoire, 0);
 		registerModel(ModItems.crystal_ball, 0);
 		registerModel(ModItems.ritual_candle, 0);
+		registerModel(ModItems.talisman_aquamarine_crown, 0);
+		registerModel(ModItems.talisman_emerald_pendant, 0);
+		registerModel(ModItems.talisman_diamond_star, 0);
+		registerModel(ModItems.talisman_ruby_orb, 0);
+		registerModel(ModItems.talisman_watching_eye, 0);
 	}
 
 	private void registerModel(Item item, int meta) {

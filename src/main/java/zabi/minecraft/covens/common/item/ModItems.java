@@ -2,6 +2,9 @@ package zabi.minecraft.covens.common.item;
 
 import java.util.List;
 
+import zabi.minecraft.covens.common.lib.Log;
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -24,8 +27,6 @@ import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.block.BlockModCrop;
 import zabi.minecraft.covens.common.block.BlockModSapling.EnumSaplingType;
 import zabi.minecraft.covens.common.block.ModBlocks;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 
 @Mod.EventBusSubscriber
 public class ModItems {
@@ -34,7 +35,8 @@ public class ModItems {
 		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
 		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
 		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
-		crystal_ball, ritual_candle;
+		crystal_ball, ritual_candle, talisman_ruby_orb, talisman_diamond_star, talisman_emerald_pendant, talisman_watching_eye,
+		talisman_aquamarine_crown;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
@@ -139,6 +141,12 @@ public class ModItems {
 		crystal_ball.setRegistryName(ModBlocks.crystal_ball.getRegistryName());
 		ritual_candle.setRegistryName(ModBlocks.ritual_candle.getRegistryName());
 		
+		talisman_aquamarine_crown = new ItemTalisman(4, 3, "aquamarine_crown", EntityEquipmentSlot.HEAD);
+		talisman_diamond_star = new ItemTalisman(1, 1, "adamantine_star_ring", EntityEquipmentSlot.OFFHAND);
+		talisman_emerald_pendant = new ItemTalisman(0, 1, "emerald_pendant", EntityEquipmentSlot.CHEST);
+		talisman_ruby_orb = new ItemTalisman(6, 2, "ruby_orb", EntityEquipmentSlot.OFFHAND);
+		talisman_watching_eye = new ItemTalisman(0, 1, "watching_eye", EntityEquipmentSlot.CHEST);
+		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
 		sagebrushSeeds = new ItemSeeds(ModBlocks.sagebrush, Blocks.DIRT);
@@ -174,7 +182,8 @@ public class ModItems {
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
 				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
-				crystal_ball, ritual_candle
+				crystal_ball, ritual_candle, talisman_aquamarine_crown, talisman_diamond_star, talisman_emerald_pendant,
+				talisman_ruby_orb, talisman_watching_eye
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew);
 	}
