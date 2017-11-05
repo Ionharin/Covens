@@ -33,7 +33,7 @@ public class ModItems {
 	
 	public static Item chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 		flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
-		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
+		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, /*witch_hat, witch_cloak,*/
 		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
 		crystal_ball, ritual_candle, talisman_ruby_orb, talisman_diamond_star, talisman_emerald_pendant, talisman_watching_eye,
 		talisman_aquamarine_crown;
@@ -116,8 +116,8 @@ public class ModItems {
 		thread_spinner = new ItemBlock(ModBlocks.thread_spinner);
 		spell_page = new ItemSpellPage();
 		grimoire = new ItemGrimoire();
-		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
-		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
+//		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
+//		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
 		crystal_ball = new ItemBlock(ModBlocks.crystal_ball);
 		ritual_candle = new ItemBlock(ModBlocks.ritual_candle);
 		
@@ -181,7 +181,7 @@ public class ModItems {
 		IForgeRegistry<Item> itemRegistry = evt.getRegistry();
 		itemRegistry.registerAll(chalk, altar, chimney, cauldron, aconitumSeeds, helleboreSeeds, sagebrushSeeds, chrysanthemumSeeds,
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
-				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, witch_hat, witch_cloak,
+				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, /*witch_hat, witch_cloak,*/
 				crystal_ball, ritual_candle, talisman_aquamarine_crown, talisman_diamond_star, talisman_emerald_pendant,
 				talisman_ruby_orb, talisman_watching_eye
 				);

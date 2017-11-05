@@ -121,6 +121,7 @@ public class VanillaRecipes {
 				'a', new ItemStack(ModItems.misc,1,4),
 				's', new ItemStack(ModItems.misc,1,5)
 			);
+		/*
 		GameRegistry.addShapedRecipe(rl("witch_hat"), null, new ItemStack(ModItems.witch_hat), 
 				" l ", "l l", "lol", 
 				'l', new ItemStack(ModItems.misc,1,15),
@@ -131,6 +132,7 @@ public class VanillaRecipes {
 				'l', new ItemStack(ModItems.misc,1,15),
 				'o', new OreIngredient("dyeBlack")
 			);
+			*/
 	}
 
 	private static ItemStack getWoodFromType(int i) {
