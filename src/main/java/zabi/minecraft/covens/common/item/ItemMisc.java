@@ -30,7 +30,9 @@ public class ItemMisc extends Item {
 			"emanation_of_dishonesty", //12
 			"foul_presence", //13
 			"undying_image", //14
-			"magic_leather" //15
+			"magic_leather", //15
+			"silver_ingot", //16
+			"silver_deposit" //17
 	};
 	
 	public ItemMisc() {
@@ -56,7 +58,7 @@ public class ItemMisc extends Item {
 			tab.add(new ItemStack(this,1,7));
 			tab.add(new ItemStack(this,1,8));
 			tab.add(new ItemStack(this,1,9));
-			tab.add(new ItemStack(this,1,15));
+			for (int i = 15;i<names.length;i++) tab.add(new ItemStack(this,1,i));
 		}
 	}
 	
