@@ -5,8 +5,8 @@
   "1.12.1": {
   },
   "promos": {
-    "1.12-latest": "0.1.26-dev",
-    "1.12.1-latest": "0.1.26-dev",
+    "1.12-latest": "0.1.27-dev",
+    "1.12.1-latest": "0.1.27-dev",
     "1.12-recommended": "0.1.12-dev",
     "1.12.1-recommended": "0.1.12-dev"
   }
