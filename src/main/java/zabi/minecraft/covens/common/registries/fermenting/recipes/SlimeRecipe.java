@@ -19,7 +19,12 @@ public class SlimeRecipe extends BarrelRecipe {
 	
 	@Override
 	public boolean isValidRecipe(World world, List<ItemStack> stacks, BlockPos pos, FluidStack fluid) {
-		return fluid!=null && fluid.getFluid()!=null && fluid.amount == Fluid.BUCKET_VOLUME && fluid.getFluid().equals(FluidRegistry.WATER) && stacks.isEmpty() && world.getBiome(pos) instanceof BiomeSwamp;
+		return fluid!=null && fluid.getFluid()!=null && fluid.amount == Fluid.BUCKET_VOLUME && fluid.getFluid().equals(FluidRegistry.WATER) && checkEmpty(stacks) && world.getBiome(pos) instanceof BiomeSwamp;
+	}
+
+	private boolean checkEmpty(List<ItemStack> stacks) {
+		for (ItemStack is:stacks) if (!is.isEmpty()) return false;
+		return true;
 	}
 
 }
