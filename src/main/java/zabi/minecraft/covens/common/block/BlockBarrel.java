@@ -138,12 +138,8 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (world.isRemote) return true;
 		TileEntityBarrel barrel = (TileEntityBarrel) world.getTileEntity(pos);
-//		if (barrel.hasRecipe()) {
-//			return false; //Don't do anything if a recipe is cooking or another one is ready
-//		}
 		world.notifyBlockUpdate(pos, state, state, 3);
 		ItemStack stack = player.getHeldItem(hand);
-		
 		if (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null)) {
 			IFluidHandlerItem itemHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
 			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
@@ -159,15 +155,6 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 			return true;
 		} 
 		
-//		if (stack.isEmpty()) {
-//			IFluidHandler barrelHandler = barrel.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
-//			FluidStack cont = barrelHandler.drain(Fluid.BUCKET_VOLUME, false);
-//			TextComponentTranslation message = null;
-//			if (cont==null || cont.amount==0 || cont.getFluid()==null) message = new TextComponentTranslation("tile.barrel.empty");
-//			else message = new TextComponentTranslation("tile.barrel.full", cont.getLocalizedName(), cont.amount, Fluid.BUCKET_VOLUME);
-//			player.sendStatusMessage(message, true);
-//			return true;
-//		}
 		player.openGui(Covens.INSTANCE, GuiHandler.IDs.BARREL.ordinal(), world, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}
@@ -175,9 +162,12 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		if (((TileEntityBarrel)world.getTileEntity(pos)).hasRecipe()) {
-			world.spawnParticle(EnumParticleTypes.SPELL_INSTANT, pos.getX(), pos.getY()+1, pos.getZ(), 0, 0, 0);
-		}
+//		if (((TileEntityBarrel)world.getTileEntity(pos)).hasRecipe()) {
+			EnumFacing f = state.getValue(FACING);
+			double dz = f==EnumFacing.NORTH?1:f==EnumFacing.SOUTH?0:0.5;
+			double dx = f==EnumFacing.EAST?0:f==EnumFacing.WEST?1:0.5;
+			world.spawnParticle(EnumParticleTypes.SPELL, pos.getX()+dx, pos.getY()+0.3, pos.getZ()+dz, 0, 0.1, 0);
+//		}
 	}
 	
 	//###########################################################################################################
