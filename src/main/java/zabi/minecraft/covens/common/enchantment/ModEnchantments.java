@@ -17,7 +17,7 @@ public class ModEnchantments {
 		Log.i("Creating Enchantments");
 		soul_siphon = new EnchantmentTalismans(Rarity.UNCOMMON, "soul_siphon");
 		curse_resilience = new EnchantmentTalismans(Rarity.COMMON, "curse_resilience");
-		spell_shielding = new EnchantmentTalismans(Rarity.RARE, "spell_shielding");
+		spell_shielding = new EnchantmentTalismans(Rarity.UNCOMMON, "spell_shielding");
 	}
 	
 	@SubscribeEvent

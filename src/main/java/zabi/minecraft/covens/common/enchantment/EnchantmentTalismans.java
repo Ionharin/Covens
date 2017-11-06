@@ -54,13 +54,4 @@ public class EnchantmentTalismans extends Enchantment {
 		return list;
 	}
 	
-	@Override
-	public int getMaxEnchantability(int enchantmentLevel) {
-		return 10;
-	}
-	
-	@Override
-	public int getMinEnchantability(int enchantmentLevel) {
-		return enchantmentLevel;
-	}
 }

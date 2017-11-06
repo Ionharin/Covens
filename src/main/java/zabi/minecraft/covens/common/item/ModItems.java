@@ -141,11 +141,11 @@ public class ModItems {
 		crystal_ball.setRegistryName(ModBlocks.crystal_ball.getRegistryName());
 		ritual_candle.setRegistryName(ModBlocks.ritual_candle.getRegistryName());
 		
-		talisman_aquamarine_crown = new ItemTalisman(4, 3, "aquamarine_crown", EntityEquipmentSlot.HEAD);
-		talisman_diamond_star = new ItemTalisman(1, 1, "adamantine_star_ring", EntityEquipmentSlot.OFFHAND);
-		talisman_emerald_pendant = new ItemTalisman(0, 1, "emerald_pendant", EntityEquipmentSlot.CHEST);
-		talisman_ruby_orb = new ItemTalisman(6, 2, "ruby_orb", EntityEquipmentSlot.OFFHAND);
-		talisman_watching_eye = new ItemTalisman(0, 1, "watching_eye", EntityEquipmentSlot.CHEST);
+		talisman_aquamarine_crown = new ItemTalisman(4, 35, "aquamarine_crown", EntityEquipmentSlot.HEAD);
+		talisman_diamond_star = new ItemTalisman(1, 18, "adamantine_star_ring", EntityEquipmentSlot.OFFHAND);
+		talisman_emerald_pendant = new ItemTalisman(0, 18, "emerald_pendant", EntityEquipmentSlot.CHEST);
+		talisman_ruby_orb = new ItemTalisman(6, 30, "ruby_orb", EntityEquipmentSlot.OFFHAND);
+		talisman_watching_eye = new ItemTalisman(0, 18, "watching_eye", EntityEquipmentSlot.CHEST);
 		
 		helleboreSeeds = new ItemSeeds(ModBlocks.hellebore, Blocks.DIRT);
 		aconitumSeeds = new ItemSeeds(ModBlocks.aconitum, Blocks.DIRT);
