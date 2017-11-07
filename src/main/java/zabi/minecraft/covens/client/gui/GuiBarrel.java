@@ -52,23 +52,26 @@ public class GuiBarrel extends GuiContainer {
 		}
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		if (rec!=null && te!=null) {
-			double progress = te.getBrewingTime() / (double) rec.getRequiredTime();
-			if (progress>1) progress=1;
-			int dy = (int)Math.ceil(31*progress);
-			drawTexturedModalRect(guiLeft+29, guiTop + 27 + 31 - dy, 0, ySize + 31 - dy , 11, dy);
+		if (te!=null) {
+			if (rec!=null) {
+				double progress = te.getBrewingTime() / (double) rec.getRequiredTime();
+				if (progress>1) progress=1;
+				int dy = (int)Math.ceil(31*progress);
+				drawTexturedModalRect(guiLeft+29, guiTop + 27 + 31 - dy, 0, ySize + 31 - dy , 11, dy);
 
-			float reqPow = (float) rec.getPower();
-			float absorption = 1;
-			if (reqPow>0) absorption=te.getPowerAbsorbed() / reqPow;
-			//			float absorption = te.getWorld().getWorldTime() % 50 / 50f;
-			GlStateManager.pushMatrix();
-			{
-				GlStateManager.color(2*(1f - absorption), 2*absorption, 0f);
-				drawTexturedModalRect(guiLeft+134, guiTop + 20, xSize, 16, 16, 16);
-				GlStateManager.color(1f, 1f, 1f);
+				float reqPow = (float) rec.getPower();
+				float absorption = 1;
+				if (reqPow>0) absorption=te.getPowerAbsorbed() / reqPow;
+				GlStateManager.pushMatrix();
+				{
+					GlStateManager.color(2*(1f - absorption), 2*absorption, 0f);
+					drawTexturedModalRect(guiLeft+134, guiTop + 20, xSize, 16, 16, 16);
+					GlStateManager.color(1f, 1f, 1f);
+				}
+				GlStateManager.popMatrix();
+			} else {
+				rec = te.getRecipe();
 			}
-			GlStateManager.popMatrix();
 		}
 	}
 	

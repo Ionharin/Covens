@@ -7,6 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import zabi.minecraft.covens.common.network.messages.InfusionPowerChanged;
 import zabi.minecraft.covens.common.network.messages.NotifyTint;
 import zabi.minecraft.covens.common.network.messages.ScrollSpell;
+import zabi.minecraft.covens.common.network.messages.SyncBarrelGui;
 import zabi.minecraft.covens.common.network.messages.SyncEntityDataRequest;
 import zabi.minecraft.covens.common.network.messages.SyncEntityDataResponse;
 import zabi.minecraft.covens.common.network.messages.SyncPlayerDataRequest;
@@ -24,6 +25,7 @@ public class NetworkModRegistry {
 		net.registerMessage(SyncEntityDataResponse.Handler.class, SyncEntityDataResponse.class, id++, Side.CLIENT);
 		net.registerMessage(SyncPlayerDataResponse.Handler.class, SyncPlayerDataResponse.class, id++, Side.CLIENT);
 		net.registerMessage(InfusionPowerChanged.Handler.class, InfusionPowerChanged.class, id++, Side.CLIENT);
+		net.registerMessage(SyncBarrelGui.Handler.class, SyncBarrelGui.class, id++, Side.CLIENT);
 		
 		net.registerMessage(SyncEntityDataRequest.Handler.class, SyncEntityDataRequest.class, id++, Side.SERVER);
 		net.registerMessage(SyncPlayerDataRequest.Handler.class, SyncPlayerDataRequest.class, id++, Side.SERVER);

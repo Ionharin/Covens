@@ -162,12 +162,12 @@ public class BlockBarrel extends BlockHorizontal implements ITileEntityProvider 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-//		if (((TileEntityBarrel)world.getTileEntity(pos)).hasRecipe()) {
+		if (((TileEntityBarrel)world.getTileEntity(pos)).hasRecipe()) {
 			EnumFacing f = state.getValue(FACING);
 			double dz = f==EnumFacing.NORTH?1:f==EnumFacing.SOUTH?0:0.5;
 			double dx = f==EnumFacing.EAST?0:f==EnumFacing.WEST?1:0.5;
 			world.spawnParticle(EnumParticleTypes.SPELL, pos.getX()+dx, pos.getY()+0.3, pos.getZ()+dz, 0, 0.1, 0);
-//		}
+		}
 	}
 	
 	//###########################################################################################################
