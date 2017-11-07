@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "normal": { "model": "covens:moonbell" },
+		"inventory": {
+			"model": "covens:moonbell",
+			"transform": "forge:default-block"
+		}
+    }
+}
