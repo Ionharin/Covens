@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
@@ -21,12 +23,13 @@ import net.minecraftforge.items.IItemHandler;
 import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockBarrel;
+import zabi.minecraft.covens.common.inventory.ContainerBarrel;
 import zabi.minecraft.covens.common.network.messages.SyncBarrelGui;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
 public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUser, IItemHandler, IInventory {
 	
-	private static final int updateFrequency = 5; //TODO move to server config
+	AxisAlignedBB around;
 	
 	FluidTank internalTank = new FluidTank(Fluid.BUCKET_VOLUME) {
 		protected void onContentsChanged() {
@@ -80,14 +83,14 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 					if (consumePower(1)) {
 						powerAbsorbed++;
 						markDirty();
-						if (powerAbsorbed%updateFrequency==0) Covens.network.sendToDimension(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), world.provider.getDimension());
+						syncGui();
 						return;
 					}
 				} else {
 					if (brewingTime<currentRecipe.getRequiredTime()) {
 						brewingTime++;
 						markDirty();
-						if (brewingTime%updateFrequency==0) Covens.network.sendToDimension(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), world.provider.getDimension());
+						syncGui();
 						return;
 					} else {
 						ItemStack output = inventory.get(0);
@@ -113,7 +116,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 			return;
 		}
 		refreshRecipeStatus(BarrelRecipe.getRecipe(world, inventory.stream().skip(1).collect(Collectors.toList()), pos, internalTank.drainInternal(1000, false)));
-		if (recipeName!=null) Covens.network.sendToDimension(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), world.provider.getDimension());
+		if (recipeName!=null) syncGui();
 	}
 	
 	public void refreshRecipeStatus(BarrelRecipe incomingRecipe) {
@@ -353,6 +356,15 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 	public void clear() {
 		for (ItemStack s:inventory) s.setCount(0);
 		markDirty();
+	}
+	
+	private void syncGui() {
+		if (around==null) around = new AxisAlignedBB(this.pos).grow(5);
+		world.getEntitiesWithinAABB(EntityPlayer.class, around).stream()
+			.filter(p -> p.openContainer instanceof ContainerBarrel)
+			.forEach(p -> {
+				Covens.network.sendTo(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), (EntityPlayerMP) p);
+			});
 	}
 
 }
