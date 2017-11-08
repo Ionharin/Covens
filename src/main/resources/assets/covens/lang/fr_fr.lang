@@ -1,0 +1,127 @@
+# Creative Tabs names
+itemGroup.covens.herbs=Covens - Nature
+itemGroup.covens.machines=Covens - Blocks
+itemGroup.covens.products=Covens - Items
+itemGroup.covens.brews=Covens - Potions
+
+# Item names
+item.hellebore_seeds.name=Graine d'Hellebore
+item.aconitum_seeds.name=Graine d'Aconitum
+item.sagebrush_seeds.name=Graine de Sagebrush
+item.chrysanthemum_seeds.name=Graine de Chrysantheum
+item.flower.hellebore.name=Hellebore
+item.flower.aconitum.name=Aconitum Napellus
+item.flower.sagebrush.name=Fleur de Sagebrush
+item.flower.chrysanthemum.name=Chrysanthemum
+item.chalk_normal.name=Craie de Rituel
+item.chalk_golden.name=Craie Sacree
+item.chalk_ender.name=Craie du Vide
+item.chalk_nether.name=Craie du Feu
+item.misc.empty_jar.name=Bocal Vide
+item.misc.ash.name=Cendre de Bois
+item.misc.oak_spirit.name=Esprit du Bois
+item.misc.birch_soul.name=Ame de Bouleau
+item.misc.acacia_essence.name=Essence d'Acacia
+item.misc.spruce_heart.name=Coeur de Sapin
+item.misc.cloudy_oil.name=Huile Brumeuse
+item.eerie_seeds.name=Graine Mystèrieuse
+item.brew_drinkable_full.name=Infusion Magique
+item.brew_drinkable_spoiled.name=Infusion Gachee
+item.brew_splash_full.name=Infusion Magique Jetable
+item.brew_splash_spoiled.name=Infusion Gachee Jetable
+item.brew_gas_full.name=Gase d'Infusion Magique
+item.brew_gas_spoiled.name=Gase d'Infusion Gachee
+item.brew_lingering_full.name=Infusion Magique Persistante
+item.brew_lingering_spoiled.name=Infusion Gachee Persistante
+item.brew.spoiled=Mieux vaut ne pas boire ça
+item.cardinal_stone.name=Pierre de Lieux
+item.cardinal_stone.bound_to=Lie à (%d %d %d)
+item.cardinal_stone.unbound=Non Lie
+item.cardinal_stone.uncharged=Non Chargee
+item.ritual_knife.name=Couteau de Rituel
+item.misc.talisman_charged.name=Talisman Chargee
+item.misc.talisman.name=Talisman
+item.misc.wax_ball.name=Wax
+item.misc.unfired_jar.name=Bocal Non Brule
+item.broom_0.name=Balai Magique en Mundane
+item.broom_1.name=Balai Magique en Elder
+item.broom_2.name=Balai Magique en Juniper
+item.broom_3.name=Balai Magique en Yew
+item.soulstring.name=Fil d'Ame
+item.soulstring.bound=Lie à: %s
+item.witch_candle.name=Bougie de Sorcier
+item.witch_candle_revealing.name=Bougie de Sorcier de Revelation
+# Block names
+tile.witch_altar.name=Altar
+tile.magic_glyph.name=Marque de Rituel
+tile.hellebore.name=Hellebore
+tile.aconitum.name=Aconitum
+tile.sagebrush.name=Sagebrush
+tile.chrysanthemum.name=Chrysanthemum
+tile.chimney.name=Cheminer à Fume
+tile.log_juniper.name=Bois de Juniper
+tile.log_elder.name=Bois d'Elder
+tile.log_yew.name=Bois de Yew
+tile.planks_juniper.name=Planche de Juniper
+tile.planks_elder.name=Planche d'Elder
+tile.planks_yew.name=Planche de Yew
+tile.leaves.juniper.name=Feuilles de Juniper
+tile.leaves.elder.name=Feuilles d'Elder
+tile.leaves.yew.name=Feuilles de Yew
+tile.confining_ash.name=Cendre d'Emprisonement
+tile.goblet.name=Goblet
+tile.candle_plate.name=Bougie de Ceremonie
+tile.cauldron.name=Chaudron de Sorcier
+tile.chimney.hint=Placer au dessus d'un four
+tile.barrel.name=Tonneau
+tile.barrel.oak.name=Tonneau de Chêne
+tile.barrel.birch.name=Tonneau de Bouleau
+tile.barrel.spruce.name=Tonneau de Sapin
+tile.barrel.jungle.name=Tonneau de Jungle
+tile.barrel.acacia.name=Tonneau d'Acacia
+tile.barrel.big_oak.name=Tonneau de Bois Noir
+tile.barrel.elder.name=Tonneau d'Elder
+tile.barrel.juniper.name=Tonneau de Juniper
+tile.barrel.yew.name=Tonneau de Yew
+tile.barrel.full=%s (%d/%d)
+tile.barrel.empty=Vide
+tile.sapling_elder.name=Pousse d'Elder
+tile.sapling_juniper.name=Pousse de Juniper
+tile.sapling_yew.name=Pousse de Yew
+
+# Ritual Stuff
+ritual.failure.unknown=Vous n'avez jamais entendu parler d'un telle rituel
+ritual.failure.power=Votre source de magie n'est pas asser puissante
+ritual.failure.precondition=Quelque chose ne vas pas
+ritual.covens.high_moon.name=Rituel de la Lune Haute
+ritual.covens.time_sands.name=Rituel du Sable du Temps
+ritual.covens.perception.name=Rituel de Perception
+ritual.covens.ender_gate.name=Rituel de la Marche des Sorcier
+ritual.covens.ender_stream.name=Rituel du Voyage Permanant
+ritual.covens.charging_1.name=Rituel de Recharge
+ritual.covens.charging_talisman.name=Rituel de Recharge
+ritual.covens.redirection.name=Rituel de Redirection
+ritual.covens.identification.name=Rituel d'Authentification
+ritual.covens.revealing_candle.name=Rituel d'Infusion
+
+# Fix vanilla - No need to copy this section in translations
+potion.potency.3=III
+potion.potency.4=IV
+potion.potency.5=V
+
+# Potions
+effect.disrobing=Desabillement
+effect.tinting=Teinter
+
+# Entities
+entity.broom.name=Balai Volant
+entity.brew.name=Infusion Magique
+
+# Misc
+brew.failure.power=Votre source de pouvoir est faible (%d)
+brew.success.power=Vous avez besoin %d de puissance d'altar
+jei.category.rituals=Rituels
+jei.category.chimney=Collection de Fume
+jei.category.brewing=Chaudron d'Infusion
+jei.ritual.power.flat=%d Puissance d'Altar
+jei.ritual.power.tick=%d Puissance d'Altar par seconde
