@@ -49,6 +49,31 @@ item.soulstring.name=Нить Души
 item.soulstring.bound=Привязанна к: %s
 item.witch_candle.name=Ведьмина Свеча
 item.witch_candle_revealing.name=Ведьмина Свеча Прозрения
+item.spell_page.name=Забытое заклинание 
+item.spell_page.covens.magnet.name=Spell of Far Reach
+item.spell_page.covens.poke.name=Заклтнание удара 
+item.spell_page.covens.water.name=Заклинание лужи
+item.spell_page.covens.activation.name=Заклинание телекинез
+item.spell_page.covens.slowness.name=Заклинание запутаных ног
+item.spell_page.covens.lesser_blink.name=Заклинание слабой телепортации
+item.spell_page.covens.blink.name=Заклинание телепортации
+item.spell_page.covens.explosion.name=Заклинание дестабилизация
+item.spell_page.covens.disarming.name=Заклинание обезаруживания 
+item.spell_page.covens.infuse_life.name=Заклинание дар
+item.spell_page.covens.self_heal.name=Заклинание восстановление
+item.grimoire.format.name=%s (%s)
+item.grimoire.name=Гримуар
+item.grimoire.creative.name=Творческий гримуар
+item.grimoire.spells_number=Внутри %d есть заклинания
+item.grimoire.selected.none=Заклинания не выбрано
+item.grimoire.selected=Spell: %s
+item.watching_eye.name=Кулон всевидящего ока 
+item.ruby_orb.name=Рубиновый амулет
+item.adamantine_star_ring.name=Несокрушимое звездное кольцо
+item.emerald_pendant.name=Изумрудное ожерелье
+item.aquamarine_crown.name=Аквамариновая корона
+
+
 
 # Block names
 tile.witch_altar.name=Алтарь ведьм
@@ -83,6 +108,12 @@ tile.barrel.elder.name=Бочонок из бузины
 tile.barrel.juniper.name=Бочонок из можжевельника
 tile.barrel.yew.name=Тисовый бочонок
 tile.barrel.empty=Пустой
+tile.thread_spinner.name=Прялка
+tile.crystal_ball.name=Хрустальный шар
+tile.ritual_candle.name=Ритуальная свеча
+tile.moonbell.name=Лунный колокольчик
+
+
 
 # Ritual Stuff
 ritual.failure.unknown=Вы никогда не слышали о таких обрядах
@@ -97,15 +128,46 @@ ritual.covens.charging_1.name=Ритуал Зарядки
 ritual.covens.charging_talisman.name=Ритуал Зарядки
 ritual.covens.redirection.name=Ритуал Перенаправления
 ritual.covens.identification.name=Ритуал Распознавания
-ritual.covens.revealing_candle.name=Ритуал Наполнения 
+ritual.covens.revealing_candle.name=Ритуал Наполнения
+ritual.covens.conjure_wither_ritual.name=Ритуал колдовства (Ведьмак)
+ritual.covens.conjure_witch_ritual.name=Ритуал колдовства (Ведьма)
+ritual.covens.infusion_ritual_overworld.name=Ритуал наполнение обычного мира
+ritual.covens.infusion_ritual_end.name=Ритуал наполнения потустороннего мира 
+ritual.covens.infusion_ritual_nether.name=Ритуал наполнения адского мира 
 
 # Potions
+potion.removed.entity=Не затрагивает существ 
+potion.removed.environmental=Не затрагивает окружение
+
 effect.disrobing=Разоблачение
-effect.tinting=Окрашевание
+effect.tinting=Окрашивание
+effect.skin_rotting=Гниение
+effect.extinguish_fire=Гаснет 
+effect.planting=Рост
+effect.block_arrows= Защита от стрел 
+effect.harvest=Жатва 
+
 
 # Entities
 entity.broom.name=Летающая Метла 
 entity.brew.name=Волшебное Зелье
+
+# Enchantments
+enchantment.soul_siphon=Сифон души
+enchantment.curse_resilience=Проклятье упругости
+enchantment.spell_shielding=Магическая защита
+
+# Crystal Ball/Fortunes
+crystal_ball.error.ingredients=Будущее неясно видно, что-то неправильно 
+crystal_ball.error.no_power=Чтобы увидеть будущие нужна магия
+crystal_ball.error.too_far= Те, кто хочет пророчество должны подойти по ближе
+crystal_ball.error.already_told= Это будущее было уже показано: %s
+crystal_ball.error.no_available_fortunes= У этого мира нет ожидания тайн
+crystal_ball.read.other=Вы можете видеть %2$s's будушее: %1$s
+fortunes.covens.meet_zombie.name=Те кто лежат под землей поднимутся! 
+
+
+ 
 
 # Misc
 brew.failure.power=Ваш источник магии слаб (%d)
@@ -115,3 +177,4 @@ jei.category.chimney=Собирание Дымов
 jei.category.brewing=Варение в Котле
 jei.ritual.power.flat=%d Сила Алтаря
 jei.ritual.power.tick=%d Сила Алтаря в секунду 
+jei.category.spinner=Пряжка нити
