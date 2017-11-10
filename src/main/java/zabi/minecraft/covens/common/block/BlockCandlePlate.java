@@ -22,7 +22,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.client.particle.ParticleSmallFlame;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockCircleGlyph.GlyphType;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
@@ -85,21 +86,22 @@ public class BlockCandlePlate extends Block {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		if (rand.nextBoolean()) {
-			ParticleSmallFlame p = new ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.35, 0, 0, 0, 0.03f);
+			zabi.minecraft.covens.client.particle.ParticleSmallFlame p = new zabi.minecraft.covens.client.particle.ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.35, 0, 0, 0, 0.03f);
 			Covens.proxy.spawnParticle(p);
 		}
 		if (rand.nextBoolean()) {
-			ParticleSmallFlame p1 = new ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.273, pos.getZ()+0.37, 0, 0, 0, 0.03f);
+			zabi.minecraft.covens.client.particle.ParticleSmallFlame p1 = new zabi.minecraft.covens.client.particle.ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.273, pos.getZ()+0.37, 0, 0, 0, 0.03f);
 			Covens.proxy.spawnParticle(p1);
 		}
 		if (rand.nextBoolean()) {
-			ParticleSmallFlame p2 = new ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.15, pos.getZ()+0.65, 0, 0, 0, 0.03f);
+			zabi.minecraft.covens.client.particle.ParticleSmallFlame p2 = new zabi.minecraft.covens.client.particle.ParticleSmallFlame(worldIn, pos.getX()+0.65, pos.getY()+0.15, pos.getZ()+0.65, 0, 0, 0, 0.03f);
 			Covens.proxy.spawnParticle(p2);
 		}
 		if (rand.nextBoolean()) {
-			ParticleSmallFlame p3 = new ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.65, 0, 0, 0, 0.03f);
+			zabi.minecraft.covens.client.particle.ParticleSmallFlame p3 = new zabi.minecraft.covens.client.particle.ParticleSmallFlame(worldIn, pos.getX()+0.35, pos.getY()+0.22, pos.getZ()+0.65, 0, 0, 0, 0.03f);
 			Covens.proxy.spawnParticle(p3);
 		}
 	}

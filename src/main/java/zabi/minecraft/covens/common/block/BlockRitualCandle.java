@@ -23,7 +23,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import zabi.minecraft.covens.client.particle.ParticleSmallFlame;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
 import zabi.minecraft.covens.common.tileentity.TileEntityRitualCandle;
@@ -88,10 +89,11 @@ public class BlockRitualCandle extends Block implements ITileEntityProvider {
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
 		TileEntityRitualCandle te = (TileEntityRitualCandle) worldIn.getTileEntity(pos);
 		if (te!=null && te.isLit()) {
-			ParticleSmallFlame flame = new ParticleSmallFlame(worldIn, pos.getX()+0.5D+rand.nextGaussian()*0.005, pos.getY()+0.54, pos.getZ()+rand.nextGaussian()*0.005+0.5D, 0, 0, 0, 0.06f);
+			zabi.minecraft.covens.client.particle.ParticleSmallFlame flame = new zabi.minecraft.covens.client.particle.ParticleSmallFlame(worldIn, pos.getX()+0.5D+rand.nextGaussian()*0.005, pos.getY()+0.54, pos.getZ()+rand.nextGaussian()*0.005+0.5D, 0, 0, 0, 0.06f);
 			Covens.proxy.spawnParticle(flame);
 		}
 	}
