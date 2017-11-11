@@ -1,0 +1,193 @@
+# Creative Tabs names
+itemGroup.covens.herbs=Covens - Natuur
+itemGroup.covens.machines=Covens - Blokken
+itemGroup.covens.products=Covens - Voorwerpen
+itemGroup.covens.brews=Covens - Brouwsels
+
+# Item names
+item.hellebore_seeds.name=Nieskruid Zaad
+item.aconitum_seeds.name=Monnikskap Zaad
+item.sagebrush_seeds.name=Alsem Zaad
+item.chrysanthemum_seeds.name=Chrysant Zaad
+item.flower.hellebore.name=Nieskruid
+item.flower.aconitum.name=Monnikskap
+item.flower.sagebrush.name=Alsem
+item.flower.chrysanthemum.name=Chrysant
+item.chalk_normal.name=Ritueel Krijt
+item.chalk_golden.name=Heilig Krijt
+item.chalk_ender.name=Ledig Krijgt
+item.chalk_nether.name=Vurig Krijt
+item.misc.empty_jar.name=Lege Pot
+item.misc.ash.name=Houtas
+item.misc.oak_spirit.name=Eiken Geest
+item.misc.birch_soul.name=Berken Ziel
+item.misc.acacia_essence.name=Acacia Extract
+item.misc.spruce_heart.name=Vuren Hart
+item.misc.cloudy_oil.name=Troebele Olie
+item.misc.cleansing_aura.name=Reinigende Aura
+item.misc.emanation_of_dishonesty.name=Uitstraling van Oneerlijkheid
+item.misc.foul_presence.name=Bezoedelde Aanwezigheid
+item.misc.undying_image.name=Eeuwig Beeld
+item.misc.magic_leather.name=Magisch Leer
+item.misc.silver_ingot.name=Zilverstaaf
+item.misc.silver_deposit.name=Zilvererts Afzetting
+item.eerie_seeds.name=Mysterieus Zaad
+item.brew_drinkable_full.name=Magisch Brouwsel
+item.brew_drinkable_spoiled.name=Bedorven Brouwsel
+item.brew_splash_full.name=Magisch Spattend Brouwsel
+item.brew_splash_spoiled.name=Bedorven Spattend Brouwsel
+item.brew_lingering_full.name=Magisch Aanhoudend Brouwsel
+item.brew_lingering_spoiled.name=Bedorven Aanhoudend Brouwsel
+item.brew.spoiled=Het is beter om dit niet te drinken
+item.cardinal_stone.name=Kardinaalsteen
+item.cardinal_stone.bound_to=Verbonden met (%d %d %d)
+item.cardinal_stone.unbound=Niet Gebonden
+item.cardinal_stone.uncharged=Niet Geladen
+item.ritual_knife.name=Ritueel Mes
+item.misc.talisman_charged.name=Geladen Talisman
+item.misc.talisman.name=Talisman
+item.misc.wax_ball.name=Was
+item.misc.unfired_jar.name=Ongebakken Pot
+item.broom_0.name=Gewone Vliegende Bezem
+item.broom_1.name=Vlierhouten Vliegende Bezem
+item.broom_2.name=Jeneverhouten Vliegende Bezem
+item.broom_3.name=Taxushouten Vliegende bezem
+item.soulstring.name=Soulstring
+item.soulstring.bound=Verbonden met: %s
+item.witch_candle.name=Heksen Kaars
+item.witch_candle_revealing.name=Heksen Kaars van de Onthulling
+item.spell_page.name=Verloren Spreuk
+item.spell_page.covens.magnet.name=Spreuk van Ver Bereik
+item.spell_page.covens.poke.name=Spreuk van de Stoot
+item.spell_page.covens.water.name=Spreuk van de Plas
+item.spell_page.covens.activation.name=Spreuk van de Telekinese
+item.spell_page.covens.slowness.name=Spreuk van de Verstrikte Voeten
+item.spell_page.covens.lesser_blink.name=Spreuk van de Mindere Teleportatie
+item.spell_page.covens.blink.name=Spreuk van de Teleportatie
+item.spell_page.covens.explosion.name=Spreuk van de Destabilisatie
+item.spell_page.covens.disarming.name=Spell van het Ontwapenen
+item.spell_page.covens.infuse_life.name=Spreuk van het Levensgeschenk
+item.spell_page.covens.self_heal.name=Spreuk van de Herstelling
+item.grimoire.format.name=%s (%s)
+item.grimoire.name=Grimoire
+item.grimoire.creative.name=Creatieve Grimoire
+item.grimoire.spells_number=Er zitten hier %d spreuken in
+item.grimoire.selected.none=Geen spreuk geselecteerd
+item.grimoire.selected=Spell: %s
+item.watching_eye.name=Pendant van het Waakzame Oog
+item.ruby_orb.name=Robijnen Bol Amulet
+item.adamantine_star_ring.name=Adamantijnse Sterrenring
+item.emerald_pendant.name=Smaragd Ketting
+item.aquamarine_crown.name=Aquamarijn Kroon
+
+# Block names
+tile.witch_altar.name=Heksenaltaar
+tile.magic_glyph.name=Ritueel Glief
+tile.hellebore.name=Nieskruid
+tile.aconitum.name=Monnikskap
+tile.sagebrush.name=Alsem
+tile.chrysanthemum.name=Chrysant
+tile.chimney.name=Dampschoorsteen
+tile.log_juniper.name=Jeneverhout
+tile.log_elder.name=Vlierhout
+tile.log_yew.name=Taxushout
+tile.planks_juniper.name=Jeneverhouten Planken
+tile.planks_elder.name=Vlierhouten Planken
+tile.planks_yew.name=Taxushouten Planken
+tile.leaves.juniper.name=Jeneverboombladeren
+tile.leaves.elder.name=Vlierboombladeren
+tile.leaves.yew.name=Taxusboombladeren
+tile.confining_ash.name=Oplsuitend As
+tile.goblet.name=Kelk
+tile.candle_plate.name=Ceremoniële Kaarsen
+tile.cauldron.name=Ketel
+tile.chimney.hint=Plaats dit op een oven
+tile.barrel.name=Vat
+tile.barrel.oak.name=Eikenhouten Vat
+tile.barrel.birch.name=Berkenhouten Vat
+tile.barrel.spruce.name=Sparrenhouten Vat
+tile.barrel.jungle.name=Oerwoudhouten Vat
+tile.barrel.acacia.name=Acaciahouten Vat
+tile.barrel.big_oak.name=Donkere Eikenhouten Vat
+tile.barrel.elder.name=Vlierhouten Vat
+tile.barrel.juniper.name=Jeneverhouten Vat
+tile.barrel.yew.name=Taxushouten Vat
+tile.barrel.full=%s (%d/%d)
+tile.barrel.empty=Leeg
+tile.barrel.altar.none_required=Geen magische kracht benodigd
+tile.barrel.altar.no_altar=Er zijn geen magiebronnen nabijgelegen
+tile.barrel.altar.working=Aan het laden
+tile.barrel.altar.done=Geladen
+tile.sapling_elder.name=Vlierkiemplant
+tile.sapling_juniper.name=Jeneverkiemplant
+tile.sapling_yew.name=Taxuskiemplant
+tile.thread_spinner.name=Spinnewiel
+tile.crystal_ball.name=Kristallen Bal
+tile.ritual_candle.name=Rituele Kaars
+tile.moonbell.name=Maanklokje
+
+# Ritual Stuff
+ritual.failure.unknown=Je hebt nog nooit van zulke riten gehoord
+ritual.failure.power=Je magiebron is niet krachtig genoeg
+ritual.failure.precondition=Er is iets mis
+ritual.covens.high_moon.name=Ritueel van de Hoge Maan
+ritual.covens.time_sands.name=Ritueel van het Zand van de Tijd
+ritual.covens.perception.name=Ritueel van de Waarneming
+ritual.covens.ender_gate.name=Ritueel van de Heksenwandeling
+ritual.covens.ender_stream.name=Ritueel van de Eeuwige Reis
+ritual.covens.charging_1.name=Ritueel van het Laden
+ritual.covens.charging_talisman.name=Ritueel van het Laden
+ritual.covens.redirection.name=Ritueel van de ommekeer
+ritual.covens.identification.name=Ritueel van het Identificeren
+ritual.covens.revealing_candle.name=Riteel van de Infusie
+ritual.covens.conjure_wither_ritual.name=Ritueel van de Conjuratie(Wither)
+ritual.covens.conjure_witch_ritual.name=Ritueel van de Conjuratie(Heks)
+ritual.covens.infusion_ritual_overworld.name=Ritueel van de Wereldse Infusie
+ritual.covens.infusion_ritual_end.name=Ritueel van de Bovennatuurlijke Infusie
+ritual.covens.infusion_ritual_nether.name=Ritueel van de Hel Infusie
+
+# Fix vanilla - No need to copy this section in translations
+potion.potency.3=III
+potion.potency.4=IV
+potion.potency.5=V
+
+# Potions
+potion.removed.entity=Heeft geen invloed op entiteiten
+potion.removed.environmental=Heeft geen invloed op de omgeving
+effect.disrobing=Ontkleden
+effect.tinting=Tinten
+effect.skin_rotting=Verrotting
+effect.extinguish_fire=Blussen
+effect.planting=Aanplanting
+effect.block_arrows=Pijl Afstoting
+effect.harvest=Oogst
+
+# Entities
+entity.broom.name=Vliegende Bezemsteel
+entity.brew.name=Magisch Brouwsel
+
+# Enchantments
+enchantment.soul_siphon=Ziel sifon
+enchantment.curse_resilience=Vloek Weerstand
+enchantment.spell_shielding=Spreuk Afscherming
+
+# Crystal Ball/Fortunes
+crystal_ball.error.ingredients=De toekomst weigert om waargenomen te worden, er is iets mis
+crystal_ball.error.no_power=De toekomst aanschouwen vereist magie
+crystal_ball.error.too_far=Hij die een voorspelling zoekt moet nader komen
+crystal_ball.error.already_told=Zijn/Haar toekomst is al onthuld: %s
+crystal_ball.error.no_available_fortunes=Deze wereld achter houd geen geheimen
+crystal_ball.read.other=Je kan %2$s zijn/haar toekomst zien: %1$s
+fortunes.covens.meet_zombie.name=Zij die onder de grond rusten zullen ontwaken
+
+# Misc
+brew.failure.power=Jouw magiebron is zwak (%d)
+brew.success.power=Je hebt %d altaar kracht nodig
+fluid.quantity.mB=%d mB
+fluid.none=Leeg
+jei.category.rituals=Rituelen
+jei.category.chimney=Damp Verzameling
+jei.category.brewing=Ketel Brouwen
+jei.ritual.power.flat=%d Altaar Kracht
+jei.ritual.power.tick=%d Altaar Kracht Per Seconde
+jei.category.spinner=Spinnewiel
