@@ -135,16 +135,16 @@ ritual.covens.time_sands.name=时之沙仪式
 ritual.covens.perception.name=感知仪式
 ritual.covens.ender_gate.name=Ritual of Witchwalk
 ritual.covens.ender_stream.name=旅行仪式
-ritual.covens.charging_1.name=Ritual of Charging
-ritual.covens.charging_talisman.name=充能仪式
-ritual.covens.redirection.name=Ritual of Redirection
-ritual.covens.identification.name=Ritual of Identification
-ritual.covens.revealing_candle.name=Ritual of Infusion
-ritual.covens.conjure_wither_ritual.name=Ritual of Conjuration (Wither)
-ritual.covens.conjure_witch_ritual.name=Ritual of Conjuration (Witch)
-ritual.covens.infusion_ritual_overworld.name=Ritual of Infusion of Mainworld
-ritual.covens.infusion_ritual_end.name=Ritual of Infusion of Otherworld
-ritual.covens.infusion_ritual_nether.name=Ritual of Infusion of Hellworld
+ritual.covens.charging_1.name=充能仪式
+ritual.covens.charging_talisman.name=蕴魔仪式
+ritual.covens.redirection.name=重定向仪式
+ritual.covens.identification.name=绑定仪式
+ritual.covens.revealing_candle.name=灌输仪式
+ritual.covens.conjure_wither_ritual.name=祈福仪式（凋灵）
+ritual.covens.conjure_witch_ritual.name=祈福仪式（女巫）
+ritual.covens.infusion_ritual_overworld.name=灌输仪式（主世界）
+ritual.covens.infusion_ritual_end.name=灌输仪式（末地）
+ritual.covens.infusion_ritual_nether.name=灌输仪式（下界）
 
 # Fix vanilla - No need to copy this section in translations
 potion.potency.3=III
@@ -167,18 +167,18 @@ entity.broom.name=飞行扫帚
 entity.brew.name=Magic Brew
 
 # Enchantments
-enchantment.soul_siphon=Soul Siphon
-enchantment.curse_resilience=Curse Resilience
-enchantment.spell_shielding=Spell Shielding
+enchantment.soul_siphon=灵魂吸附
+enchantment.curse_resilience=韧性诅咒
+enchantment.spell_shielding=魔力护盾
 
 # Crystal Ball/Fortunes
-crystal_ball.error.ingredients=The future refuses to be perceived, something's wrong
-crystal_ball.error.no_power=Gazing into the future requires magic
-crystal_ball.error.too_far=Those who want a prophecy need to come closer
-crystal_ball.error.already_told=This one's future has already been revealed: %s
-crystal_ball.error.no_available_fortunes=This world has no secrets awaiting
-crystal_ball.read.other=You can see %2$s's future: %1$s
-fortunes.covens.meet_zombie.name=Those who lie underground will be awakened
+crystal_ball.error.ingredients=未来无法被窥视，有些事情可能是错误的
+crystal_ball.error.no_power=预知未来需要魔力
+crystal_ball.error.too_far=想要预知未来的人请上前
+crystal_ball.error.already_told=这个人的秘密已经被揭示：%s
+crystal_ball.error.no_available_fortunes=这个世界没有任何隐藏的秘密
+crystal_ball.read.other=你可以看到%2$s的未来：%1$s
+fortunes.covens.meet_zombie.name=在地下的亡灵终会被唤醒
 
 # Misc
 brew.failure.power=你的魔力供应十分虚弱（%d）
