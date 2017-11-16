@@ -66,7 +66,7 @@ public class BlockSilverVat extends BlockHorizontal {
 	
 	@Override
 	public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-		return state.withProperty(HANGING, !worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.up()).getBlock().isFullBlock(worldIn.getBlockState(pos.up())))
+		return state.withProperty(HANGING, !worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.up()).getBlockFaceShape(worldIn, pos.up(), EnumFacing.DOWN)==BlockFaceShape.SOLID)
 				.withProperty(HANGING_EXT, worldIn.isAirBlock(pos.up()) && !worldIn.isAirBlock(pos.up(2)) && worldIn.getBlockState(pos.up(2)).getBlockFaceShape(worldIn, pos.up(2), EnumFacing.DOWN)==BlockFaceShape.SOLID);
 	}
 	
