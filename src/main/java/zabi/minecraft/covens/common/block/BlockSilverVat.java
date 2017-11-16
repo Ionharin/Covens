@@ -30,6 +30,7 @@ public class BlockSilverVat extends BlockHorizontal {
 		this.setRegistryName(Reference.MID, "silver_vat");
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setUnlocalizedName("silver_vat");
+		this.setLightOpacity(0);
 		this.setDefaultState(blockState.getBaseState()
 				.withProperty(FACING, EnumFacing.SOUTH)
 				.withProperty(HANGING, false)
