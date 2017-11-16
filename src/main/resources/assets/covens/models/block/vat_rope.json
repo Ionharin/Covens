@@ -1,0 +1,30 @@
+﻿{
+	"credit": "Made with Blockbench, a free, modern block model editor by JannisX11",
+	"textures": {"2": "covens:blocks/vat_rope"},
+	"elements": [
+		{
+			"name": "rope_west",
+			"from": [2.5, 11, 7.5],
+			"to": [3.5, 16, 8.5],
+			"faces": {
+				"north": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"east": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"south": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"west": {"uv": [0, 0, 1, 5], "texture": "#2"}
+			},
+			"type": "cube"
+		},
+		{
+			"name": "rope_east",
+			"from": [12.5, 11, 7.5],
+			"to": [13.5, 16, 8.5],
+			"faces": {
+				"north": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"east": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"south": {"uv": [0, 0, 1, 5], "texture": "#2"},
+				"west": {"uv": [0, 0, 1, 5], "texture": "#2"}
+			},
+			"type": "cube"
+		}
+	]
+}

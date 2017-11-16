@@ -18,6 +18,23 @@
 			"west": {
 				"y": 270
 			}
+		},
+		"hanging": {
+			"true": {
+				"model": "covens:silver_vat_hang"
+			},
+			"false": {
+				
+			}
+		}, 
+		"extended": {
+			"true": {
+				"model": "covens:silver_vat_extended"
+			},
+			"false": {
+				
+			}
 		}
 	}
+
 }
