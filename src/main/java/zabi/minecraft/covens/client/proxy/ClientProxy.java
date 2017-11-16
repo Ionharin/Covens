@@ -89,44 +89,28 @@ public class ClientProxy extends Proxy {
 	
 	public void registerItemModels() {
 		Log.i("Registering models");
-		registerModel(ModItems.chalk, 0);
+		
+		registerModels(ModItems.chalk, ModItems.altar, ModItems.chimney, ModItems.cauldron, ModItems.brew_drinkable,
+				ModItems.ritual_knife, ModItems.brew_lingering, ModItems.brew_splash, ModItems.cardinal_stone,
+				ModItems.eerie_seeds, ModItems.helleboreSeeds, ModItems.aconitumSeeds, ModItems.sagebrushSeeds, 
+				ModItems.chrysanthemumSeeds, ModItems.log_elder, ModItems.log_juniper, ModItems.log_yew,
+				ModItems.leaves_elder, ModItems.leaves_juniper, ModItems.leaves_yew, ModItems.planks_yew, 
+				ModItems.planks_juniper, ModItems.planks_elder, ModItems.goblet, ModItems.candle_plate, ModItems.soulstring, 
+				ModItems.candle, ModItems.thread_spinner, ModItems.spell_page, ModItems.grimoire, ModItems.crystal_ball, 
+				ModItems.ritual_candle, ModItems.talisman_aquamarine_crown, ModItems.talisman_emerald_pendant, 
+				ModItems.talisman_diamond_star, ModItems.talisman_ruby_orb, ModItems.talisman_watching_eye, ModItems.moonbell, 
+				ModItems.silver_vat
+		);
+		
 		registerModel(ModItems.chalk, 1);
 		registerModel(ModItems.chalk, 2);
 		registerModel(ModItems.chalk, 3);
-		registerModel(ModItems.altar, 0);
-		registerModel(ModItems.chimney, 0);
-		registerModel(ModItems.cauldron, 0);
-		registerModel(ModItems.brew_drinkable, 0);
 		registerModel(ModItems.brew_drinkable, 1, 0);
-//		registerModel(ModItems.brew_gas, 0);
-//		registerModel(ModItems.brew_gas, 1, 0);
-		registerModel(ModItems.ritual_knife,0);
-		registerModel(ModItems.brew_lingering, 0);
 		registerModel(ModItems.brew_lingering, 1, 0);
-		registerModel(ModItems.brew_splash, 0);
 		registerModel(ModItems.brew_splash, 1, 0);
-		registerModel(ModItems.cardinal_stone, 0);
 		registerModel(ModItems.cardinal_stone, 1);
 		registerModel(ModItems.cardinal_stone, 2, 1);
-		registerModel(ModItems.eerie_seeds, 0);
-		registerModel(ModItems.helleboreSeeds, 0);
-		registerModel(ModItems.aconitumSeeds, 0);
-		registerModel(ModItems.sagebrushSeeds, 0);
-		registerModel(ModItems.chrysanthemumSeeds, 0);
-		registerModel(ModItems.log_elder, 0);
-		registerModel(ModItems.log_juniper, 0);
-		registerModel(ModItems.log_yew, 0);
-		registerModel(ModItems.leaves_elder, 0);
-		registerModel(ModItems.leaves_juniper, 0);
-		registerModel(ModItems.leaves_yew, 0);
-		registerModel(ModItems.planks_yew,0);
-		registerModel(ModItems.planks_juniper,0);
-		registerModel(ModItems.planks_elder,0);
-		registerModel(ModItems.goblet, 0);
-		registerModel(ModItems.candle_plate, 0);
-		registerModel(ModItems.soulstring, 0);
 		registerModel(ModItems.soulstring, 1, 0);
-		registerModel(ModItems.candle, 0);
 		registerModel(ModItems.candle, 1, 0);
 		for (int i=0;i<4;i++) registerModel(ModItems.broom, i);
 		for (int i=0;i<ItemFlowers.names.length;i++) registerModel(ModItems.flowers, i);
@@ -134,23 +118,18 @@ public class ClientProxy extends Proxy {
 		for (int i=0;i<BlockBarrel.WoodType.values().length;i++) registerModel(ModItems.barrel, i);
 		registerModel(ModItems.misc, 9, 8);
 		for (EnumSaplingType est:EnumSaplingType.values()) registerModel(ModItems.sapling, est.ordinal(), est.getName());
-		registerModel(ModItems.thread_spinner, 0);
-		registerModel(ModItems.spell_page, 0);
-		registerModel(ModItems.grimoire, 0);
-		registerModel(ModItems.crystal_ball, 0);
-		registerModel(ModItems.ritual_candle, 0);
-		registerModel(ModItems.talisman_aquamarine_crown, 0);
-		registerModel(ModItems.talisman_emerald_pendant, 0);
-		registerModel(ModItems.talisman_diamond_star, 0);
-		registerModel(ModItems.talisman_ruby_orb, 0);
-		registerModel(ModItems.talisman_watching_eye, 0);
-		registerModel(ModItems.moonbell, 0);
 	}
 
 	private void registerModel(Item item, int meta) {
 		ResourceLocation rl = new ResourceLocation(item.getRegistryName()+ (meta>0?("_"+meta):""));
 		ModelResourceLocation mrl = new ModelResourceLocation(rl, "inventory");
 		ModelLoader.setCustomModelResourceLocation(item, meta, mrl);
+	}
+	
+	private void registerModels(Item... items) {
+		for (int i=0;i<items.length;i++) {
+			registerModel(items[i],0);
+		}
 	}
 	
 	private void registerModel(Item item, int realMeta, int modelMeta) {

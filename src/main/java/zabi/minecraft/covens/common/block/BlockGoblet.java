@@ -35,11 +35,6 @@ public class BlockGoblet extends Block {
 	}
 	
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-		return bounding_box;
-	}
-	
-	@Override
 	public boolean canProvidePower(IBlockState state) {
 		return state.getValue(FULL);
 	}

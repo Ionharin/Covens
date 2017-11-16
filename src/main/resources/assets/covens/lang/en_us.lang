@@ -31,6 +31,12 @@ item.misc.undying_image.name=Undying Image
 item.misc.magic_leather.name=Magic Leather
 item.misc.silver_ingot.name=Silver Ingot
 item.misc.silver_deposit.name=Silver Deposit
+item.misc.demonic_dew.name=Demonic Dew
+item.misc.floating_tears.name=Floating Tears
+item.misc.heavenly_winds.name=Heavenly Winds
+item.misc.otherworld_breeze.name=Otherworldy Breeze
+item.misc.petrichor_odour.name=Odour of Petrichor
+item.misc.zephyr_of_the_depths.name=Zephir of the Depths
 item.eerie_seeds.name=Mysterious Seeds
 item.brew_drinkable_full.name=Magic Brew
 item.brew_drinkable_spoiled.name=Spoiled Brew
@@ -125,6 +131,7 @@ tile.thread_spinner.name=Thread Spinner
 tile.crystal_ball.name=Crystal Ball
 tile.ritual_candle.name=Ritual Candle
 tile.moonbell.name=Moonbell
+tile.silver_vat.name=Silver Vat
 
 # Ritual Stuff
 ritual.failure.unknown=You never heard of such rites

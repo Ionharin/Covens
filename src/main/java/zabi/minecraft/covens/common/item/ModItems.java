@@ -36,7 +36,7 @@ public class ModItems {
 		goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, /*witch_hat, witch_cloak,*/
 		log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew, 
 		crystal_ball, ritual_candle, talisman_ruby_orb, talisman_diamond_star, talisman_emerald_pendant, talisman_watching_eye,
-		talisman_aquamarine_crown, moonbell;
+		talisman_aquamarine_crown, moonbell, silver_vat;
 	
 	public static void registerAll() {
 		Log.i("Creating Items");
@@ -121,6 +121,7 @@ public class ModItems {
 		crystal_ball = new ItemBlock(ModBlocks.crystal_ball);
 		ritual_candle = new ItemBlock(ModBlocks.ritual_candle);
 		moonbell = new ItemBlock(ModBlocks.moonbell);
+		silver_vat = new ItemBlock(ModBlocks.silver_vat);
 		
 		altar.setRegistryName(ModBlocks.altar.getRegistryName());
 		chimney.setRegistryName(ModBlocks.chimney.getRegistryName());
@@ -142,6 +143,7 @@ public class ModItems {
 		crystal_ball.setRegistryName(ModBlocks.crystal_ball.getRegistryName());
 		ritual_candle.setRegistryName(ModBlocks.ritual_candle.getRegistryName());
 		moonbell.setRegistryName(ModBlocks.moonbell.getRegistryName());
+		silver_vat.setRegistryName(ModBlocks.silver_vat.getRegistryName());
 		
 		talisman_aquamarine_crown = new ItemTalisman(4, 35, "aquamarine_crown", EntityEquipmentSlot.HEAD);
 		talisman_diamond_star = new ItemTalisman(1, 18, "adamantine_star_ring", EntityEquipmentSlot.OFFHAND);
@@ -185,7 +187,7 @@ public class ModItems {
 				flowers, misc, eerie_seeds, brew_drinkable, brew_splash, /*brew_gas,*/ brew_lingering, cardinal_stone, ritual_knife, broom,
 				goblet, candle_plate, soulstring, barrel, candle, sapling, thread_spinner, spell_page, grimoire, /*witch_hat, witch_cloak,*/
 				crystal_ball, ritual_candle, talisman_aquamarine_crown, talisman_diamond_star, talisman_emerald_pendant,
-				talisman_ruby_orb, talisman_watching_eye, moonbell
+				talisman_ruby_orb, talisman_watching_eye, moonbell, silver_vat
 				);
 		itemRegistry.registerAll(log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, planks_yew);
 	}

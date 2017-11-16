@@ -32,7 +32,13 @@ public class ItemMisc extends Item {
 			"undying_image", //14
 			"magic_leather", //15
 			"silver_ingot", //16
-			"silver_deposit" //17
+			"silver_deposit", //17
+			"demonic_dew", //18
+			"otherworld_breeze", //19
+			"floating_tears", //20
+			"heavenly_winds", //21
+			"petrichor_odour", //22
+			"zephyr_of_the_depths" //23
 	};
 	
 	public ItemMisc() {
@@ -53,12 +59,13 @@ public class ItemMisc extends Item {
 			tab.add(new ItemStack(this,1,0));
 			for (int i = 2;i<6;i++) tab.add(new ItemStack(this,1,i));
 			for (int i = 11;i<15;i++) tab.add(new ItemStack(this,1,i));
+			for (int i = 18;i<24;i++) tab.add(new ItemStack(this,1,i));
 			tab.add(new ItemStack(this,1,6));
 			tab.add(new ItemStack(this,1,1));
 			tab.add(new ItemStack(this,1,7));
 			tab.add(new ItemStack(this,1,8));
 			tab.add(new ItemStack(this,1,9));
-			for (int i = 15;i<names.length;i++) tab.add(new ItemStack(this,1,i));
+			for (int i = 15;i<18;i++) tab.add(new ItemStack(this,1,i));
 		}
 	}
 	

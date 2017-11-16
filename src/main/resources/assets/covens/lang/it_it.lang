@@ -31,6 +31,12 @@ item.misc.undying_image.name=Figura reincarnante
 item.misc.magic_leather.name=Cuoio magico
 item.misc.silver_ingot.name=Lingotto d'argento
 item.misc.silver_deposit.name=Deposito di argento
+item.misc.demonic_dew.name=Rugiada demoniaca
+item.misc.floating_tears.name=Lacrime fluttuanti
+item.misc.heavenly_winds.name=Venti paradisiaci
+item.misc.otherworld_breeze.name=Brezza d'altromondo
+item.misc.petrichor_odour.name=Odore di petricore
+item.misc.zephyr_of_the_depths.name=Zefiro degli abissi
 item.eerie_seeds.name=Semi misteriosi
 item.brew_drinkable_full.name=Intruglio magico
 item.brew_drinkable_spoiled.name=Intruglio rovinato
@@ -124,6 +130,7 @@ tile.thread_spinner.name=Filiera
 tile.crystal_ball.name=Sfera di cristallo
 tile.ritual_candle.name=Candela rituale
 tile.moonbell.name=Campanella della notte
+tile.silver_vat.name=Vasca dell'argento
 
 # Ritual Stuff
 ritual.failure.unknown=Non hai mai sentito parlare di un rito simile

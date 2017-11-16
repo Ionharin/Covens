@@ -18,7 +18,7 @@ public class ModBlocks {
 	
 	public static Block glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 		log_elder, log_yew, log_juniper, leaves_elder, leaves_yew, leaves_juniper, planks_yew, planks_juniper, planks_elder,
-		confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball, ritual_candle, moonbell;
+		confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball, ritual_candle, moonbell, silver_vat;
 	
 	public static void registerAll() {
 		Log.i("Creating Blocks");
@@ -59,6 +59,7 @@ public class ModBlocks {
 				if (rand.nextDouble()<0.2) worldIn.spawnParticle(EnumParticleTypes.FIREWORKS_SPARK, pos.getX()+0.5+rand.nextGaussian()*0.2, 0.1+pos.getY()+rand.nextGaussian()*0.2, pos.getZ()+0.5+rand.nextGaussian()*0.2, 0, 0.1, 0);
 			}
 		}).setLightOpacity(16).setLightLevel(0.5f);
+		silver_vat = new BlockSilverVat();
 	}
 	
 	@SubscribeEvent
@@ -68,7 +69,7 @@ public class ModBlocks {
 		/*blockRegistry. -use custom static method instead*/registerAll(blockRegistry, glyphs, altar, chimney, cauldron, hellebore, aconitum, sagebrush, chrysanthemum, 
 				log_elder, log_juniper, log_yew, leaves_elder, leaves_juniper, leaves_yew, planks_elder, planks_juniper, 
 				planks_yew, confining_ash, goblet, candle_plate, barrel, sapling, thread_spinner, crystal_ball, ritual_candle,
-				moonbell);
+				moonbell, silver_vat);
 	}
 	
 	//Why the fuck the registerAll impl of IForgeRegistry<Block> finds null blocks on 1.12.2, while this does not?
