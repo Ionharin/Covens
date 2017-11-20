@@ -45,6 +45,7 @@ public class ItemMisc extends Item {
 		this.setCreativeTab(ModCreativeTabs.products);
 		this.setHasSubtypes(true);
 		this.setRegistryName(Reference.MID, "misc");
+		this.setUnlocalizedName("misc");
 	}
 	
 	@Override
