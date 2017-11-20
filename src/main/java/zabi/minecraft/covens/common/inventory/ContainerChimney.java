@@ -6,6 +6,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.tileentity.TileEntityChimney;
+import zabi.minecraft.covens.common.util.machines.OutputSlot;
 
 public class ContainerChimney extends ContainerBase {
 	public ContainerChimney(InventoryPlayer pi, TileEntityChimney chim) {
@@ -25,14 +26,4 @@ public class ContainerChimney extends ContainerBase {
 		}
 	}
 	
-	public static class OutputSlot extends Slot {
-		public OutputSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
-			super(inventoryIn, index, xPosition, yPosition);
-		}
-		
-		@Override
-		public boolean isItemValid(ItemStack stack) {
-			return false;
-		}
-	}
 }

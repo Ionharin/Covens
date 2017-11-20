@@ -3,8 +3,8 @@ package zabi.minecraft.covens.common.inventory;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import zabi.minecraft.covens.common.tileentity.TileEntityThreadSpinner;
+import zabi.minecraft.covens.common.util.machines.OutputSlot;
 
 public class ContainerThreadSpinner extends ContainerBase {
 	
@@ -27,16 +27,5 @@ public class ContainerThreadSpinner extends ContainerBase {
 			return 1;
 		}
 		
-	}
-	
-	public static class OutputSlot extends Slot {
-		public OutputSlot(IInventory inventoryIn, int index, int xPosition, int yPosition) {
-			super(inventoryIn, index, xPosition, yPosition);
-		}
-		
-		@Override
-		public boolean isItemValid(ItemStack stack) {
-			return false;
-		}
 	}
 }
