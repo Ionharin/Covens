@@ -14,6 +14,7 @@ public class ModTileEntities {
 		GameRegistry.registerTileEntity(TileEntityThreadSpinner.class, "covens:thread_spinner");
 		GameRegistry.registerTileEntity(TileEntityCrystalBall.class, "covens:crystal_ball");
 		GameRegistry.registerTileEntity(TileEntityRitualCandle.class, "covens:ritual_candle");
+		GameRegistry.registerTileEntity(TileEntitySilverVat.class, "covens:silver_vat");
 	}
 	
 }

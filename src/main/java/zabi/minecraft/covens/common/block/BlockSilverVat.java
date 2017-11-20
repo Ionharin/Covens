@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.block;
 
+import java.util.Random;
+
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.block.Block;
@@ -10,6 +12,9 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -17,7 +22,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.Covens;
+import zabi.minecraft.covens.common.inventory.GuiHandler;
 import zabi.minecraft.covens.common.item.ModCreativeTabs;
+import zabi.minecraft.covens.common.tileentity.TileEntitySilverVat;
 
 public class BlockSilverVat extends BlockHorizontal {
 
@@ -31,6 +39,7 @@ public class BlockSilverVat extends BlockHorizontal {
 		this.setCreativeTab(ModCreativeTabs.machines);
 		this.setUnlocalizedName("silver_vat");
 		this.setLightOpacity(0);
+		this.setTickRandomly(true);
 		this.setDefaultState(blockState.getBaseState()
 				.withProperty(FACING, EnumFacing.SOUTH)
 				.withProperty(HANGING, false)
@@ -107,4 +116,28 @@ public class BlockSilverVat extends BlockHorizontal {
 		return false;
 	}
 
+	@Override
+	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
+		super.randomTick(worldIn, pos, state, random);
+		TileEntitySilverVat tesv = (TileEntitySilverVat) worldIn.getTileEntity(pos); // lol tesv:skyrim
+		if (tesv!=null && worldIn.getBlockState(pos.down()).getBlock()==Blocks.FIRE) {
+			tesv.randomTick();
+		}
+	}
+	
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
+		return new TileEntitySilverVat();
+	}
+	
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		playerIn.openGui(Covens.INSTANCE, GuiHandler.IDs.SILVER_VAT.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
+		return true;
+	}
 }
