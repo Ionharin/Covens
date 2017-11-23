@@ -24,6 +24,13 @@ item.misc.birch_soul.name=Душа березы
 item.misc.acacia_essence.name=Эссенция акаций
 item.misc.spruce_heart.name=Сердце ели
 item.misc.cloudy_oil.name=Мутное масло
+item.misc.cleansing_aura.name=Очищающая аура
+item.misc.emanation_of_dishonesty.name=Излучение нечестности
+item.misc.foul_presence.name=Нарушение присутствия
+item.misc.undying_image.name=Неумирающий образ
+item.misc.magic_leather.name=Волшебная кожа
+item.misc.silver_ingot.name=Серебряный слиток
+item.misc.silver_deposit.name=Серебряная залежь
 item.eerie_seeds.name=Таинственные семена
 item.brew_drinkable_full.name=Магическое зелье
 item.brew_drinkable_spoiled.name=Испорченное зелье
@@ -50,8 +57,8 @@ item.soulstring.bound=Привязанна к: %s
 item.witch_candle.name=Ведьмина Свеча
 item.witch_candle_revealing.name=Ведьмина Свеча Прозрения
 item.spell_page.name=Забытое заклинание 
-item.spell_page.covens.magnet.name=Spell of Far Reach
-item.spell_page.covens.poke.name=Заклтнание удара 
+item.spell_page.covens.magnet.name=Заклинание дальней досягаемости
+item.spell_page.covens.poke.name=Заклинание удара 
 item.spell_page.covens.water.name=Заклинание лужи
 item.spell_page.covens.activation.name=Заклинание телекинез
 item.spell_page.covens.slowness.name=Заклинание запутаных ног
@@ -66,14 +73,12 @@ item.grimoire.name=Гримуар
 item.grimoire.creative.name=Творческий гримуар
 item.grimoire.spells_number=Внутри %d есть заклинания
 item.grimoire.selected.none=Заклинания не выбрано
-item.grimoire.selected=Spell: %s
+item.grimoire.selected=Заклинание: %s
 item.watching_eye.name=Кулон всевидящего ока 
 item.ruby_orb.name=Рубиновый амулет
 item.adamantine_star_ring.name=Несокрушимое звездное кольцо
 item.emerald_pendant.name=Изумрудное ожерелье
 item.aquamarine_crown.name=Аквамариновая корона
-
-
 
 # Block names
 tile.witch_altar.name=Алтарь ведьм
@@ -108,12 +113,17 @@ tile.barrel.elder.name=Бочонок из бузины
 tile.barrel.juniper.name=Бочонок из можжевельника
 tile.barrel.yew.name=Тисовый бочонок
 tile.barrel.empty=Пустой
+tile.barrel.altar.none_required=Магическая сила не требуется
+tile.barrel.altar.no_altar=Рядом нет волшебных источников
+tile.barrel.altar.working=Наполнение
+tile.barrel.altar.done=Наполнено
+tile.sapling_elder.name=Древний саженец
+tile.sapling_juniper.name=Саженец можжевельника
+tile.sapling_yew.name=Саженец тиса
 tile.thread_spinner.name=Прялка
 tile.crystal_ball.name=Хрустальный шар
 tile.ritual_candle.name=Ритуальная свеча
 tile.moonbell.name=Лунный колокольчик
-
-
 
 # Ritual Stuff
 ritual.failure.unknown=Вы никогда не слышали о таких обрядах
@@ -138,15 +148,13 @@ ritual.covens.infusion_ritual_nether.name=Ритуал наполнения ад
 # Potions
 potion.removed.entity=Не затрагивает существ 
 potion.removed.environmental=Не затрагивает окружение
-
 effect.disrobing=Разоблачение
 effect.tinting=Окрашивание
 effect.skin_rotting=Гниение
 effect.extinguish_fire=Гаснет 
 effect.planting=Рост
-effect.block_arrows= Защита от стрел 
+effect.block_arrows=Защита от стрел 
 effect.harvest=Жатва 
-
 
 # Entities
 entity.broom.name=Летающая Метла 
@@ -160,18 +168,17 @@ enchantment.spell_shielding=Магическая защита
 # Crystal Ball/Fortunes
 crystal_ball.error.ingredients=Будущее неясно видно, что-то неправильно 
 crystal_ball.error.no_power=Чтобы увидеть будущие нужна магия
-crystal_ball.error.too_far= Те, кто хочет пророчество должны подойти по ближе
-crystal_ball.error.already_told= Это будущее было уже показано: %s
-crystal_ball.error.no_available_fortunes= У этого мира нет ожидания тайн
+crystal_ball.error.too_far=Те, кто хочет пророчество должны подойти по ближе
+crystal_ball.error.already_told=Это будущее было уже показано: %s
+crystal_ball.error.no_available_fortunes=У этого мира нет ожидания тайн
 crystal_ball.read.other=Вы можете видеть %2$s's будушее: %1$s
 fortunes.covens.meet_zombie.name=Те кто лежат под землей поднимутся! 
-
-
- 
 
 # Misc
 brew.failure.power=Ваш источник магии слаб (%d)
 brew.success.power=Вам нужно %d силы алтаря
+fluid.quantity.mB=%d mB
+fluid.none=Пусто
 jei.category.rituals=Ритуалы
 jei.category.chimney=Собирание Дымов
 jei.category.brewing=Варение в Котле
