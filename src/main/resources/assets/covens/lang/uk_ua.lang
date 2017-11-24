@@ -1,0 +1,187 @@
+﻿# Creative Tabs names
+itemGroup.covens.herbs=Шабаш - Природа
+itemGroup.covens.machines=Шабаш - Блоки
+itemGroup.covens.products=Шабаш - Предмети
+itemGroup.covens.brews=Шабаш - Зілля
+
+# Item names
+iitem.hellebore_seeds.name=Насіння морозника
+item.aconitum_seeds.name=Насіння аконіту
+item.sagebrush_seeds.name=Насіння полину
+item.chrysanthemum_seeds.name=Насіння Хризантеми
+item.flower.hellebore.name=Морозник
+item.flower.aconitum.name=Аконіт клубочковый
+item.flower.sagebrush.name=Квітка полину
+item.flower.хризантеми.name=Хризантема
+item.chalk_normal.name=Ритуальний крейда
+item.chalk_golden.name=Священний крейда
+item.chalk_ender.name=Пустотну крейда 
+item.chalk_nether.name=Полум'яний крейда
+item.misc.empty_jar.name=Порожня банку
+item.misc.ash.name=Деревний попіл
+item.misc.oak_spirit.name=Дух дуба
+item.misc.birch_soul.name=Душа берези
+item.misc.acacia_essence.name=Есенція акацій
+item.misc.spruce_heart.name=Серці їли
+item.misc.cloudy_oil.name=Мутна олія
+item.misc.cleansing_aura.name=Очищаюча аура
+item.misc.emanation_of_dishonesty.name=Випромінювання нечесності
+item.misc.foul_presence.name=Порушення присутності
+item.misc.undying_image.name=Неумирающий образ
+item.misc.magic_leather.name=Чарівна шкіра
+item.misc.silver_ingot.name=Срібний зливок
+item.misc.silver_deposit.name=Срібна поклад
+item.eerie_seeds.name=Таємничі насіння
+item.brew_drinkable_full.name=Магічне зілля
+item.brew_drinkable_spoiled.name=Зіпсоване зілля
+item.brew_splash_full.name=Чарівне вибуховий зілля
+item.brew_splash_spoiled.name=Зіпсоване вибуховий зілля
+item.brew_lingering_full.name=Чарівне зілля оседающее
+item.brew_lingering_spoiled.name=Зіпсоване оседающее зілля
+item.brew.spoiled=Краще не пити це
+item.cardinal_stone.name=Головний камінь
+item.cardinal_stone.bound_to=Прив'язаний до (%d %d %d)
+item.cardinal_stone.unbound=Не прив'язаний
+item.cardinal_stone.uncharged=Не заряджений
+item.ritual_knife.name=Ритуальний кинджал
+item.misc.talisman_charged.name=Заряджений талісман
+item.misc.talisman.name=Талісман
+item.misc.wax_ball.name=Віск
+item.misc.unfired_jar.name=Необпалена банку
+item.broom_0.name=Приземлена літаюча мітла
+item.broom_1.name=Літаюча Мітла з бузини
+item.broom_2.name=Літаюча Мітла з ялівцю
+item.broom_3.name=Літаюча Мітла з тиса
+item.soulstring.name=Нитка Душі
+item.soulstring.bound=Привязанна до: %s
+item.witch_candle.name=Відьмина Свічка
+item.witch_candle_revealing.name=Відьмина Свічка Прозріння
+item.spell_page.name=Забуте заклинання 
+item.spell_page.covens.magnet.name=Заклинання дальньої досяжності
+item.spell_page.covens.poke.name=Заклинання удару 
+item.spell_page.covens.water.name=Заклинання калюжі
+item.spell_page.covens.activation.name=Заклинання телекінез
+item.spell_page.covens.slowness.name=Заклинання заплутана ніг
+item.spell_page.covens.lesser_blink.name=Заклинання слабкою телепортації
+item.spell_page.covens.blink.name=Заклинання телепортації
+item.spell_page.covens.explosion.name=Заклинання дестабілізація
+item.spell_page.covens.disarming.name=Заклинання обезаруживания 
+item.spell_page.covens.infuse_life.name=Заклинання дар
+item.spell_page.covens.self_heal.name=Заклинання відновлення
+item.grimoire.format.name=%s (%s)
+item.grimoire.name=Гримуар
+item.grimoire.creative.name=Творчий гримуар
+item.grimoire.spells_number=Усередині %d є заклинання
+item.grimoire.selected.none=Заклинання не вибрано
+item.grimoire.selected=Заклинання: %s
+item.watching_eye.name=Кулон всевидючого ока 
+item.ruby_orb.name=Рубіновий амулет
+item.adamantine_star_ring.name=Незламність зоряне кільце
+item.emerald_pendant.name=Смарагдове намисто
+item.aquamarine_crown.name=Аквамаринова корона
+
+# Block names
+tile.witch_altar.name=Вівтар відьом
+tile.magic_glyph.name=Ритуальний гліф
+tile.hellebore.name=Морозник
+tile.aconitum.name=Аконіт
+tile.sagebrush.name=Полин
+tile.chrysanthemum.name=Хризантема
+tile.chimney.name=Димар
+tile.log_juniper.name=Ялівець 
+tile.log_elder.name=Бузина
+tile.log_yew.name=Тіс
+tile.planks_juniper.name=Дошки з ялівцю
+tile.planks_elder.name=Дошки з бузини
+tile.planks_yew.name=Дошки з тиса
+tile.leaves.juniper.name=Листя ялівцю
+tile.leaves.elder.name=Листя бузини
+tile.leaves.yew.name=Листя тиса
+tile.confining_ash.name=Попіл Обмеження
+tile.goblet.name=Кубок
+tile.candle_plate.name=Церемоніальні Свічки
+tile.cauldron.name=Відьомський Котел
+tile.chimney.hint=Ставиться поверх печі
+tile.barrel.name=Бочонок
+tile.barrel.oak.name=Дубовий бочонок
+tile.barrel.birch.name=Березовий бочонок
+tile.barrel.spruce.name=Ялиновий бочонок
+tile.barrel.jungle.name=Барило з тропічного дерева
+tile.barrel.acacia.name=Барило з акації
+tile.barrel.big_oak.name=Барило з темного дуба
+tile.barrel.elder.name=Барило з бузини
+tile.barrel.juniper.name=Барило з ялівцю
+tile.barrel.yew.name=Тисовий бочонок
+tile.barrel.empty=Порожній
+tile.barrel.altar.none_required=Магічна сила не вимагається
+tile.barrel.altar.no_altar=Поряд немає чарівних джерел
+tile.barrel.altar.working=Наповнення
+tile.barrel.altar.done=Наповнено
+tile.sapling_elder.name=Стародавній саджанець
+tile.sapling_juniper.name=Саджанець ялівцю
+tile.sapling_yew.name=Саджанець тиса
+tile.thread_spinner.name=Прядка
+tile.crystal_ball.name=Кришталеву кулю
+tile.ritual_candle.name=Ритуальна свічка
+tile.moonbell.name=Місячний дзвіночок
+
+# Ritual Stuff
+ritual.failure.unknown=Ви ніколи не чули про таких обрядах
+ritual.failure.power=Ваш джерело магії недостатньо сильний
+ritual.failure.precondition=Щось не так
+ritual.covens.high_moon.name=Ритуал Високою Місяця
+ritual.covens.time_sands.name=Ритуал Пісків Часу
+ritual.covens.perception.name=Ритуал Сприйняття
+ritual.covens.ender_gate.name=Ритуал Відьминої Ходи
+ritual.covens.ender_stream.name=Ритуал Вічного Мандрівника
+ritual.covens.charging_1.name=Ритуал Зарядки
+ritual.covens.charging_talisman.name=Ритуал Зарядки
+ritual.covens.redirection.name=Ритуал Перенаправлення
+ritual.covens.identification.name=Ритуал Розпізнавання
+ritual.covens.revealing_candle.name=Ритуал Наповнення
+ritual.covens.conjure_wither_ritual.name=Ритуал чаклунства (Відьмак)
+ritual.covens.conjure_witch_ritual.name=Ритуал чаклунства (Відьма)
+ritual.covens.infusion_ritual_overworld.name=Ритуал наповнення звичайного світу
+ritual.covens.infusion_ritual_end.name=Ритуал наповнення потойбічного світу 
+ritual.covens.infusion_ritual_nether.name=Ритуал наповнення пекельного світу
+
+# Potions
+potion.removed.entity=Не зачіпає істот 
+potion.removed.environmental=Не зачіпає оточення
+effect.disrobing=Викриття
+effect.tinting=Фарбування
+effect.skin_rotting=Гниття
+effect.extinguish_fire=Гасне 
+effect.planting=Зріст
+effect.block_arrows=Захист від стріл 
+effect.harvest=Жнива
+
+# Entities
+entity.broom.name=Літаюча Мітла 
+entity.brew.name=Чарівне Зілля
+
+# Enchantments
+enchantment.soul_siphon=Сифон душі
+enchantment.curse_resilience=Прокляття пружності
+enchantment.spell_shielding=Магічна захист
+
+# Crystal Ball/Fortunes
+crystal_ball.error.ingredients=Майбутнє неясно видно, що щось неправильно 
+crystal_ball.error.no_power=Щоб побачити майбутні потрібна магія
+crystal_ball.error.too_far=Ті, хто хоче пророцтво повинні підійти ближче
+crystal_ball.error.already_told=Це майбутнє було вже показано: %s
+crystal_ball.error.no_available_fortunes=У цього світу немає таємниць очікування
+crystal_ball.read.other=Ви можете бачити %2$s's майбутнє: %1$s
+fortunes.covens.meet_zombie.name=Ті хто лежать під землею піднімуться!
+
+# Misc
+brew.failure.power=Ваш джерело магії слабкий (%d)
+brew.success.power=Вам потрібно %d сили вівтаря
+fluid.quantity.mB=%d mB
+fluid.none=Порожньо
+jei.category.rituals=Ритуали
+jei.category.chimney=Збирання Димов
+jei.category.brewing=Варення в Котлі
+jei.ritual.power.flat=%d Сила Вівтаря
+jei.ritual.power.tick=%d Сила Вівтаря в секунду 
+jei.category.spinner=Пряжка нитки
