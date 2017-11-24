@@ -2,6 +2,7 @@ package zabi.minecraft.covens.common.tileentity;
 
 import java.util.Random;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -9,8 +10,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
+import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.util.machines.AutomatableInventory;
 
@@ -108,6 +112,11 @@ public class TileEntitySilverVat extends TileEntityBase {
 	
 	public int getAcidLevel() {
 		return acid;
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return newSate.getBlock()!=ModBlocks.silver_vat;
 	}
 	
 }
