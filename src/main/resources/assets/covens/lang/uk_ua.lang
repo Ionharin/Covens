@@ -5,14 +5,14 @@ itemGroup.covens.products=Шабаш - Предмети
 itemGroup.covens.brews=Шабаш - Зілля
 
 # Item names
-iitem.hellebore_seeds.name=Насіння морозника
+item.hellebore_seeds.name=Насіння морозника
 item.aconitum_seeds.name=Насіння аконіту
 item.sagebrush_seeds.name=Насіння полину
 item.chrysanthemum_seeds.name=Насіння Хризантеми
 item.flower.hellebore.name=Морозник
 item.flower.aconitum.name=Аконіт клубочковый
 item.flower.sagebrush.name=Квітка полину
-item.flower.хризантеми.name=Хризантема
+item.flower.chrysanthemum.name=Хризантема
 item.chalk_normal.name=Ритуальний крейда
 item.chalk_golden.name=Священний крейда
 item.chalk_ender.name=Пустотну крейда 
