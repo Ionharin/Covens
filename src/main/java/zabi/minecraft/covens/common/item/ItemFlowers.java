@@ -1,17 +1,11 @@
 package zabi.minecraft.covens.common.item;
 
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
-import zabi.minecraft.covens.common.Covens;
-import zabi.minecraft.covens.common.inventory.GuiHandler;
-
-import zabi.minecraft.covens.common.lib.Reference;
 
 public class ItemFlowers extends Item {
 	
@@ -37,6 +31,5 @@ public class ItemFlowers extends Item {
 			}
 		}
 	}
-	
 	
 }
