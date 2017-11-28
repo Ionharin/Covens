@@ -59,7 +59,7 @@ public abstract class TileEntityBase extends TileEntity {
 	@Override
 	public void handleUpdateTag(NBTTagCompound tag) {
 		super.handleUpdateTag(tag);
-		readFromNBT(tag);
+		NBTLoadUpdate(tag);
 	}
 
 }

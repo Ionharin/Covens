@@ -216,25 +216,29 @@ public class BlockWitchAltar extends Block implements ITileEntityProvider {
 					setColor(worldIn,pos,newColor);
 					return true;
 				}
-			} else if (worldIn.isRemote && playerIn.getHeldItem(hand).isEmpty()) {
-				if (state.getBlock().hasTileEntity(state)) {
-					TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
-					playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
+			} else if (playerIn.getHeldItem(hand).isEmpty()) {
+				if (!worldIn.isRemote) {
+					if (state.getBlock().hasTileEntity(state)) {
+						TileEntityAltar tea = (TileEntityAltar) worldIn.getTileEntity(pos);
+						playerIn.sendStatusMessage(new TextComponentString(tea.getAltarPower()+"/"+tea.getMaxPower()+" (x"+tea.getGain()+")"), true);
+						return true;
+					} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
+						for (EnumFacing h:EnumFacing.HORIZONTALS) {
+							IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+							if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
+								return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+							}
+						}
+					} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
+						for (EnumFacing h:EnumFacing.HORIZONTALS) {
+							IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
+							if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
+								return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
+							}
+						}
+					}
+				} else {
 					return true;
-				} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.CORNER)) {
-					for (EnumFacing h:EnumFacing.HORIZONTALS) {
-						IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
-						if (stateAdj.getBlock().equals(ModBlocks.altar) && (stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE) || stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE))) {
-							return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
-						}
-					}
-				} else if (state.getValue(ALTAR_TYPE).equals(AltarMultiblockType.SIDE)) {
-					for (EnumFacing h:EnumFacing.HORIZONTALS) {
-						IBlockState stateAdj = worldIn.getBlockState(pos.offset(h));
-						if (stateAdj.getBlock().equals(ModBlocks.altar) && stateAdj.getValue(ALTAR_TYPE).equals(AltarMultiblockType.TILE)) {
-							return stateAdj.getBlock().onBlockActivated(worldIn, pos.offset(h), stateAdj, playerIn, hand, facing, hitX, hitY, hitZ);
-						}
-					}
 				}
 			}
 		}
