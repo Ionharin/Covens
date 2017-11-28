@@ -54,13 +54,13 @@ public class GuiBarrel extends GuiContainer {
 
 			int[] data = ((ContainerBarrel)inventorySlots).data_a;
 			if (data[2]>0) {
-				double progress = data[0] / data[2];
+				double progress = (double) data[0] / (double) data[2];
 				if (progress>1) progress=1;
 				int dy = (int)Math.ceil(31*progress);
 				drawTexturedModalRect(guiLeft+29, guiTop + 27 + 31 - dy, 0, ySize + 31 - dy , 11, dy);
 			}
 			float absorption = 1;
-			if (data[3]>0) absorption = data[1] / data[3];
+			if (data[3]>0) absorption = (float) data[1] / (float) data[3];
 			GlStateManager.pushMatrix();
 			{
 				GlStateManager.color(2*(1f - absorption), 2*absorption, 0f);

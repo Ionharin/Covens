@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
 
+import zabi.minecraft.covens.common.lib.Log;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -125,6 +127,8 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 				internalTank.drain(Fluid.BUCKET_VOLUME, true);
 				this.cachedRecipe = incomingRecipe;
 				this.recipeName = incomingRecipe.getRegistryName().toString();
+				powerRequired = cachedRecipe.getPower();
+				timeRequired = cachedRecipe.getRequiredTime();
 				markDirty();
 			}
 		}
@@ -372,12 +376,11 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		tag.setInteger("bt", brewingTime);
 		tag.setInteger("pw", powerAbsorbed);
 		tag.setInteger("ty", barrelType);
+		tag.setInteger("pr", powerRequired);
+		tag.setInteger("tr", timeRequired);
 		if (recipeName!=null) {
-			BarrelRecipe rcp = getRecipe();
-			if (rcp!=null) {
+			if (getRecipe()!=null) {
 				tag.setString("rc", recipeName);
-				tag.setInteger("pr", powerRequired);
-				tag.setInteger("tr", timeRequired);
 			}
 		}
 		tag.setTag("tank", internalTank.writeToNBT(new NBTTagCompound()));
@@ -385,13 +388,14 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 
 	@Override
 	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		Log.i(tag);
 		brewingTime = tag.getInteger("bt");
 		powerAbsorbed = tag.getInteger("pw");
 		barrelType = tag.getInteger("ty");
+		powerRequired = tag.getInteger("pr");
+		timeRequired = tag.getInteger("tr");
 		if (tag.hasKey("rc")) {
 			recipeName = tag.getString("rc");
-			powerRequired = tag.getInteger("pr");
-			timeRequired = tag.getInteger("tr");
 		}
 		else recipeName = null;
 		internalTank.readFromNBT(tag.getCompoundTag("tank"));
