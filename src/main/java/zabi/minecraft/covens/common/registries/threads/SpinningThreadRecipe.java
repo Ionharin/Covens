@@ -42,11 +42,11 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 	public boolean matches(NonNullList<ItemStack> list) {
 		int nonEmpty = 0;
 		for (ItemStack is:list) {
-			if (is.getCount()==1) nonEmpty++;
-			else if (is.getCount()>1) {
-				Log.i("One stack was bigger than 1");
-				return false;
-			}
+			if (is.getCount()>0) nonEmpty++;
+//			else if (is.getCount()>1) {
+//				Log.i("One stack was bigger than 1");
+//				return false;
+//			}
 		}
 		if (nonEmpty!=inputs.length) {
 			Log.i("recipe size mismatch: list "+list.size()+", input "+inputs.length);

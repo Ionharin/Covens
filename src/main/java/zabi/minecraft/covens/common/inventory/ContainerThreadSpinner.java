@@ -9,11 +9,11 @@ import zabi.minecraft.covens.common.util.machines.OutputSlot;
 public class ContainerThreadSpinner extends ContainerBase {
 	
 	public ContainerThreadSpinner(InventoryPlayer pi, TileEntityThreadSpinner spinner) {
-		addSlotToContainer(new OutputSlot(spinner, 0, 116, 34));
-		addSlotToContainer(new InputSlot(spinner, 1, 44, 25));
-		addSlotToContainer(new InputSlot(spinner, 2, 62, 25));
-		addSlotToContainer(new InputSlot(spinner, 3, 44, 43));
-		addSlotToContainer(new InputSlot(spinner, 4, 62, 43));
+		addSlotToContainer(new OutputSlot(spinner.getInventory(), 0, 116, 34));
+		addSlotToContainer(new InputSlot(spinner.getInventory(), 1, 44, 25));
+		addSlotToContainer(new InputSlot(spinner.getInventory(), 2, 62, 25));
+		addSlotToContainer(new InputSlot(spinner.getInventory(), 3, 44, 43));
+		addSlotToContainer(new InputSlot(spinner.getInventory(), 4, 62, 43));
 		addPlayerSlots(pi, 8, 84);
 	}
 	
