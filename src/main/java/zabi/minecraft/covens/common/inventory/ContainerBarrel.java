@@ -19,9 +19,9 @@ public class ContainerBarrel extends ContainerBase {
 		data_a[1] = barrel.getPowerAbsorbed();
 		data_a[2] = barrel.getTimeRequired();
 		data_a[3] = barrel.getPowerRequired();
-		addSlotToContainer(new OutputSlot(barrel, 0, 134, 43));
+		addSlotToContainer(new OutputSlot(barrel.getInventory(), 0, 134, 43));
 		for (int row=0; row<2; row++) for (int col=0; col<3; col++) {
-			addSlotToContainer(new SlotBarrel(barrel, (row*3 + col) + 1, 62 + (18*col), 35 + (18*row)));
+			addSlotToContainer(new SlotBarrel(barrel.getInventory(), (row*3 + col) + 1, 62 + (18*col), 35 + (18*row)));
 		}
 	}
 	

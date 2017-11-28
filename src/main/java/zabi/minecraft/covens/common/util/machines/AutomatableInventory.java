@@ -1,5 +1,7 @@
 package zabi.minecraft.covens.common.util.machines;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
@@ -174,6 +176,10 @@ public abstract class AutomatableInventory implements IInventory, IItemHandler {
 		NBTTagCompound tag = new NBTTagCompound();
 		ItemStackHelper.saveAllItems(tag, stacks, true);
 		return tag;
+	}
+	
+	public ArrayList<ItemStack> getList() {
+		return new ArrayList<ItemStack>(stacks);
 	}
 	
 	public abstract boolean canMachineInsert(int slot, ItemStack stack);

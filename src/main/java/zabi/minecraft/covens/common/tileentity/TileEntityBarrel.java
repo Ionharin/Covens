@@ -6,13 +6,10 @@ import javax.annotation.Nullable;
 
 import zabi.minecraft.covens.common.lib.Log;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.capabilities.Capability;
@@ -20,12 +17,12 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 import zabi.minecraft.covens.api.altar.IAltarUser;
 import zabi.minecraft.covens.common.block.BlockBarrel;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
+import zabi.minecraft.covens.common.util.machines.AutomatableInventory;
 
-public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUser, IItemHandler, IInventory {
+public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUser {
 	
 	AxisAlignedBB around;
 	
@@ -35,8 +32,23 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 			checkRecipe();
 		};
 	};
-	NonNullList<ItemStack> inventory = NonNullList.withSize(7, ItemStack.EMPTY);
-	NonNullList<ItemStack> inventoryLast = NonNullList.withSize(7, ItemStack.EMPTY);
+	AutomatableInventory inv = new AutomatableInventory(7) {
+		
+		@Override
+		public void onMarkDirty() {
+			markTileDirty();
+		}
+		
+		@Override
+		public boolean canMachineInsert(int slot, ItemStack stack) {
+			return slot!=0;
+		}
+		
+		@Override
+		public boolean canMachineExtract(int slot, ItemStack stack) {
+			return slot==0;
+		}
+	};
 	int brewingTime = 0, barrelType = 0, powerAbsorbed = 0, powerRequired = 0, timeRequired = 0;
 	String recipeName = null;
 	TileEntityAltar te = null;	//cached
@@ -51,8 +63,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		brewingTime = tag.getInteger("time");
 		barrelType = tag.getInteger("type");
 		powerAbsorbed = tag.getInteger("powerAbsorbed");
-		ItemStackHelper.loadAllItems(tag.getCompoundTag("inventory"), inventory);
-		ItemStackHelper.loadAllItems(tag.getCompoundTag("inventoryLast"), inventoryLast);
+		inv.loadFromNBT(tag.getCompoundTag("inv"));
 		internalTank = internalTank.readFromNBT(tag.getCompoundTag("fluid"));
 		internalTank.setCanDrain(true);
 		internalTank.setCanFill(true);
@@ -67,8 +78,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		tag.setInteger("time", brewingTime);
 		tag.setInteger("type", barrelType);
 		tag.setInteger("powerAbsorbed", powerAbsorbed);
-		tag.setTag("inventory", ItemStackHelper.saveAllItems(new NBTTagCompound(), inventory, true));
-		tag.setTag("inventoryLast", ItemStackHelper.saveAllItems(new NBTTagCompound(), inventoryLast, true));
+		tag.setTag("inv", inv.saveToNbt());
 		NBTTagCompound fluid = new NBTTagCompound();
 		internalTank.writeToNBT(fluid);
 		tag.setTag("fluid", fluid);
@@ -92,15 +102,14 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 						markDirty();
 						return;
 					} else {
-						ItemStack output = inventory.get(0);
-						if (output.isEmpty()) inventory.set(0, currentRecipe.getResult());
+						currentRecipe.onFinish(world, inv.getList().stream().skip(1).collect(Collectors.toList()), pos, internalTank.drain(1000, true));
+						ItemStack output = inv.getStackInSlot(0);
+						if (output.isEmpty()) inv.setInventorySlotContents(0, currentRecipe.getResult());
 						else output.grow(currentRecipe.getResult().getCount());
-						currentRecipe.onFinish(world, inventoryLast.stream().skip(1).collect(Collectors.toList()), pos, internalTank.drain(1000, true));
 						brewingTime = 0;
 						powerAbsorbed = 0;
 						recipeName = null;
 						cachedRecipe = null;
-						inventoryLast.clear();
 						markDirty();
 						checkRecipe();
 						return;
@@ -114,16 +123,13 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		if (this.recipeName!=null && this.recipeName.length()>0) {
 			return;
 		}
-		refreshRecipeStatus(BarrelRecipe.getRecipe(world, inventory.stream().skip(1).collect(Collectors.toList()), pos, internalTank.drainInternal(1000, false)));
+		refreshRecipeStatus(BarrelRecipe.getRecipe(world, inv.getList().stream().skip(1).collect(Collectors.toList()), pos, internalTank.drainInternal(1000, false)));
 	}
 	
 	public void refreshRecipeStatus(BarrelRecipe incomingRecipe) {
 		if (incomingRecipe!=null) {
-			ItemStack recipeOutput = inventory.get(0);
+			ItemStack recipeOutput = inv.getStackInSlot(0);
 			if (recipeOutput.isEmpty() || recipeOutput.getMaxStackSize()>=recipeOutput.getCount()+incomingRecipe.getResult().getCount()) {
-				for (int i=1; i<inventory.size(); i++) {
-					inventoryLast.set(i, inventory.get(i).splitStack(1));
-				}
 				internalTank.drain(Fluid.BUCKET_VOLUME, true);
 				this.cachedRecipe = incomingRecipe;
 				this.recipeName = incomingRecipe.getRegistryName().toString();
@@ -145,7 +151,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 	@Override
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
 		if (capability==CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) return (T) internalTank;
-		if (capability==CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) this;
+		if (capability==CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return (T) inv;
 		return super.getCapability(capability, facing);
 	}
 	
@@ -181,71 +187,6 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		return te;
 	}
 
-	@Override
-	public int getSlots() {
-		return 7;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int slot) {
-		return inventory.get(slot);
-	}
-
-	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-		if (slot==0) return stack;
-		ItemStack original = stack.copy();
-		if (inventory.get(slot).isEmpty()) {
-			if (!simulate) {
-				inventory.set(slot, original);
-				checkRecipe();
-				markDirty();
-			}
-			return ItemStack.EMPTY;
-		} else {
-			ItemStack present = inventory.get(slot);
-			if (ItemStack.areItemsEqual(present, original) && ItemStack.areItemStackTagsEqual(present, original)) {
-				if (present.getMaxStackSize()>=present.getCount()+original.getCount()) {
-					if (!simulate) {
-						present.grow(original.getCount());
-						checkRecipe();
-						markDirty();
-					}
-					return ItemStack.EMPTY;
-				} else {
-					int instertedAmount = present.getMaxStackSize() - present.getCount();
-					ItemStack inserted = original.splitStack(instertedAmount);
-					if (!simulate) {
-						inventory.set(slot, inserted);
-						checkRecipe();
-						markDirty();
-					}
-					return original;
-				}
-			} else {
-				return stack;
-			}
-		}
-	}
-
-	@Override
-	public ItemStack extractItem(int slot, int amount, boolean simulate) {
-		if (slot!=0) return ItemStack.EMPTY;
-		ItemStack resultSlot = inventory.get(slot).copy();
-		ItemStack extracted = resultSlot.splitStack(amount);
-		if (!simulate) {
-			inventory.set(0, resultSlot);
-			markDirty();
-			checkRecipe();
-		}
-		return extracted;
-	}
-
-	@Override
-	public int getSlotLimit(int slot) {
-		return getInventoryStackLimit();
-	}
-	
 	public int getBrewingTime() {
 		return brewingTime;
 	}
@@ -271,105 +212,6 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		}
 		return cachedRecipe;
 	}
-
-	@Override
-	public String getName() {
-		return null;
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-
-	@Override
-	public int getSizeInventory() {
-		return this.getSlots();
-	}
-
-	@Override
-	public boolean isEmpty() {
-		for (ItemStack s:inventory) if (!s.isEmpty()) return false;
-		return true;
-	}
-
-	@Override
-	public ItemStack decrStackSize(int index, int count) {
-		ItemStack resultSlot = inventory.get(index);
-		ItemStack extracted = resultSlot.splitStack(count);
-		inventory.set(0, resultSlot);
-		markDirty();
-		checkRecipe();
-		return extracted;
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack res = getStackInSlot(index);
-		setInventorySlotContents(index, ItemStack.EMPTY);
-		return res;
-	}
-
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
-		inventory.set(index, stack);
-		markDirty();
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		return true;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return index!=0;
-	}
-
-	@Override
-	public int getField(int id) {
-		return id==0?brewingTime:powerAbsorbed;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-		if (id==0) brewingTime=value;
-		else powerAbsorbed=value;
-		markDirty();
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 2;
-	}
-
-	@Override
-	public void clear() {
-		for (ItemStack s:inventory) s.setCount(0);
-		markDirty();
-	}
-	
-//	private void syncGui() {
-//		if (around==null) around = new AxisAlignedBB(this.pos).grow(5);
-//		world.getEntitiesWithinAABB(EntityPlayer.class, around).stream()
-//			.filter(p -> p.openContainer instanceof ContainerBarrel)
-//			.forEach(p -> {
-//				Covens.network.sendTo(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), (EntityPlayerMP) p);
-//			});
-//	}
 
 	@Override
 	protected void NBTSaveUpdate(NBTTagCompound tag) {
@@ -407,6 +249,15 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 
 	public int getTimeRequired() {
 		return timeRequired;
+	}
+	
+	protected void markTileDirty() {
+		markDirty();
+		checkRecipe();
+	}
+	
+	public IInventory getInventory() {
+		return inv;
 	}
 
 }
