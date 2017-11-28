@@ -9,6 +9,7 @@ public class ItemModLeaves extends ItemLeaves {
 	public ItemModLeaves(BlockLeaves block) {
 		super(block);
 		this.setHasSubtypes(false);
+		this.setUnlocalizedName("leaves");
 	}
 	
 	@Override
