@@ -57,9 +57,9 @@ public class TileEntityAltar extends TileEntityBaseTickable {
 				markDirty();
 				world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 			}
+			power+=gain;
+			if (power>maxPower) power=maxPower;
 		}
-		power+=gain;
-		if (power>maxPower) power=maxPower;
 	}
 	
 	private void refreshNature() {
@@ -229,6 +229,16 @@ public class TileEntityAltar extends TileEntityBaseTickable {
 		.min((t1,t2) -> t1.getSecond().compareTo(t2.getSecond()));
 		if (res.isPresent()) return res.get().getFirst();
 		return null;
+	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setInteger("c", color);
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		color = tag.getInteger("c");
 	}
 	
 }

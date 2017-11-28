@@ -71,7 +71,7 @@ public class TileEntitySilverVat extends TileEntityBase {
 		if (acid==0) {
 			if (!inv.decrStackSize(4, 1).isEmpty()) {
 				acid+=18;
-				world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+//				world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 			}
 		} else {
 			if (!inv.getStackInSlot(2).isEmpty()) {
@@ -94,7 +94,7 @@ public class TileEntitySilverVat extends TileEntityBase {
 						if (s0.getCount()>64) s0.setCount(64);
 						if (s1.getCount()>64) s1.setCount(64);
 						if (s3.getCount()>64) s3.setCount(64);
-						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+//						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 					}
 				}
 			}
@@ -117,6 +117,16 @@ public class TileEntitySilverVat extends TileEntityBase {
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
 		return newSate.getBlock()!=ModBlocks.silver_vat;
+	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setInteger("acid", acid);
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		acid = tag.getInteger("acid");
 	}
 	
 }

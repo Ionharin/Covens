@@ -9,10 +9,16 @@ import zabi.minecraft.covens.common.util.machines.OutputSlot;
 public class ContainerBarrel extends ContainerBase {
 	
 	public final TileEntityBarrel te;
+	public int data_a[] = {0,0,0,0};
 
 	public ContainerBarrel(InventoryPlayer pi, TileEntityBarrel barrel) {
 		addPlayerSlots(pi);
 		te = barrel;
+		te.getRecipe();
+		data_a[0] = barrel.getBrewingTime();
+		data_a[1] = barrel.getPowerAbsorbed();
+		data_a[2] = barrel.getTimeRequired();
+		data_a[3] = barrel.getPowerRequired();
 		addSlotToContainer(new OutputSlot(barrel, 0, 134, 43));
 		for (int row=0; row<2; row++) for (int col=0; col<3; col++) {
 			addSlotToContainer(new SlotBarrel(barrel, (row*3 + col) + 1, 62 + (18*col), 35 + (18*row)));
@@ -29,6 +35,27 @@ public class ContainerBarrel extends ContainerBase {
 			super.onSlotChanged();
 			te.checkRecipe();
 		}
+	}
+	
+	@Override
+	public int getUpdatedFieldData(int id) {
+		switch (id) {
+		case 0: return te.getBrewingTime();
+		case 1: return te.getPowerAbsorbed();
+		case 2: return te.getTimeRequired();
+		case 3: return te.getPowerRequired();
+		default: return 0;
+		}
+	}
+	
+	@Override
+	protected int[] getFieldsToSync() {
+		return data_a;
+	}
+	
+	@Override
+	protected void updateField(int id, int data) {
+		data_a[id] = data;
 	}
 	
 }

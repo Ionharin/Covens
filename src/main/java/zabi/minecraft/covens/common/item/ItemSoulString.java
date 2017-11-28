@@ -26,7 +26,6 @@ public class ItemSoulString extends Item {
 		this.setRegistryName(Reference.MID, "soulstring");
 		this.setUnlocalizedName("soulstring");
 		this.setCreativeTab(ModCreativeTabs.products);
-		this.setMaxStackSize(3);
 	}
 	
 	@Override

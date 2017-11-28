@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
@@ -21,10 +20,7 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import zabi.minecraft.covens.api.altar.IAltarUser;
-import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.block.BlockBarrel;
-import zabi.minecraft.covens.common.inventory.ContainerBarrel;
-import zabi.minecraft.covens.common.network.messages.SyncBarrelGui;
 import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
 
 public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUser, IItemHandler, IInventory {
@@ -39,7 +35,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 	};
 	NonNullList<ItemStack> inventory = NonNullList.withSize(7, ItemStack.EMPTY);
 	NonNullList<ItemStack> inventoryLast = NonNullList.withSize(7, ItemStack.EMPTY);
-	int brewingTime = 0, barrelType = 0, powerAbsorbed = 0;
+	int brewingTime = 0, barrelType = 0, powerAbsorbed = 0, powerRequired = 0, timeRequired = 0;
 	String recipeName = null;
 	TileEntityAltar te = null;	//cached
 	private BarrelRecipe cachedRecipe = null;
@@ -58,7 +54,10 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		internalTank = internalTank.readFromNBT(tag.getCompoundTag("fluid"));
 		internalTank.setCanDrain(true);
 		internalTank.setCanFill(true);
-		if (tag.hasKey("recipe")) recipeName = tag.getString("recipe");
+		if (tag.hasKey("recipe")) {
+			recipeName = tag.getString("recipe");
+			getRecipe();//Refresh cache
+		}
 	}
 
 	@Override
@@ -83,14 +82,12 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 					if (consumePower(1)) {
 						powerAbsorbed++;
 						markDirty();
-						syncGui();
 						return;
 					}
 				} else {
 					if (brewingTime<currentRecipe.getRequiredTime()) {
 						brewingTime++;
 						markDirty();
-						syncGui();
 						return;
 					} else {
 						ItemStack output = inventory.get(0);
@@ -116,7 +113,6 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 			return;
 		}
 		refreshRecipeStatus(BarrelRecipe.getRecipe(world, inventory.stream().skip(1).collect(Collectors.toList()), pos, internalTank.drainInternal(1000, false)));
-		if (recipeName!=null) syncGui();
 	}
 	
 	public void refreshRecipeStatus(BarrelRecipe incomingRecipe) {
@@ -263,6 +259,10 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		if (cachedRecipe==null) {
 			if (recipeName==null || recipeName.length()==0) return null;
 			cachedRecipe = BarrelRecipe.REGISTRY.getValue(new ResourceLocation(recipeName));
+			if (cachedRecipe!=null) {
+				powerRequired = cachedRecipe.getPower();
+				timeRequired = cachedRecipe.getRequiredTime();
+			}
 			markDirty();
 		}
 		return cachedRecipe;
@@ -358,13 +358,49 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 		markDirty();
 	}
 	
-	private void syncGui() {
-		if (around==null) around = new AxisAlignedBB(this.pos).grow(5);
-		world.getEntitiesWithinAABB(EntityPlayer.class, around).stream()
-			.filter(p -> p.openContainer instanceof ContainerBarrel)
-			.forEach(p -> {
-				Covens.network.sendTo(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), (EntityPlayerMP) p);
-			});
+//	private void syncGui() {
+//		if (around==null) around = new AxisAlignedBB(this.pos).grow(5);
+//		world.getEntitiesWithinAABB(EntityPlayer.class, around).stream()
+//			.filter(p -> p.openContainer instanceof ContainerBarrel)
+//			.forEach(p -> {
+//				Covens.network.sendTo(new SyncBarrelGui(getPos(), brewingTime, powerAbsorbed, recipeName), (EntityPlayerMP) p);
+//			});
+//	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setInteger("bt", brewingTime);
+		tag.setInteger("pw", powerAbsorbed);
+		tag.setInteger("ty", barrelType);
+		if (recipeName!=null) {
+			BarrelRecipe rcp = getRecipe();
+			if (rcp!=null) {
+				tag.setString("rc", recipeName);
+				tag.setInteger("pr", powerRequired);
+				tag.setInteger("tr", timeRequired);
+			}
+		}
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		brewingTime = tag.getInteger("bt");
+		powerAbsorbed = tag.getInteger("pw");
+		barrelType = tag.getInteger("ty");
+		if (tag.hasKey("rc")) {
+			recipeName = tag.getString("rc");
+			powerRequired = tag.getInteger("pr");
+			timeRequired = tag.getInteger("tr");
+		}
+		else recipeName = null;
+	}
+
+	public int getPowerRequired() {
+		return powerRequired;
+	}
+
+	public int getTimeRequired() {
+		return timeRequired;
 	}
 
 }

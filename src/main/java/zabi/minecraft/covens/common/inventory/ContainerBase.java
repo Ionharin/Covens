@@ -4,6 +4,7 @@ package zabi.minecraft.covens.common.inventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
@@ -45,5 +46,40 @@ public class ContainerBase extends Container {
 	public boolean canInteractWith(EntityPlayer player) {
 		return true;
 	}
-
+	
+	protected int[] getFieldsToSync() {
+		return new int[0];
+	}
+	
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		this.listeners.forEach(l -> sendChangesToListener(l));
+	}
+	
+	private void sendChangesToListener(IContainerListener l) {
+		for (int i=0; i<getFieldsToSync().length; i++) {
+			l.sendWindowProperty(this, i, getUpdatedFieldData(i));
+		}
+	}
+	
+	public int getUpdatedFieldData(int id) {
+		return 0;
+	}
+	
+	@Override
+	public void addListener(IContainerListener listener) {
+		super.addListener(listener);
+		sendChangesToListener(listener);
+	}
+	
+	@Override
+	public void updateProgressBar(int id, int data) {
+		super.updateProgressBar(id, data);
+		updateField(id, data);
+	}
+	
+	protected void updateField(int id, int data) {
+		
+	}
 }

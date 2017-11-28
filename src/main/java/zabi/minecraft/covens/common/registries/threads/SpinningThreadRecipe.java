@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
+import zabi.minecraft.covens.common.lib.Reference;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -11,8 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryBuilder;
-import zabi.minecraft.covens.common.lib.Log;
-import zabi.minecraft.covens.common.lib.Reference;
 
 public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThreadRecipe> {
 	
@@ -49,7 +49,7 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 //			}
 		}
 		if (nonEmpty!=inputs.length) {
-			Log.i("recipe size mismatch: list "+list.size()+", input "+inputs.length);
+//			Log.i("recipe size mismatch: list "+list.size()+", input "+inputs.length);
 			return false;
 		}
 		boolean[] found = new boolean[inputs.length];
@@ -58,7 +58,7 @@ public class SpinningThreadRecipe extends IForgeRegistryEntry.Impl<SpinningThrea
 			Ingredient current = inputs[i];
 			for (int j=0;j<comp.size();j++) {
 				ItemStack is = comp.get(j);
-				if (!is.isEmpty() && current.apply(is)) {
+				if (current.apply(is)) {
 					found[i]=true;
 					comp.set(j, ItemStack.EMPTY);
 					break;

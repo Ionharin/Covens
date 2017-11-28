@@ -225,4 +225,12 @@ public class TileEntityCrystalBall extends TileEntityBase implements IAltarUser 
 		if (te==null) return false;
 		return te.consumePower(power, simulate);
 	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+	}
 }

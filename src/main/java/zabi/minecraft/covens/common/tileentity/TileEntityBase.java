@@ -34,26 +34,26 @@ public abstract class TileEntityBase extends TileEntity {
 	}
 
 	protected abstract void NBTLoad(NBTTagCompound tag);
-
 	protected abstract void NBTSave(NBTTagCompound tag);
+	protected abstract void NBTSaveUpdate(NBTTagCompound tag);
+	protected abstract void NBTLoadUpdate(NBTTagCompound tag);
+	
 
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound nbt = new NBTTagCompound();
-		writeToNBT(nbt);
-		return new SPacketUpdateTileEntity(this.pos, 0, nbt);
-
+		return new SPacketUpdateTileEntity(this.pos, 0, getUpdateTag());
 	}
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
-		readFromNBT((pkt.getNbtCompound()));
+		NBTLoadUpdate((pkt.getNbtCompound()));
 	}
 	
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		NBTTagCompound tag = super.getUpdateTag();
-		return writeToNBT(tag);
+		NBTSaveUpdate(tag);
+		return tag;
 	}
 	
 	@Override

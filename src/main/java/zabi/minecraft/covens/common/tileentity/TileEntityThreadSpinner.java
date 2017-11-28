@@ -29,7 +29,7 @@ public class TileEntityThreadSpinner extends TileEntityBaseTickable implements I
 		
 		@Override
 		public boolean canMachineInsert(int slot, ItemStack stack) {
-			return slot != 0 && getStackInSlot(slot).isEmpty();
+			return slot != 0;
 		}
 		
 		@Override
@@ -59,6 +59,7 @@ public class TileEntityThreadSpinner extends TileEntityBaseTickable implements I
 
 	@Override
 	protected void tick() {
+		if (world.isRemote) return;
 		if (loadedRecipe!=null && canStackResults()) {
 			if (te==null || te.isInvalid()) te = TileEntityAltar.getClosest(getPos(), getWorld());
 			if (te==null || te.isInvalid()) {
@@ -67,14 +68,17 @@ public class TileEntityThreadSpinner extends TileEntityBaseTickable implements I
 			}
 			if (te.consumePower(POWER_PER_TICK, false)) {
 				tickProcessed++;
+				
 				if (tickProcessed>=MAX_TICKS) {
 					ItemStack result = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
 					if (inv.getStackInSlot(0).isEmpty()) inv.setInventorySlotContents(0, result);
 					else {
-						inv.getStackInSlot(0).setCount(inv.getStackInSlot(0).getCount()+result.getCount());
+						inv.getStackInSlot(0).grow(result.getCount());
 					}
 					for (int i=1; i<5; i++) inv.decrStackSize(i, 1);
+					tickProcessed = 0;
 				}
+				
 				inv.markDirty();
 				markDirty();
 			}
@@ -87,7 +91,7 @@ public class TileEntityThreadSpinner extends TileEntityBaseTickable implements I
 	private boolean canStackResults() {
 		if (inv.getStackInSlot(0).isEmpty()) return true;
 		ItemStack recipeResult = SpinningThreadRecipe.REGISTRY.getValue(new ResourceLocation(loadedRecipe)).getResult();
-		if (ItemStack.areItemStacksEqual(inv.getStackInSlot(0), recipeResult)) {
+		if (ItemStack.areItemsEqual(inv.getStackInSlot(0), recipeResult) && ItemStack.areItemStackTagsEqual(inv.getStackInSlot(0), recipeResult)) {
 			int sum = inv.getStackInSlot(0).getCount() + recipeResult.getCount();
 			return sum<=recipeResult.getMaxStackSize();
 		}
@@ -132,5 +136,16 @@ public class TileEntityThreadSpinner extends TileEntityBaseTickable implements I
 	public int getTickProgress() {
 		return tickProcessed;
 	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setInteger("tick", tickProcessed);
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		tickProcessed = tag.getInteger("tick");
+	}
+
 	
 }

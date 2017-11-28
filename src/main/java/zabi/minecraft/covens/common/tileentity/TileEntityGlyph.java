@@ -68,7 +68,7 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 
 	@Override
 	protected void tick() {
-		if (ritual!=null) {
+		if (!world.isRemote && ritual!=null) {
 			EntityPlayer player = getWorld().getPlayerEntityByUUID(entityPlayer);
 			boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
 			if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
@@ -306,5 +306,15 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 	}
 	
 	private static int[] a(int... ar) {return ar;}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		if (ritual!=null) tag.setString("ritual", ritual.getRegistryName().toString());
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		if (tag.hasKey("ritual")) ritual = Ritual.REGISTRY.getValue(new ResourceLocation(tag.getString("ritual")));
+	}
 	
 }

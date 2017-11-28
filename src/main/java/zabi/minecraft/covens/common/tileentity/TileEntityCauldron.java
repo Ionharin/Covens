@@ -118,4 +118,14 @@ public class TileEntityCauldron extends TileEntityBaseTickable implements IAltar
 		if (te==null || te.isInvalid()) return null;
 		return te;
 	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setBoolean("items", hasItemsInside);
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		hasItemsInside = tag.getBoolean("items");
+	}
 }

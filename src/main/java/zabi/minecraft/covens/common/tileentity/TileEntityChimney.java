@@ -189,4 +189,12 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 		return 0.3F;
 	}
 
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+	}
+
 }

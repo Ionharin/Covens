@@ -15,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import zabi.minecraft.covens.common.registries.fermenting.BarrelRecipe;
+import zabi.minecraft.covens.common.inventory.ContainerBarrel;
 import zabi.minecraft.covens.common.tileentity.TileEntityBarrel;
 
 public class GuiBarrel extends GuiContainer {
@@ -23,14 +23,12 @@ public class GuiBarrel extends GuiContainer {
 	private static final ResourceLocation texture = new ResourceLocation(Reference.MID, "textures/gui/barrel.png");
 	
 	private TileEntityBarrel te;
-	private BarrelRecipe rec = null;
 
 	public GuiBarrel(Container inventorySlotsIn, TileEntityBarrel te) {
 		super(inventorySlotsIn);
 		this.te=te;
 		this.xSize=176;
 		this.ySize=166;
-		rec = te.getRecipe();
 		te.getAltar(true);
 	}
 
@@ -53,31 +51,30 @@ public class GuiBarrel extends GuiContainer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		if (te!=null) {
-			if (rec!=null) {
-				double progress = te.getBrewingTime() / (double) rec.getRequiredTime();
+
+			int[] data = ((ContainerBarrel)inventorySlots).data_a;
+			if (data[2]>0) {
+				double progress = data[0] / data[2];
 				if (progress>1) progress=1;
 				int dy = (int)Math.ceil(31*progress);
 				drawTexturedModalRect(guiLeft+29, guiTop + 27 + 31 - dy, 0, ySize + 31 - dy , 11, dy);
-
-				float reqPow = (float) rec.getPower();
-				float absorption = 1;
-				if (reqPow>0) absorption=te.getPowerAbsorbed() / reqPow;
-				GlStateManager.pushMatrix();
-				{
-					GlStateManager.color(2*(1f - absorption), 2*absorption, 0f);
-					drawTexturedModalRect(guiLeft+134, guiTop + 20, xSize, 16, 16, 16);
-					GlStateManager.color(1f, 1f, 1f);
-				}
-				GlStateManager.popMatrix();
-			} else {
-				rec = te.getRecipe();
 			}
+			float absorption = 1;
+			if (data[3]>0) absorption = data[1] / data[3];
+			GlStateManager.pushMatrix();
+			{
+				GlStateManager.color(2*(1f - absorption), 2*absorption, 0f);
+				drawTexturedModalRect(guiLeft+134, guiTop + 20, xSize, 16, 16, 16);
+				GlStateManager.color(1f, 1f, 1f);
+			}
+			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+		int[] data = ((ContainerBarrel)inventorySlots).data_a;
 		this.renderHoveredToolTip(mouseX-guiLeft, mouseY-guiTop);
 		if (mouseX>guiLeft+62 && mouseX<guiLeft+114 && mouseY>guiTop+17 && mouseY<guiTop+33) {
 			FluidStack fstack = te.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null).drain(1000, false);
@@ -90,11 +87,11 @@ public class GuiBarrel extends GuiContainer {
 			} else {
 				drawHoveringText(I18n.format("fluid.none"), mouseX-guiLeft, mouseY-guiTop);
 			}
-		} else if (rec!=null && mouseX>guiLeft+134 && mouseX<guiLeft+150 && mouseY>guiTop+20 && mouseY<guiTop+36) {
+		} else if (mouseX>guiLeft+134 && mouseX<guiLeft+150 && mouseY>guiTop+20 && mouseY<guiTop+36) {
 			String text = TextFormatting.YELLOW+I18n.format("tile.barrel.altar.working");
-			if (rec.getPower()==0) text = TextFormatting.GREEN+I18n.format("tile.barrel.altar.none_required");
+			if (data[3]==0) text = TextFormatting.GREEN+I18n.format("tile.barrel.altar.none_required");
 			else if (te.getAltar(false) == null) text = TextFormatting.DARK_RED+I18n.format("tile.barrel.altar.no_altar");
-			else if (rec.getPower()==te.getPowerAbsorbed()) text = TextFormatting.GREEN+I18n.format("tile.barrel.altar.done");
+			else if (data[3]==data[1]) text = TextFormatting.GREEN+I18n.format("tile.barrel.altar.done");
 			
 			drawHoveringText(text, mouseX-guiLeft, mouseY-guiTop);
 		}
@@ -105,4 +102,5 @@ public class GuiBarrel extends GuiContainer {
 		super.updateScreen();
 		if (te.isInvalid()) mc.player.closeScreen();
 	}
+	
 }

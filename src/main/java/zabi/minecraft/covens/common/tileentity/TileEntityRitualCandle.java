@@ -159,4 +159,14 @@ public class TileEntityRitualCandle extends TileEntityBaseTickable implements IR
 		if (oldState.getBlock()==newSate.getBlock()) return false;
 		return super.shouldRefresh(world, pos, oldState, newSate);
 	}
+
+	@Override
+	protected void NBTSaveUpdate(NBTTagCompound tag) {
+		tag.setBoolean("lit", lit);
+	}
+
+	@Override
+	protected void NBTLoadUpdate(NBTTagCompound tag) {
+		lit = tag.getBoolean("lit");
+	}
 }
