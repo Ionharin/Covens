@@ -380,6 +380,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 				tag.setInteger("tr", timeRequired);
 			}
 		}
+		tag.setTag("tank", internalTank.writeToNBT(new NBTTagCompound()));
 	}
 
 	@Override
@@ -393,6 +394,7 @@ public class TileEntityBarrel extends TileEntityBaseTickable implements IAltarUs
 			timeRequired = tag.getInteger("tr");
 		}
 		else recipeName = null;
+		internalTank.readFromNBT(tag.getCompoundTag("tank"));
 	}
 
 	public int getPowerRequired() {
