@@ -38,5 +38,9 @@ public class ItemFlowers extends Item {
 		}
 	}
 	
-	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		playerIn.openGui(Covens.INSTANCE, GuiHandler.IDs.BOOK_TEST.ordinal(), worldIn, 0, 0, 0);
+		return super.onItemRightClick(worldIn, playerIn, handIn);
+	}
 }
