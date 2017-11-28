@@ -61,6 +61,7 @@ public class ModItems {
 			
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
+				if (stack.getMetadata()>=BlockBarrel.WoodType.values().length) return super.getUnlocalizedName(stack);
 				return super.getUnlocalizedName(stack)+"."+BlockBarrel.WoodType.values()[stack.getMetadata()].getName();
 			}
 			
@@ -100,6 +101,7 @@ public class ModItems {
 		sapling = new ItemBlock(ModBlocks.sapling) {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
+				if (stack.getMetadata()>=EnumSaplingType.values().length) return super.getUnlocalizedName(stack);
 				return super.getUnlocalizedName(stack)+"_"+EnumSaplingType.values()[stack.getMetadata()].getName();
 			}
 			
@@ -116,8 +118,6 @@ public class ModItems {
 		thread_spinner = new ItemBlock(ModBlocks.thread_spinner);
 		spell_page = new ItemSpellPage();
 		grimoire = new ItemGrimoire();
-//		witch_hat = new ItemWitchRobes(0, EntityEquipmentSlot.HEAD, "witch_hat");
-//		witch_cloak = new ItemWitchRobes(1, EntityEquipmentSlot.CHEST, "witch_cloak");
 		crystal_ball = new ItemBlock(ModBlocks.crystal_ball);
 		ritual_candle = new ItemBlock(ModBlocks.ritual_candle);
 		moonbell = new ItemBlock(ModBlocks.moonbell);

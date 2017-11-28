@@ -50,7 +50,8 @@ public class ItemMisc extends Item {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		return "item.misc."+names[stack.getMetadata()];
+		if (stack.getMetadata()>=names.length) return super.getUnlocalizedName(stack);
+		return super.getUnlocalizedName(stack)+"."+names[stack.getMetadata()];
 	}
 	
 	@Override
