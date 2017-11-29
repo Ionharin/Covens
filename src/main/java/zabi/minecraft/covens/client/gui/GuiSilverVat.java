@@ -15,13 +15,14 @@ public class GuiSilverVat extends GuiContainer {
 	
 	private TileEntitySilverVat te;
 	long bubbleTime;
+	long workTime;
 
 	public GuiSilverVat(Container inventorySlotsIn, TileEntitySilverVat te) {
 		super(inventorySlotsIn);
 		this.te=te;
 		this.xSize=176;
 		this.ySize=166;
-		bubbleTime = te.getWorld().getTotalWorldTime();
+		workTime = bubbleTime = te.getWorld().getTotalWorldTime();
 	}
 
 	@Override
@@ -29,15 +30,16 @@ public class GuiSilverVat extends GuiContainer {
 		this.drawDefaultBackground();
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-		drawTexturedModalRect(guiLeft+14, guiTop+41, 176, 0, te.getAcidLevel(), 4);
+		ContainerSilverVat csv = (ContainerSilverVat) this.inventorySlots;
+		drawTexturedModalRect(guiLeft+14, guiTop+41, 176, 0, csv.data_a[0], 4);
+		
+		int progress = (int) ((bubbleTime - workTime) % 27);
+		drawTexturedModalRect(guiLeft+82, guiTop+54+progress, 176, 31+progress, 11, 27);
 		if (isWorking()) {
-			int progress = (int) ((bubbleTime - te.getWorld().getTotalWorldTime()) % 27);
-			drawTexturedModalRect(
-					guiLeft+82, guiTop+54+progress, 
-					176, 31+progress, 
-					11, 27);
+			workTime = te.getWorld().getTotalWorldTime();
+		} else if (csv.getSlot(2).getStack().isEmpty()) {
+			workTime = bubbleTime = te.getWorld().getTotalWorldTime();
 		} else {
-			bubbleTime = te.getWorld().getTotalWorldTime();
 		}
 	}
 	
@@ -45,15 +47,15 @@ public class GuiSilverVat extends GuiContainer {
 		
 		ContainerSilverVat csv = (ContainerSilverVat) this.inventorySlots;
 		
-		return !csv.getSlot(2).getStack().isEmpty()
+		return !csv.getSlot(0).getStack().isEmpty()
 				&&
-				csv.getSlot(0).getStack().getCount()<64
+				csv.getSlot(2).getStack().getCount()<64
 				&&
-				csv.getSlot(1).getStack().getCount()<64
+				csv.getSlot(4).getStack().getCount()<64
 				&&
 				csv.getSlot(3).getStack().getCount()<64
 				&&
-				csv.acid[0]>0;
+				csv.data_a[0]>0;
 	}
 
 	@Override

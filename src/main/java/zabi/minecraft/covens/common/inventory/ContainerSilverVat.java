@@ -14,11 +14,12 @@ public class ContainerSilverVat extends ContainerBase {
 	public static final OreIngredient goldOre = new OreIngredient("oreGold");
 	
 	TileEntitySilverVat te;
-	public int[] acid = {0};
+	public int[] data_a = {0, 0};
 	
 	public ContainerSilverVat(InventoryPlayer pi, TileEntitySilverVat vat) {
 		te = vat;
-		acid[0] = te.getAcidLevel();
+		data_a[0] = te.getAcidLevel();
+		data_a[1] = te.getInventory().getStackInSlot(4).getCount();
 		IInventory vatInv = vat.getInventory();
 		this.addSlotToContainer(new FilteredSlot(vatInv, 2, 79, 8, goldOre));
 		this.addSlotToContainer(new FilteredSlot(vatInv, 4, 16, 20, Ingredient.fromItem(Items.GUNPOWDER)) {
@@ -36,17 +37,18 @@ public class ContainerSilverVat extends ContainerBase {
 	
 	@Override
 	protected int[] getFieldsToSync() {
-		return acid;
+		return data_a;
 	}
 	
 	@Override
 	public int getUpdatedFieldData(int id) {
-		return te.getAcidLevel();
+		return id==0?te.getAcidLevel():te.getInventory().getStackInSlot(4).getCount();
 	}
 	
 	@Override
 	protected void updateField(int id, int data) {
-		acid[0]=data;
+		data_a[id]=data;
+		if (id==1 && !getSlot(1).getStack().isEmpty()) getSlot(1).getStack().setCount(data);
 	}
 	
 }
