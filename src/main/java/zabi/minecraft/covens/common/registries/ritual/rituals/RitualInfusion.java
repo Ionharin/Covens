@@ -3,6 +3,7 @@ package zabi.minecraft.covens.common.registries.ritual.rituals;
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,8 +11,10 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import zabi.minecraft.covens.common.Covens;
 import zabi.minecraft.covens.common.capability.IRitualHandler;
 import zabi.minecraft.covens.common.capability.PlayerData;
+import zabi.minecraft.covens.common.network.messages.SyncPlayerDataResponse;
 import zabi.minecraft.covens.common.registries.Enums.EnumInfusion;
 import zabi.minecraft.covens.common.registries.ritual.Ritual;
 
@@ -26,13 +29,15 @@ public class RitualInfusion extends Ritual {
 	
 	@Override
 	public void onFinish(EntityPlayer player, IRitualHandler tile, World world, BlockPos pos, NBTTagCompound data) {
-		if (player!=null) {
+		if (player!=null && !world.isRemote) {
 			PlayerData cdata = player.getCapability(PlayerData.CAPABILITY, null);
 			cdata.setInfusion(infusion);
 			cdata.setMaxPower(infusion.getPower());
 			cdata.setPower(infusion.getPower());
 			player.attackEntityFrom(DamageSource.MAGIC, (float) Integer.MAX_VALUE);
+			Covens.network.sendTo(new SyncPlayerDataResponse(player.getCachedUniqueIdString(), (NBTTagCompound) PlayerData.CAPABILITY.getStorage().writeNBT(PlayerData.CAPABILITY, player.getCapability(PlayerData.CAPABILITY, null), null)), (EntityPlayerMP) player);
 		}
+		
 	}
 	
 	@Override
