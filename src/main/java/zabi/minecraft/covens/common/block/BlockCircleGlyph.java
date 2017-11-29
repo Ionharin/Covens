@@ -17,6 +17,8 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleEndRod;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -192,7 +194,9 @@ public class BlockCircleGlyph extends Block implements ITileEntityProvider {
 			if (te.hasRunningRitual()) {
 				double spreadX = rand.nextGaussian()*0.4;
 				double spreadZ = rand.nextGaussian()*0.4;
-				worldIn.spawnParticle(EnumParticleTypes.END_ROD,d0+spreadX,d1,d2+spreadZ,0,0.02+0.1*rand.nextDouble(),0,0,0,0);
+				Minecraft.getMinecraft().effectRenderer.addEffect(
+							new ParticleEndRod(worldIn, d0+spreadX,d1,d2+spreadZ,0,0.02+0.1*rand.nextDouble(),0)
+						);
 			}
 		}
 	}

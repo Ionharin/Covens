@@ -71,7 +71,10 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 		if (!world.isRemote && ritual!=null) {
 			EntityPlayer player = getWorld().getPlayerEntityByUUID(entityPlayer);
 			boolean hasPowerToUpdate = consumePower(ritual.getRunningPower());
-			if (ritual.getTime()>=0 && hasPowerToUpdate) cooldown++;
+			if (hasPowerToUpdate) {
+				cooldown++;
+				markDirty();
+			}
 			if (ritual.getTime()<=cooldown && ritual.getTime()>=0) {
 				ritual.onFinish(player, this, getWorld(), getPos(), ritualData);
 				Log.d("Ritual Finished: "+ritual.getRegistryName());
@@ -82,6 +85,8 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 				entityPlayer = null;
 				cooldown = 0;
 				ritual = null;
+				world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
+				markDirty();
 				return;
 			}
 			if (hasPowerToUpdate) {
@@ -112,7 +117,7 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 						});
 						this.ritual = rit;
 						this.entityPlayer = player.getPersistentID();
-						this.cooldown = 0;
+						this.cooldown = 1;
 						ritual.onStarted(player, this, getWorld(), getPos(), ritualData);
 						player.sendStatusMessage(new TextComponentTranslation("ritual."+rit.getRegistryName().toString().replace(':', '.')+".name", new Object[0]), true);
 						world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
@@ -214,12 +219,14 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 			cooldown = 0;
 			ritual = null;
 			ritualData = null;
+			IBlockState glyph = world.getBlockState(pos);
+			world.notifyBlockUpdate(pos, glyph, glyph, 3);
 			markDirty();
 		}
 	}
 	
 	public boolean hasRunningRitual() {
-		return ritual!=null;
+		return cooldown>0;
 	}
 	
 	public boolean consumePower(int power) {
@@ -309,12 +316,12 @@ public class TileEntityGlyph extends TileEntityBaseTickable implements IAltarUse
 
 	@Override
 	protected void NBTSaveUpdate(NBTTagCompound tag) {
-		if (ritual!=null) tag.setString("ritual", ritual.getRegistryName().toString());
+		tag.setInteger("cd", cooldown);
 	}
 
 	@Override
 	protected void NBTLoadUpdate(NBTTagCompound tag) {
-		if (tag.hasKey("ritual")) ritual = Ritual.REGISTRY.getValue(new ResourceLocation(tag.getString("ritual")));
+		cooldown = tag.getInteger("cd");
 	}
 	
 }
