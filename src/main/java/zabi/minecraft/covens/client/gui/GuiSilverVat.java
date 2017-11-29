@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
+import zabi.minecraft.covens.common.inventory.ContainerSilverVat;
 import zabi.minecraft.covens.common.tileentity.TileEntitySilverVat;
 
 public class GuiSilverVat extends GuiContainer {
@@ -41,16 +42,18 @@ public class GuiSilverVat extends GuiContainer {
 	}
 	
 	private boolean isWorking() {
-		return !te.getInventory().getStackInSlot(2).isEmpty()
+		
+		ContainerSilverVat csv = (ContainerSilverVat) this.inventorySlots;
+		
+		return !csv.getSlot(2).getStack().isEmpty()
 				&&
-				te.getInventory().getStackInSlot(0).getCount()<64
+				csv.getSlot(0).getStack().getCount()<64
 				&&
-				te.getInventory().getStackInSlot(1).getCount()<64
+				csv.getSlot(1).getStack().getCount()<64
 				&&
-				te.getInventory().getStackInSlot(3).getCount()<64
+				csv.getSlot(3).getStack().getCount()<64
 				&&
-				te.getAcidLevel()>0
-				;
+				csv.acid[0]>0;
 	}
 
 	@Override

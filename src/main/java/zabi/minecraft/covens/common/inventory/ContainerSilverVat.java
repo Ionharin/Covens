@@ -13,7 +13,12 @@ public class ContainerSilverVat extends ContainerBase {
 	
 	public static final OreIngredient goldOre = new OreIngredient("oreGold");
 	
+	TileEntitySilverVat te;
+	public int[] acid = {0};
+	
 	public ContainerSilverVat(InventoryPlayer pi, TileEntitySilverVat vat) {
+		te = vat;
+		acid[0] = te.getAcidLevel();
 		IInventory vatInv = vat.getInventory();
 		this.addSlotToContainer(new FilteredSlot(vatInv, 2, 79, 8, goldOre));
 		this.addSlotToContainer(new FilteredSlot(vatInv, 4, 16, 20, Ingredient.fromItem(Items.GUNPOWDER)) {
@@ -29,6 +34,19 @@ public class ContainerSilverVat extends ContainerBase {
 		addPlayerSlots(pi, 8, 84);
 	}
 	
+	@Override
+	protected int[] getFieldsToSync() {
+		return acid;
+	}
 	
+	@Override
+	public int getUpdatedFieldData(int id) {
+		return te.getAcidLevel();
+	}
+	
+	@Override
+	protected void updateField(int id, int data) {
+		acid[0]=data;
+	}
 	
 }
