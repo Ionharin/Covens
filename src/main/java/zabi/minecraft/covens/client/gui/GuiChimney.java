@@ -2,6 +2,7 @@ package zabi.minecraft.covens.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import zabi.minecraft.covens.common.lib.Reference;
@@ -26,10 +27,10 @@ public class GuiChimney extends GuiContainer {
 		Minecraft.getMinecraft().renderEngine.bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
 		if (te!=null) {
-			if (te.getStackInSlot(0).isEmpty()) {
+			if (te.getInventory().getStackInSlot(0).isEmpty()) {
 				drawTexturedModalRect(guiLeft+51, guiTop+34, 176, 0, 16, 16);
 			}
-			String name = te.getName();
+			String name = I18n.format(te.getBlockType().getUnlocalizedName()+".name");
 			int left = (xSize-fontRenderer.getStringWidth(name))/2;
 			fontRenderer.drawString(name, this.guiLeft+left, this.guiTop+15, 3216909);
 		}

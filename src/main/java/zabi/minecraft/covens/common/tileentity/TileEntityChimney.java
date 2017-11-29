@@ -2,8 +2,6 @@ package zabi.minecraft.covens.common.tileentity;
 
 import java.lang.reflect.Method;
 
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,26 +10,39 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import zabi.minecraft.covens.common.item.ModItems;
 import zabi.minecraft.covens.common.registries.chimney.ChimneyRecipe;
+import zabi.minecraft.covens.common.util.machines.AutomatableInventory;
 
-public class TileEntityChimney extends TileEntityBaseTickable implements IInventory /*implements ISidedInventory*/ {
+public class TileEntityChimney extends TileEntityBaseTickable {
 	
-	ItemStackHandler handler = new ItemStackHandler(2) {
+	AutomatableInventory handler = new AutomatableInventory(2) {
+		
 		@Override
-		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-			if (slot==1) return stack;
-			if (slot==0 && stack.getItem().equals(ModItems.misc) && stack.getMetadata()==0) return super.insertItem(slot, stack, simulate);
-			return stack;
+		public void onMarkDirty() {
+			markTileDirty();
+		}
+		
+		@Override
+		public boolean canMachineInsert(int slot, ItemStack stack) {
+			return slot==0 && stack.getItem().equals(ModItems.misc) && stack.getMetadata()==0;
+		}
+		
+		@Override
+		public boolean canMachineExtract(int slot, ItemStack stack) {
+			return slot!=0;
 		}
 	};
+	
 	private static Method canSmelt = ReflectionHelper.findMethod(TileEntityFurnace.class, "canSmelt", "func_145948_k", new Class<?>[0]);
 
+	private int lastProgression = 0; //Prevent different tick times from yielding greater outputs
+	
 	@Override
 	protected void NBTLoad(NBTTagCompound tag) {
-		if (tag.hasKey("jars")) handler.setStackInSlot(0, new ItemStack(tag.getCompoundTag("jars")));
-		if (tag.hasKey("product")) handler.setStackInSlot(1, new ItemStack(tag.getCompoundTag("product")));
+		if (tag.hasKey("jars")) handler.setInventorySlotContents(0, new ItemStack(tag.getCompoundTag("jars")));
+		if (tag.hasKey("product")) handler.setInventorySlotContents(1, new ItemStack(tag.getCompoundTag("product")));
+		lastProgression = tag.getInteger("p");
 	}
 
 	@Override
@@ -55,6 +66,7 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 		NBTTagCompound productTag = new NBTTagCompound();
 		handler.getStackInSlot(1).writeToNBT(productTag);
 		tag.setTag("product", productTag);
+		tag.setInteger("p", lastProgression);
 	}
 
 	@Override
@@ -66,7 +78,7 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 				if (furnace.isBurning() && !handler.getStackInSlot(0).isEmpty()) {
 					int time = furnace.getField(2);
 					int timeMax = furnace.getField(3);
-					if (time+1==timeMax && Math.random()<getChance()) {
+					if (time+1==timeMax && Math.random()<getChance() && lastProgression!=time) {
 						if ((boolean) canSmelt.invoke(furnace, new Object[0])) {
 							ItemStack smeltingItem = furnace.getStackInSlot(0);
 							ChimneyRecipe recipe = ChimneyRecipe.getRecipeFor(smeltingItem);
@@ -82,12 +94,12 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 							}
 							product = result;
 							product.setCount(count);
-							handler.setStackInSlot(1, product);
+							handler.setInventorySlotContents(1, product);
 							handler.extractItem(0, 1, false);
-							markDirty();
-							world.notifyBlockUpdate(getPos(), world.getBlockState(getPos()), world.getBlockState(getPos()), 3);
 						}
 					}
+					lastProgression = time;
+					markDirty();
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -95,96 +107,6 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 		}
 	}
 
-
-	@Override
-	public int getSizeInventory() {
-		return 2;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return handler.getStackInSlot(0).isEmpty() && handler.getStackInSlot(1).isEmpty();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int index) {
-		return handler.getStackInSlot(index);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int index, int count) {
-		markDirty();
-		return getStackInSlot(index).splitStack(count);
-	}
-
-	@Override
-	public ItemStack removeStackFromSlot(int index) {
-		ItemStack res = handler.getStackInSlot(index).copy();
-		setInventorySlotContents(index, ItemStack.EMPTY.copy());//This marks dirty
-		return res;
-	}
-
-	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
-		handler.setStackInSlot(index, stack);
-		markDirty();
-	}
-
-	@Override
-	public int getInventoryStackLimit() {
-		return 64;
-	}
-
-	@Override
-	public boolean isUsableByPlayer(EntityPlayer player) {
-		return true;
-	}
-
-	@Override
-	public void openInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public void closeInventory(EntityPlayer player) {
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if (index==0 && stack.getItem().equals(ModItems.misc) && stack.getMetadata()==0) return true;
-		return false;
-	}
-
-	@Override
-	public int getField(int id) {
-		return 0;
-	}
-
-	@Override
-	public void setField(int id, int value) {
-	}
-
-	@Override
-	public int getFieldCount() {
-		return 0;
-	}
-
-	@Override
-	public void clear() {
-		removeStackFromSlot(0);
-		removeStackFromSlot(1);
-		markDirty();
-	}
-
-	@Override
-	public String getName() {
-		return I18n.format("tile.chimney.name");
-	}
-
-	@Override
-	public boolean hasCustomName() {
-		return false;
-	}
-	
 	public float getChance() {
 		return 0.3F;
 	}
@@ -195,6 +117,14 @@ public class TileEntityChimney extends TileEntityBaseTickable implements IInvent
 
 	@Override
 	protected void NBTLoadUpdate(NBTTagCompound tag) {
+	}
+	
+	protected void markTileDirty() {
+		markDirty();
+	}
+	
+	public IInventory getInventory() {
+		return handler;
 	}
 
 }

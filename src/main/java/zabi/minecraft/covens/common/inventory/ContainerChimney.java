@@ -10,8 +10,8 @@ import zabi.minecraft.covens.common.util.machines.OutputSlot;
 
 public class ContainerChimney extends ContainerBase {
 	public ContainerChimney(InventoryPlayer pi, TileEntityChimney chim) {
-		addSlotToContainer(new JarSlot(chim, 0, 51, 34));
-		addSlotToContainer(new OutputSlot(chim, 1, 109, 34));
+		addSlotToContainer(new JarSlot(chim.getInventory(), 0, 51, 34));
+		addSlotToContainer(new OutputSlot(chim.getInventory(), 1, 109, 34));
 		addPlayerSlots(pi, 8, 84);
 	}
 	
