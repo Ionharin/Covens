@@ -121,6 +121,18 @@ public class VanillaRecipes {
 				'a', new ItemStack(ModItems.misc,1,4),
 				's', new ItemStack(ModItems.misc,1,5)
 			);
+		GameRegistry.addShapelessRecipe(rl("temp_chalk_gold"), null, new ItemStack(ModItems.chalk,1,1), 
+				Ingredient.fromStacks(new ItemStack(ModItems.chalk,1,0)),
+				Ingredient.fromItem(Items.GOLD_NUGGET)
+			);
+		GameRegistry.addShapelessRecipe(rl("temp_chalk_infernal"), null, new ItemStack(ModItems.chalk,1,3), 
+				Ingredient.fromStacks(new ItemStack(ModItems.chalk,1,0)),
+				Ingredient.fromItem(Items.NETHER_WART)
+			);
+		GameRegistry.addShapelessRecipe(rl("temp_chalk_end"), null, new ItemStack(ModItems.chalk,1,2), 
+				Ingredient.fromStacks(new ItemStack(ModItems.chalk,1,0)),
+				Ingredient.fromItem(Items.ENDER_PEARL)
+			);
 		/*
 		GameRegistry.addShapedRecipe(rl("witch_hat"), null, new ItemStack(ModItems.witch_hat), 
 				" l ", "l l", "lol", 
