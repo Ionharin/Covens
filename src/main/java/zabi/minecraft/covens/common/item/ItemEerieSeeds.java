@@ -50,6 +50,7 @@ public class ItemEerieSeeds extends Item {
 				}
 				
 			}
+			if (!player.isCreative()) player.getHeldItem(hand).shrink(1);
 			return EnumActionResult.SUCCESS;
 		}
 		return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
