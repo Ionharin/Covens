@@ -42,22 +42,23 @@ public class VanillaRecipes {
 		GameRegistry.addShapedRecipe(rl("planks_elder"), null, new ItemStack(ModBlocks.planks_elder,4), "w", 'w', ModBlocks.log_elder);
 		GameRegistry.addShapedRecipe(rl("planks_yew"), null, new ItemStack(ModBlocks.planks_yew,1), "w", 'w', ModBlocks.log_yew);
 		GameRegistry.addShapedRecipe(rl("planks_juniper"), null, new ItemStack(ModBlocks.planks_juniper,4), "w", 'w', ModBlocks.log_juniper);
-		GameRegistry.addShapedRecipe(rl("altar"), null, new ItemStack(ModBlocks.altar), 
+		GameRegistry.addShapedRecipe(rl("altar"), null, new ItemStack(ModBlocks.altar,3), 
 				"ccc", "sos", "sos", 
 				'c', new ItemStack(Blocks.CARPET,1,14),
 				's', Blocks.STONE,
 				'o', new ItemStack(ModItems.misc,1,2)
 				);
+		OreIngredient ironNugget = new OreIngredient("nuggetIron");
 		GameRegistry.addShapedRecipe(rl("talisman"), null, new ItemStack(ModItems.misc,1,8), 
 				"ini", "ndn", "ini",
 				'i', Items.IRON_INGOT,
-				'n', Items.IRON_NUGGET,
+				'n', ironNugget,
 				'd', Items.DIAMOND
 				);
 		GameRegistry.addShapedRecipe(rl("talisman_rot"), null, new ItemStack(ModItems.misc,1,8), 
 				"nin", "idi", "nin",
 				'i', Items.IRON_INGOT,
-				'n', Items.IRON_NUGGET,
+				'n', ironNugget,
 				'd', Items.DIAMOND
 				);
 		GameRegistry.addShapedRecipe(rl("chalk"), null, new ItemStack(ModItems.chalk), 
@@ -80,7 +81,7 @@ public class VanillaRecipes {
 				);
 		GameRegistry.addShapedRecipe(rl("goblet"), null, new ItemStack(ModBlocks.goblet), 
 				"n n", "ntn", " i ",
-				'n', Items.IRON_NUGGET,
+				'n', ironNugget,
 				'i', Items.IRON_INGOT,
 				't', new ItemStack(ModItems.misc,1,9)
 				);
