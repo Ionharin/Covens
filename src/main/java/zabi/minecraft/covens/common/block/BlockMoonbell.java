@@ -63,7 +63,7 @@ public class BlockMoonbell extends BlockModFlower {
 	
 	@Override
 	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
-		if (player==null || player.world==null || player.world.provider.getDimension()!=0) return false;
+		if (player==null) return world.getBlockState(pos).getValue(placed);
 		return super.canHarvestBlock(world, pos, player) && ((!player.world.isDaytime() && player.world.getMoonPhase()==4) || world.getBlockState(pos).getValue(placed));
 	}
 	
