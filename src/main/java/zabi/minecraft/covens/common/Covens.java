@@ -1,5 +1,6 @@
 package zabi.minecraft.covens.common;
 
+import zabi.minecraft.covens.common.lib.Log;
 import zabi.minecraft.covens.common.lib.Reference;
 
 import net.minecraft.item.ItemStack;
@@ -10,10 +11,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import zabi.minecraft.covens.common.block.BlockMoonbell;
 import zabi.minecraft.covens.common.block.ModBlocks;
 import zabi.minecraft.covens.common.capability.AttachDataHandler;
 import zabi.minecraft.covens.common.capability.EntityData;
@@ -55,7 +59,6 @@ public class Covens {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent evt) {
-		startAutoreporter();
 		proxy.setup();
 		CompatibilityModules.preload();
 		ModCreativeTabs.registerTabs();
@@ -90,22 +93,6 @@ public class Covens {
 		
 	}
 	
-	private void startAutoreporter() {
-//		try {
-//			Class<?> cls = Class.forName("zabi.minecraft.covens.common.patreon.AutoReporter");
-//			Method[] ms = cls.getMethods();
-//			for (Method m:ms) {
-//				if (m.isAnnotationPresent(AutoReporter.AutoExec.class)) {
-//					m.invoke(null);
-//					break;
-//				}
-//			}
-//		} catch (Exception e) {
-//			System.err.println("Autoreporter failed to start");
-//			e.printStackTrace();
-//		} 
-	}
-
 	@EventHandler
 	public void init(FMLInitializationEvent evt) {
 		OreDict.registerAll();
@@ -116,6 +103,15 @@ public class Covens {
 		MinecraftForge.addGrassSeed(new ItemStack(ModItems.sagebrushSeeds), 2);
 		proxy.init(evt);
 		CompatibilityModules.load();
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent evt) {
+		ForgeRegistries.BIOMES.getValues().parallelStream()
+			.filter(b -> b.getBiomeName().toLowerCase().contains("roofed forest")).forEach(b -> {
+			Log.i(b.getRegistryName().toString()+" is a valid moonbell biome");
+			BlockMoonbell.addValidMoonbellBiome(b);
+		});
 	}
 	
 	@EventHandler
