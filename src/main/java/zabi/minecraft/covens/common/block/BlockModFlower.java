@@ -12,5 +12,4 @@ public class BlockModFlower extends BlockBush {
 		this.setUnlocalizedName(name);
 		this.setCreativeTab(ModCreativeTabs.herbs);
 	}
-	
 }

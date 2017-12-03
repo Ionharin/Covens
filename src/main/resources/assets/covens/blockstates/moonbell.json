@@ -1,9 +1,18 @@
 {
-    "variants": {
-        "normal": { "model": "covens:moonbell" },
+    "forge_marker": 1,
+	"parent": "block/block",
+	"variants": {
 		"inventory": {
 			"model": "covens:moonbell",
 			"transform": "forge:default-block"
+		},
+		"placed": {
+			"true": {
+				"model": "covens:moonbell"
+			},
+			"false": {
+				"model": "covens:moonbell"
+			}
 		}
     }
 }
